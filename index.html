@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>NOOR TECHNOLOGIES LABS | AI, ERP & Digital Transformation</title>
+  <meta name="description" content="Remote-first technology company specializing in AI, Data Analytics, ERP, Automation, and Cloud. We build intelligent software solutions for modern businesses.">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Light Mode */
+    body.light {
+      background: #ffffff;
+      color: #0f172a;
+    }
+    body.light .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #e9d5ff;
+    }
+    body.light .nav-links a {
+      color: #1e293b;
+    }
+    body.light .nav-links a:hover {
+      color: #9333ea;
+    }
+    body.light .hero-description {
+      color: #475569;
+    }
+    body.light .service-card {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+    }
+    body.light .service-card:hover {
+      border-color: #a855f7;
+      box-shadow: 0 20px 30px -10px rgba(139,92,246,0.15);
+    }
+    body.light .internship-card {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+    }
+    body.light .badge-intern {
+      background: #f3e8ff;
+      color: #7e22ce;
+    }
+    body.light .apply-btn {
+      border: 1px solid #a855f7;
+      color: #1e293b;
+    }
+    body.light .apply-btn:hover {
+      background: #a855f7;
+      color: white;
+    }
+    body.light .contact-input {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+    }
+    body.light .chatbot-window {
+      background: rgba(255,255,255,0.98);
+      border: 1px solid #e9d5ff;
+    }
+    body.light .chatbot-header {
+      background: #faf5ff;
+      border-bottom: 1px solid #e9d5ff;
+    }
+    body.light .bot-msg {
+      background: #f3e8ff;
+      color: #1e293b;
+      border-left-color: #a855f7;
+    }
+    body.light .footer {
+      border-top-color: #e9d5ff;
+      color: #64748b;
+    }
+    body.light .btn-outline {
+      border-color: #a855f7;
+      color: #1e293b;
+    }
+    body.light .hero-badge {
+      background: rgba(243, 232, 255, 0.9);
+      border-color: #d8b4fe;
+    }
+    body.light .section-title {
+      background: linear-gradient(135deg, #4c1d95, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    body.light .hero-gradient {
+      background: linear-gradient(135deg, #9333ea, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    body.light .service-icon, body.light .theme-switch {
+      color: #a855f7;
+    }
+    body.light .chatbot-msg-buttons button {
+      background: #f3e8ff;
+      color: #4c1d95;
+      border: 1px solid #d8b4fe;
+    }
+    body.light .chatbot-msg-buttons button:hover {
+      background: #e9d5ff;
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background: #0f0a1a;
+      color: #f8fafc;
+    }
+    body.dark .navbar {
+      background: rgba(15, 10, 26, 0.95);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    body.dark .nav-links a {
+      color: #cbd5e1;
+    }
+    body.dark .nav-links a:hover {
+      color: #c084fc;
+    }
+    body.dark .service-card {
+      background: rgba(45, 25, 75, 0.5);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    body.dark .internship-card {
+      background: linear-gradient(135deg, rgba(45,25,75,0.7), rgba(15,10,26,0.9));
+      border: 1px solid rgba(139,92,246,0.4);
+    }
+    body.dark .badge-intern {
+      background: #7e22ce30;
+      color: #d8b4fe;
+    }
+    body.dark .apply-btn {
+      border-color: #a855f7;
+      color: #f1f5f9;
+    }
+    body.dark .apply-btn:hover {
+      background: #a855f7;
+    }
+    body.dark .chatbot-window {
+      background: rgba(15,10,26,0.98);
+      border: 1px solid #a855f7;
+    }
+    body.dark .chatbot-header {
+      background: #2d194b;
+      color: white;
+    }
+    body.dark .bot-msg {
+      background: #2d194b;
+      color: #e2e8f0;
+      border-left-color: #c084fc;
+    }
+    body.dark .footer {
+      border-top-color: #2d194b;
+    }
+    body.dark .hero-badge {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: #a855f7;
+    }
+    body.dark .service-icon, body.dark .theme-switch {
+      color: #c084fc;
+    }
+    body.dark .chatbot-msg-buttons button {
+      background: #2d194b;
+      color: #d8b4fe;
+      border: 1px solid #a855f7;
+    }
+    body.dark .chatbot-msg-buttons button:hover {
+      background: #4a2a7a;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      padding: 16px 0;
+    }
+
+    .flex { display: flex; }
+    .justify-between { justify-content: space-between; }
+    .items-center { align-items: center; }
+    .gap-3 { gap: 12px; }
+    .gap-4 { gap: 16px; }
+    .gap-6 { gap: 24px; }
+
+    .logo-img {
+      height: 80px;
+      width: auto;
+      max-width: 280px;
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
+    .logo-img:hover {
+      transform: scale(1.02);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #9333ea, #a855f7);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(139,92,246,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #a855f7;
+      padding: 11px 27px;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .theme-switch {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      background-image: url('hero.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      isolation: isolate;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(15, 10, 26, 0.65) 0%, rgba(139, 92, 246, 0.35) 100%);
+      z-index: 0;
+    }
+    
+    body.light .hero::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(243, 232, 255, 0.6) 100%);
+    }
+    
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: #a855f7;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .hero-title {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .hero-description {
+      font-size: 18px;
+      max-width: 600px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    
+    /* Values Section - replaces fake stats */
+    .values-section {
+      padding: 60px 0 40px 0;
+    }
+    
+    .values-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .values-header h3 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #9333ea, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+    }
+    
+    .values-header p {
+      color: #64748b;
+      font-size: 16px;
+    }
+    
+    body.dark .values-header p {
+      color: #a0aec0;
+    }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      padding: 20px 0;
+    }
+    
+    .value-card {
+      text-align: center;
+      padding: 24px 16px;
+      background: rgba(139,92,246,0.05);
+      border-radius: 24px;
+      transition: all 0.3s;
+    }
+    
+    .value-card:hover {
+      background: rgba(139,92,246,0.1);
+      transform: translateY(-4px);
+    }
+    
+    .value-icon {
+      font-size: 40px;
+      color: #a855f7;
+      margin-bottom: 16px;
+    }
+    
+    .value-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .value-desc {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    
+    body.dark .value-desc {
+      color: #94a3b8;
+    }
+    
+    .section {
+      padding: 80px 0;
+    }
+    .section-title {
+      font-size: 40px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+      font-size: 18px;
+      color: #64748b;
+    }
+    body.dark .section-subtitle {
+      color: #94a3b8;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .service-card {
+      border-radius: 28px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    .service-icon {
+      font-size: 44px;
+      margin-bottom: 20px;
+    }
+    .service-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .service-desc {
+      line-height: 1.5;
+      color: #64748b;
+    }
+    body.dark .service-desc {
+      color: #94a3b8;
+    }
+    
+    /* Solution Showcase - replaces fake portfolio */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .solution-card {
+      border-radius: 28px;
+      padding: 32px;
+      transition: all 0.3s;
+      background: rgba(139,92,246,0.05);
+      border: 1px solid rgba(139,92,246,0.15);
+    }
+    .solution-card:hover {
+      border-color: #a855f7;
+      transform: translateY(-4px);
+    }
+    .solution-icon {
+      font-size: 44px;
+      margin-bottom: 20px;
+      color: #a855f7;
+    }
+    .solution-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .solution-desc {
+      line-height: 1.5;
+      color: #64748b;
+    }
+    .solution-badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 4px 12px;
+      background: rgba(139,92,246,0.15);
+      border-radius: 20px;
+      font-size: 12px;
+      color: #a855f7;
+    }
+    
+    .internship-card {
+      border-radius: 32px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    .badge-intern {
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+    .apply-btn {
+      background: transparent;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 24px;
+      width: 100%;
+      font-size: 14px;
+    }
+    .contact-input {
+      padding: 14px 18px;
+      border-radius: 20px;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+    }
+    
+    /* Chatbot */
+    .chatbot-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #9333ea, #a855f7);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 1000;
+      border: none;
+      color: white;
+      font-size: 28px;
+    }
+    .chatbot-btn:hover { transform: scale(1.05); }
+    
+    .chatbot-window {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 420px;
+      height: 620px;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .chatbot-header {
+      padding: 18px 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .robot-icon-animated {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .robot-icon-animated i {
+      font-size: 24px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chatbot-messages::-webkit-scrollbar { width: 5px; }
+    .chatbot-messages::-webkit-scrollbar-track { background: rgba(168,85,247,0.1); border-radius: 10px; }
+    .chatbot-messages::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
+    
+    .bot-msg {
+      padding: 16px 20px;
+      border-radius: 24px;
+      max-width: 95%;
+      font-size: 14px;
+      line-height: 1.65;
+      align-self: flex-start;
+      border-left: 3px solid #a855f7;
+      white-space: pre-line;
+    }
+    .chatbot-msg-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+    .chatbot-msg-buttons button {
+      padding: 12px 18px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+    }
+    .typing-indicator {
+      padding: 12px 16px;
+      border-radius: 20px;
+      max-width: 70px;
+      align-self: flex-start;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      background: rgba(168,85,247,0.15);
+    }
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #a855f7;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite;
+    }
+    .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-8px); opacity: 1; }
+    }
+    .hidden { display: none; }
+    
+    .footer {
+      border-top: 1px solid;
+      padding: 40px 0;
+      text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title { font-size: 40px; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .nav-links { display: none; }
+      .section-title { font-size: 32px; }
+      .chatbot-window { width: 350px; right: 16px; bottom: 90px; height: 560px; }
+      .logo-img { height: 55px; }
+      .hero { min-height: 70vh; }
+      .values-header h3 { font-size: 24px; }
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) { .mobile-menu-btn { display: block; } }
+  </style>
+</head>
+<body class="light">
+  <nav class="navbar">
+    <div class="container flex justify-between items-center">
+      <img src="noorlabs.png" alt="NOOR TECHNOLOGIES LABS" class="logo-img" onerror="this.onerror=null; this.style.display='none'; this.nextSibling.style.display='flex';">
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#services">Services</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#about">About</a>
+        <a href="#careers">Careers</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="theme-switch" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <a href="#contact" class="btn-primary">Start project →</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge"><span class="hero-badge-dot"></span><span>AI • ERP • Data Science • Automation</span></div>
+      <h1 class="hero-title">Engineering the <span class="hero-gradient">Intelligent Future</span></h1>
+      <p class="hero-description">A remote-first team of engineers, data scientists, and AI specialists delivering custom software, analytics platforms, and enterprise solutions worldwide.</p>
+      <div class="flex gap-4" style="flex-wrap: wrap;">
+        <a href="#contact" class="btn-primary">Explore AI solutions <i class="fas fa-microchip"></i></a>
+        <a href="#solutions" class="btn-outline">View solution areas →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES SECTION - replaces fake stats -->
+  <section class="values-section">
+    <div class="container">
+      <div class="values-header">
+        <h3>Our Core Values</h3>
+        <p>What guides everything we do</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card"><div class="value-icon"><i class="fas fa-laptop-code"></i></div><div class="value-title">Remote-First</div><div class="value-desc">Building a global team that collaborates across time zones</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-lightbulb"></i></div><div class="value-title">Technical Excellence</div><div class="value-desc">Committed to quality code and modern best practices</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-handshake"></i></div><div class="value-title">Client Partnership</div><div class="value-desc">Working alongside you to achieve your business goals</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-rocket"></i></div><div class="value-title">Continuous Innovation</div><div class="value-desc">Staying at the forefront of emerging technology</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="section" style="background: rgba(139,92,246,0.03);">
+    <div class="container">
+      <h2 class="section-title">Core competencies</h2>
+      <p class="section-subtitle">Enterprise-grade expertise across AI, data engineering, automation and cloud.</p>
+      <div class="services-grid">
+        <div class="service-card"><i class="fas fa-brain service-icon"></i><h3 class="service-title">Artificial Intelligence</h3><p class="service-desc">Custom AI models, LLM integration, predictive analytics, and intelligent automation solutions.</p></div>
+        <div class="service-card"><i class="fas fa-chart-line service-icon"></i><h3 class="service-title">Data Science & Analytics</h3><p class="service-desc">Extract actionable insights from your data with advanced analytics and machine learning.</p></div>
+        <div class="service-card"><i class="fas fa-chart-pie service-icon"></i><h3 class="service-title">Business Intelligence</h3><p class="service-desc">Interactive dashboards, real-time reporting, and data visualization for better decisions.</p></div>
+        <div class="service-card"><i class="fas fa-cubes service-icon"></i><h3 class="service-title">ERP Development</h3><p class="service-desc">Custom ERP systems tailored to your business processes and industry needs.</p></div>
+        <div class="service-card"><i class="fas fa-code service-icon"></i><h3 class="service-title">Custom Software</h3><p class="service-desc">Scalable web and mobile applications for complex business requirements.</p></div>
+        <div class="service-card"><i class="fas fa-cloud-upload-alt service-icon"></i><h3 class="service-title">Cloud & DevOps</h3><p class="service-desc">Cloud architecture, CI/CD pipelines, and infrastructure automation.</p></div>
+        <div class="service-card"><i class="fas fa-chalkboard-teacher service-icon"></i><h3 class="service-title">IT Consulting</h3><p class="service-desc">Strategic technology guidance and digital transformation advisory.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION SHOWCASE - replaces fake portfolio -->
+  <section id="solutions" class="section">
+    <div class="container">
+      <h2 class="section-title">Solution Areas</h2>
+      <p class="section-subtitle">Expertise we can apply to your business challenges</p>
+      <div class="solutions-grid">
+        <div class="solution-card"><i class="fas fa-store solution-icon"></i><h3 class="solution-title">Retail ERP Platform</h3><p class="solution-desc">Complete inventory, order, and supply chain management system for retail operations.</p><span class="solution-badge">ERP</span></div>
+        <div class="solution-card"><i class="fas fa-utensils solution-icon"></i><h3 class="solution-title">Restaurant Management ERP</h3><p class="solution-desc">Integrated solution for inventory, staff scheduling, reservations, and analytics.</p><span class="solution-badge">ERP</span></div>
+        <div class="solution-card"><i class="fas fa-chart-line solution-icon"></i><h3 class="solution-title">Financial Analytics Dashboard</h3><p class="solution-desc">Real-time financial metrics, forecasting, and reporting platform.</p><span class="solution-badge">BI</span></div>
+        <div class="solution-card"><i class="fas fa-headset solution-icon"></i><h3 class="solution-title">AI Customer Support Assistant</h3><p class="solution-desc">Intelligent chatbot and ticketing system for automated customer service.</p><span class="solution-badge">AI</span></div>
+        <div class="solution-card"><i class="fas fa-boxes solution-icon"></i><h3 class="solution-title">Inventory Forecasting System</h3><p class="solution-desc">ML-powered demand prediction and stock optimization.</p><span class="solution-badge">ML</span></div>
+        <div class="solution-card"><i class="fas fa-chart-simple solution-icon"></i><h3 class="solution-title">Business Intelligence Platform</h3><p class="solution-desc">Custom analytics platform with interactive dashboards and reporting.</p><span class="solution-badge">BI</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION - realistic, no fake claims -->
+  <section id="about" class="section" style="background: rgba(139,92,246,0.03);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+        <div>
+          <h2 class="section-title" style="text-align: left;">Who We Are</h2>
+          <p style="font-size: 18px; margin-bottom: 24px; line-height: 1.6; color: #64748b;">NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in artificial intelligence, data science, and enterprise software development.</p>
+          <p style="line-height: 1.6; color: #64748b; margin-bottom: 24px;">We bring together engineers, data scientists, and technology consultants who are passionate about building innovative digital solutions for modern businesses.</p>
+          <div class="flex gap-6" style="flex-wrap: wrap;">
+            <div><i class="fas fa-laptop-code" style="font-size: 32px; color: #a855f7;"></i><p style="margin-top: 8px; font-weight: 500;">Remote-First</p></div>
+            <div><i class="fas fa-code-branch" style="font-size: 32px; color: #a855f7;"></i><p style="margin-top: 8px; font-weight: 500;">Agile Delivery</p></div>
+            <div><i class="fas fa-globe" style="font-size: 32px; color: #a855f7;"></i><p style="margin-top: 8px; font-weight: 500;">Global Reach</p></div>
+          </div>
+        </div>
+        <div style="background: rgba(139,92,246,0.08); border-radius: 32px; padding: 32px;">
+          <h3 style="font-size: 24px; margin-bottom: 20px;"><i class="fas fa-bullhorn" style="color: #a855f7;"></i> Our Approach</h3>
+          <p style="line-height: 1.6; color: #64748b; margin-bottom: 20px;">We combine technical excellence with a deep understanding of business needs. Every solution we build is tailored, scalable, and designed for real-world impact.</p>
+          <p style="line-height: 1.6; color: #64748b;">Our agile methodology ensures transparency and collaboration throughout the development process, from initial concept to final delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREERS SECTION -->
+  <section id="careers" class="section">
+    <div class="container">
+      <h2 class="section-title">Join Our Team</h2>
+      <p class="section-subtitle">Remote learning opportunities • Real-world project experience</p>
+      <div class="services-grid">
+        <div class="internship-card"><div class="badge-intern"><i class="fas fa-utensils"></i> Remote Internship</div><i class="fas fa-hamburger" style="font-size: 48px; color: #a855f7; margin-bottom: 16px;"></i><h3>Restaurant ERP Developer</h3><p>Build a complete ERP system for restaurant chains including inventory, order management, and analytics.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabs.com')">Apply now</button></div>
+        <div class="internship-card"><div class="badge-intern"><i class="fas fa-bicycle"></i> Remote Internship</div><i class="fas fa-motorcycle" style="font-size: 48px; color: #a855f7; margin-bottom: 16px;"></i><h3>Bike Rental ERP Engineer</h3><p>Develop an ERP solution for bike rental businesses including fleet management, booking, and pricing engines.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabs.com')">Apply now</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION - realistic, no fake addresses -->
+  <section id="contact" class="section" style="background: rgba(139,92,246,0.03);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+        <div>
+          <h2 class="section-title" style="text-align: left;">Let's Work Together</h2>
+          <p style="margin-bottom: 32px; font-size: 18px; color: #64748b;">Ready to discuss your project? Our team is here to help.</p>
+          <form id="contactForm" style="display: flex; flex-direction: column; gap: 20px;">
+            <input type="text" placeholder="Full name" class="contact-input">
+            <input type="email" placeholder="Email address" class="contact-input">
+            <input type="text" placeholder="Company name" class="contact-input">
+            <textarea rows="4" placeholder="Tell us about your project" class="contact-input"></textarea>
+            <button type="submit" class="btn-primary" style="justify-content: center; width: 100%;">Send message →</button>
+          </form>
+          <div id="formMessage" style="color: #a855f7; margin-top: 16px; text-align: center;"></div>
+        </div>
+        <div style="border-radius: 28px; padding: 32px; background: rgba(139,92,246,0.05);">
+          <i class="fas fa-globe" style="font-size: 32px; color: #a855f7;"></i>
+          <h3 style="margin: 20px 0 12px; font-size: 22px;">Remote-First Company</h3>
+          <p style="color: #64748b; line-height: 1.6; margin-bottom: 24px;">Serving clients worldwide from our distributed team. No physical office — just talented people across the globe.</p>
+          <div style="margin-bottom: 24px;">
+            <p style="margin-bottom: 12px;"><i class="fas fa-envelope" style="color: #a855f7; width: 28px;"></i> hello@noorlabs.com</p>
+            <p><i class="fas fa-comment" style="color: #a855f7; width: 28px;"></i> Schedule a discovery call</p>
+          </div>
+          <div class="flex gap-4" style="margin-top: 24px;">
+            <i class="fab fa-linkedin" style="font-size: 24px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
+            <i class="fab fa-github" style="font-size: 24px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
+            <i class="fab fa-twitter" style="font-size: 24px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 NOOR TECHNOLOGIES LABS — Remote-first technology company. Building intelligent software for modern businesses.</p>
+    </div>
+  </footer>
+
+  <!-- CHATBOT -->
+  <div class="chatbot-btn" id="chatbotToggle"><i class="fas fa-comment-dots"></i></div>
+  <div class="chatbot-window hidden" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div class="robot-icon-animated"><i class="fas fa-robot"></i><span>NOOR Assistant</span></div>
+      <button id="closeChat" style="background:none; border:none; cursor:pointer; font-size:18px;">✕</button>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+      <div class="bot-msg">🤖 Hello! I'm NOOR's AI assistant. How can I help you?</div>
+      <div class="chatbot-msg-buttons" id="initialButtons">
+        <button data-action="ai"><i class="fas fa-brain"></i> AI Solutions</button>
+        <button data-action="erp"><i class="fas fa-cubes"></i> ERP Development</button>
+        <button data-action="internship"><i class="fas fa-graduation-cap"></i> Internships</button>
+        <button data-action="contact"><i class="fas fa-envelope"></i> Contact Sales</button>
+        <button data-action="about"><i class="fas fa-building"></i> About Company</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    function setTheme(theme) {
+      body.classList.remove('light', 'dark');
+      body.classList.add(theme);
+      icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+      localStorage.setItem('theme', theme);
+    }
+    setTheme(localStorage.getItem('theme') || 'light');
+    themeToggle.onclick = () => setTheme(body.classList.contains('light') ? 'dark' : 'light');
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('formMessage').innerHTML = '✅ Thank you! We will respond within 2 business days.';
+      this.reset();
+    });
+
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', () => {
+        if (navLinks.style.display === 'flex') navLinks.style.display = 'none';
+        else { navLinks.style.display = 'flex'; navLinks.style.flexDirection = 'column'; navLinks.style.position = 'absolute'; navLinks.style.top = '80px'; navLinks.style.left = '0'; navLinks.style.right = '0'; navLinks.style.padding = '20px'; navLinks.style.gap = '16px'; navLinks.style.zIndex = '99'; navLinks.style.background = body.classList.contains('light') ? '#ffffff' : '#0f0a1a'; navLinks.style.borderBottom = '1px solid #a855f7'; }
+      });
+    }
+
+    // Chatbot
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const closeChat = document.getElementById('closeChat');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatbotToggle.onclick = () => chatbotWindow.classList.remove('hidden');
+    closeChat.onclick = () => chatbotWindow.classList.add('hidden');
+
+    function addBotMessage(text, showButtons = false) {
+      const div = document.createElement('div');
+      div.className = 'bot-msg';
+      div.style.whiteSpace = 'pre-line';
+      div.innerText = text;
+      chatMessages.appendChild(div);
+      
+      if (showButtons) {
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'chatbot-msg-buttons';
+        const actions = ['ai', 'erp', 'internship', 'contact', 'about'];
+        const labels = ['AI Solutions', 'ERP Development', 'Internships', 'Contact Sales', 'About Company'];
+        const icons = ['brain', 'cubes', 'graduation-cap', 'envelope', 'building'];
+        actions.forEach((action, idx) => {
+          const btn = document.createElement('button');
+          btn.innerHTML = `<i class="fas fa-${icons[idx]}"></i> ${labels[idx]}`;
+          btn.setAttribute('data-action', action);
+          btn.onclick = () => handleAction(action, btn);
+          btnGroup.appendChild(btn);
+        });
+        chatMessages.appendChild(btnGroup);
+      }
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'typing-indicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return div;
+    }
+
+    const responses = {
+      ai: "🤖 AI Solutions at NOOR Labs\n\nWe offer:\n• Generative AI & LLM integration\n• Predictive analytics & forecasting\n• Computer vision solutions\n• Natural Language Processing\n• Custom AI model development\n\nWant to discuss your AI project? Contact us through the form above!",
+      erp: "📦 ERP Development Expertise\n\nWe build custom ERP solutions for:\n• Restaurant chains (inventory, orders, kitchen display)\n• Bike rental fleets (pricing, bookings, maintenance)\n• Manufacturing & logistics\n• Financial institutions\n\nCheck our Internships section to build real ERP systems!",
+      internship: "💼 Current Internship Openings\n\n1. Restaurant ERP Developer - Build full restaurant management ERP\n2. Bike Rental ERP Engineer - Fleet management & booking platform\n\n📧 Send your resume to careers@noorlabs.com",
+      contact: "📞 Ready to transform your business?\n\nOur team is available for:\n• AI implementation consulting\n• Custom ERP development\n• Data analytics & BI dashboards\n• Cloud migration\n\nFill out the contact form above or email us at hello@noorlabs.com",
+      about: "🏢 NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in AI, data science, and enterprise software development. We're a distributed team of engineers and consultants focused on delivering innovative digital solutions."
+    };
+
+    async function handleAction(action, buttonElement) {
+      const allBtns = document.querySelectorAll('.chatbot-msg-buttons button');
+      allBtns.forEach(btn => btn.disabled = true);
+      
+      const typing = showTyping();
+      await new Promise(r => setTimeout(r, 600));
+      typing.remove();
+      
+      addBotMessage(responses[action], true);
+      
+      if (buttonElement && buttonElement.parentElement) {
+        buttonElement.parentElement.remove();
+      }
+      allBtns.forEach(btn => btn.disabled = false);
+    }
+
+    document.querySelectorAll('#initialButtons button').forEach(btn => {
+      btn.onclick = (e) => {
+        const action = btn.getAttribute('data-action');
+        handleAction(action, btn);
+      };
+    });
+  </script>
+</body>
+</html>
