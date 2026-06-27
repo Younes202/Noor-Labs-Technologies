@@ -7,6 +7,7 @@
   <meta name="description" content="Remote-first technology company specializing in AI, Data Analytics, ERP, Automation, and Cloud. We build intelligent software solutions for modern businesses.">
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <style>
@@ -19,6 +20,10 @@
     body {
       font-family: 'Inter', sans-serif;
       transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.lang-ar {
+      font-family: 'Noto Kufi Arabic', 'Inter', sans-serif;
     }
 
     /* Light Mode */
@@ -115,6 +120,21 @@
     body.light .chatbot-msg-buttons button:hover {
       background: #e9d5ff;
     }
+    body.light .offer-card {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+    }
+    body.light .offer-card:hover {
+      border-color: #a855f7;
+      box-shadow: 0 20px 30px -10px rgba(139,92,246,0.15);
+    }
+    body.light .offer-badge {
+      background: #f3e8ff;
+      color: #7e22ce;
+    }
+    body.light .offer-price {
+      color: #4c1d95;
+    }
 
     /* Dark Mode */
     body.dark {
@@ -181,6 +201,20 @@
     body.dark .chatbot-msg-buttons button:hover {
       background: #4a2a7a;
     }
+    body.dark .offer-card {
+      background: rgba(45, 25, 75, 0.5);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    body.dark .offer-card:hover {
+      border-color: #c084fc;
+    }
+    body.dark .offer-badge {
+      background: #7e22ce30;
+      color: #d8b4fe;
+    }
+    body.dark .offer-price {
+      color: #c084fc;
+    }
 
     .container {
       max-width: 1280px;
@@ -193,20 +227,21 @@
       top: 0;
       z-index: 100;
       backdrop-filter: blur(12px);
-      padding: 16px 0;
+      padding: 12px 0;
     }
 
     .flex { display: flex; }
     .justify-between { justify-content: space-between; }
     .items-center { align-items: center; }
+    .gap-2 { gap: 8px; }
     .gap-3 { gap: 12px; }
     .gap-4 { gap: 16px; }
     .gap-6 { gap: 24px; }
 
     .logo-img {
-      height: 80px;
+      height: 70px;
       width: auto;
-      max-width: 280px;
+      max-width: 240px;
       object-fit: contain;
       transition: transform 0.2s;
     }
@@ -216,18 +251,48 @@
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 24px;
     }
     .nav-links a {
       text-decoration: none;
       font-weight: 500;
-      font-size: 15px;
+      font-size: 14px;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+    .lang-btn:hover {
+      color: #a855f7;
+    }
+    .lang-btn.active {
+      color: #a855f7;
+      background: rgba(139,92,246,0.15);
+    }
+    .lang-divider {
+      color: #334155;
+      font-size: 12px;
     }
 
     .btn-primary {
       background: linear-gradient(95deg, #9333ea, #a855f7);
       border: none;
-      padding: 12px 28px;
+      padding: 10px 24px;
       border-radius: 40px;
       font-weight: 600;
       color: white;
@@ -236,7 +301,7 @@
       align-items: center;
       gap: 8px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       box-shadow: 0 4px 12px rgba(139,92,246,0.3);
     }
     .btn-primary:hover {
@@ -247,7 +312,7 @@
     .btn-outline {
       background: transparent;
       border: 1px solid #a855f7;
-      padding: 11px 27px;
+      padding: 9px 23px;
       border-radius: 40px;
       font-weight: 500;
       cursor: pointer;
@@ -255,22 +320,292 @@
       align-items: center;
       gap: 8px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .theme-switch {
       background: none;
       border: none;
-      font-size: 22px;
+      font-size: 20px;
       cursor: pointer;
-      padding: 8px;
+      padding: 6px;
       border-radius: 50%;
+    }
+
+    /* WhatsApp Button - RIGHT SIDE */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      border: none;
+      color: white;
+      font-size: 30px;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    /* Floating Robot Assistant - LEFT SIDE */
+    .robot-assistant {
+      position: fixed;
+      bottom: 100px;
+      left: 28px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: float 3s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .robot-assistant .robot-icon {
+      font-size: 48px;
+      color: #a855f7;
+      filter: drop-shadow(0 4px 12px rgba(168,85,247,0.4));
+      animation: robotBounce 2s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+    .robot-assistant .robot-icon:hover {
+      transform: scale(1.1);
+    }
+    .robot-assistant .speech-bubble {
+      background: rgba(30, 41, 59, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid #a855f7;
+      border-radius: 16px;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: #e2e8f0;
+      max-width: 200px;
+      text-align: center;
+      margin-bottom: 8px;
+      animation: fadeInOut 4s ease-in-out infinite;
+      box-shadow: 0 4px 15px rgba(168,85,247,0.2);
+      position: relative;
+    }
+    .robot-assistant .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid rgba(30, 41, 59, 0.95);
+    }
+    body.light .robot-assistant .speech-bubble {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1e293b;
+      border-color: #a855f7;
+    }
+    body.light .robot-assistant .speech-bubble::after {
+      border-top-color: rgba(255, 255, 255, 0.95);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes robotBounce {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+    }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.7; transform: scale(0.98); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .robot-assistant .typing-dots {
+      display: inline-flex;
+      gap: 4px;
+      margin-left: 4px;
+    }
+    .robot-assistant .typing-dots span {
+      width: 6px;
+      height: 6px;
+      background: #a855f7;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite ease-in-out;
+    }
+    .robot-assistant .typing-dots span:nth-child(1) { animation-delay: 0s; }
+    .robot-assistant .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .robot-assistant .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    .robot-assistant .thinking-text {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .robot-assistant {
+        bottom: 85px;
+        left: 16px;
+      }
+      .robot-assistant .robot-icon {
+        font-size: 36px;
+      }
+      .robot-assistant .speech-bubble {
+        font-size: 10px;
+        max-width: 140px;
+        padding: 6px 12px;
+      }
+      .whatsapp-btn {
+        bottom: 85px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+      }
+    }
+
+    /* Chatbot Button - RIGHT SIDE */
+    .chatbot-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #9333ea, #a855f7);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 1000;
+      border: none;
+      color: white;
+      font-size: 26px;
+    }
+    .chatbot-btn:hover { transform: scale(1.05); }
+    
+    .chatbot-window {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: 380px;
+      height: 580px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .chatbot-header {
+      padding: 16px 18px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .robot-icon-animated {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .robot-icon-animated i {
+      font-size: 22px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chatbot-messages::-webkit-scrollbar { width: 4px; }
+    .chatbot-messages::-webkit-scrollbar-track { background: rgba(168,85,247,0.1); border-radius: 10px; }
+    .chatbot-messages::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
+    
+    .bot-msg {
+      padding: 14px 18px;
+      border-radius: 20px;
+      max-width: 95%;
+      font-size: 13px;
+      line-height: 1.6;
+      align-self: flex-start;
+      border-left: 3px solid #a855f7;
+      white-space: pre-line;
+    }
+    .chatbot-msg-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      margin-bottom: 2px;
+    }
+    .chatbot-msg-buttons button {
+      padding: 10px 16px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+    }
+    .typing-indicator {
+      padding: 10px 14px;
+      border-radius: 20px;
+      max-width: 60px;
+      align-self: flex-start;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      background: rgba(168,85,247,0.15);
+    }
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: #a855f7;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite;
+    }
+    .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-8px); opacity: 1; }
+    }
+    .hidden { display: none; }
+    
+    .footer {
+      border-top: 1px solid;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 13px;
     }
 
     /* HERO SECTION */
     .hero {
       position: relative;
-      min-height: 85vh;
+      min-height: 80vh;
       display: flex;
       align-items: center;
       background-image: url('hero.png');
@@ -304,9 +639,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 18px;
+      padding: 6px 16px;
       border-radius: 50px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       backdrop-filter: blur(4px);
     }
     .hero-badge-dot {
@@ -321,41 +656,41 @@
       50% { opacity: 0.5; }
     }
     .hero-title {
-      font-size: 64px;
+      font-size: 56px;
       font-weight: 800;
       line-height: 1.15;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .hero-description {
-      font-size: 18px;
-      max-width: 600px;
-      margin-bottom: 40px;
+      font-size: 17px;
+      max-width: 560px;
+      margin-bottom: 32px;
       line-height: 1.6;
     }
     
-    /* Values Section - replaces fake stats */
+    /* Values Section */
     .values-section {
-      padding: 60px 0 40px 0;
+      padding: 50px 0 30px 0;
     }
     
     .values-header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
     
     .values-header h3 {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       background: linear-gradient(135deg, #9333ea, #a855f7);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     
     .values-header p {
       color: #64748b;
-      font-size: 16px;
+      font-size: 15px;
     }
     
     body.dark .values-header p {
@@ -365,15 +700,15 @@
     .values-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      padding: 20px 0;
+      gap: 24px;
+      padding: 16px 0;
     }
     
     .value-card {
       text-align: center;
-      padding: 24px 16px;
+      padding: 20px 16px;
       background: rgba(139,92,246,0.05);
-      border-radius: 24px;
+      border-radius: 20px;
       transition: all 0.3s;
     }
     
@@ -383,19 +718,19 @@
     }
     
     .value-icon {
-      font-size: 40px;
+      font-size: 34px;
       color: #a855f7;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     
     .value-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     
     .value-desc {
-      font-size: 13px;
+      font-size: 12px;
       color: #64748b;
       line-height: 1.5;
     }
@@ -405,19 +740,19 @@
     }
     
     .section {
-      padding: 80px 0;
+      padding: 70px 0;
     }
     .section-title {
-      font-size: 40px;
+      font-size: 36px;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .section-subtitle {
       text-align: center;
-      max-width: 600px;
-      margin: 0 auto 48px;
-      font-size: 18px;
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-size: 16px;
       color: #64748b;
     }
     body.dark .section-subtitle {
@@ -425,40 +760,179 @@
     }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
     }
     .service-card {
-      border-radius: 28px;
-      padding: 32px;
+      border-radius: 24px;
+      padding: 28px;
       transition: all 0.3s;
     }
     .service-icon {
-      font-size: 44px;
-      margin-bottom: 20px;
+      font-size: 38px;
+      margin-bottom: 16px;
     }
     .service-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .service-desc {
       line-height: 1.5;
       color: #64748b;
+      font-size: 14px;
     }
     body.dark .service-desc {
       color: #94a3b8;
     }
     
-    /* Solution Showcase - replaces fake portfolio */
+    /* OFFERS SECTION - 4 in one row */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .offer-card {
+      border-radius: 24px;
+      padding: 24px 20px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .offer-card:hover {
+      transform: translateY(-4px);
+    }
+    .offer-card.popular {
+      border-color: #a855f7;
+      box-shadow: 0 0 30px rgba(168,85,247,0.12);
+    }
+    .offer-popular-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #9333ea, #a855f7);
+      color: white;
+      padding: 3px 12px;
+      border-radius: 50px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* RED DISCOUNT BADGE - top right */
+    .discount-badge-red {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #dc2626;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+      animation: pulse-red 2s infinite;
+      z-index: 2;
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .offer-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+      margin-top: 8px;
+      color: #a855f7;
+      display: block;
+    }
+    .offer-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .offer-desc {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    body.dark .offer-desc {
+      color: #94a3b8;
+    }
+    .offer-price {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .offer-price small {
+      font-size: 13px;
+      font-weight: 400;
+      color: #64748b;
+    }
+    body.dark .offer-price small {
+      color: #94a3b8;
+    }
+    .offer-maintenance {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+    body.dark .offer-maintenance {
+      color: #94a3b8;
+    }
+    .offer-features {
+      list-style: none;
+      margin: 12px 0;
+    }
+    .offer-features li {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    body.dark .offer-features li {
+      color: #94a3b8;
+    }
+    .offer-features li i {
+      color: #a855f7;
+      font-size: 11px;
+    }
+    .offer-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .offer-btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 40px;
+      border: 1px solid #a855f7;
+      background: transparent;
+      color: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+    .offer-btn:hover {
+      background: #a855f7;
+      color: white;
+    }
+
     .solutions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
     }
     .solution-card {
-      border-radius: 28px;
-      padding: 32px;
+      border-radius: 24px;
+      padding: 28px;
       transition: all 0.3s;
       background: rgba(139,92,246,0.05);
       border: 1px solid rgba(139,92,246,0.15);
@@ -468,224 +942,109 @@
       transform: translateY(-4px);
     }
     .solution-icon {
-      font-size: 44px;
-      margin-bottom: 20px;
+      font-size: 38px;
+      margin-bottom: 16px;
       color: #a855f7;
     }
     .solution-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .solution-desc {
       line-height: 1.5;
       color: #64748b;
+      font-size: 14px;
     }
     .solution-badge {
       display: inline-block;
-      margin-top: 16px;
-      padding: 4px 12px;
+      margin-top: 12px;
+      padding: 3px 10px;
       background: rgba(139,92,246,0.15);
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 11px;
       color: #a855f7;
     }
     
     .internship-card {
-      border-radius: 32px;
-      padding: 32px;
+      border-radius: 28px;
+      padding: 28px;
       transition: all 0.3s;
     }
     .badge-intern {
-      padding: 5px 14px;
+      padding: 4px 12px;
       border-radius: 50px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       display: inline-block;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     .apply-btn {
       background: transparent;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border-radius: 40px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 24px;
+      margin-top: 20px;
       width: 100%;
-      font-size: 14px;
+      font-size: 13px;
     }
     .contact-input {
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 20px;
-      font-size: 16px;
+      font-size: 14px;
       width: 100%;
       outline: none;
     }
     
-    /* Chatbot */
-    .chatbot-btn {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #9333ea, #a855f7);
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      z-index: 1000;
-      border: none;
-      color: white;
-      font-size: 28px;
+    @media (max-width: 1024px) {
+      .offers-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    .chatbot-btn:hover { transform: scale(1.05); }
-    
-    .chatbot-window {
-      position: fixed;
-      bottom: 100px;
-      right: 28px;
-      width: 420px;
-      height: 620px;
-      border-radius: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-    .chatbot-header {
-      padding: 18px 20px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .robot-icon-animated {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .robot-icon-animated i {
-      font-size: 24px;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-    .chatbot-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .chatbot-messages::-webkit-scrollbar { width: 5px; }
-    .chatbot-messages::-webkit-scrollbar-track { background: rgba(168,85,247,0.1); border-radius: 10px; }
-    .chatbot-messages::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 10px; }
-    
-    .bot-msg {
-      padding: 16px 20px;
-      border-radius: 24px;
-      max-width: 95%;
-      font-size: 14px;
-      line-height: 1.65;
-      align-self: flex-start;
-      border-left: 3px solid #a855f7;
-      white-space: pre-line;
-    }
-    .chatbot-msg-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-      margin-bottom: 4px;
-    }
-    .chatbot-msg-buttons button {
-      padding: 12px 18px;
-      border-radius: 40px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: transparent;
-    }
-    .typing-indicator {
-      padding: 12px 16px;
-      border-radius: 20px;
-      max-width: 70px;
-      align-self: flex-start;
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      background: rgba(168,85,247,0.15);
-    }
-    .typing-indicator span {
-      width: 8px;
-      height: 8px;
-      background: #a855f7;
-      border-radius: 50%;
-      animation: typingBounce 1.4s infinite;
-    }
-    .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typingBounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-      30% { transform: translateY(-8px); opacity: 1; }
-    }
-    .hidden { display: none; }
-    
-    .footer {
-      border-top: 1px solid;
-      padding: 40px 0;
-      text-align: center;
-    }
-    
     @media (max-width: 768px) {
-      .hero-title { font-size: 40px; }
-      .values-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .hero-title { font-size: 36px; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .nav-links { display: none; }
-      .section-title { font-size: 32px; }
-      .chatbot-window { width: 350px; right: 16px; bottom: 90px; height: 560px; }
-      .logo-img { height: 55px; }
-      .hero { min-height: 70vh; }
-      .values-header h3 { font-size: 24px; }
+      .section-title { font-size: 28px; }
+      .chatbot-window { width: 340px; right: 16px; bottom: 85px; height: 520px; }
+      .logo-img { height: 50px; }
+      .hero { min-height: 65vh; }
+      .values-header h3 { font-size: 22px; }
+      .offers-grid { grid-template-columns: 1fr; }
+      .lang-switcher .lang-btn { font-size: 10px; padding: 2px 6px; }
     }
     .mobile-menu-btn {
       display: none;
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
     }
     @media (max-width: 768px) { .mobile-menu-btn { display: block; } }
   </style>
 </head>
-<body class="light">
+<body class="light lang-en">
   <nav class="navbar">
     <div class="container flex justify-between items-center">
       <img src="noorlabs.png" alt="NOOR TECHNOLOGIES LABS" class="logo-img" onerror="this.onerror=null; this.style.display='none'; this.nextSibling.style.display='flex';">
-      <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#services">Services</a>
-        <a href="#solutions">Solutions</a>
-        <a href="#about">About</a>
-        <a href="#careers">Careers</a>
-        <a href="#contact">Contact</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#" data-i18n="nav-home">Home</a>
+        <a href="#services" data-i18n="nav-services">Services</a>
+        <a href="#offers" data-i18n="nav-offers">Offers</a>
+        <a href="#solutions" data-i18n="nav-solutions">Solutions</a>
+        <a href="#about" data-i18n="nav-about">About</a>
+        <a href="#careers" data-i18n="nav-careers">Careers</a>
+        <a href="#contact" data-i18n="nav-contact">Contact</a>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">EN</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" data-lang="fr" onclick="switchLanguage('fr')">FR</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" data-lang="ar" onclick="switchLanguage('ar')">AR</button>
+        </div>
         <button class="theme-switch" id="themeToggle"><i class="fas fa-moon"></i></button>
-        <a href="#contact" class="btn-primary">Start project →</a>
+        <a href="#contact" class="btn-primary" style="padding: 8px 20px; font-size: 12px;">Start project →</a>
         <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
       </div>
     </div>
@@ -694,128 +1053,203 @@
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="container">
-      <div class="hero-badge"><span class="hero-badge-dot"></span><span>AI • ERP • Data Science • Automation</span></div>
-      <h1 class="hero-title">Engineering the <span class="hero-gradient">Intelligent Future</span></h1>
-      <p class="hero-description">A remote-first team of engineers, data scientists, and AI specialists delivering custom software, analytics platforms, and enterprise solutions worldwide.</p>
+      <div class="hero-badge"><span class="hero-badge-dot"></span><span data-i18n="hero-badge">AI • ERP • Data Science • Automation</span></div>
+      <h1 class="hero-title" data-i18n="hero-title">Engineering the <span class="hero-gradient">Intelligent Future</span></h1>
+      <p class="hero-description" data-i18n="hero-desc">A remote-first team of engineers, data scientists, and AI specialists delivering custom software, analytics platforms, and enterprise solutions worldwide.</p>
       <div class="flex gap-4" style="flex-wrap: wrap;">
-        <a href="#contact" class="btn-primary">Explore AI solutions <i class="fas fa-microchip"></i></a>
-        <a href="#solutions" class="btn-outline">View solution areas →</a>
+        <a href="#offers" class="btn-primary" data-i18n="hero-btn-offers">View our offers <i class="fas fa-tag"></i></a>
+        <a href="#solutions" class="btn-outline" data-i18n="hero-btn-solutions">View solution areas →</a>
       </div>
     </div>
   </section>
 
-  <!-- VALUES SECTION - replaces fake stats -->
+  <!-- VALUES SECTION -->
   <section class="values-section">
     <div class="container">
       <div class="values-header">
-        <h3>Our Core Values</h3>
-        <p>What guides everything we do</p>
+        <h3 data-i18n="values-title">Our Core Values</h3>
+        <p data-i18n="values-sub">What guides everything we do</p>
       </div>
       <div class="values-grid">
-        <div class="value-card"><div class="value-icon"><i class="fas fa-laptop-code"></i></div><div class="value-title">Remote-First</div><div class="value-desc">Building a global team that collaborates across time zones</div></div>
-        <div class="value-card"><div class="value-icon"><i class="fas fa-lightbulb"></i></div><div class="value-title">Technical Excellence</div><div class="value-desc">Committed to quality code and modern best practices</div></div>
-        <div class="value-card"><div class="value-icon"><i class="fas fa-handshake"></i></div><div class="value-title">Client Partnership</div><div class="value-desc">Working alongside you to achieve your business goals</div></div>
-        <div class="value-card"><div class="value-icon"><i class="fas fa-rocket"></i></div><div class="value-title">Continuous Innovation</div><div class="value-desc">Staying at the forefront of emerging technology</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-laptop-code"></i></div><div class="value-title" data-i18n="value1-title">Remote-First</div><div class="value-desc" data-i18n="value1-desc">Building a global team that collaborates across time zones</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-lightbulb"></i></div><div class="value-title" data-i18n="value2-title">Technical Excellence</div><div class="value-desc" data-i18n="value2-desc">Committed to quality code and modern best practices</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-handshake"></i></div><div class="value-title" data-i18n="value3-title">Client Partnership</div><div class="value-desc" data-i18n="value3-desc">Working alongside you to achieve your business goals</div></div>
+        <div class="value-card"><div class="value-icon"><i class="fas fa-rocket"></i></div><div class="value-title" data-i18n="value4-title">Continuous Innovation</div><div class="value-desc" data-i18n="value4-desc">Staying at the forefront of emerging technology</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS SECTION -->
+  <section id="offers" class="section" style="background: rgba(139,92,246,0.03);">
+    <div class="container">
+      <h2 class="section-title" data-i18n="offers-title">Premium Service Offers</h2>
+      <p class="section-subtitle" data-i18n="offers-sub">Limited-time offers — all prices reduced by 20%</p>
+      <div class="offers-grid">
+        <div class="offer-card">
+          <span class="discount-badge-red">-20% OFF</span>
+          <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Web Solution</span></span>
+          <i class="fas fa-code offer-icon"></i>
+          <h3 class="offer-title" data-i18n="offer1-title">Professional Website</h3>
+          <p class="offer-desc" data-i18n="offer1-desc">Complete responsive website for your business with modern design, SEO optimization, and performance.</p>
+          <div class="offer-price">3,000 DH <small>originally 3,750 DH</small></div>
+          <div class="offer-maintenance"><i class="fas fa-calendar-alt"></i> + 1,000 DH / year maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">5 modifications allowed per year</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f2">20% discount already applied</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f3">1 year of support included</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212624694039?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer%20(3000%20DH)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
+        </div>
+
+        <div class="offer-card popular">
+          <span class="discount-badge-red">-20% OFF</span>
+          <span class="offer-badge"><i class="fas fa-cubes"></i> <span data-i18n="offer2-badge">Business Solution</span></span>
+          <i class="fas fa-cogs offer-icon"></i>
+          <h3 class="offer-title" data-i18n="offer2-title">Business ERP System</h3>
+          <p class="offer-desc" data-i18n="offer2-desc">Custom ERP for restaurants, pharmacies, dental clinics, retail, and more. Full business management.</p>
+          <div class="offer-price">5,000 DH <small>originally 6,250 DH</small></div>
+          <div class="offer-maintenance"><i class="fas fa-calendar-alt"></i> + 1,500 DH / year maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f1">3 modifications allowed per year</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f2">20% discount already applied</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f3">Tailored to your industry</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212624694039?text=Hello!%20I%27m%20interested%20in%20the%20Business%20ERP%20System%20offer%20(5000%20DH)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer2-btn">Get this offer</span></button>
+        </div>
+
+        <div class="offer-card">
+          <span class="discount-badge-red">-20% OFF</span>
+          <span class="offer-badge"><i class="fas fa-robot"></i> <span data-i18n="offer3-badge">Advanced Solution</span></span>
+          <i class="fas fa-chart-pie offer-icon"></i>
+          <h3 class="offer-title" data-i18n="offer3-title">ERP + Report Automation</h3>
+          <p class="offer-desc" data-i18n="offer3-desc">Full ERP with automated reporting, intelligent dashboards, and data-driven insights for better decisions.</p>
+          <div class="offer-price">7,000 DH <small>originally 8,750 DH</small></div>
+          <div class="offer-maintenance"><i class="fas fa-calendar-alt"></i> + 2,000 DH / year maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f1">3 modifications allowed per year</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f2">20% discount already applied</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f3">Automated reports & insights</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212624694039?text=Hello!%20I%27m%20interested%20in%20the%20ERP%20+%20Report%20Automation%20offer%20(7000%20DH)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer3-btn">Get this offer</span></button>
+        </div>
+
+        <div class="offer-card">
+          <span class="discount-badge-red">-20% OFF</span>
+          <span class="offer-badge"><i class="fas fa-rocket"></i> <span data-i18n="offer4-badge">Enterprise Solution</span></span>
+          <i class="fas fa-robot offer-icon"></i>
+          <h3 class="offer-title" data-i18n="offer4-title">ERP + Full Automation Suite</h3>
+          <p class="offer-desc" data-i18n="offer4-desc">Complete ERP with advanced automation, client communication (SMS/email alerts), analytics, and AI-powered insights.</p>
+          <div class="offer-price">10,000 DH <small>originally 12,500 DH</small></div>
+          <div class="offer-maintenance"><i class="fas fa-calendar-alt"></i> + 3,000 DH / year maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f1">3 modifications allowed per year</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f2">20% discount already applied</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f3">Automated client alerts & messages</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f4">AI-powered analytics</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212624694039?text=Hello!%20I%27m%20interested%20in%20the%20ERP%20+%20Full%20Automation%20offer%20(10000%20DH)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer4-btn">Get this offer</span></button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- SERVICES SECTION -->
-  <section id="services" class="section" style="background: rgba(139,92,246,0.03);">
+  <section id="services" class="section">
     <div class="container">
-      <h2 class="section-title">Core competencies</h2>
-      <p class="section-subtitle">Enterprise-grade expertise across AI, data engineering, automation and cloud.</p>
+      <h2 class="section-title" data-i18n="services-title">Core competencies</h2>
+      <p class="section-subtitle" data-i18n="services-sub">Enterprise-grade expertise across AI, data engineering, automation and cloud.</p>
       <div class="services-grid">
-        <div class="service-card"><i class="fas fa-brain service-icon"></i><h3 class="service-title">Artificial Intelligence</h3><p class="service-desc">Custom AI models, LLM integration, predictive analytics, and intelligent automation solutions.</p></div>
-        <div class="service-card"><i class="fas fa-chart-line service-icon"></i><h3 class="service-title">Data Science & Analytics</h3><p class="service-desc">Extract actionable insights from your data with advanced analytics and machine learning.</p></div>
-        <div class="service-card"><i class="fas fa-chart-pie service-icon"></i><h3 class="service-title">Business Intelligence</h3><p class="service-desc">Interactive dashboards, real-time reporting, and data visualization for better decisions.</p></div>
-        <div class="service-card"><i class="fas fa-cubes service-icon"></i><h3 class="service-title">ERP Development</h3><p class="service-desc">Custom ERP systems tailored to your business processes and industry needs.</p></div>
-        <div class="service-card"><i class="fas fa-code service-icon"></i><h3 class="service-title">Custom Software</h3><p class="service-desc">Scalable web and mobile applications for complex business requirements.</p></div>
-        <div class="service-card"><i class="fas fa-cloud-upload-alt service-icon"></i><h3 class="service-title">Cloud & DevOps</h3><p class="service-desc">Cloud architecture, CI/CD pipelines, and infrastructure automation.</p></div>
-        <div class="service-card"><i class="fas fa-chalkboard-teacher service-icon"></i><h3 class="service-title">IT Consulting</h3><p class="service-desc">Strategic technology guidance and digital transformation advisory.</p></div>
+        <div class="service-card"><i class="fas fa-brain service-icon"></i><h3 class="service-title" data-i18n="svc1">Artificial Intelligence</h3><p class="service-desc" data-i18n="svc1-desc">Custom AI models, LLM integration, predictive analytics, and intelligent automation solutions.</p></div>
+        <div class="service-card"><i class="fas fa-chart-line service-icon"></i><h3 class="service-title" data-i18n="svc2">Data Science & Analytics</h3><p class="service-desc" data-i18n="svc2-desc">Extract actionable insights from your data with advanced analytics and machine learning.</p></div>
+        <div class="service-card"><i class="fas fa-chart-pie service-icon"></i><h3 class="service-title" data-i18n="svc3">Business Intelligence</h3><p class="service-desc" data-i18n="svc3-desc">Interactive dashboards, real-time reporting, and data visualization for better decisions.</p></div>
+        <div class="service-card"><i class="fas fa-cubes service-icon"></i><h3 class="service-title" data-i18n="svc4">ERP Development</h3><p class="service-desc" data-i18n="svc4-desc">Custom ERP systems tailored to your business processes and industry needs.</p></div>
+        <div class="service-card"><i class="fas fa-code service-icon"></i><h3 class="service-title" data-i18n="svc5">Custom Software</h3><p class="service-desc" data-i18n="svc5-desc">Scalable web and mobile applications for complex business requirements.</p></div>
+        <div class="service-card"><i class="fas fa-cloud-upload-alt service-icon"></i><h3 class="service-title" data-i18n="svc6">Cloud & DevOps</h3><p class="service-desc" data-i18n="svc6-desc">Cloud architecture, CI/CD pipelines, and infrastructure automation.</p></div>
+        <div class="service-card"><i class="fas fa-chalkboard-teacher service-icon"></i><h3 class="service-title" data-i18n="svc7">IT Consulting</h3><p class="service-desc" data-i18n="svc7-desc">Strategic technology guidance and digital transformation advisory.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- SOLUTION SHOWCASE - replaces fake portfolio -->
-  <section id="solutions" class="section">
+  <!-- SOLUTION SHOWCASE -->
+  <section id="solutions" class="section" style="background: rgba(139,92,246,0.03);">
     <div class="container">
-      <h2 class="section-title">Solution Areas</h2>
-      <p class="section-subtitle">Expertise we can apply to your business challenges</p>
+      <h2 class="section-title" data-i18n="solutions-title">Solution Areas</h2>
+      <p class="section-subtitle" data-i18n="solutions-sub">Expertise we can apply to your business challenges</p>
       <div class="solutions-grid">
-        <div class="solution-card"><i class="fas fa-store solution-icon"></i><h3 class="solution-title">Retail ERP Platform</h3><p class="solution-desc">Complete inventory, order, and supply chain management system for retail operations.</p><span class="solution-badge">ERP</span></div>
-        <div class="solution-card"><i class="fas fa-utensils solution-icon"></i><h3 class="solution-title">Restaurant Management ERP</h3><p class="solution-desc">Integrated solution for inventory, staff scheduling, reservations, and analytics.</p><span class="solution-badge">ERP</span></div>
-        <div class="solution-card"><i class="fas fa-chart-line solution-icon"></i><h3 class="solution-title">Financial Analytics Dashboard</h3><p class="solution-desc">Real-time financial metrics, forecasting, and reporting platform.</p><span class="solution-badge">BI</span></div>
-        <div class="solution-card"><i class="fas fa-headset solution-icon"></i><h3 class="solution-title">AI Customer Support Assistant</h3><p class="solution-desc">Intelligent chatbot and ticketing system for automated customer service.</p><span class="solution-badge">AI</span></div>
-        <div class="solution-card"><i class="fas fa-boxes solution-icon"></i><h3 class="solution-title">Inventory Forecasting System</h3><p class="solution-desc">ML-powered demand prediction and stock optimization.</p><span class="solution-badge">ML</span></div>
-        <div class="solution-card"><i class="fas fa-chart-simple solution-icon"></i><h3 class="solution-title">Business Intelligence Platform</h3><p class="solution-desc">Custom analytics platform with interactive dashboards and reporting.</p><span class="solution-badge">BI</span></div>
+        <div class="solution-card"><i class="fas fa-store solution-icon"></i><h3 class="solution-title" data-i18n="sol1">Retail ERP Platform</h3><p class="solution-desc" data-i18n="sol1-desc">Complete inventory, order, and supply chain management system for retail operations.</p><span class="solution-badge">ERP</span></div>
+        <div class="solution-card"><i class="fas fa-utensils solution-icon"></i><h3 class="solution-title" data-i18n="sol2">Restaurant Management ERP</h3><p class="solution-desc" data-i18n="sol2-desc">Integrated solution for inventory, staff scheduling, reservations, and analytics.</p><span class="solution-badge">ERP</span></div>
+        <div class="solution-card"><i class="fas fa-chart-line solution-icon"></i><h3 class="solution-title" data-i18n="sol3">Financial Analytics Dashboard</h3><p class="solution-desc" data-i18n="sol3-desc">Real-time financial metrics, forecasting, and reporting platform.</p><span class="solution-badge">BI</span></div>
+        <div class="solution-card"><i class="fas fa-headset solution-icon"></i><h3 class="solution-title" data-i18n="sol4">AI Customer Support Assistant</h3><p class="solution-desc" data-i18n="sol4-desc">Intelligent chatbot and ticketing system for automated customer service.</p><span class="solution-badge">AI</span></div>
+        <div class="solution-card"><i class="fas fa-boxes solution-icon"></i><h3 class="solution-title" data-i18n="sol5">Inventory Forecasting System</h3><p class="solution-desc" data-i18n="sol5-desc">ML-powered demand prediction and stock optimization.</p><span class="solution-badge">ML</span></div>
+        <div class="solution-card"><i class="fas fa-chart-simple solution-icon"></i><h3 class="solution-title" data-i18n="sol6">Business Intelligence Platform</h3><p class="solution-desc" data-i18n="sol6-desc">Custom analytics platform with interactive dashboards and reporting.</p><span class="solution-badge">BI</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT SECTION - realistic, no fake claims -->
-  <section id="about" class="section" style="background: rgba(139,92,246,0.03);">
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section">
     <div class="container">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
         <div>
-          <h2 class="section-title" style="text-align: left;">Who We Are</h2>
-          <p style="font-size: 18px; margin-bottom: 24px; line-height: 1.6; color: #64748b;">NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in artificial intelligence, data science, and enterprise software development.</p>
-          <p style="line-height: 1.6; color: #64748b; margin-bottom: 24px;">We bring together engineers, data scientists, and technology consultants who are passionate about building innovative digital solutions for modern businesses.</p>
+          <h2 class="section-title" style="text-align: left;" data-i18n="about-title">Who We Are</h2>
+          <p style="font-size: 17px; margin-bottom: 20px; line-height: 1.6; color: #64748b;" data-i18n="about-p1">NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in artificial intelligence, data science, and enterprise software development.</p>
+          <p style="line-height: 1.6; color: #64748b; margin-bottom: 20px;" data-i18n="about-p2">We bring together engineers, data scientists, and technology consultants who are passionate about building innovative digital solutions for modern businesses.</p>
           <div class="flex gap-6" style="flex-wrap: wrap;">
-            <div><i class="fas fa-laptop-code" style="font-size: 32px; color: #a855f7;"></i><p style="margin-top: 8px; font-weight: 500;">Remote-First</p></div>
-            <div><i class="fas fa-code-branch" style="font-size: 32px; color: #a855f7;"></i><p style="margin-top: 8px; font-weight: 500;">Agile Delivery</p></div>
-            <div><i class="fas fa-globe" style="font-size: 32px; color: #a855f7;"></i><p style="margin-top: 8px; font-weight: 500;">Global Reach</p></div>
+            <div><i class="fas fa-laptop-code" style="font-size: 30px; color: #a855f7;"></i><p style="margin-top: 6px; font-weight: 500;" data-i18n="about-badge1">Remote-First</p></div>
+            <div><i class="fas fa-code-branch" style="font-size: 30px; color: #a855f7;"></i><p style="margin-top: 6px; font-weight: 500;" data-i18n="about-badge2">Agile Delivery</p></div>
+            <div><i class="fas fa-globe" style="font-size: 30px; color: #a855f7;"></i><p style="margin-top: 6px; font-weight: 500;" data-i18n="about-badge3">Global Reach</p></div>
           </div>
         </div>
-        <div style="background: rgba(139,92,246,0.08); border-radius: 32px; padding: 32px;">
-          <h3 style="font-size: 24px; margin-bottom: 20px;"><i class="fas fa-bullhorn" style="color: #a855f7;"></i> Our Approach</h3>
-          <p style="line-height: 1.6; color: #64748b; margin-bottom: 20px;">We combine technical excellence with a deep understanding of business needs. Every solution we build is tailored, scalable, and designed for real-world impact.</p>
-          <p style="line-height: 1.6; color: #64748b;">Our agile methodology ensures transparency and collaboration throughout the development process, from initial concept to final delivery.</p>
+        <div style="background: rgba(139,92,246,0.08); border-radius: 28px; padding: 28px;">
+          <h3 style="font-size: 22px; margin-bottom: 16px;"><i class="fas fa-bullhorn" style="color: #a855f7;"></i> <span data-i18n="about-approach">Our Approach</span></h3>
+          <p style="line-height: 1.6; color: #64748b; margin-bottom: 16px;" data-i18n="about-approach1">We combine technical excellence with a deep understanding of business needs. Every solution we build is tailored, scalable, and designed for real-world impact.</p>
+          <p style="line-height: 1.6; color: #64748b;" data-i18n="about-approach2">Our agile methodology ensures transparency and collaboration throughout the development process, from initial concept to final delivery.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CAREERS SECTION -->
-  <section id="careers" class="section">
+  <section id="careers" class="section" style="background: rgba(139,92,246,0.03);">
     <div class="container">
-      <h2 class="section-title">Join Our Team</h2>
-      <p class="section-subtitle">Remote learning opportunities • Real-world project experience</p>
+      <h2 class="section-title" data-i18n="careers-title">Join Our Team</h2>
+      <p class="section-subtitle" data-i18n="careers-sub">Remote learning opportunities • Real-world project experience</p>
       <div class="services-grid">
-        <div class="internship-card"><div class="badge-intern"><i class="fas fa-utensils"></i> Remote Internship</div><i class="fas fa-hamburger" style="font-size: 48px; color: #a855f7; margin-bottom: 16px;"></i><h3>Restaurant ERP Developer</h3><p>Build a complete ERP system for restaurant chains including inventory, order management, and analytics.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabs.com')">Apply now</button></div>
-        <div class="internship-card"><div class="badge-intern"><i class="fas fa-bicycle"></i> Remote Internship</div><i class="fas fa-motorcycle" style="font-size: 48px; color: #a855f7; margin-bottom: 16px;"></i><h3>Bike Rental ERP Engineer</h3><p>Develop an ERP solution for bike rental businesses including fleet management, booking, and pricing engines.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabs.com')">Apply now</button></div>
+        <div class="internship-card"><div class="badge-intern"><i class="fas fa-utensils"></i> <span data-i18n="intern1-badge">Remote Internship</span></div><i class="fas fa-hamburger" style="font-size: 40px; color: #a855f7; margin-bottom: 12px;"></i><h3 data-i18n="intern1-title">Restaurant ERP Developer</h3><p data-i18n="intern1-desc">Build a complete ERP system for restaurant chains including inventory, order management, and analytics.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabs.com')" data-i18n="intern1-btn">Apply now</button></div>
+        <div class="internship-card"><div class="badge-intern"><i class="fas fa-bicycle"></i> <span data-i18n="intern2-badge">Remote Internship</span></div><i class="fas fa-motorcycle" style="font-size: 40px; color: #a855f7; margin-bottom: 12px;"></i><h3 data-i18n="intern2-title">Bike Rental ERP Engineer</h3><p data-i18n="intern2-desc">Develop an ERP solution for bike rental businesses including fleet management, booking, and pricing engines.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabs.com')" data-i18n="intern2-btn">Apply now</button></div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT SECTION - realistic, no fake addresses -->
-  <section id="contact" class="section" style="background: rgba(139,92,246,0.03);">
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="section">
     <div class="container">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
         <div>
-          <h2 class="section-title" style="text-align: left;">Let's Work Together</h2>
-          <p style="margin-bottom: 32px; font-size: 18px; color: #64748b;">Ready to discuss your project? Our team is here to help.</p>
-          <form id="contactForm" style="display: flex; flex-direction: column; gap: 20px;">
-            <input type="text" placeholder="Full name" class="contact-input">
-            <input type="email" placeholder="Email address" class="contact-input">
-            <input type="text" placeholder="Company name" class="contact-input">
-            <textarea rows="4" placeholder="Tell us about your project" class="contact-input"></textarea>
-            <button type="submit" class="btn-primary" style="justify-content: center; width: 100%;">Send message →</button>
+          <h2 class="section-title" style="text-align: left;" data-i18n="contact-title">Let's Work Together</h2>
+          <p style="margin-bottom: 28px; font-size: 17px; color: #64748b;" data-i18n="contact-desc">Ready to discuss your project? Reach out to us on WhatsApp or fill out the form below.</p>
+          <form id="contactForm" style="display: flex; flex-direction: column; gap: 16px;">
+            <input type="text" placeholder="Full name" class="contact-input" id="formName">
+            <input type="email" placeholder="Email address" class="contact-input" id="formEmail">
+            <input type="text" placeholder="Company name" class="contact-input" id="formCompany">
+            <textarea rows="4" placeholder="Tell us about your project" class="contact-input" id="formMessageText"></textarea>
+            <button type="submit" class="btn-primary" style="justify-content: center; width: 100%;" data-i18n="contact-btn">Send via WhatsApp →</button>
           </form>
-          <div id="formMessage" style="color: #a855f7; margin-top: 16px; text-align: center;"></div>
+          <div id="formMessage" style="color: #a855f7; margin-top: 14px; text-align: center;"></div>
         </div>
-        <div style="border-radius: 28px; padding: 32px; background: rgba(139,92,246,0.05);">
-          <i class="fas fa-globe" style="font-size: 32px; color: #a855f7;"></i>
-          <h3 style="margin: 20px 0 12px; font-size: 22px;">Remote-First Company</h3>
-          <p style="color: #64748b; line-height: 1.6; margin-bottom: 24px;">Serving clients worldwide from our distributed team. No physical office — just talented people across the globe.</p>
-          <div style="margin-bottom: 24px;">
-            <p style="margin-bottom: 12px;"><i class="fas fa-envelope" style="color: #a855f7; width: 28px;"></i> hello@noorlabs.com</p>
-            <p><i class="fas fa-comment" style="color: #a855f7; width: 28px;"></i> Schedule a discovery call</p>
+        <div style="border-radius: 28px; padding: 28px; background: rgba(139,92,246,0.05);">
+          <i class="fas fa-globe" style="font-size: 30px; color: #a855f7;"></i>
+          <h3 style="margin: 16px 0 10px; font-size: 20px;" data-i18n="contact-remote">Remote-First Company</h3>
+          <p style="color: #64748b; line-height: 1.6; margin-bottom: 20px;" data-i18n="contact-remote-desc">Serving clients worldwide from our distributed team. No physical office — just talented people across the globe.</p>
+          <div style="margin-bottom: 20px;">
+            <p style="margin-bottom: 10px;"><i class="fas fa-envelope" style="color: #a855f7; width: 28px;"></i> hello@noorlabs.com</p>
+            <p style="margin-bottom: 10px;"><i class="fab fa-whatsapp" style="color: #25D366; width: 28px;"></i> +212 624 694 039</p>
+            <p><i class="fas fa-comment" style="color: #a855f7; width: 28px;"></i> <span data-i18n="contact-call">Schedule a discovery call</span></p>
           </div>
-          <div class="flex gap-4" style="margin-top: 24px;">
-            <i class="fab fa-linkedin" style="font-size: 24px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
-            <i class="fab fa-github" style="font-size: 24px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
-            <i class="fab fa-twitter" style="font-size: 24px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
+          <div class="flex gap-4" style="margin-top: 20px;">
+            <i class="fab fa-linkedin" style="font-size: 22px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
+            <i class="fab fa-github" style="font-size: 22px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
+            <i class="fab fa-twitter" style="font-size: 22px; cursor: pointer; color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#64748b'"></i>
           </div>
         </div>
       </div>
@@ -824,11 +1258,31 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© 2025 NOOR TECHNOLOGIES LABS — Remote-first technology company. Building intelligent software for modern businesses.</p>
+      <p data-i18n="footer">© 2025 NOOR TECHNOLOGIES LABS — Remote-first technology company. Building intelligent software for modern businesses.</p>
     </div>
   </footer>
 
-  <!-- CHATBOT -->
+  <!-- WhatsApp Floating Button - RIGHT SIDE -->
+  <a href="https://wa.me/212624694039" target="_blank" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Floating Robot Assistant - LEFT SIDE -->
+  <div class="robot-assistant" id="robotAssistant">
+    <div class="speech-bubble" id="speechBubble">
+      <span class="thinking-text">
+        <span id="bubbleText">👋 Hello! I'm NOOR</span>
+        <span class="typing-dots">
+          <span></span><span></span><span></span>
+        </span>
+      </span>
+    </div>
+    <div class="robot-icon" onclick="document.getElementById('chatbotToggle').click()">
+      <i class="fas fa-robot"></i>
+    </div>
+  </div>
+
+  <!-- Chatbot Button - RIGHT SIDE (below WhatsApp) -->
   <div class="chatbot-btn" id="chatbotToggle"><i class="fas fa-comment-dots"></i></div>
   <div class="chatbot-window hidden" id="chatbotWindow">
     <div class="chatbot-header">
@@ -840,6 +1294,7 @@
       <div class="chatbot-msg-buttons" id="initialButtons">
         <button data-action="ai"><i class="fas fa-brain"></i> AI Solutions</button>
         <button data-action="erp"><i class="fas fa-cubes"></i> ERP Development</button>
+        <button data-action="offers"><i class="fas fa-tag"></i> Special Offers</button>
         <button data-action="internship"><i class="fas fa-graduation-cap"></i> Internships</button>
         <button data-action="contact"><i class="fas fa-envelope"></i> Contact Sales</button>
         <button data-action="about"><i class="fas fa-building"></i> About Company</button>
@@ -848,6 +1303,442 @@
   </div>
 
   <script>
+    // ===== FLOATING ROBOT ASSISTANT WITH DYNAMIC MESSAGES =====
+    const messages = [
+      '👋 Hello! I\'m NOOR',
+      '💡 Ask me about our offers!',
+      '🤖 How can I help you today?',
+      '🚀 Ready to build something amazing?',
+      '💬 Click me to chat!',
+      '✨ Let\'s transform your business',
+      '📊 Ask about our ERP solutions',
+      '🎯 We\'re here to help!'
+    ];
+    
+    let msgIndex = 0;
+    const bubbleText = document.getElementById('bubbleText');
+    
+    function rotateMessages() {
+      msgIndex = (msgIndex + 1) % messages.length;
+      bubbleText.textContent = messages[msgIndex];
+    }
+    
+    setInterval(rotateMessages, 4000);
+    
+    document.querySelector('.robot-assistant .robot-icon').addEventListener('click', function() {
+      document.getElementById('chatbotToggle').click();
+    });
+
+    // ===== LANGUAGE SWITCHER =====
+    const translations = {
+      en: {
+        'nav-home': 'Home',
+        'nav-services': 'Services',
+        'nav-offers': 'Offers',
+        'nav-solutions': 'Solutions',
+        'nav-about': 'About',
+        'nav-careers': 'Careers',
+        'nav-contact': 'Contact',
+        'hero-badge': 'AI • ERP • Data Science • Automation',
+        'hero-title': 'Engineering the Intelligent Future',
+        'hero-desc': 'A remote-first team of engineers, data scientists, and AI specialists delivering custom software, analytics platforms, and enterprise solutions worldwide.',
+        'hero-btn-offers': 'View our offers',
+        'hero-btn-solutions': 'View solution areas →',
+        'values-title': 'Our Core Values',
+        'values-sub': 'What guides everything we do',
+        'value1-title': 'Remote-First',
+        'value1-desc': 'Building a global team that collaborates across time zones',
+        'value2-title': 'Technical Excellence',
+        'value2-desc': 'Committed to quality code and modern best practices',
+        'value3-title': 'Client Partnership',
+        'value3-desc': 'Working alongside you to achieve your business goals',
+        'value4-title': 'Continuous Innovation',
+        'value4-desc': 'Staying at the forefront of emerging technology',
+        'offers-title': 'Premium Service Offers',
+        'offers-sub': 'Limited-time offers — all prices reduced by 20%',
+        'popular': 'Most Popular',
+        'offer1-badge': 'Web Solution',
+        'offer1-title': 'Professional Website',
+        'offer1-desc': 'Complete responsive website for your business with modern design, SEO optimization, and performance.',
+        'offer1-f1': '5 modifications allowed per year',
+        'offer1-f2': '20% discount already applied',
+        'offer1-f3': '1 year of support included',
+        'offer1-btn': 'Get this offer',
+        'offer2-badge': 'Business Solution',
+        'offer2-title': 'Business ERP System',
+        'offer2-desc': 'Custom ERP for restaurants, pharmacies, dental clinics, retail, and more. Full business management.',
+        'offer2-f1': '3 modifications allowed per year',
+        'offer2-f2': '20% discount already applied',
+        'offer2-f3': 'Tailored to your industry',
+        'offer2-btn': 'Get this offer',
+        'offer3-badge': 'Advanced Solution',
+        'offer3-title': 'ERP + Report Automation',
+        'offer3-desc': 'Full ERP with automated reporting, intelligent dashboards, and data-driven insights for better decisions.',
+        'offer3-f1': '3 modifications allowed per year',
+        'offer3-f2': '20% discount already applied',
+        'offer3-f3': 'Automated reports & insights',
+        'offer3-btn': 'Get this offer',
+        'offer4-badge': 'Enterprise Solution',
+        'offer4-title': 'ERP + Full Automation Suite',
+        'offer4-desc': 'Complete ERP with advanced automation, client communication (SMS/email alerts), analytics, and AI-powered insights.',
+        'offer4-f1': '3 modifications allowed per year',
+        'offer4-f2': '20% discount already applied',
+        'offer4-f3': 'Automated client alerts & messages',
+        'offer4-f4': 'AI-powered analytics',
+        'offer4-btn': 'Get this offer',
+        'services-title': 'Core competencies',
+        'services-sub': 'Enterprise-grade expertise across AI, data engineering, automation and cloud.',
+        'svc1': 'Artificial Intelligence',
+        'svc1-desc': 'Custom AI models, LLM integration, predictive analytics, and intelligent automation solutions.',
+        'svc2': 'Data Science & Analytics',
+        'svc2-desc': 'Extract actionable insights from your data with advanced analytics and machine learning.',
+        'svc3': 'Business Intelligence',
+        'svc3-desc': 'Interactive dashboards, real-time reporting, and data visualization for better decisions.',
+        'svc4': 'ERP Development',
+        'svc4-desc': 'Custom ERP systems tailored to your business processes and industry needs.',
+        'svc5': 'Custom Software',
+        'svc5-desc': 'Scalable web and mobile applications for complex business requirements.',
+        'svc6': 'Cloud & DevOps',
+        'svc6-desc': 'Cloud architecture, CI/CD pipelines, and infrastructure automation.',
+        'svc7': 'IT Consulting',
+        'svc7-desc': 'Strategic technology guidance and digital transformation advisory.',
+        'solutions-title': 'Solution Areas',
+        'solutions-sub': 'Expertise we can apply to your business challenges',
+        'sol1': 'Retail ERP Platform',
+        'sol1-desc': 'Complete inventory, order, and supply chain management system for retail operations.',
+        'sol2': 'Restaurant Management ERP',
+        'sol2-desc': 'Integrated solution for inventory, staff scheduling, reservations, and analytics.',
+        'sol3': 'Financial Analytics Dashboard',
+        'sol3-desc': 'Real-time financial metrics, forecasting, and reporting platform.',
+        'sol4': 'AI Customer Support Assistant',
+        'sol4-desc': 'Intelligent chatbot and ticketing system for automated customer service.',
+        'sol5': 'Inventory Forecasting System',
+        'sol5-desc': 'ML-powered demand prediction and stock optimization.',
+        'sol6': 'Business Intelligence Platform',
+        'sol6-desc': 'Custom analytics platform with interactive dashboards and reporting.',
+        'about-title': 'Who We Are',
+        'about-p1': 'NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in artificial intelligence, data science, and enterprise software development.',
+        'about-p2': 'We bring together engineers, data scientists, and technology consultants who are passionate about building innovative digital solutions for modern businesses.',
+        'about-badge1': 'Remote-First',
+        'about-badge2': 'Agile Delivery',
+        'about-badge3': 'Global Reach',
+        'about-approach': 'Our Approach',
+        'about-approach1': 'We combine technical excellence with a deep understanding of business needs. Every solution we build is tailored, scalable, and designed for real-world impact.',
+        'about-approach2': 'Our agile methodology ensures transparency and collaboration throughout the development process, from initial concept to final delivery.',
+        'careers-title': 'Join Our Team',
+        'careers-sub': 'Remote learning opportunities • Real-world project experience',
+        'intern1-badge': 'Remote Internship',
+        'intern1-title': 'Restaurant ERP Developer',
+        'intern1-desc': 'Build a complete ERP system for restaurant chains including inventory, order management, and analytics.',
+        'intern1-btn': 'Apply now',
+        'intern2-badge': 'Remote Internship',
+        'intern2-title': 'Bike Rental ERP Engineer',
+        'intern2-desc': 'Develop an ERP solution for bike rental businesses including fleet management, booking, and pricing engines.',
+        'intern2-btn': 'Apply now',
+        'contact-title': "Let's Work Together",
+        'contact-desc': 'Ready to discuss your project? Reach out to us on WhatsApp or fill out the form below.',
+        'contact-btn': 'Send via WhatsApp →',
+        'contact-remote': 'Remote-First Company',
+        'contact-remote-desc': 'Serving clients worldwide from our distributed team. No physical office — just talented people across the globe.',
+        'contact-call': 'Schedule a discovery call',
+        'footer': '© 2025 NOOR TECHNOLOGIES LABS — Remote-first technology company. Building intelligent software for modern businesses.'
+      },
+      fr: {
+        'nav-home': 'Accueil',
+        'nav-services': 'Services',
+        'nav-offers': 'Offres',
+        'nav-solutions': 'Solutions',
+        'nav-about': 'À propos',
+        'nav-careers': 'Carrières',
+        'nav-contact': 'Contact',
+        'hero-badge': 'IA • ERP • Science des données • Automatisation',
+        'hero-title': "Construire l'avenir intelligent",
+        'hero-desc': "Une équipe remote-first d'ingénieurs, data scientists et spécialistes en IA livrant des logiciels sur mesure, des plateformes d'analyse et des solutions d'entreprise dans le monde entier.",
+        'hero-btn-offers': 'Voir nos offres',
+        'hero-btn-solutions': 'Voir nos solutions →',
+        'values-title': 'Nos valeurs fondamentales',
+        'values-sub': 'Ce qui guide tout ce que nous faisons',
+        'value1-title': 'Remote-First',
+        'value1-desc': 'Construire une équipe mondiale qui collabore à travers les fuseaux horaires',
+        'value2-title': 'Excellence technique',
+        'value2-desc': 'Engagés envers la qualité du code et les meilleures pratiques modernes',
+        'value3-title': 'Partenariat client',
+        'value3-desc': 'Travailler à vos côtés pour atteindre vos objectifs commerciaux',
+        'value4-title': 'Innovation continue',
+        'value4-desc': 'Rester à la pointe des technologies émergentes',
+        'offers-title': 'Offres Premium',
+        'offers-sub': 'Offres à durée limitée — tous les prix réduits de 20%',
+        'popular': 'Le plus populaire',
+        'offer1-badge': 'Solution Web',
+        'offer1-title': 'Site Web Professionnel',
+        'offer1-desc': 'Site web responsive complet pour votre entreprise avec design moderne, optimisation SEO et performance.',
+        'offer1-f1': '5 modifications autorisées par an',
+        'offer1-f2': 'Remise de 20% déjà appliquée',
+        'offer1-f3': '1 an de support inclus',
+        'offer1-btn': 'Obtenir cette offre',
+        'offer2-badge': 'Solution Entreprise',
+        'offer2-title': 'Système ERP Business',
+        'offer2-desc': 'ERP personnalisé pour restaurants, pharmacies, cliniques dentaires, retail et plus. Gestion complète.',
+        'offer2-f1': '3 modifications autorisées par an',
+        'offer2-f2': 'Remise de 20% déjà appliquée',
+        'offer2-f3': 'Adapté à votre secteur',
+        'offer2-btn': 'Obtenir cette offre',
+        'offer3-badge': 'Solution Avancée',
+        'offer3-title': 'ERP + Automatisation des rapports',
+        'offer3-desc': 'ERP complet avec rapports automatisés, tableaux de bord intelligents et insights data-driven.',
+        'offer3-f1': '3 modifications autorisées par an',
+        'offer3-f2': 'Remise de 20% déjà appliquée',
+        'offer3-f3': 'Rapports et insights automatisés',
+        'offer3-btn': 'Obtenir cette offre',
+        'offer4-badge': 'Solution Enterprise',
+        'offer4-title': 'ERP + Suite d\'automatisation complète',
+        'offer4-desc': 'ERP complet avec automatisation avancée, communication client (alertes SMS/email), analytics et insights IA.',
+        'offer4-f1': '3 modifications autorisées par an',
+        'offer4-f2': 'Remise de 20% déjà appliquée',
+        'offer4-f3': 'Alertes clients automatisées',
+        'offer4-f4': 'Analytics propulsés par l\'IA',
+        'offer4-btn': 'Obtenir cette offre',
+        'services-title': 'Compétences clés',
+        'services-sub': 'Expertise de niveau entreprise en IA, ingénierie des données, automatisation et cloud.',
+        'svc1': 'Intelligence Artificielle',
+        'svc1-desc': 'Modèles IA personnalisés, intégration LLM, analytique prédictive et solutions d\'automatisation intelligentes.',
+        'svc2': 'Science des données & Analytique',
+        'svc2-desc': 'Extrayez des insights exploitables de vos données avec analytique avancée et machine learning.',
+        'svc3': 'Business Intelligence',
+        'svc3-desc': 'Tableaux de bord interactifs, reporting en temps réel et visualisation de données.',
+        'svc4': 'Développement ERP',
+        'svc4-desc': 'Systèmes ERP personnalisés adaptés à vos processus métier et besoins sectoriels.',
+        'svc5': 'Logiciels sur mesure',
+        'svc5-desc': 'Applications web et mobiles scalables pour des besoins complexes.',
+        'svc6': 'Cloud & DevOps',
+        'svc6-desc': 'Architecture cloud, pipelines CI/CD et automatisation de l\'infrastructure.',
+        'svc7': 'Conseil IT',
+        'svc7-desc': 'Conseil stratégique technologique et accompagnement à la transformation digitale.',
+        'solutions-title': 'Domaines de solution',
+        'solutions-sub': 'Expertise que nous pouvons appliquer à vos défis métier',
+        'sol1': 'Plateforme ERP Retail',
+        'sol1-desc': 'Système complet de gestion des stocks, commandes et supply chain pour le retail.',
+        'sol2': 'ERP Gestion de Restaurant',
+        'sol2-desc': 'Solution intégrée pour les stocks, planning du personnel, réservations et analytics.',
+        'sol3': 'Tableau de bord financier',
+        'sol3-desc': 'Métriques financières en temps réel, prévisions et reporting.',
+        'sol4': 'Assistant IA Support Client',
+        'sol4-desc': 'Chatbot intelligent et système de tickets pour un service client automatisé.',
+        'sol5': 'Système de prévision des stocks',
+        'sol5-desc': 'Prédiction de la demande et optimisation des stocks par ML.',
+        'sol6': 'Plateforme Business Intelligence',
+        'sol6-desc': 'Plateforme d\'analytique sur mesure avec tableaux de bord et reporting.',
+        'about-title': 'Qui sommes-nous',
+        'about-p1': 'NOOR TECHNOLOGIES LABS est une entreprise technologique remote-first spécialisée en intelligence artificielle, science des données et développement de logiciels d\'entreprise.',
+        'about-p2': 'Nous réunissons des ingénieurs, data scientists et consultants technologiques passionnés par la création de solutions digitales innovantes.',
+        'about-badge1': 'Remote-First',
+        'about-badge2': 'Livraison Agile',
+        'about-badge3': 'Portée Mondiale',
+        'about-approach': 'Notre approche',
+        'about-approach1': 'Nous combinons l\'excellence technique avec une compréhension approfondie des besoins métier. Chaque solution est sur mesure, scalable et conçue pour un impact concret.',
+        'about-approach2': 'Notre méthodologie agile garantit transparence et collaboration tout au long du processus de développement.',
+        'careers-title': 'Rejoignez notre équipe',
+        'careers-sub': 'Opportunités d\'apprentissage à distance • Expérience de projet réel',
+        'intern1-badge': 'Stage à distance',
+        'intern1-title': 'Développeur ERP Restaurant',
+        'intern1-desc': 'Construisez un système ERP complet pour les chaînes de restaurants incluant inventaire, gestion des commandes et analytique.',
+        'intern1-btn': 'Postuler maintenant',
+        'intern2-badge': 'Stage à distance',
+        'intern2-title': 'Ingénieur ERP Location de Vélos',
+        'intern2-desc': 'Développez une solution ERP pour les entreprises de location de vélos incluant gestion de flotte, réservations et moteurs de tarification.',
+        'intern2-btn': 'Postuler maintenant',
+        'contact-title': 'Travaillons ensemble',
+        'contact-desc': 'Prêt à discuter de votre projet? Contactez-nous sur WhatsApp ou remplissez le formulaire ci-dessous.',
+        'contact-btn': 'Envoyer via WhatsApp →',
+        'contact-remote': 'Entreprise Remote-First',
+        'contact-remote-desc': 'Nous servons des clients dans le monde entier depuis notre équipe distribuée. Pas de bureau physique — juste des talents à travers le globe.',
+        'contact-call': 'Planifier un appel de découverte',
+        'footer': '© 2025 NOOR TECHNOLOGIES LABS — Entreprise remote-first. Construire des logiciels intelligents pour les entreprises modernes.'
+      },
+      ar: {
+        'nav-home': 'الرئيسية',
+        'nav-services': 'الخدمات',
+        'nav-offers': 'العروض',
+        'nav-solutions': 'الحلول',
+        'nav-about': 'من نحن',
+        'nav-careers': 'وظائف',
+        'nav-contact': 'اتصل بنا',
+        'hero-badge': 'الذكاء الاصطناعي • نظم ERP • علم البيانات • الأتمتة',
+        'hero-title': 'هندسة المستقبل الذكي',
+        'hero-desc': 'فريق من المهندسين وعلماء البيانات ومتخصصي الذكاء الاصطناعي يقدم برامج مخصصة ومنصات تحليلية وحلول مؤسسية حول العالم.',
+        'hero-btn-offers': 'عرض عروضنا',
+        'hero-btn-solutions': 'عرض مجالات الحلول →',
+        'values-title': 'قيمنا الأساسية',
+        'values-sub': 'ما يوجه كل ما نقوم به',
+        'value1-title': 'العمل عن بعد',
+        'value1-desc': 'بناء فريق عالمي يتعاون عبر مناطق زمنية مختلفة',
+        'value2-title': 'التميز التقني',
+        'value2-desc': 'الالتزام بكود عالي الجودة وأفضل الممارسات الحديثة',
+        'value3-title': 'الشراكة مع العميل',
+        'value3-desc': 'العمل معك لتحقيق أهدافك التجارية',
+        'value4-title': 'الابتكار المستمر',
+        'value4-desc': 'البقاء في طليعة التكنولوجيا الناشئة',
+        'offers-title': 'عروض الخدمات المميزة',
+        'offers-sub': 'عروض محدودة — جميع الأسعار مخفضة بنسبة 20%',
+        'popular': 'الأكثر طلباً',
+        'offer1-badge': 'حلول الويب',
+        'offer1-title': 'موقع احترافي',
+        'offer1-desc': 'موقع ويب متجاوب بالكامل لعملك بتصميم حديث وتحسين محركات البحث وأداء متميز.',
+        'offer1-f1': '5 تعديلات مسموحة سنوياً',
+        'offer1-f2': 'خصم 20% مطبق بالفعل',
+        'offer1-f3': 'سنة دعم شاملة',
+        'offer1-btn': 'احصل على هذا العرض',
+        'offer2-badge': 'حلول الأعمال',
+        'offer2-title': 'نظام ERP للأعمال',
+        'offer2-desc': 'ERP مخصص للمطاعم والصيدليات والعيادات السنية والتجزئة والمزيد. إدارة أعمال كاملة.',
+        'offer2-f1': '3 تعديلات مسموحة سنوياً',
+        'offer2-f2': 'خصم 20% مطبق بالفعل',
+        'offer2-f3': 'مصمم حسب مجال عملك',
+        'offer2-btn': 'احصل على هذا العرض',
+        'offer3-badge': 'حلول متقدمة',
+        'offer3-title': 'ERP + أتمتة التقارير',
+        'offer3-desc': 'ERP كامل مع تقارير آلية ولوحات تحكم ذكية ورؤى تعتمد على البيانات لاتخاذ قرارات أفضل.',
+        'offer3-f1': '3 تعديلات مسموحة سنوياً',
+        'offer3-f2': 'خصم 20% مطبق بالفعل',
+        'offer3-f3': 'تقارير ورؤى آلية',
+        'offer3-btn': 'احصل على هذا العرض',
+        'offer4-badge': 'حلول مؤسسية',
+        'offer4-title': 'ERP + حزمة الأتمتة الكاملة',
+        'offer4-desc': 'ERP كامل مع أتمتة متقدمة، تواصل مع العملاء (تنبيهات SMS/البريد الإلكتروني)، تحليلات ورؤى مدعومة بالذكاء الاصطناعي.',
+        'offer4-f1': '3 تعديلات مسموحة سنوياً',
+        'offer4-f2': 'خصم 20% مطبق بالفعل',
+        'offer4-f3': 'تنبيهات ورسائل آلية للعملاء',
+        'offer4-f4': 'تحليلات مدعومة بالذكاء الاصطناعي',
+        'offer4-btn': 'احصل على هذا العرض',
+        'services-title': 'الكفاءات الأساسية',
+        'services-sub': 'خبرة على مستوى المؤسسات في الذكاء الاصطناعي وهندسة البيانات والأتمتة والسحابة.',
+        'svc1': 'الذكاء الاصطناعي',
+        'svc1-desc': 'نماذج ذكاء اصطناعي مخصصة، تكامل LLM، تحليلات تنبؤية وحلول أتمتة ذكية.',
+        'svc2': 'علم البيانات والتحليلات',
+        'svc2-desc': 'استخراج رؤى قابلة للتنفيذ من بياناتك باستخدام التحليلات المتقدمة وتعلم الآلة.',
+        'svc3': 'ذكاء الأعمال',
+        'svc3-desc': 'لوحات تحكم تفاعلية، تقارير فورية وتصور بيانات لاتخاذ قرارات أفضل.',
+        'svc4': 'تطوير نظم ERP',
+        'svc4-desc': 'أنظمة ERP مخصصة لعمليات عملك واحتياجات قطاعك.',
+        'svc5': 'برمجيات مخصصة',
+        'svc5-desc': 'تطبيقات ويب وهواتف محمولة قابلة للتوسع لمتطلبات الأعمال المعقدة.',
+        'svc6': 'السحابة و DevOps',
+        'svc6-desc': 'هندسة السحابة، مسارات CI/CD وأتمتة البنية التحتية.',
+        'svc7': 'استشارات تقنية',
+        'svc7-desc': 'توجيه استراتيجي تقني واستشارات في التحول الرقمي.',
+        'solutions-title': 'مجالات الحلول',
+        'solutions-sub': 'خبرة يمكننا تطبيقها على تحديات عملك',
+        'sol1': 'منصة ERP للبيع بالتجزئة',
+        'sol1-desc': 'نظام كامل لإدارة المخزون والطلبات وسلسلة التوريد لعمليات البيع بالتجزئة.',
+        'sol2': 'ERP لإدارة المطاعم',
+        'sol2-desc': 'حل متكامل للمخزون وجدولة الموظفين والحجوزات والتحليلات.',
+        'sol3': 'لوحة تحليل مالية',
+        'sol3-desc': 'مقاييس مالية فورية وتنبؤ ومنصة تقارير.',
+        'sol4': 'مساعد دعم العملاء بالذكاء الاصطناعي',
+        'sol4-desc': 'نظام دردشة ذكي ونظام تذاكر لخدمة عملاء آلية.',
+        'sol5': 'نظام التنبؤ بالمخزون',
+        'sol5-desc': 'توقع الطلب وتحسين المخزون بتقنية تعلم الآلة.',
+        'sol6': 'منصة ذكاء الأعمال',
+        'sol6-desc': 'منصة تحليلات مخصصة مع لوحات تحكم وتقارير تفاعلية.',
+        'about-title': 'من نحن',
+        'about-p1': 'NOOR TECHNOLOGIES LABS هي شركة تقنية تعمل عن بعد متخصصة في الذكاء الاصطناعي وعلوم البيانات وتطوير برمجيات المؤسسات.',
+        'about-p2': 'نجمع المهندسين وعلماء البيانات ومستشاري التكنولوجيا المتحمسين لبناء حلول رقمية مبتكرة للشركات الحديثة.',
+        'about-badge1': 'العمل عن بعد',
+        'about-badge2': 'التسليم المرن',
+        'about-badge3': 'وصول عالمي',
+        'about-approach': 'نهجنا',
+        'about-approach1': 'نجمع بين التميز التقني والفهم العميق لاحتياجات العمل. كل حل نبنيّه مخصص وقابل للتوسع ومصمم لإحداث تأثير حقيقي.',
+        'about-approach2': 'تضمن منهجيتنا المرنة الشفافية والتعاون طوال عملية التطوير، من المفهوم الأولي إلى التسليم النهائي.',
+        'careers-title': 'انضم إلى فريقنا',
+        'careers-sub': 'فرص تعلم عن بعد • تجربة مشاريع حقيقية',
+        'intern1-badge': 'تدريب عن بعد',
+        'intern1-title': 'مطور ERP للمطاعم',
+        'intern1-desc': 'بناء نظام ERP كامل لسلاسل المطاعم يشمل المخزون وإدارة الطلبات والتحليلات.',
+        'intern1-btn': 'قدم الآن',
+        'intern2-badge': 'تدريب عن بعد',
+        'intern2-title': 'مهندس ERP لتأجير الدراجات',
+        'intern2-desc': 'تطوير حل ERP لشركات تأجير الدراجات يشمل إدارة الأسطول والحجوزات ومحركات التسعير.',
+        'intern2-btn': 'قدم الآن',
+        'contact-title': 'لنعمل معاً',
+        'contact-desc': 'مستعد لمناقشة مشروعك؟ تواصل معنا عبر واتساب أو املأ النموذج أدناه.',
+        'contact-btn': 'أرسل عبر واتساب →',
+        'contact-remote': 'شركة تعمل عن بعد',
+        'contact-remote-desc': 'نخدم عملاء حول العالم من فريقنا الموزع. لا يوجد مكتب فعلي — فقط مواهب في جميع أنحاء العالم.',
+        'contact-call': 'جدولة مكالمة استكشافية',
+        'footer': '© 2025 NOOR TECHNOLOGIES LABS — شركة تقنية تعمل عن بعد. نبني برمجيات ذكية للأعمال الحديثة.'
+      }
+    };
+
+    let currentLang = 'en';
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lang === lang) btn.classList.add('active');
+      });
+      
+      document.body.classList.remove('lang-en', 'lang-fr', 'lang-ar');
+      document.body.classList.add('lang-' + lang);
+      
+      if (lang === 'ar') {
+        document.body.style.direction = 'rtl';
+        document.body.style.textAlign = 'right';
+      } else {
+        document.body.style.direction = 'ltr';
+        document.body.style.textAlign = 'left';
+      }
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[lang] && translations[lang][key]) {
+          if (key === 'hero-title') {
+            el.innerHTML = translations[lang][key];
+          } else {
+            el.textContent = translations[lang][key];
+          }
+        }
+      });
+      
+      const robotMessages = {
+        en: '👋 Hello! I\'m NOOR',
+        fr: '👋 Bonjour! Je suis NOOR',
+        ar: '👋 مرحباً! أنا NOOR'
+      };
+      const bubbleText = document.getElementById('bubbleText');
+      if (bubbleText && robotMessages[lang]) {
+        bubbleText.textContent = robotMessages[lang];
+      }
+      
+      updateChatbotLanguage(lang);
+    }
+
+    function updateChatbotLanguage(lang) {
+      const welcomeMsg = document.querySelector('.chatbot-messages .bot-msg');
+      if (welcomeMsg) {
+        const msgs = {
+          en: '🤖 Hello! I\'m NOOR\'s AI assistant. How can I help you?',
+          fr: '🤖 Bonjour! Je suis l\'assistant IA de NOOR. Comment puis-je vous aider?',
+          ar: '🤖 مرحباً! أنا مساعد NOOR الذكي. كيف يمكنني مساعدتك؟'
+        };
+        welcomeMsg.textContent = msgs[lang] || msgs.en;
+      }
+      
+      const buttons = document.querySelectorAll('#initialButtons button');
+      const btnLabels = {
+        en: ['AI Solutions', 'ERP Development', 'Special Offers', 'Internships', 'Contact Sales', 'About Company'],
+        fr: ['Solutions IA', 'Développement ERP', 'Offres Spéciales', 'Stages', 'Ventes', 'À propos'],
+        ar: ['حلول الذكاء الاصطناعي', 'تطوير ERP', 'عروض خاصة', 'تدريب', 'اتصال', 'عن الشركة']
+      };
+      const icons = ['brain', 'cubes', 'tag', 'graduation-cap', 'envelope', 'building'];
+      buttons.forEach((btn, idx) => {
+        if (btnLabels[lang] && btnLabels[lang][idx]) {
+          btn.innerHTML = `<i class="fas fa-${icons[idx]}"></i> ${btnLabels[lang][idx]}`;
+        }
+      });
+    }
+
+    // ===== THEME SWITCHER =====
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
     const icon = themeToggle.querySelector('i');
@@ -860,22 +1751,47 @@
     setTheme(localStorage.getItem('theme') || 'light');
     themeToggle.onclick = () => setTheme(body.classList.contains('light') ? 'dark' : 'light');
 
+    // ===== CONTACT FORM =====
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      document.getElementById('formMessage').innerHTML = '✅ Thank you! We will respond within 2 business days.';
+      const name = document.getElementById('formName').value || 'Client';
+      const email = document.getElementById('formEmail').value || 'Not provided';
+      const company = document.getElementById('formCompany').value || 'Not provided';
+      const message = document.getElementById('formMessageText').value || 'No message provided';
+      
+      const whatsappMessage = `Hello NOOR Technologies Labs!%0A%0A*My Details:*%0A👤 Name: ${name}%0A📧 Email: ${email}%0A🏢 Company: ${company}%0A%0A*My Project:*%0A${message}%0A%0AI'm interested in your services. Please contact me.`;
+      
+      window.open(`https://wa.me/212624694039?text=${whatsappMessage}`, '_blank');
+      
+      document.getElementById('formMessage').innerHTML = '✅ Redirecting to WhatsApp...';
       this.reset();
     });
 
+    // ===== MOBILE MENU =====
     const mobileBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.querySelector('.nav-links');
+    const navLinks = document.getElementById('navLinks');
     if (mobileBtn) {
       mobileBtn.addEventListener('click', () => {
-        if (navLinks.style.display === 'flex') navLinks.style.display = 'none';
-        else { navLinks.style.display = 'flex'; navLinks.style.flexDirection = 'column'; navLinks.style.position = 'absolute'; navLinks.style.top = '80px'; navLinks.style.left = '0'; navLinks.style.right = '0'; navLinks.style.padding = '20px'; navLinks.style.gap = '16px'; navLinks.style.zIndex = '99'; navLinks.style.background = body.classList.contains('light') ? '#ffffff' : '#0f0a1a'; navLinks.style.borderBottom = '1px solid #a855f7'; }
+        if (navLinks.style.display === 'flex') {
+          navLinks.style.display = 'none';
+        } else {
+          navLinks.style.display = 'flex';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '70px';
+          navLinks.style.left = '0';
+          navLinks.style.right = '0';
+          navLinks.style.padding = '20px';
+          navLinks.style.gap = '12px';
+          navLinks.style.zIndex = '99';
+          navLinks.style.background = body.classList.contains('light') ? '#ffffff' : '#0f0a1a';
+          navLinks.style.borderBottom = '1px solid #a855f7';
+          navLinks.style.alignItems = 'center';
+        }
       });
     }
 
-    // Chatbot
+    // ===== CHATBOT =====
     const chatbotToggle = document.getElementById('chatbotToggle');
     const chatbotWindow = document.getElementById('chatbotWindow');
     const closeChat = document.getElementById('closeChat');
@@ -894,12 +1810,17 @@
       if (showButtons) {
         const btnGroup = document.createElement('div');
         btnGroup.className = 'chatbot-msg-buttons';
-        const actions = ['ai', 'erp', 'internship', 'contact', 'about'];
-        const labels = ['AI Solutions', 'ERP Development', 'Internships', 'Contact Sales', 'About Company'];
-        const icons = ['brain', 'cubes', 'graduation-cap', 'envelope', 'building'];
+        const actions = ['ai', 'erp', 'offers', 'internship', 'contact', 'about'];
+        const labels = {
+          en: ['AI Solutions', 'ERP Development', 'Special Offers', 'Internships', 'Contact Sales', 'About Company'],
+          fr: ['Solutions IA', 'Développement ERP', 'Offres Spéciales', 'Stages', 'Ventes', 'À propos'],
+          ar: ['حلول الذكاء الاصطناعي', 'تطوير ERP', 'عروض خاصة', 'تدريب', 'اتصال', 'عن الشركة']
+        };
+        const icons = ['brain', 'cubes', 'tag', 'graduation-cap', 'envelope', 'building'];
+        const currentLangLabels = labels[currentLang] || labels.en;
         actions.forEach((action, idx) => {
           const btn = document.createElement('button');
-          btn.innerHTML = `<i class="fas fa-${icons[idx]}"></i> ${labels[idx]}`;
+          btn.innerHTML = `<i class="fas fa-${icons[idx]}"></i> ${currentLangLabels[idx]}`;
           btn.setAttribute('data-action', action);
           btn.onclick = () => handleAction(action, btn);
           btnGroup.appendChild(btn);
@@ -919,11 +1840,30 @@
     }
 
     const responses = {
-      ai: "🤖 AI Solutions at NOOR Labs\n\nWe offer:\n• Generative AI & LLM integration\n• Predictive analytics & forecasting\n• Computer vision solutions\n• Natural Language Processing\n• Custom AI model development\n\nWant to discuss your AI project? Contact us through the form above!",
-      erp: "📦 ERP Development Expertise\n\nWe build custom ERP solutions for:\n• Restaurant chains (inventory, orders, kitchen display)\n• Bike rental fleets (pricing, bookings, maintenance)\n• Manufacturing & logistics\n• Financial institutions\n\nCheck our Internships section to build real ERP systems!",
-      internship: "💼 Current Internship Openings\n\n1. Restaurant ERP Developer - Build full restaurant management ERP\n2. Bike Rental ERP Engineer - Fleet management & booking platform\n\n📧 Send your resume to careers@noorlabs.com",
-      contact: "📞 Ready to transform your business?\n\nOur team is available for:\n• AI implementation consulting\n• Custom ERP development\n• Data analytics & BI dashboards\n• Cloud migration\n\nFill out the contact form above or email us at hello@noorlabs.com",
-      about: "🏢 NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in AI, data science, and enterprise software development. We're a distributed team of engineers and consultants focused on delivering innovative digital solutions."
+      en: {
+        ai: "🤖 AI Solutions at NOOR Labs\n\nWe offer:\n• Generative AI & LLM integration\n• Predictive analytics & forecasting\n• Computer vision solutions\n• Natural Language Processing\n• Custom AI model development\n\nWant to discuss your AI project? Contact us through WhatsApp or the form above!",
+        erp: "📦 ERP Development Expertise\n\nWe build custom ERP solutions for:\n• Restaurant chains (inventory, orders, kitchen display)\n• Bike rental fleets (pricing, bookings, maintenance)\n• Manufacturing & logistics\n• Financial institutions\n\nCheck our Special Offers section for discounted packages!",
+        offers: "🏷️ Our Premium Offers\n\n1. Website Package: 3,000 DH + 1,000 DH maintenance\n2. Business ERP System: 5,000 DH + 1,500 DH maintenance\n3. ERP + Report Automation: 7,000 DH + 2,000 DH maintenance\n4. ERP + Full Automation: 10,000 DH + 3,000 DH maintenance\n\nAll offers include 20% discount and modification rights. Contact us via WhatsApp for details!",
+        internship: "💼 Current Internship Openings\n\n1. Restaurant ERP Developer - Build full restaurant management ERP\n2. Bike Rental ERP Engineer - Fleet management & booking platform\n\n📧 Send your resume to careers@noorlabs.com",
+        contact: "📞 Ready to transform your business?\n\nOur team is available for:\n• AI implementation consulting\n• Custom ERP development\n• Data analytics & BI dashboards\n• Cloud migration\n\nReach out via WhatsApp: +212 624 694 039 or email: hello@noorlabs.com",
+        about: "🏢 NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in AI, data science, and enterprise software development. We're a distributed team of engineers and consultants focused on delivering innovative digital solutions."
+      },
+      fr: {
+        ai: "🤖 Solutions IA chez NOOR Labs\n\nNous offrons:\n• Intégration IA générative & LLM\n• Analytique prédictive & prévisions\n• Solutions de vision par ordinateur\n• Traitement du langage naturel\n• Développement de modèles IA personnalisés\n\nVous souhaitez discuter de votre projet IA? Contactez-nous via WhatsApp ou le formulaire ci-dessus!",
+        erp: "📦 Expertise en développement ERP\n\nNous construisons des solutions ERP sur mesure pour:\n• Chaînes de restaurants (inventaire, commandes, affichage cuisine)\n• Flottes de vélos en location (tarification, réservations, maintenance)\n• Industrie & logistique\n• Institutions financières\n\nConsultez notre section Offres Spéciales pour des forfaits à prix réduits!",
+        offers: "🏷️ Nos offres premium\n\n1. Site Web Pro: 3 000 DH + 1 000 DH maintenance\n2. Système ERP Business: 5 000 DH + 1 500 DH maintenance\n3. ERP + Automatisation des rapports: 7 000 DH + 2 000 DH maintenance\n4. ERP + Automatisation complète: 10 000 DH + 3 000 DH maintenance\n\nToutes les offres incluent 20% de réduction et des droits de modification. Contactez-nous via WhatsApp!",
+        internship: "💼 Offres de stage actuelles\n\n1. Développeur ERP Restaurant - Construire un ERP complet de gestion de restaurant\n2. Ingénieur ERP Location de Vélos - Gestion de flotte et plateforme de réservation\n\n📧 Envoyez votre CV à careers@noorlabs.com",
+        contact: "📞 Prêt à transformer votre entreprise?\n\nNotre équipe est disponible pour:\n• Conseil en mise en œuvre IA\n• Développement ERP sur mesure\n• Analytique de données & tableaux de bord BI\n• Migration cloud\n\nContactez-nous via WhatsApp: +212 624 694 039 ou email: hello@noorlabs.com",
+        about: "🏢 NOOR TECHNOLOGIES LABS est une entreprise technologique remote-first spécialisée en IA, science des données et développement de logiciels d'entreprise. Nous sommes une équipe distribuée d'ingénieurs et consultants dédiés à des solutions digitales innovantes."
+      },
+      ar: {
+        ai: "🤖 حلول الذكاء الاصطناعي في NOOR Labs\n\nنقدم:\n• تكامل الذكاء الاصطناعي التوليدي و LLM\n• التحليلات التنبؤية والتوقعات\n• حلول الرؤية الحاسوبية\n• معالجة اللغة الطبيعية\n• تطوير نماذج ذكاء اصطناعي مخصصة\n\nترغب في مناقشة مشروع الذكاء الاصطناعي الخاص بك؟ تواصل معنا عبر واتساب أو النموذج أعلاه!",
+        erp: "📦 خبرة في تطوير نظم ERP\n\nنبني حلول ERP مخصصة لـ:\n• سلاسل المطاعم (المخزون، الطلبات، شاشات المطبخ)\n• تأجير الدراجات (التسعير، الحجوزات، الصيانة)\n• التصنيع والخدمات اللوجستية\n• المؤسسات المالية\n\nتحقق من قسم العروض الخاصة للحصول على باقات مخفضة!",
+        offers: "🏷️ عروضنا المميزة\n\n1. موقع ويب احترافي: 3,000 درهم + 1,000 درهم صيانة\n2. نظام ERP للأعمال: 5,000 درهم + 1,500 درهم صيانة\n3. ERP + أتمتة التقارير: 7,000 درهم + 2,000 درهم صيانة\n4. ERP + أتمتة كاملة: 10,000 درهم + 3,000 درهم صيانة\n\nجميع العروض تشمل خصم 20% وحقوق تعديل. تواصل معنا عبر واتساب للتفاصيل!",
+        internship: "💼 فرص التدريب الحالية\n\n1. مطور ERP للمطاعم - بناء نظام ERP كامل لإدارة المطاعم\n2. مهندس ERP لتأجير الدراجات - إدارة الأسطول ومنصة الحجز\n\n📧 أرسل سيرتك الذاتية إلى careers@noorlabs.com",
+        contact: "📞 مستعد لتحويل عملك؟\n\nفريقنا متاح لـ:\n• استشارات تنفيذ الذكاء الاصطناعي\n• تطوير ERP مخصص\n• تحليلات البيانات ولوحات BI\n• الانتقال إلى السحابة\n\nتواصل عبر واتساب: +212 624 694 039 أو البريد الإلكتروني: hello@noorlabs.com",
+        about: "🏢 NOOR TECHNOLOGIES LABS هي شركة تقنية تعمل عن بعد متخصصة في الذكاء الاصطناعي وعلوم البيانات وتطوير برمجيات المؤسسات. نحن فريق موزع من المهندسين والمستشارين المكرسين لتقديم حلول رقمية مبتكرة."
+      }
     };
 
     async function handleAction(action, buttonElement) {
@@ -934,7 +1874,8 @@
       await new Promise(r => setTimeout(r, 600));
       typing.remove();
       
-      addBotMessage(responses[action], true);
+      const responseText = responses[currentLang] ? responses[currentLang][action] : responses.en[action];
+      addBotMessage(responseText, true);
       
       if (buttonElement && buttonElement.parentElement) {
         buttonElement.parentElement.remove();
