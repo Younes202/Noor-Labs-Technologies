@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
 
   <style>
     /* ============ DESIGN TOKENS (brand purple kept from original) ============ */
@@ -732,6 +733,79 @@
     .typing-indicator span:nth-child(3) { animation-delay: .4s; }
     @keyframes typingBounce { 0%,60%,100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-6px); opacity: 1; } }
 
+    /* ============ QUOTE SIMULATOR ============ */
+    .quote-grid { display: grid; grid-template-columns: 1.25fr .9fr; gap: 24px; align-items: start; }
+    .quote-form { padding: 34px; }
+    .q-step { margin-bottom: 30px; }
+    .q-step:last-child { margin-bottom: 0; }
+    .q-label {
+      display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; margin-bottom: 14px;
+    }
+    .q-label .q-n {
+      width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #fff; background: var(--grad);
+    }
+    .q-packages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .q-pkg {
+      position: relative; cursor: pointer; padding: 16px; border-radius: 18px;
+      border: 1px solid var(--border); background: var(--bg-alt);
+      transition: border-color .25s, box-shadow .25s, transform .25s var(--ease);
+    }
+    body.dark .q-pkg { background: rgba(15,10,26,.5); }
+    .q-pkg:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+    .q-pkg input { position: absolute; opacity: 0; pointer-events: none; }
+    .q-pkg .q-pkg-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .q-pkg .q-pkg-top i { color: var(--p2); font-size: 18px; }
+    .q-pkg .q-pkg-name { font-weight: 600; font-size: 14px; }
+    .q-pkg .q-pkg-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; }
+    .q-pkg .q-pkg-price s { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; color: var(--muted); margin-inline-start: 6px; }
+    .q-pkg .q-check {
+      position: absolute; top: 14px; inset-inline-end: 14px; width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--border-strong); transition: all .25s;
+    }
+    .q-pkg.selected { border-color: var(--p2); box-shadow: 0 0 0 3px rgba(168,85,247,.2), 0 12px 30px -10px rgba(168,85,247,.45); }
+    .q-pkg.selected .q-check { background: var(--grad); border-color: transparent; box-shadow: inset 0 0 0 4px var(--bg-alt); }
+    body.dark .q-pkg.selected .q-check { box-shadow: inset 0 0 0 4px #150d25; }
+    .q-seg { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 5px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); }
+    body.dark .q-seg { background: rgba(15,10,26,.5); }
+    .q-seg button {
+      border: none; background: transparent; color: var(--muted); font-family: inherit; font-weight: 600; font-size: 13px;
+      padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: all .25s;
+    }
+    .q-seg button.active { background: var(--grad); color: #fff; box-shadow: 0 6px 16px rgba(168,85,247,.35); }
+    .q-client { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .q-hint { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+    .q-error { color: #ef4444; font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+    .quote-summary { padding: 30px; position: sticky; top: 96px; }
+    .qs-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .qs-head h3 { font-size: 18px; display: flex; gap: 10px; align-items: center; }
+    .qs-head h3 i { color: var(--p2); }
+    .qs-lines { list-style: none; border-top: 1px dashed var(--border); }
+    .qs-lines li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 14px; }
+    .qs-lines li span:first-child { color: var(--muted); }
+    .qs-lines li span:last-child { font-weight: 600; white-space: nowrap; }
+    .qs-lines li.discount span:last-child { color: #22c55e; }
+    .qs-total { display: flex; justify-content: space-between; align-items: flex-end; margin: 22px 0 6px; }
+    .qs-total .lbl { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .qs-total .val {
+      font-family: 'Space Grotesk', sans-serif; font-size: 38px; font-weight: 700; line-height: 1;
+      background: var(--heading-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .qs-save { font-size: 13px; color: #22c55e; text-align: end; margin-bottom: 22px; }
+    .qs-actions { display: grid; gap: 10px; }
+    .qs-actions .btn-primary, .qs-actions .btn-outline { justify-content: center; width: 100%; }
+    .qs-note { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.6; }
+
+    @media (max-width: 960px) {
+      .quote-grid { grid-template-columns: 1fr; }
+      .quote-summary { position: static; }
+    }
+    @media (max-width: 560px) {
+      .q-packages, .q-client { grid-template-columns: 1fr; }
+      .quote-form, .quote-summary { padding: 24px 20px; }
+    }
+
     /* ============ REVEAL ON SCROLL ============ */
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
     .reveal.in { opacity: 1; transform: none; }
@@ -817,6 +891,7 @@
         <a href="#" data-i18n="nav-home">Home</a>
         <a href="#services" data-i18n="nav-services">Services</a>
         <a href="#offers" data-i18n="nav-offers">Offers</a>
+        <a href="#quote" data-i18n="nav-quote">Quote</a>
         <a href="#solutions" data-i18n="nav-solutions">Solutions</a>
         <a href="#about" data-i18n="nav-about">About</a>
         <a href="#careers" data-i18n="nav-careers">Careers</a>
@@ -1008,6 +1083,68 @@
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20ERP%20+%20Full%20Automation%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer4-btn">Get this offer</span></button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE SIMULATOR -->
+  <section id="quote" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Quote</div>
+        <h2 class="section-title" data-i18n="q-title">Simulate your quote</h2>
+        <p class="section-subtitle" data-i18n="q-sub">Choose your package and options, see the price instantly, and download your quote as a PDF.</p>
+      </div>
+      <div class="quote-grid">
+        <div class="quote-form glass reveal">
+          <div class="q-step">
+            <div class="q-label"><span class="q-n">1</span><span data-i18n="q-step1">Choose your package</span></div>
+            <div class="q-packages" id="qPackages"></div>
+          </div>
+          <div class="q-step">
+            <div class="q-label"><span class="q-n">2</span><span data-i18n="q-step2">Maintenance & support</span></div>
+            <div class="q-seg" id="qYears">
+              <button type="button" data-years="0" data-i18n="q-y0">None</button>
+              <button type="button" data-years="1" class="active" data-i18n="q-y1">1 year</button>
+              <button type="button" data-years="2" data-i18n="q-y2">2 years</button>
+              <button type="button" data-years="3" data-i18n="q-y3">3 years</button>
+            </div>
+          </div>
+          <div class="q-step">
+            <div class="q-label"><span class="q-n">3</span><span data-i18n="q-step3">Currency</span></div>
+            <div class="q-seg" id="qCurrency">
+              <button type="button" data-cur="ar">MAD (DH)</button>
+              <button type="button" data-cur="fr">EUR (€)</button>
+              <button type="button" data-cur="en">USD ($)</button>
+            </div>
+          </div>
+          <div class="q-step">
+            <div class="q-label"><span class="q-n">4</span><span data-i18n="q-step4">Your details</span></div>
+            <div class="q-client">
+              <input type="text" class="contact-input" id="qName" placeholder="Full name *">
+              <input type="text" class="contact-input" id="qCompany" placeholder="Company name">
+              <input type="email" class="contact-input" id="qEmail" placeholder="Email address">
+              <input type="tel" class="contact-input" id="qPhone" placeholder="Phone">
+            </div>
+            <div class="q-hint" data-i18n="q-hint">Your details appear on the PDF quote. Nothing is stored on our side.</div>
+            <div class="q-error" id="qError"></div>
+          </div>
+        </div>
+
+        <aside class="quote-summary glass reveal" style="--d:.12s">
+          <div class="qs-head">
+            <h3><i class="fas fa-file-invoice"></i> <span data-i18n="q-summary">Your estimate</span></h3>
+            <span class="live-dot">live</span>
+          </div>
+          <ul class="qs-lines" id="qLines"></ul>
+          <div class="qs-total"><span class="lbl" data-i18n="q-total">Total</span><span class="val" id="qTotal">—</span></div>
+          <div class="qs-save" id="qSave"></div>
+          <div class="qs-actions">
+            <button type="button" class="btn-primary" id="qPdfBtn"><i class="fas fa-file-pdf"></i> <span data-i18n="q-pdf">Download PDF quote</span></button>
+            <button type="button" class="btn-outline" id="qWaBtn"><i class="fab fa-whatsapp"></i> <span data-i18n="q-wa">Send this quote on WhatsApp</span></button>
+          </div>
+          <p class="qs-note" data-i18n="q-note">Indicative quote based on our current offers (20% discount included). Final price confirmed after a free discovery call.</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -1941,7 +2078,7 @@
         navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['home', 'services', 'offers', 'solutions', 'about', 'careers', 'contact'].forEach(id => {
+    ['home', 'services', 'offers', 'quote', 'solutions', 'about', 'careers', 'contact'].forEach(id => {
       const s = document.getElementById(id);
       if (s) sectionObserver.observe(s);
     });
@@ -2099,6 +2236,304 @@
       }, 38);
     }
     typeLine();
+    // ===== QUOTE SIMULATOR + PDF =====
+    const quoteI18n = {
+      en: {
+        'nav-quote': 'Quote',
+        'q-title': 'Simulate your quote',
+        'q-sub': 'Choose your package and options, see the price instantly, and download your quote as a PDF.',
+        'q-step1': 'Choose your package', 'q-step2': 'Maintenance & support', 'q-step3': 'Currency', 'q-step4': 'Your details',
+        'q-y0': 'None', 'q-y1': '1 year', 'q-y2': '2 years', 'q-y3': '3 years',
+        'q-hint': 'Your details appear on the PDF quote. Nothing is stored on our side.',
+        'q-summary': 'Your estimate', 'q-total': 'Total',
+        'q-pdf': 'Download PDF quote', 'q-wa': 'Send this quote on WhatsApp',
+        'q-note': 'Indicative quote based on our current offers (20% discount included). Final price confirmed after a free discovery call.',
+        'q-discount': 'Launch discount (−20%)', 'q-maint': 'Maintenance', 'q-years-unit': 'yr', 'q-save': 'You save',
+        'q-err-name': 'Please enter your name to generate the quote.',
+        'q-generating': 'Generating…',
+        'q-ph-name': 'Full name *', 'q-ph-company': 'Company name', 'q-ph-email': 'Email address', 'q-ph-phone': 'Phone',
+        'q-pdf-title': 'QUOTE', 'q-no': 'Quote No.', 'q-date': 'Date', 'q-from': 'From', 'q-to': 'Prepared for',
+        'q-desc': 'Description', 'q-qty': 'Qty', 'q-unit': 'Unit price', 'q-amount': 'Amount',
+        'q-subtotal': 'Subtotal', 'q-included': "What's included", 'q-company-tag': 'Remote-first technology company',
+        'q-thanks': 'Thank you for your interest in NOOR TECHNOLOGIES LABS.', 'q-file': 'NoorLabs-Quote',
+        'q-wa-intro': 'Hello NOOR Technologies Labs! Here is my quote simulation:'
+      },
+      fr: {
+        'nav-quote': 'Devis',
+        'q-title': 'Simulez votre devis',
+        'q-sub': 'Choisissez votre offre et vos options, voyez le prix instantanément et téléchargez votre devis en PDF.',
+        'q-step1': 'Choisissez votre offre', 'q-step2': 'Maintenance & support', 'q-step3': 'Devise', 'q-step4': 'Vos informations',
+        'q-y0': 'Aucune', 'q-y1': '1 an', 'q-y2': '2 ans', 'q-y3': '3 ans',
+        'q-hint': 'Vos informations apparaissent sur le devis PDF. Rien n\'est enregistré de notre côté.',
+        'q-summary': 'Votre estimation', 'q-total': 'Total',
+        'q-pdf': 'Télécharger le devis PDF', 'q-wa': 'Envoyer ce devis sur WhatsApp',
+        'q-note': 'Devis indicatif basé sur nos offres actuelles (remise de 20% incluse). Prix final confirmé après un appel de découverte gratuit.',
+        'q-discount': 'Remise de lancement (−20%)', 'q-maint': 'Maintenance', 'q-years-unit': 'an(s)', 'q-save': 'Vous économisez',
+        'q-err-name': 'Veuillez saisir votre nom pour générer le devis.',
+        'q-generating': 'Génération…',
+        'q-ph-name': 'Nom complet *', 'q-ph-company': 'Nom de l\'entreprise', 'q-ph-email': 'Adresse email', 'q-ph-phone': 'Téléphone',
+        'q-pdf-title': 'DEVIS', 'q-no': 'Devis N°', 'q-date': 'Date', 'q-from': 'De', 'q-to': 'Préparé pour',
+        'q-desc': 'Description', 'q-qty': 'Qté', 'q-unit': 'Prix unitaire', 'q-amount': 'Montant',
+        'q-subtotal': 'Sous-total', 'q-included': 'Ce qui est inclus', 'q-company-tag': 'Entreprise technologique remote-first',
+        'q-thanks': 'Merci pour votre intérêt pour NOOR TECHNOLOGIES LABS.', 'q-file': 'NoorLabs-Devis',
+        'q-wa-intro': 'Bonjour NOOR Technologies Labs ! Voici ma simulation de devis :'
+      },
+      ar: {
+        'nav-quote': 'عرض سعر',
+        'q-title': 'احسب عرض السعر الخاص بك',
+        'q-sub': 'اختر الباقة والخيارات، شاهد السعر فوراً، وحمّل عرض السعر بصيغة PDF.',
+        'q-step1': 'اختر الباقة', 'q-step2': 'الصيانة والدعم', 'q-step3': 'العملة', 'q-step4': 'معلوماتك',
+        'q-y0': 'بدون', 'q-y1': 'سنة', 'q-y2': 'سنتان', 'q-y3': '3 سنوات',
+        'q-hint': 'تظهر معلوماتك في ملف PDF فقط. لا نقوم بتخزين أي شيء.',
+        'q-summary': 'تقديرك', 'q-total': 'المجموع',
+        'q-pdf': 'تحميل عرض السعر PDF', 'q-wa': 'إرسال العرض عبر واتساب',
+        'q-note': 'عرض سعر تقديري حسب عروضنا الحالية (خصم 20% مشمول). يتم تأكيد السعر النهائي بعد مكالمة استكشافية مجانية.',
+        'q-discount': 'خصم الإطلاق (−20%)', 'q-maint': 'الصيانة', 'q-years-unit': 'سنة', 'q-save': 'توفر',
+        'q-err-name': 'يرجى إدخال اسمك لإنشاء عرض السعر.',
+        'q-generating': 'جارٍ الإنشاء…',
+        'q-ph-name': 'الاسم الكامل *', 'q-ph-company': 'اسم الشركة', 'q-ph-email': 'البريد الإلكتروني', 'q-ph-phone': 'الهاتف',
+        'q-pdf-title': 'عرض سعر', 'q-no': 'رقم العرض', 'q-date': 'التاريخ', 'q-from': 'من', 'q-to': 'مُعد لـ',
+        'q-desc': 'الوصف', 'q-qty': 'الكمية', 'q-unit': 'سعر الوحدة', 'q-amount': 'المبلغ',
+        'q-subtotal': 'المجموع الفرعي', 'q-included': 'ما يشمله العرض', 'q-company-tag': 'شركة تقنية تعمل عن بعد',
+        'q-thanks': 'شكراً لاهتمامك بـ NOOR TECHNOLOGIES LABS.', 'q-file': 'NoorLabs-Quote',
+        'q-wa-intro': 'مرحباً NOOR Technologies Labs! هذه محاكاة عرض السعر الخاصة بي:'
+      }
+    };
+    for (const l in quoteI18n) Object.assign(translations[l], quoteI18n[l]);
+
+    // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
+    const quote = { pkg: 2, years: 1, cur: null };
+    const PKG_ICONS = ['code', 'cogs', 'chart-pie', 'robot'];
+    const toNum = s => parseFloat(String(s).replace(/,/g, ''));
+    const quoteCur = () => quote.cur || currentLang;
+    function money(n, cur = quoteCur()) {
+      const s = Math.round(n).toLocaleString('en-US');
+      if (cur === 'en') return '$' + s;
+      if (cur === 'fr') return s + ' €';
+      return s + ' DH';
+    }
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function quoteData() {
+      const cur = quoteCur(), p = translations[cur], t = translations[currentLang], i = quote.pkg;
+      const original = toNum(p[`offer${i}-original`]);
+      const price = toNum(p[`offer${i}-price`]);
+      const maint = toNum(p[`offer${i}-maintenance`]);
+      const maintTotal = maint * quote.years;
+      return {
+        cur, original, price, maint, maintTotal,
+        discount: original - price,
+        subtotal: original + maintTotal,
+        total: price + maintTotal,
+        title: t[`offer${i}-title`],
+        desc: t[`offer${i}-desc`],
+        features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).filter(Boolean)
+      };
+    }
+
+    function renderPackages() {
+      const box = document.getElementById('qPackages');
+      const cur = quoteCur();
+      box.innerHTML = [1, 2, 3, 4].map(i => {
+        const p = translations[cur];
+        return `<label class="q-pkg${quote.pkg === i ? ' selected' : ''}" data-pkg="${i}">
+          <input type="radio" name="qPkg" value="${i}"${quote.pkg === i ? ' checked' : ''}>
+          <span class="q-check"></span>
+          <div class="q-pkg-top"><i class="fas fa-${PKG_ICONS[i - 1]}"></i><span class="q-pkg-name">${esc(translations[currentLang][`offer${i}-title`])}</span></div>
+          <div class="q-pkg-price">${money(toNum(p[`offer${i}-price`]))}<s>${money(toNum(p[`offer${i}-original`]))}</s></div>
+        </label>`;
+      }).join('');
+      box.querySelectorAll('.q-pkg').forEach(el => el.addEventListener('click', () => {
+        quote.pkg = +el.dataset.pkg;
+        renderPackages(); renderQuote();
+      }));
+    }
+
+    function renderQuote() {
+      const t = translations[currentLang], d = quoteData();
+      const lines = [
+        [d.title, money(d.original)],
+        [t['q-discount'], '−' + money(d.discount), 'discount']
+      ];
+      if (quote.years > 0) lines.push([`${t['q-maint']} (${quote.years} ${t['q-years-unit']} × ${money(d.maint)})`, money(d.maintTotal)]);
+      document.getElementById('qLines').innerHTML = lines
+        .map(([a, b, cls]) => `<li${cls ? ` class="${cls}"` : ''}><span>${esc(a)}</span><span>${b}</span></li>`).join('');
+      document.getElementById('qTotal').textContent = money(d.total);
+      document.getElementById('qSave').textContent = `${t['q-save']} ${money(d.discount)}`;
+      document.querySelectorAll('#qYears button').forEach(b => b.classList.toggle('active', +b.dataset.years === quote.years));
+      document.querySelectorAll('#qCurrency button').forEach(b => b.classList.toggle('active', b.dataset.cur === d.cur));
+    }
+
+    document.querySelectorAll('#qYears button').forEach(b => b.addEventListener('click', () => {
+      quote.years = +b.dataset.years; renderQuote();
+    }));
+    document.querySelectorAll('#qCurrency button').forEach(b => b.addEventListener('click', () => {
+      quote.cur = b.dataset.cur; renderPackages(); renderQuote();
+    }));
+
+    function quoteClient() {
+      const v = id => document.getElementById(id).value.trim();
+      return { name: v('qName'), company: v('qCompany'), email: v('qEmail'), phone: v('qPhone') };
+    }
+    function requireName(client) {
+      const err = document.getElementById('qError');
+      if (client.name) { err.textContent = ''; return true; }
+      err.textContent = translations[currentLang]['q-err-name'];
+      document.getElementById('qName').focus();
+      return false;
+    }
+    function quoteNumber() {
+      const d = new Date(), pad = n => String(n).padStart(2, '0');
+      return `NL-${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+
+    function buildQuotePdfElement(client, no) {
+      const t = translations[currentLang], d = quoteData();
+      // prices are isolated LTR so they keep their order inside Arabic layouts
+      const pm = n => `<span dir="ltr" style="display:inline-block;unicode-bidi:isolate;">${n < 0 ? '−' : ''}${money(Math.abs(n))}</span>`;
+      const rtl = currentLang === 'ar';
+      const font = rtl ? "'Noto Kufi Arabic', 'Inter', sans-serif" : "'Inter', sans-serif";
+      const dateStr = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-MA' : currentLang === 'fr' ? 'fr-FR' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+      const cell = 'padding:12px 14px;border-bottom:1px solid #ede4fb;font-size:12.5px;vertical-align:top;';
+      const num = `${cell}text-align:${rtl ? 'left' : 'right'};white-space:nowrap;`;
+      const rows = [
+        `<tr><td style="${cell}"><div style="font-weight:700;color:#1e1035;">${esc(d.title)}</div><div style="color:#6b6480;font-size:11px;margin-top:4px;line-height:1.5;">${esc(d.desc)}</div></td><td style="${cell}text-align:center;">1</td><td style="${num}">${pm(d.original)}</td><td style="${num}">${pm(d.original)}</td></tr>`,
+        `<tr><td style="${cell}color:#16a34a;">${esc(t['q-discount'])}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`
+      ];
+      if (quote.years > 0) rows.push(`<tr><td style="${cell}">${esc(t['q-maint'])}</td><td style="${cell}text-align:center;">${quote.years} ${esc(t['q-years-unit'])}</td><td style="${num}">${pm(d.maint)}</td><td style="${num}">${pm(d.maintTotal)}</td></tr>`);
+      const clientLines = [client.company, client.email, client.phone].filter(Boolean).map(x => `<div>${esc(x)}</div>`).join('');
+
+      const el = document.createElement('div');
+      el.setAttribute('dir', rtl ? 'rtl' : 'ltr');
+      el.style.cssText = `width:794px;min-height:1120px;background:#fff;color:#1e1035;font-family:${font};position:relative;box-sizing:border-box;`;
+      el.innerHTML = `
+        <div style="height:10px;background:linear-gradient(90deg,#9333ea,#a855f7,#d946ef);"></div>
+        <div style="padding:36px 48px 0;display:flex;justify-content:space-between;align-items:center;">
+          <div style="width:250px;height:88px;overflow:hidden;border-radius:12px;"><img src="noorlabs.png" style="width:250px;height:88px;object-fit:cover;display:block;"></div>
+          <div style="text-align:${rtl ? 'left' : 'right'};">
+            <div style="font-size:30px;font-weight:800;color:#7e22ce;">${esc(t['q-pdf-title'])}</div>
+            <div style="font-size:12px;color:#6b6480;margin-top:6px;">${esc(t['q-no'])}: <b style="color:#1e1035;direction:ltr;unicode-bidi:isolate;">${no}</b></div>
+            <div style="font-size:12px;color:#6b6480;margin-top:2px;">${esc(t['q-date'])}: <b style="color:#1e1035;">${dateStr}</b></div>
+          </div>
+        </div>
+        <div style="padding:28px 48px 0;display:flex;gap:18px;">
+          <div style="flex:1;background:#faf5ff;border:1px solid #ede4fb;border-radius:14px;padding:16px 18px;font-size:12px;line-height:1.7;color:#4a4360;">
+            <div style="font-size:10.5px;font-weight:700;color:#9333ea;text-transform:uppercase;margin-bottom:6px;">${esc(t['q-from'])}</div>
+            <div style="font-weight:700;color:#1e1035;font-size:13px;">NOOR TECHNOLOGIES LABS</div>
+            <div>${esc(t['q-company-tag'])}</div>
+            <div style="direction:ltr;unicode-bidi:isolate;">WhatsApp: +212 612 974 126</div>
+            <div>hello@noorlabs.com</div>
+          </div>
+          <div style="flex:1;background:#faf5ff;border:1px solid #ede4fb;border-radius:14px;padding:16px 18px;font-size:12px;line-height:1.7;color:#4a4360;">
+            <div style="font-size:10.5px;font-weight:700;color:#9333ea;text-transform:uppercase;margin-bottom:6px;">${esc(t['q-to'])}</div>
+            <div style="font-weight:700;color:#1e1035;font-size:13px;">${esc(client.name)}</div>
+            ${clientLines}
+          </div>
+        </div>
+        <div style="padding:28px 48px 0;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="background:#1e1035;color:#fff;">
+              <th style="padding:11px 14px;font-size:11px;text-align:${rtl ? 'right' : 'left'};border-radius:${rtl ? '0 10px 10px 0' : '10px 0 0 10px'};">${esc(t['q-desc'])}</th>
+              <th style="padding:11px 14px;font-size:11px;text-align:center;">${esc(t['q-qty'])}</th>
+              <th style="padding:11px 14px;font-size:11px;text-align:${rtl ? 'left' : 'right'};">${esc(t['q-unit'])}</th>
+              <th style="padding:11px 14px;font-size:11px;text-align:${rtl ? 'left' : 'right'};border-radius:${rtl ? '10px 0 0 10px' : '0 10px 10px 0'};">${esc(t['q-amount'])}</th>
+            </tr></thead>
+            <tbody>${rows.join('')}</tbody>
+          </table>
+          <div style="display:flex;justify-content:flex-end;margin-top:18px;">
+            <div style="width:300px;font-size:12.5px;">
+              <div style="display:flex;justify-content:space-between;padding:7px 0;color:#4a4360;"><span>${esc(t['q-subtotal'])}</span><b>${pm(d.subtotal)}</b></div>
+              <div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(t['q-discount'])}</span><b>${pm(-d.discount)}</b></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#a855f7);color:#fff;">
+                <span style="font-weight:600;">${esc(t['q-total'])}</span><span style="font-size:22px;font-weight:800;">${pm(d.total)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:26px 48px 0;">
+          <div style="font-size:13px;font-weight:700;color:#7e22ce;margin-bottom:10px;">${esc(t['q-included'])}</div>
+          ${d.features.map(f => `<div style="font-size:12px;color:#4a4360;margin-bottom:6px;"><span style="color:#a855f7;font-weight:700;">✓</span>&nbsp; ${esc(f)}</div>`).join('')}
+        </div>
+        <div style="margin:26px 48px 0;padding:14px 16px;border-radius:12px;background:#faf5ff;border:1px dashed #d8b4fe;font-size:11.5px;color:#6b6480;line-height:1.6;">${esc(t['q-note'])}</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 48px;border-top:1px solid #ede4fb;display:flex;justify-content:space-between;font-size:11px;color:#6b6480;">
+          <span>${esc(t['q-thanks']).replace('NOOR TECHNOLOGIES LABS', '<span dir="ltr" style="display:inline-block;">NOOR TECHNOLOGIES LABS</span>')}</span><span style="direction:ltr;unicode-bidi:isolate;">+212 612 974 126 · hello@noorlabs.com</span>
+        </div>`;
+      if (rtl) isolateArabicWords(el);
+      return el;
+    }
+
+    // html2canvas drops the spaces between Arabic words; rendering each word as its own box keeps them
+    function isolateArabicWords(root) {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [];
+      while (walker.nextNode()) {
+        const v = walker.currentNode.nodeValue;
+        if (/[؀-ۿ]/.test(v) && v.trim().includes(' ')) nodes.push(walker.currentNode);
+      }
+      nodes.forEach(node => {
+        const frag = document.createDocumentFragment();
+        node.nodeValue.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+          const span = document.createElement('span');
+          span.style.display = 'inline-block';
+          span.textContent = part;
+          frag.appendChild(span);
+        });
+        node.replaceWith(frag);
+      });
+    }
+
+    document.getElementById('qPdfBtn').addEventListener('click', async function () {
+      const client = quoteClient();
+      if (!requireName(client)) return;
+      const btn = this, label = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLang]['q-generating']}`;
+      try {
+        const no = quoteNumber();
+        await html2pdf().set({
+          margin: 0,
+          filename: `${translations[currentLang]['q-file']}-${no}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0 },
+          jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait', hotfixes: ['px_scaling'] }
+        }).from(buildQuotePdfElement(client, no)).save();
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = label;
+      }
+    });
+
+    document.getElementById('qWaBtn').addEventListener('click', () => {
+      const client = quoteClient();
+      if (!requireName(client)) return;
+      const t = translations[currentLang], d = quoteData();
+      const lines = [
+        t['q-wa-intro'], '',
+        `👤 ${client.name}${client.company ? ' — ' + client.company : ''}`,
+        client.email ? `📧 ${client.email}` : null,
+        client.phone ? `📱 ${client.phone}` : null, '',
+        `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −20%)`,
+        quote.years > 0 ? `🛠️ ${t['q-maint']}: ${quote.years} ${t['q-years-unit']} × ${money(d.maint)} = ${money(d.maintTotal)}` : null,
+        `💰 ${t['q-total']}: ${money(d.total)}`
+      ].filter(x => x !== null).join('\n');
+      window.open(`https://wa.me/212612974126?text=${encodeURIComponent(lines)}`, '_blank');
+    });
+
+    function applyQuoteLanguage() {
+      const t = translations[currentLang];
+      document.getElementById('qName').placeholder = t['q-ph-name'];
+      document.getElementById('qCompany').placeholder = t['q-ph-company'];
+      document.getElementById('qEmail').placeholder = t['q-ph-email'];
+      document.getElementById('qPhone').placeholder = t['q-ph-phone'];
+      renderPackages(); renderQuote();
+    }
+    const switchLanguageBeforeQuote = switchLanguage;
+    switchLanguage = function (lang) {
+      switchLanguageBeforeQuote(lang);
+      applyQuoteLanguage();
+    };
+    applyQuoteLanguage();
   </script>
 </body>
 </html>
