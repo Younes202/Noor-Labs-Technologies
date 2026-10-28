@@ -446,6 +446,10 @@
       font-size: 11px; font-weight: 700; box-shadow: 0 4px 14px rgba(220,38,38,.45);
       animation: pulse-red 2s infinite;
     }
+    .discount-badge-red.pack { background: var(--grad); box-shadow: 0 4px 14px rgba(168,85,247,.45); }
+    .packs-head { margin: 90px 0 44px; }
+    .packs-head .section-title { font-size: clamp(24px, 3vw, 38px); }
+    .offer-btn.try-demo { margin-top: 10px; background: rgba(168,85,247,.12); }
     @keyframes pulse-red { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     .offer-badge {
       align-self: flex-start; display: inline-flex; gap: 6px; align-items: center;
@@ -949,7 +953,7 @@
         </div>
         <div class="hero-stats reveal" style="--d:.4s">
           <div><div class="stat-num" data-count="7">0</div><div class="stat-label" data-i18n="stat1">Competencies</div></div>
-          <div><div class="stat-num" data-count="4">0</div><div class="stat-label" data-i18n="stat2">Premium offers</div></div>
+          <div><div class="stat-num" data-count="8">0</div><div class="stat-label" data-i18n="stat2">Premium offers</div></div>
           <div><div class="stat-num" data-count="3">0</div><div class="stat-label" data-i18n="stat3">Languages</div></div>
           <div><div class="stat-num" data-count="20" data-suffix="%">0</div><div class="stat-label" data-i18n="stat4">Launch discount</div></div>
         </div>
@@ -1035,7 +1039,7 @@
       <div class="section-head reveal">
         <div class="eyebrow">02 / Offers</div>
         <h2 class="section-title" data-i18n="offers-title">Premium Service Offers</h2>
-        <p class="section-subtitle" data-i18n="offers-sub">Limited-time offers — all prices reduced by 20%</p>
+        <p class="section-subtitle" data-i18n="offers-sub">Limited-time launch prices — save even more with our packs</p>
       </div>
       <div class="offers-grid">
         <!-- Offer 1: Website Package -->
@@ -1109,6 +1113,87 @@
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20ERP%20+%20Full%20Automation%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer4-btn">Get this offer</span></button>
+        </div>
+      </div>
+      <div class="section-head reveal packs-head">
+        <h3 class="section-title" data-i18n="packs-title">AI Chatbot & Smart Packs</h3>
+        <p class="section-subtitle" data-i18n="packs-sub">Add an AI assistant to your business — and save more with a pack.</p>
+      </div>
+      <div class="offers-grid">
+        <!-- Offer 5: AI Chatbot -->
+        <div class="offer-card glass tilt reveal">
+          <span class="discount-badge-red">-20% OFF</span>
+          <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">AI Solution</span></span>
+          <div class="offer-icon"><i class="fas fa-comments"></i></div>
+          <h3 class="offer-title" data-i18n="offer5-title">AI Chatbot</h3>
+          <p class="offer-desc" data-i18n="offer5-desc">A smart Gemini-powered assistant that answers your clients instantly — like the one on this site. Try it!</p>
+          <div class="offer-price" id="price5">3,000 DH <small><s>3,750 DH</s></small></div>
+          <div class="offer-maintenance" id="maintenance5"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f1">Trained on your business (services, prices, FAQ)</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f2">Answers 24/7 in Arabic, Darija, French & English</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f3">Installed on your website + WhatsApp handoff</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f4">First 3 months of maintenance free</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">AI usage: free within Google's limits, then billed at cost</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20AI%20Chatbot%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer5-btn">Get this offer</span></button>
+          <button class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="offer5-try">Try the live demo</span></button>
+        </div>
+        <!-- Offer 6: Website + AI Chatbot -->
+        <div class="offer-card glass tilt reveal" style="--d:.08s">
+          <span class="discount-badge-red pack">PACK -17%</span>
+          <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer6-badge">Smart Pack</span></span>
+          <div class="offer-icon"><i class="fas fa-layer-group"></i></div>
+          <h3 class="offer-title" data-i18n="offer6-title">Website + AI Chatbot</h3>
+          <p class="offer-desc" data-i18n="offer6-desc">A professional website with your own AI assistant built in — perfect to win clients online.</p>
+          <div class="offer-price" id="price6">4,990 DH <small><s>6,000 DH</s></small></div>
+          <div class="offer-maintenance" id="maintenance6"><i class="fas fa-calendar-alt"></i> + 89 DH / month maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f1">Professional Website + AI Chatbot</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f2">Better price than buying separately</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f3">First 3 months of maintenance free</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">AI usage: free within Google's limits, then billed at cost</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Website%20%2B%20AI%20Chatbot%20pack%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer6-btn">Get this pack</span></button>
+        </div>
+        <!-- Offer 7: Business ERP + AI Chatbot -->
+        <div class="offer-card glass tilt reveal" style="--d:.16s">
+          <span class="discount-badge-red pack">PACK -13%</span>
+          <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer7-badge">Smart Pack</span></span>
+          <div class="offer-icon"><i class="fas fa-cubes"></i></div>
+          <h3 class="offer-title" data-i18n="offer7-title">Business ERP + AI Chatbot</h3>
+          <p class="offer-desc" data-i18n="offer7-desc">Run your business with a custom ERP and let an AI assistant answer your clients.</p>
+          <div class="offer-price" id="price7">6,990 DH <small><s>8,000 DH</s></small></div>
+          <div class="offer-maintenance" id="maintenance7"><i class="fas fa-calendar-alt"></i> + 119 DH / month maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f1">Business ERP System + AI Chatbot</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f2">Better price than buying separately</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f3">First 3 months of maintenance free</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">AI usage: free within Google's limits, then billed at cost</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20ERP%20%2B%20AI%20Chatbot%20pack%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer7-btn">Get this pack</span></button>
+        </div>
+        <!-- Offer 8: All-in-One Digital Pack -->
+        <div class="offer-card glass tilt popular reveal" style="--d:.24s">
+          <span class="discount-badge-red pack">PACK -18%</span>
+          <span class="offer-badge"><i class="fas fa-crown"></i> <span data-i18n="offer8-badge">Best Value</span></span>
+          <div class="offer-icon"><i class="fas fa-gem"></i></div>
+          <h3 class="offer-title" data-i18n="offer8-title">All-in-One Digital Pack</h3>
+          <p class="offer-desc" data-i18n="offer8-desc">Website + Business ERP + AI Chatbot: everything you need to run and grow your business online.</p>
+          <div class="offer-price" id="price8">8,990 DH <small><s>11,000 DH</s></small></div>
+          <div class="offer-maintenance" id="maintenance8"><i class="fas fa-calendar-alt"></i> + 159 DH / month maintenance</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f1">Website + Business ERP + AI Chatbot</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f2">Our best price — biggest savings</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f3">First 3 months of maintenance free</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f4">2 changes per month included</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">AI usage: free within Google's limits, then billed at cost</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20All-in-One%20Digital%20pack%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer8-btn">Get this pack</span></button>
         </div>
       </div>
     </div>
@@ -1191,7 +1276,8 @@
         <div class="service-card glass tilt reveal"><span class="num">/04</span><i class="fas fa-cubes service-icon"></i><h3 class="service-title" data-i18n="svc4">ERP Development</h3><p class="service-desc" data-i18n="svc4-desc">Custom ERP systems tailored to your business processes and industry needs.</p><div class="line-deco"></div></div>
         <div class="service-card glass tilt reveal" style="--d:.08s"><span class="num">/05</span><i class="fas fa-code service-icon"></i><h3 class="service-title" data-i18n="svc5">Custom Software</h3><p class="service-desc" data-i18n="svc5-desc">Scalable web and mobile applications for complex business requirements.</p><div class="line-deco"></div></div>
         <div class="service-card glass tilt wide reveal" style="--d:.16s"><span class="num">/06</span><i class="fas fa-cloud-upload-alt service-icon"></i><h3 class="service-title" data-i18n="svc6">Cloud & DevOps</h3><p class="service-desc" data-i18n="svc6-desc">Cloud architecture, CI/CD pipelines, and infrastructure automation.</p><div class="line-deco"></div></div>
-        <div class="service-card glass tilt wide reveal" style="--d:.08s"><span class="num">/07</span><i class="fas fa-chalkboard-teacher service-icon"></i><h3 class="service-title" data-i18n="svc7">IT Consulting</h3><p class="service-desc" data-i18n="svc7-desc">Strategic technology guidance and digital transformation advisory.</p><div class="line-deco"></div></div>
+        <div class="service-card glass tilt reveal" style="--d:.08s"><span class="num">/07</span><i class="fas fa-chalkboard-teacher service-icon"></i><h3 class="service-title" data-i18n="svc7">IT Consulting</h3><p class="service-desc" data-i18n="svc7-desc">Strategic technology guidance and digital transformation advisory.</p><div class="line-deco"></div></div>
+        <div class="service-card glass tilt reveal" style="--d:.12s"><span class="num">/08</span><i class="fas fa-comments service-icon"></i><h3 class="service-title" data-i18n="svc8">AI Chatbots & Assistants</h3><p class="service-desc" data-i18n="svc8-desc">Smart assistants that answer your clients 24/7 in Arabic, French and English.</p><div class="line-deco"></div></div>
         <a href="#contact" class="service-card glass tilt wide reveal" style="--d:.16s; text-decoration:none; background: var(--grad); border-color: transparent; color:#fff; justify-content:center;">
           <i class="fas fa-wand-magic-sparkles service-icon" style="color:#fff"></i>
           <h3 class="service-title" data-i18n="svc-cta">Have a project in mind?</h3>
@@ -1417,7 +1503,7 @@
         'value4-title': 'Continuous Innovation',
         'value4-desc': 'Staying at the forefront of emerging technology',
         'offers-title': 'Premium Service Offers',
-        'offers-sub': 'Limited-time offers — all prices reduced by 20%',
+        'offers-sub': 'Limited-time launch prices — save even more with our packs',
         'popular': 'Most Popular',
         'offer1-badge': 'Web Solution',
         'offer1-title': 'Professional Website',
@@ -1448,6 +1534,42 @@
         'offer4-f3': 'Automated client alerts & messages',
         'offer4-f4': 'AI-powered analytics',
         'offer4-btn': 'Get this offer',
+        'offer5-badge': 'AI Solution',
+        'offer5-title': 'AI Chatbot',
+        'offer5-desc': 'A smart Gemini-powered assistant that answers your clients instantly — like the one on this site. Try it!',
+        'offer5-f1': 'Trained on your business (services, prices, FAQ)',
+        'offer5-f2': 'Answers 24/7 in Arabic, Darija, French & English',
+        'offer5-f3': 'Installed on your website + WhatsApp handoff',
+        'offer5-f4': 'First 3 months of maintenance free',
+        'offer5-btn': 'Get this offer',
+        'offer5-try': 'Try the live demo',
+        'offer6-badge': 'Smart Pack',
+        'offer6-title': 'Website + AI Chatbot',
+        'offer6-desc': 'A professional website with your own AI assistant built in — perfect to win clients online.',
+        'offer6-f1': 'Professional Website + AI Chatbot',
+        'offer6-f2': 'Better price than buying separately',
+        'offer6-f3': 'First 3 months of maintenance free',
+        'offer6-btn': 'Get this pack',
+        'offer7-badge': 'Smart Pack',
+        'offer7-title': 'Business ERP + AI Chatbot',
+        'offer7-desc': 'Run your business with a custom ERP and let an AI assistant answer your clients.',
+        'offer7-f1': 'Business ERP System + AI Chatbot',
+        'offer7-f2': 'Better price than buying separately',
+        'offer7-f3': 'First 3 months of maintenance free',
+        'offer7-btn': 'Get this pack',
+        'offer8-badge': 'Best Value',
+        'offer8-title': 'All-in-One Digital Pack',
+        'offer8-desc': 'Website + Business ERP + AI Chatbot: everything you need to run and grow your business online.',
+        'offer8-f1': 'Website + Business ERP + AI Chatbot',
+        'offer8-f2': 'Our best price — biggest savings',
+        'offer8-f3': 'First 3 months of maintenance free',
+        'offer8-f4': '2 changes per month included',
+        'offer8-btn': 'Get this pack',
+        'feat-ai-usage': 'AI usage: free within Google\'s limits, then billed at cost',
+        'packs-title': 'AI Chatbot & Smart Packs',
+        'packs-sub': 'Add an AI assistant to your business — and save more with a pack.',
+        'svc8': 'AI Chatbots & Assistants',
+        'svc8-desc': 'Smart assistants that answer your clients 24/7 in Arabic, French and English.',
         'services-title': 'Core competencies',
         'services-sub': 'Enterprise-grade expertise across AI, data engineering, automation and cloud.',
         'svc1': 'Artificial Intelligence',
@@ -1518,7 +1640,19 @@
         'offer3-maintenance': '15',
         'offer4-price': '1175',
         'offer4-original': '1470',
-        'offer4-maintenance': '21'
+        'offer4-maintenance': '21',
+        'offer5-price': '350',
+        'offer5-original': '440',
+        'offer5-maintenance': '6',
+        'offer6-price': '580',
+        'offer6-original': '700',
+        'offer6-maintenance': '10',
+        'offer7-price': '815',
+        'offer7-original': '940',
+        'offer7-maintenance': '14',
+        'offer8-price': '1,050',
+        'offer8-original': '1,290',
+        'offer8-maintenance': '19'
       },
       fr: {
         'nav-home': 'Accueil',
@@ -1544,7 +1678,7 @@
         'value4-title': 'Innovation continue',
         'value4-desc': 'Rester à la pointe des technologies émergentes',
         'offers-title': 'Offres Premium',
-        'offers-sub': 'Offres à durée limitée — tous les prix réduits de 20%',
+        'offers-sub': 'Prix de lancement à durée limitée — économisez encore plus avec nos packs',
         'popular': 'Le plus populaire',
         'offer1-badge': 'Solution Web',
         'offer1-title': 'Site Web Professionnel',
@@ -1575,6 +1709,42 @@
         'offer4-f3': 'Alertes clients automatisées',
         'offer4-f4': 'Analytics propulsés par l\'IA',
         'offer4-btn': 'Obtenir cette offre',
+        'offer5-badge': 'Solution IA',
+        'offer5-title': 'Chatbot IA',
+        'offer5-desc': 'Un assistant intelligent propulsé par Gemini qui répond à vos clients instantanément — comme celui de ce site. Essayez-le !',
+        'offer5-f1': 'Entraîné sur votre activité (services, prix, FAQ)',
+        'offer5-f2': 'Répond 24h/24 en arabe, darija, français et anglais',
+        'offer5-f3': 'Installé sur votre site + transfert vers WhatsApp',
+        'offer5-f4': '3 premiers mois de maintenance offerts',
+        'offer5-btn': 'Obtenir cette offre',
+        'offer5-try': 'Essayer la démo',
+        'offer6-badge': 'Pack Smart',
+        'offer6-title': 'Site Web + Chatbot IA',
+        'offer6-desc': 'Un site professionnel avec votre propre assistant IA intégré — idéal pour gagner des clients en ligne.',
+        'offer6-f1': 'Site Web Professionnel + Chatbot IA',
+        'offer6-f2': 'Moins cher que les offres séparées',
+        'offer6-f3': '3 premiers mois de maintenance offerts',
+        'offer6-btn': 'Obtenir ce pack',
+        'offer7-badge': 'Pack Smart',
+        'offer7-title': 'ERP Business + Chatbot IA',
+        'offer7-desc': 'Gérez votre entreprise avec un ERP sur mesure et laissez un assistant IA répondre à vos clients.',
+        'offer7-f1': 'Système ERP Business + Chatbot IA',
+        'offer7-f2': 'Moins cher que les offres séparées',
+        'offer7-f3': '3 premiers mois de maintenance offerts',
+        'offer7-btn': 'Obtenir ce pack',
+        'offer8-badge': 'Meilleure offre',
+        'offer8-title': 'Pack Digital Tout-en-Un',
+        'offer8-desc': 'Site Web + ERP Business + Chatbot IA : tout ce qu\'il faut pour gérer et développer votre activité en ligne.',
+        'offer8-f1': 'Site Web + ERP Business + Chatbot IA',
+        'offer8-f2': 'Notre meilleur prix — économie maximale',
+        'offer8-f3': '3 premiers mois de maintenance offerts',
+        'offer8-f4': '2 modifications par mois incluses',
+        'offer8-btn': 'Obtenir ce pack',
+        'feat-ai-usage': 'Usage IA : gratuit dans les limites de Google, puis facturé au coût réel',
+        'packs-title': 'Chatbot IA & Packs Smart',
+        'packs-sub': 'Ajoutez un assistant IA à votre activité — et économisez plus avec un pack.',
+        'svc8': 'Chatbots & Assistants IA',
+        'svc8-desc': 'Des assistants intelligents qui répondent à vos clients 24h/24 en arabe, français et anglais.',
         'services-title': 'Compétences clés',
         'services-sub': 'Expertise de niveau entreprise en IA, ingénierie des données, automatisation et cloud.',
         'svc1': 'Intelligence Artificielle',
@@ -1645,7 +1815,19 @@
         'offer3-maintenance': '14',
         'offer4-price': '1075',
         'offer4-original': '1340',
-        'offer4-maintenance': '19'
+        'offer4-maintenance': '19',
+        'offer5-price': '320',
+        'offer5-original': '400',
+        'offer5-maintenance': '5',
+        'offer6-price': '530',
+        'offer6-original': '640',
+        'offer6-maintenance': '9',
+        'offer7-price': '745',
+        'offer7-original': '860',
+        'offer7-maintenance': '13',
+        'offer8-price': '960',
+        'offer8-original': '1,180',
+        'offer8-maintenance': '17'
       },
       ar: {
         'nav-home': 'الرئيسية',
@@ -1671,7 +1853,7 @@
         'value4-title': 'الابتكار المستمر',
         'value4-desc': 'البقاء في طليعة التكنولوجيا الناشئة',
         'offers-title': 'عروض الخدمات المميزة',
-        'offers-sub': 'عروض محدودة — جميع الأسعار مخفضة بنسبة 20%',
+        'offers-sub': 'أسعار إطلاق لفترة محدودة — ووفّر أكثر مع باقاتنا',
         'popular': 'الأكثر طلباً',
         'offer1-badge': 'حلول الويب',
         'offer1-title': 'موقع احترافي',
@@ -1702,6 +1884,42 @@
         'offer4-f3': 'تنبيهات ورسائل آلية للعملاء',
         'offer4-f4': 'تحليلات مدعومة بالذكاء الاصطناعي',
         'offer4-btn': 'احصل على هذا العرض',
+        'offer5-badge': 'حلول الذكاء الاصطناعي',
+        'offer5-title': 'شات بوت بالذكاء الاصطناعي',
+        'offer5-desc': 'مساعد ذكي مدعوم بـ Gemini يجيب على عملائك فوراً — مثل المساعد الموجود في هذا الموقع. جرّبه الآن!',
+        'offer5-f1': 'مدرَّب على نشاطك (الخدمات، الأسعار، الأسئلة الشائعة)',
+        'offer5-f2': 'يجيب 24/7 بالعربية والدارجة والفرنسية والإنجليزية',
+        'offer5-f3': 'مثبت على موقعك + تحويل إلى واتساب',
+        'offer5-f4': 'أول 3 أشهر صيانة مجاناً',
+        'offer5-btn': 'احصل على هذا العرض',
+        'offer5-try': 'جرّب العرض التجريبي',
+        'offer6-badge': 'باقة ذكية',
+        'offer6-title': 'موقع ويب + شات بوت ذكي',
+        'offer6-desc': 'موقع احترافي مع مساعدك الذكي الخاص — مثالي لجذب العملاء عبر الإنترنت.',
+        'offer6-f1': 'موقع ويب احترافي + شات بوت ذكي',
+        'offer6-f2': 'أرخص من شراء العروض منفصلة',
+        'offer6-f3': 'أول 3 أشهر صيانة مجاناً',
+        'offer6-btn': 'احصل على هذه الباقة',
+        'offer7-badge': 'باقة ذكية',
+        'offer7-title': 'نظام ERP + شات بوت ذكي',
+        'offer7-desc': 'أدر عملك بنظام ERP مخصص ودع مساعداً ذكياً يجيب على عملائك.',
+        'offer7-f1': 'نظام ERP للأعمال + شات بوت ذكي',
+        'offer7-f2': 'أرخص من شراء العروض منفصلة',
+        'offer7-f3': 'أول 3 أشهر صيانة مجاناً',
+        'offer7-btn': 'احصل على هذه الباقة',
+        'offer8-badge': 'أفضل قيمة',
+        'offer8-title': 'الباقة الرقمية الشاملة',
+        'offer8-desc': 'موقع ويب + نظام ERP + شات بوت ذكي: كل ما تحتاجه لإدارة وتنمية عملك عبر الإنترنت.',
+        'offer8-f1': 'موقع ويب + نظام ERP + شات بوت ذكي',
+        'offer8-f2': 'أفضل سعر لدينا — أكبر توفير',
+        'offer8-f3': 'أول 3 أشهر صيانة مجاناً',
+        'offer8-f4': 'تعديلان شهرياً مشمولان',
+        'offer8-btn': 'احصل على هذه الباقة',
+        'feat-ai-usage': 'استخدام الذكاء الاصطناعي: مجاني ضمن حدود Google، ثم يُحتسب بالتكلفة الفعلية',
+        'packs-title': 'شات بوت ذكي وباقات ذكية',
+        'packs-sub': 'أضف مساعداً ذكياً لعملك — ووفّر أكثر مع الباقات.',
+        'svc8': 'شات بوت ومساعدات ذكية',
+        'svc8-desc': 'مساعدات ذكية تجيب على عملائك على مدار الساعة بالعربية والفرنسية والإنجليزية.',
         'services-title': 'الكفاءات الأساسية',
         'services-sub': 'خبرة على مستوى المؤسسات في الذكاء الاصطناعي وهندسة البيانات والأتمتة والسحابة.',
         'svc1': 'الذكاء الاصطناعي',
@@ -1772,7 +1990,19 @@
         'offer3-maintenance': '129',
         'offer4-price': '10,000',
         'offer4-original': '12,500',
-        'offer4-maintenance': '179'
+        'offer4-maintenance': '179',
+        'offer5-price': '3,000',
+        'offer5-original': '3,750',
+        'offer5-maintenance': '49',
+        'offer6-price': '4,990',
+        'offer6-original': '6,000',
+        'offer6-maintenance': '89',
+        'offer7-price': '6,990',
+        'offer7-original': '8,000',
+        'offer7-maintenance': '119',
+        'offer8-price': '8,990',
+        'offer8-original': '11,000',
+        'offer8-maintenance': '159'
       }
     };
 
@@ -1782,15 +2012,13 @@
     function updateOfferPrices(lang) {
       const currencySymbol = translations[lang]['currency'] || 'DH';
       
-      const prices = {
-        1: { price: translations[lang]['offer1-price'], original: translations[lang]['offer1-original'], maintenance: translations[lang]['offer1-maintenance'] },
-        2: { price: translations[lang]['offer2-price'], original: translations[lang]['offer2-original'], maintenance: translations[lang]['offer2-maintenance'] },
-        3: { price: translations[lang]['offer3-price'], original: translations[lang]['offer3-original'], maintenance: translations[lang]['offer3-maintenance'] },
-        4: { price: translations[lang]['offer4-price'], original: translations[lang]['offer4-original'], maintenance: translations[lang]['offer4-maintenance'] }
-      };
+      const prices = {};
+      for (let i = 1; i <= 8; i++) {
+        prices[i] = { price: translations[lang][`offer${i}-price`], original: translations[lang][`offer${i}-original`], maintenance: translations[lang][`offer${i}-maintenance`] };
+      }
       
       // Update each offer card
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 8; i++) {
         const priceEl = document.getElementById('price' + i);
         const maintenanceEl = document.getElementById('maintenance' + i);
         
@@ -1970,7 +2198,7 @@
       en: {
         ai: "🤖 AI Solutions at NOOR Labs\n\nWe offer:\n• Generative AI & LLM integration\n• Predictive analytics & forecasting\n• Computer vision solutions\n• Natural Language Processing\n• Custom AI model development\n\nWant to discuss your AI project? Contact us through WhatsApp or the form above!",
         erp: "📦 ERP Development Expertise\n\nWe build custom ERP solutions for:\n• Restaurant chains (inventory, orders, kitchen display)\n• Bike rental fleets (pricing, bookings, maintenance)\n• Manufacturing & logistics\n• Financial institutions\n\nCheck our Special Offers section for discounted packages!",
-        offers: "🏷️ Our Premium Offers (−20% launch price)\n\n1. Professional Website: $350 + $6/month maintenance\n2. Business ERP System: $590 + $10/month\n3. ERP + Report Automation: $820 + $15/month\n4. ERP + Full Automation: $1,175 + $21/month\n\n🎁 First 3 months of maintenance free\n💳 Pay 50% to start, 50% on delivery\n\nTry the quote simulator on the site or contact us on WhatsApp!",
+        offers: "🏷️ Our Premium Offers (−20% launch price)\n\n1. Professional Website: $350 + $6/month maintenance\n2. Business ERP System: $590 + $10/month\n3. ERP + Report Automation: $820 + $15/month\n4. ERP + Full Automation: $1,175 + $21/month\n5. AI Chatbot: $350 + $6/month\n\n📦 Smart Packs:\n• Website + AI Chatbot: $580\n• Business ERP + AI Chatbot: $815\n• All-in-One (Website + ERP + Chatbot): $1,050\n\n🎁 First 3 months of maintenance free\n💳 Pay 50% to start, 50% on delivery\n\nTry the quote simulator on the site or contact us on WhatsApp!",
         internship: "💼 Current Internship Openings\n\n1. Restaurant ERP Developer - Build full restaurant management ERP\n2. Bike Rental ERP Engineer - Fleet management & booking platform\n\n📧 Send your resume to careers@noorlabstechnologies.com",
         contact: "📞 Ready to transform your business?\n\nOur team is available for:\n• AI implementation consulting\n• Custom ERP development\n• Data analytics & BI dashboards\n• Cloud migration\n\nReach out via WhatsApp: +212 612 974 126 or email: hello@noorlabstechnologies.com",
         about: "🏢 NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in AI, data science, and enterprise software development. We're a distributed team of engineers and consultants focused on delivering innovative digital solutions."
@@ -1978,7 +2206,7 @@
       fr: {
         ai: "🤖 Solutions IA chez NOOR Labs\n\nNous offrons:\n• Intégration IA générative & LLM\n• Analytique prédictive & prévisions\n• Solutions de vision par ordinateur\n• Traitement du langage naturel\n• Développement de modèles IA personnalisés\n\nVous souhaitez discuter de votre projet IA? Contactez-nous via WhatsApp ou le formulaire ci-dessus!",
         erp: "📦 Expertise en développement ERP\n\nNous construisons des solutions ERP sur mesure pour:\n• Chaînes de restaurants (inventaire, commandes, affichage cuisine)\n• Flottes de vélos en location (tarification, réservations, maintenance)\n• Industrie & logistique\n• Institutions financières\n\nConsultez notre section Offres Spéciales pour des forfaits à prix réduits!",
-        offers: "🏷️ Nos offres premium (−20% prix de lancement)\n\n1. Site Web Pro : 320 € + 5 €/mois de maintenance\n2. Système ERP Business : 540 € + 9 €/mois\n3. ERP + Automatisation des rapports : 750 € + 14 €/mois\n4. ERP + Automatisation complète : 1 075 € + 19 €/mois\n\n🎁 3 premiers mois de maintenance offerts\n💳 Paiement : 50% au démarrage, 50% à la livraison\n\nEssayez notre simulateur de devis ou contactez-nous sur WhatsApp !",
+        offers: "🏷️ Nos offres premium (−20% prix de lancement)\n\n1. Site Web Pro : 320 € + 5 €/mois de maintenance\n2. Système ERP Business : 540 € + 9 €/mois\n3. ERP + Automatisation des rapports : 750 € + 14 €/mois\n4. ERP + Automatisation complète : 1 075 € + 19 €/mois\n5. Chatbot IA : 320 € + 5 €/mois\n\n📦 Packs Smart :\n• Site Web + Chatbot IA : 530 €\n• ERP Business + Chatbot IA : 745 €\n• Tout-en-Un (Site + ERP + Chatbot) : 960 €\n\n🎁 3 premiers mois de maintenance offerts\n💳 Paiement : 50% au démarrage, 50% à la livraison\n\nEssayez notre simulateur de devis ou contactez-nous sur WhatsApp !",
         internship: "💼 Offres de stage actuelles\n\n1. Développeur ERP Restaurant - Construire un ERP complet de gestion de restaurant\n2. Ingénieur ERP Location de Vélos - Gestion de flotte et plateforme de réservation\n\n📧 Envoyez votre CV à careers@noorlabstechnologies.com",
         contact: "📞 Prêt à transformer votre entreprise?\n\nNotre équipe est disponible pour:\n• Conseil en mise en œuvre IA\n• Développement ERP sur mesure\n• Analytique de données & tableaux de bord BI\n• Migration cloud\n\nContactez-nous via WhatsApp: +212 612 974 126 ou email: hello@noorlabstechnologies.com",
         about: "🏢 NOOR TECHNOLOGIES LABS est une entreprise technologique remote-first spécialisée en IA, science des données et développement de logiciels d'entreprise. Nous sommes une équipe distribuée d'ingénieurs et consultants dédiés à des solutions digitales innovantes."
@@ -1986,7 +2214,7 @@
       ar: {
         ai: "🤖 حلول الذكاء الاصطناعي في NOOR Labs\n\nنقدم:\n• تكامل الذكاء الاصطناعي التوليدي و LLM\n• التحليلات التنبؤية والتوقعات\n• حلول الرؤية الحاسوبية\n• معالجة اللغة الطبيعية\n• تطوير نماذج ذكاء اصطناعي مخصصة\n\nترغب في مناقشة مشروع الذكاء الاصطناعي الخاص بك؟ تواصل معنا عبر واتساب أو النموذج أعلاه!",
         erp: "📦 خبرة في تطوير نظم ERP\n\nنبني حلول ERP مخصصة لـ:\n• سلاسل المطاعم (المخزون، الطلبات، شاشات المطبخ)\n• تأجير الدراجات (التسعير، الحجوزات، الصيانة)\n• التصنيع والخدمات اللوجستية\n• المؤسسات المالية\n\nتحقق من قسم العروض الخاصة للحصول على باقات مخفضة!",
-        offers: "🏷️ عروضنا المميزة (−20% سعر الإطلاق)\n\n1. موقع ويب احترافي: 3,000 د.م. + 49 د.م./شهر صيانة\n2. نظام ERP للأعمال: 5,000 د.م. + 89 د.م./شهر\n3. ERP + أتمتة التقارير: 7,000 د.م. + 129 د.م./شهر\n4. ERP + أتمتة كاملة: 10,000 د.م. + 179 د.م./شهر\n\n🎁 أول 3 أشهر صيانة مجاناً\n💳 الدفع: 50% عند البدء و50% عند التسليم\n\nجرّب محاكي عرض السعر في الموقع أو تواصل معنا عبر واتساب!",
+        offers: "🏷️ عروضنا المميزة (−20% سعر الإطلاق)\n\n1. موقع ويب احترافي: 3,000 د.م. + 49 د.م./شهر صيانة\n2. نظام ERP للأعمال: 5,000 د.م. + 89 د.م./شهر\n3. ERP + أتمتة التقارير: 7,000 د.م. + 129 د.م./شهر\n4. ERP + أتمتة كاملة: 10,000 د.م. + 179 د.م./شهر\n5. شات بوت ذكي: 3,000 د.م. + 49 د.م./شهر\n\n📦 الباقات الذكية:\n• موقع ويب + شات بوت: 4,990 د.م.\n• نظام ERP + شات بوت: 6,990 د.م.\n• الباقة الشاملة (موقع + ERP + شات بوت): 8,990 د.م.\n\n🎁 أول 3 أشهر صيانة مجاناً\n💳 الدفع: 50% عند البدء و50% عند التسليم\n\nجرّب محاكي عرض السعر في الموقع أو تواصل معنا عبر واتساب!",
         internship: "💼 فرص التدريب الحالية\n\n1. مطور ERP للمطاعم - بناء نظام ERP كامل لإدارة المطاعم\n2. مهندس ERP لتأجير الدراجات - إدارة الأسطول ومنصة الحجز\n\n📧 أرسل سيرتك الذاتية إلى careers@noorlabstechnologies.com",
         contact: "📞 مستعد لتحويل عملك؟\n\nفريقنا متاح لـ:\n• استشارات تنفيذ الذكاء الاصطناعي\n• تطوير ERP مخصص\n• تحليلات البيانات ولوحات BI\n• الانتقال إلى السحابة\n\nتواصل عبر واتساب: +212 612 974 126 أو البريد الإلكتروني: hello@noorlabstechnologies.com",
         about: "🏢 NOOR TECHNOLOGIES LABS هي شركة تقنية تعمل عن بعد متخصصة في الذكاء الاصطناعي وعلوم البيانات وتطوير برمجيات المؤسسات. نحن فريق موزع من المهندسين والمستشارين المكرسين لتقديم حلول رقمية مبتكرة."
@@ -2364,7 +2592,7 @@
         'q-summary': 'Your estimate', 'q-total': 'Total',
         'q-pdf': 'Download PDF quote', 'q-wa': 'Send this quote on WhatsApp',
         'q-note': 'Indicative quote based on our current offers (20% discount included). Final price confirmed after a free discovery call.',
-        'q-discount': 'Launch discount (−20%)', 'q-maint': 'Maintenance', 'q-years-unit': 'yr', 'q-save': 'You save',
+        'q-discount': 'Discount', 'q-maint': 'Maintenance', 'q-years-unit': 'yr', 'q-save': 'You save',
         'q-months-unit': 'mo', 'q-free3': 'First 3 months of maintenance free', 'q-pay': 'Payment: 50% to start, 50% on delivery.',
         'q-err-name': 'Please enter your name to generate the quote.',
         'q-generating': 'Generating…',
@@ -2385,7 +2613,7 @@
         'q-summary': 'Votre estimation', 'q-total': 'Total',
         'q-pdf': 'Télécharger le devis PDF', 'q-wa': 'Envoyer ce devis sur WhatsApp',
         'q-note': 'Devis indicatif basé sur nos offres actuelles (remise de 20% incluse). Prix final confirmé après un appel de découverte gratuit.',
-        'q-discount': 'Remise de lancement (−20%)', 'q-maint': 'Maintenance', 'q-years-unit': 'an(s)', 'q-save': 'Vous économisez',
+        'q-discount': 'Remise', 'q-maint': 'Maintenance', 'q-years-unit': 'an(s)', 'q-save': 'Vous économisez',
         'q-months-unit': 'mois', 'q-free3': '3 premiers mois de maintenance offerts', 'q-pay': 'Paiement : 50% au démarrage, 50% à la livraison.',
         'q-err-name': 'Veuillez saisir votre nom pour générer le devis.',
         'q-generating': 'Génération…',
@@ -2406,7 +2634,7 @@
         'q-summary': 'تقديرك', 'q-total': 'المجموع',
         'q-pdf': 'تحميل عرض السعر PDF', 'q-wa': 'إرسال العرض عبر واتساب',
         'q-note': 'عرض سعر تقديري حسب عروضنا الحالية (خصم 20% مشمول). يتم تأكيد السعر النهائي بعد مكالمة استكشافية مجانية.',
-        'q-discount': 'خصم الإطلاق (−20%)', 'q-maint': 'الصيانة', 'q-years-unit': 'سنة', 'q-save': 'توفر',
+        'q-discount': 'خصم', 'q-maint': 'الصيانة', 'q-years-unit': 'سنة', 'q-save': 'توفر',
         'q-months-unit': 'شهر', 'q-free3': 'أول 3 أشهر صيانة مجاناً', 'q-pay': 'الدفع: 50% عند البدء و50% عند التسليم.',
         'q-err-name': 'يرجى إدخال اسمك لإنشاء عرض السعر.',
         'q-generating': 'جارٍ الإنشاء…',
@@ -2422,7 +2650,7 @@
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 2, years: 1, cur: null };
-    const PKG_ICONS = ['code', 'cogs', 'chart-pie', 'robot'];
+    const PKG_ICONS = ['code', 'cogs', 'chart-pie', 'robot', 'comments', 'layer-group', 'cubes', 'gem'];
     const toNum = s => parseFloat(String(s).replace(/,/g, ''));
     const quoteCur = () => quote.cur || currentLang;
     function money(n, cur = quoteCur()) {
@@ -2445,19 +2673,20 @@
       return {
         cur, original, price, maint, months, maintGross, freeValue, maintTotal,
         discount: original - price,
+        pct: Math.round((original - price) / original * 100),
         subtotal: original + maintGross,
         total: price + maintTotal,
         saving: original - price + freeValue,
         title: t[`offer${i}-title`],
         desc: t[`offer${i}-desc`],
-        features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).filter(Boolean)
+        features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).concat(i >= 5 ? [t['feat-ai-usage']] : []).filter(Boolean)
       };
     }
 
     function renderPackages() {
       const box = document.getElementById('qPackages');
       const cur = quoteCur();
-      box.innerHTML = [1, 2, 3, 4].map(i => {
+      box.innerHTML = [1, 2, 3, 4, 5, 6, 7, 8].map(i => {
         const p = translations[cur];
         return `<label class="q-pkg${quote.pkg === i ? ' selected' : ''}" data-pkg="${i}">
           <input type="radio" name="qPkg" value="${i}"${quote.pkg === i ? ' checked' : ''}>
@@ -2476,7 +2705,7 @@
       const t = translations[currentLang], d = quoteData();
       const lines = [
         [d.title, money(d.original)],
-        [t['q-discount'], '−' + money(d.discount), 'discount']
+        [`${t['q-discount']} (−${d.pct}%)`, '−' + money(d.discount), 'discount']
       ];
       if (d.months > 0) {
         lines.push([`${t['q-maint']} (${d.months} ${t['q-months-unit']} × ${money(d.maint)})`, money(d.maintGross)]);
@@ -2524,7 +2753,7 @@
       const num = `${cell}text-align:${rtl ? 'left' : 'right'};white-space:nowrap;`;
       const rows = [
         `<tr><td style="${cell}"><div style="font-weight:700;color:#1e1035;">${esc(d.title)}</div><div style="color:#6b6480;font-size:11px;margin-top:4px;line-height:1.5;">${esc(d.desc)}</div></td><td style="${cell}text-align:center;">1</td><td style="${num}">${pm(d.original)}</td><td style="${num}">${pm(d.original)}</td></tr>`,
-        `<tr><td style="${cell}color:#16a34a;">${esc(t['q-discount'])}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`
+        `<tr><td style="${cell}color:#16a34a;">${esc(`${t['q-discount']} (−${d.pct}%)`)}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`
       ];
       if (d.months > 0) {
         rows.push(`<tr><td style="${cell}">${esc(t['q-maint'])}</td><td style="${cell}text-align:center;">${d.months} ${esc(t['q-months-unit'])}</td><td style="${num}">${pm(d.maint)}</td><td style="${num}">${pm(d.maintGross)}</td></tr>`);
@@ -2572,7 +2801,7 @@
           <div style="display:flex;justify-content:flex-end;margin-top:18px;">
             <div style="width:300px;font-size:12.5px;">
               <div style="display:flex;justify-content:space-between;padding:7px 0;color:#4a4360;"><span>${esc(t['q-subtotal'])}</span><b>${pm(d.subtotal)}</b></div>
-              <div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(t['q-discount'])}</span><b>${pm(-d.discount)}</b></div>
+              <div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(`${t['q-discount']} (−${d.pct}%)`)}</span><b>${pm(-d.discount)}</b></div>
               ${d.freeValue ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(t['q-free3'])}</span><b>${pm(-d.freeValue)}</b></div>` : ''}
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#a855f7);color:#fff;">
                 <span style="font-weight:600;">${esc(t['q-total'])}</span><span style="font-size:22px;font-weight:800;">${pm(d.total)}</span>
@@ -2643,7 +2872,7 @@
         `👤 ${client.name}${client.company ? ' — ' + client.company : ''}`,
         client.email ? `📧 ${client.email}` : null,
         client.phone ? `📱 ${client.phone}` : null, '',
-        `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −20%)`,
+        `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)`,
         d.months > 0 ? `🛠️ ${t['q-maint']}: ${d.months} ${t['q-months-unit']} × ${money(d.maint)} = ${money(d.maintGross)}` : null,
         d.months > 0 ? `🎁 ${t['q-free3']}: −${money(d.freeValue)}` : null,
         `💳 ${t['q-pay']}`,
