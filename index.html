@@ -754,6 +754,21 @@
     .chat-input button:hover { transform: scale(1.06); }
     .chat-input button:disabled { opacity: .5; cursor: default; transform: none; }
     body.lang-ar .chat-input button i { transform: scaleX(-1); }
+    .lead-form { display: grid; gap: 8px; margin-top: 12px; white-space: normal; }
+    .lead-form input {
+      width: 100%; padding: 10px 14px; border-radius: 12px; font-family: inherit; font-size: 13px;
+      background: var(--bg-alt); border: 1px solid var(--border); color: var(--text); outline: none;
+    }
+    body.dark .lead-form input { background: rgba(15,10,26,.6); }
+    .lead-form input:focus { border-color: var(--p2); box-shadow: 0 0 0 3px rgba(168,85,247,.18); }
+    .lead-consent { font-size: 11px; color: var(--muted); line-height: 1.5; }
+    .lead-error { font-size: 12px; color: #ef4444; }
+    .lead-form button {
+      border: none; cursor: pointer; padding: 11px; border-radius: 999px; font-family: inherit; font-weight: 600; font-size: 13px;
+      background: var(--grad); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .lead-form button:disabled { opacity: .6; cursor: default; }
+    .chat-input input:disabled { opacity: .6; cursor: not-allowed; }
     .typing-indicator { padding: 12px 14px; border-radius: 18px; align-self: flex-start; display: flex; gap: 4px; background: rgba(168,85,247,.14); }
     .typing-indicator span { width: 6px; height: 6px; background: var(--p2); border-radius: 50%; animation: typingBounce 1.4s infinite; }
     .typing-indicator span:nth-child(2) { animation-delay: .2s; }
@@ -1238,7 +1253,7 @@
               <input type="email" class="contact-input" id="qEmail" placeholder="Email address">
               <input type="tel" class="contact-input" id="qPhone" placeholder="Phone">
             </div>
-            <div class="q-hint" data-i18n="q-hint">Your details appear on the PDF quote. Nothing is stored on our side.</div>
+            <div class="q-hint" data-i18n="q-hint">Your details appear on your PDF quote and are shared securely with our team so we can follow up. We never sell your data.</div>
             <div class="q-error" id="qError"></div>
           </div>
         </div>
@@ -2284,12 +2299,94 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    const API_BASE = CHAT_API_URL.replace(/\/+$/, '');
+
+    // ----- 3 free questions, then the visitor leaves their details (saved to the "Chatbot Leads" sheet) -----
+    const FREE_QUESTIONS = 3;
+    const store = {
+      get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }
+    };
+    let freeAsked = parseInt(store.get('noorChatAsked') || '0', 10) || 0;
+    let leadToken = store.get('noorLeadToken') || '';
+    const leadText = {
+      en: { intro: "Thanks for your questions! 🙌 To keep chatting and get a personalised answer from our team, please leave your details:", name: 'Full name *', email: 'Email', phone: 'Phone / WhatsApp', company: 'Company (optional)', consent: 'By sending, you agree that NOOR TECHNOLOGIES LABS stores these details and your questions to contact you about your request.', submit: 'Continue the chat', need: 'Please enter your name and an email or phone number.', fail: "We couldn't save your details. Please try again, or message us on WhatsApp: +212 612 974 126", thanks: 'Thank you {name}! ✅ Our team will contact you soon. You can keep asking me questions.', locked: 'Leave your details above to continue…' },
+      fr: { intro: "Merci pour vos questions ! 🙌 Pour continuer la discussion et recevoir une réponse personnalisée de notre équipe, laissez vos coordonnées :", name: 'Nom complet *', email: 'Email', phone: 'Téléphone / WhatsApp', company: 'Entreprise (optionnel)', consent: "En envoyant, vous acceptez que NOOR TECHNOLOGIES LABS conserve ces informations et vos questions pour vous recontacter au sujet de votre demande.", submit: 'Continuer la discussion', need: 'Veuillez saisir votre nom et un email ou un numéro de téléphone.', fail: "Impossible d'enregistrer vos informations. Réessayez, ou écrivez-nous sur WhatsApp : +212 612 974 126", thanks: 'Merci {name} ! ✅ Notre équipe vous contactera bientôt. Vous pouvez continuer à me poser vos questions.', locked: 'Laissez vos coordonnées ci-dessus pour continuer…' },
+      ar: { intro: 'شكراً على أسئلتك! 🙌 لمواصلة المحادثة والحصول على رد مخصص من فريقنا، يرجى ترك معلوماتك:', name: 'الاسم الكامل *', email: 'البريد الإلكتروني', phone: 'الهاتف / واتساب', company: 'الشركة (اختياري)', consent: 'بالإرسال، توافق على أن تحتفظ NOOR TECHNOLOGIES LABS بهذه المعلومات وبأسئلتك للتواصل معك بخصوص طلبك.', submit: 'متابعة المحادثة', need: 'يرجى إدخال اسمك وبريد إلكتروني أو رقم هاتف.', fail: 'تعذر حفظ معلوماتك. حاول مرة أخرى أو راسلنا عبر واتساب: 212612974126+', thanks: 'شكراً {name}! ✅ سيتواصل معك فريقنا قريباً. يمكنك مواصلة طرح أسئلتك.', locked: 'اترك معلوماتك أعلاه للمتابعة…' }
+    };
+    const lt = () => leadText[currentLang] || leadText.en;
+
+    function lockChat(locked) {
+      chatInput.disabled = locked;
+      chatSend.disabled = locked;
+      chatInput.placeholder = locked ? lt().locked : (chatPlaceholder[currentLang] || chatPlaceholder.en);
+    }
+
+    function showLeadForm() {
+      lockChat(true);
+      if (document.getElementById('leadForm')) return;
+      const t = lt();
+      const wrap = document.createElement('div');
+      wrap.className = 'bot-msg lead-box';
+      wrap.textContent = t.intro;
+      const form = document.createElement('form');
+      form.id = 'leadForm';
+      form.className = 'lead-form';
+      form.innerHTML = `
+        <input name="name" maxlength="120" required>
+        <input name="email" type="email" maxlength="160">
+        <input name="phone" type="tel" maxlength="60">
+        <input name="company" maxlength="160">
+        <p class="lead-consent"></p>
+        <div class="lead-error"></div>
+        <button type="submit"><i class="fas fa-paper-plane"></i> <span></span></button>`;
+      [['name', t.name], ['email', t.email], ['phone', t.phone], ['company', t.company]].forEach(([n, ph]) => { form.elements[n].placeholder = ph; });
+      form.querySelector('.lead-consent').textContent = t.consent;
+      form.querySelector('button span').textContent = t.submit;
+      form.addEventListener('submit', submitLead);
+      wrap.appendChild(form);
+      chatMessages.appendChild(wrap);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      form.elements.name.focus();
+    }
+
+    async function submitLead(e) {
+      e.preventDefault();
+      const form = e.target, t = lt();
+      const v = n => form.elements[n].value.trim();
+      const lead = { name: v('name'), email: v('email'), phone: v('phone'), company: v('company') };
+      const err = form.querySelector('.lead-error');
+      if (!lead.name || (!lead.email && !lead.phone)) { err.textContent = t.need; return; }
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      err.textContent = '';
+      try {
+        const res = await fetch(`${API_BASE}/lead`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...lead, lang: currentLang, page: location.href, questions: chatHistory.filter(m => m.role === 'user').map(m => m.text) }),
+          signal: AbortSignal.timeout(20000)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.token) throw new Error(data.error || 'lead_failed');
+        leadToken = data.token;
+        store.set('noorLeadToken', leadToken);
+        form.closest('.lead-box').remove();
+        addBotMessage(t.thanks.replace('{name}', lead.name));
+        lockChat(false);
+        chatInput.focus();
+      } catch (ex) {
+        err.textContent = t.fail;
+        btn.disabled = false;
+      }
+    }
+
     async function askAssistant(text) {
       if (!CHAT_API_URL) throw new Error('not_configured');
       const res = await fetch(CHAT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang }),
+        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang, leadToken }),
         signal: AbortSignal.timeout(30000)
       });
       const data = await res.json().catch(() => ({}));
@@ -2301,31 +2398,58 @@
       e.preventDefault();
       const text = chatInput.value.trim();
       if (!text || chatSend.disabled) return;
+      if (!leadToken && freeAsked >= FREE_QUESTIONS) { showLeadForm(); return; }
       chatInput.value = '';
       chatSend.disabled = true;
       addUserMessage(text);
       chatHistory.push({ role: 'user', text });
       const typing = showTyping();
+      let needLead = false;
       try {
         const reply = await askAssistant(text);
         chatHistory.push({ role: 'model', text: reply });
         typing.remove();
         addAiMessage(reply);
+        if (!leadToken) {
+          freeAsked++;
+          store.set('noorChatAsked', String(freeAsked));
+          needLead = freeAsked >= FREE_QUESTIONS;
+        }
       } catch (err) {
-        chatHistory.pop();  // keep history alternating user/model for the next attempt
         typing.remove();
-        addBotMessage(chatFallback[currentLang] || chatFallback.en, true);
+        if (err.message === 'lead_required') {
+          needLead = true;  // keep the question so it is saved with the lead
+        } else {
+          chatHistory.pop();  // keep history alternating user/model for the next attempt
+          addBotMessage(chatFallback[currentLang] || chatFallback.en, true);
+        }
       } finally {
         chatSend.disabled = false;
-        chatInput.focus();
+        if (needLead) showLeadForm(); else chatInput.focus();
       }
     });
 
     const switchLanguageBeforeChat = switchLanguage;
     switchLanguage = function (lang) {
       switchLanguageBeforeChat(lang);
-      chatInput.placeholder = chatPlaceholder[lang] || chatPlaceholder.en;
+      lockChat(chatInput.disabled);
     };
+
+    // ----- quotes: every PDF / WhatsApp quote is saved to the "Quotes" sheet -----
+    function saveQuote(action, client, quoteNo, d) {
+      if (!API_BASE) return;
+      const currency = { en: 'USD', fr: 'EUR', ar: 'MAD' }[d.cur];
+      fetch(`${API_BASE}/quote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          quoteNo, action, ...client,
+          package: translations.en[`offer${quote.pkg}-title`], years: quote.years, currency,
+          price: d.price, maintenance: d.maint, total: d.total, lang: currentLang, page: location.href
+        })
+      }).catch(() => {});
+    }
 
     // Initialize prices on page load
     setTimeout(() => {
@@ -2588,7 +2712,7 @@
         'q-sub': 'Choose your package and options, see the price instantly, and download your quote as a PDF.',
         'q-step1': 'Choose your package', 'q-step2': 'Maintenance & support', 'q-step3': 'Currency', 'q-step4': 'Your details',
         'q-y0': 'None', 'q-y1': '1 year', 'q-y2': '2 years', 'q-y3': '3 years',
-        'q-hint': 'Your details appear on the PDF quote. Nothing is stored on our side.',
+        'q-hint': 'Your details appear on your PDF quote and are shared securely with our team so we can follow up. We never sell your data.',
         'q-summary': 'Your estimate', 'q-total': 'Total',
         'q-pdf': 'Download PDF quote', 'q-wa': 'Send this quote on WhatsApp',
         'q-note': 'Indicative quote based on our current offers (20% discount included). Final price confirmed after a free discovery call.',
@@ -2609,7 +2733,7 @@
         'q-sub': 'Choisissez votre offre et vos options, voyez le prix instantanément et téléchargez votre devis en PDF.',
         'q-step1': 'Choisissez votre offre', 'q-step2': 'Maintenance & support', 'q-step3': 'Devise', 'q-step4': 'Vos informations',
         'q-y0': 'Aucune', 'q-y1': '1 an', 'q-y2': '2 ans', 'q-y3': '3 ans',
-        'q-hint': 'Vos informations apparaissent sur le devis PDF. Rien n\'est enregistré de notre côté.',
+        'q-hint': 'Vos informations apparaissent sur votre devis PDF et sont transmises de façon sécurisée à notre équipe pour le suivi. Nous ne vendons jamais vos données.',
         'q-summary': 'Votre estimation', 'q-total': 'Total',
         'q-pdf': 'Télécharger le devis PDF', 'q-wa': 'Envoyer ce devis sur WhatsApp',
         'q-note': 'Devis indicatif basé sur nos offres actuelles (remise de 20% incluse). Prix final confirmé après un appel de découverte gratuit.',
@@ -2630,7 +2754,7 @@
         'q-sub': 'اختر الباقة والخيارات، شاهد السعر فوراً، وحمّل عرض السعر بصيغة PDF.',
         'q-step1': 'اختر الباقة', 'q-step2': 'الصيانة والدعم', 'q-step3': 'العملة', 'q-step4': 'معلوماتك',
         'q-y0': 'بدون', 'q-y1': 'سنة', 'q-y2': 'سنتان', 'q-y3': '3 سنوات',
-        'q-hint': 'تظهر معلوماتك في ملف PDF فقط. لا نقوم بتخزين أي شيء.',
+        'q-hint': 'تظهر معلوماتك في ملف PDF الخاص بك وتُرسل بشكل آمن إلى فريقنا للمتابعة. لا نبيع بياناتك أبداً.',
         'q-summary': 'تقديرك', 'q-total': 'المجموع',
         'q-pdf': 'تحميل عرض السعر PDF', 'q-wa': 'إرسال العرض عبر واتساب',
         'q-note': 'عرض سعر تقديري حسب عروضنا الحالية (خصم 20% مشمول). يتم تأكيد السعر النهائي بعد مكالمة استكشافية مجانية.',
@@ -2850,6 +2974,7 @@
       btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLang]['q-generating']}`;
       try {
         const no = quoteNumber();
+        saveQuote('pdf', client, no, quoteData());
         await html2pdf().set({
           margin: 0,
           filename: `${translations[currentLang]['q-file']}-${no}.pdf`,
@@ -2867,8 +2992,11 @@
       const client = quoteClient();
       if (!requireName(client)) return;
       const t = translations[currentLang], d = quoteData();
+      const no = quoteNumber();
+      saveQuote('whatsapp', client, no, d);
       const lines = [
         t['q-wa-intro'], '',
+        `🧾 ${t['q-no']}: ${no}`,
         `👤 ${client.name}${client.company ? ' — ' + client.company : ''}`,
         client.email ? `📧 ${client.email}` : null,
         client.phone ? `📱 ${client.phone}` : null, '',
