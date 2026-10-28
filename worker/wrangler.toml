@@ -1,8 +1,0 @@
-name = "noor-chat"
-main = "chat-worker.js"
-compatibility_date = "2026-10-01"
-
-# Set the key with:  npx wrangler secret put GEMINI_API_KEY
-# Optional model override:
-# [vars]
-# GEMINI_MODEL = "gemini-flash-latest"
