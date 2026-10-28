@@ -3,7 +3,7 @@
 //
 // Environment:
 //   GEMINI_API_KEY  (secret, required)
-//   GEMINI_MODEL    (optional, default "gemini-flash-latest"; "gemini-flash-lite-latest" is the automatic fallback)
+//   GEMINI_MODEL    (optional, default "gemini-flash-lite-latest"; "gemini-flash-latest" is the automatic fallback)
 
 const ALLOWED_ORIGINS = [
   'https://noorlabstechnologies.com',
@@ -17,8 +17,9 @@ const MAX_CHARS = 1500;        // per message
 const RATE_LIMIT = 20;         // requests per IP...
 const RATE_WINDOW_MS = 10 * 60 * 1000;  // ...per 10 minutes (best effort, per Worker instance)
 const UPSTREAM_TIMEOUT_MS = 12000;      // per model attempt; two attempts stay under the website's 30 s limit
-const PRIMARY_MODEL = 'gemini-flash-latest';
-const FALLBACK_MODEL = 'gemini-flash-lite-latest';
+// The light model answers in a few seconds; the full model is the backup when it is busy
+const PRIMARY_MODEL = 'gemini-flash-lite-latest';
+const FALLBACK_MODEL = 'gemini-flash-latest';
 const RETRYABLE_STATUS = [404, 429, 500, 503, 504];  // busy, rate-limited or missing model: try the next one
 
 const SYSTEM_PROMPT = `You are "NOOR Assistant", the website assistant of NOOR TECHNOLOGIES LABS (website: noorlabstechnologies.com).
@@ -34,7 +35,7 @@ OFFERS (launch prices, already 20% off the original price)
 2. Business ERP System (restaurants, pharmacies, dental clinics, retail, etc.) — 5,000 DH (was 6,250) | 540 € | $590. Maintenance 89 DH/month (9 €/$10). Includes 2 changes per month, tailored to the industry.
 3. ERP + Report Automation (automated reports, intelligent dashboards) — 7,000 DH (was 8,750) | 750 € | $820. Maintenance 129 DH/month (14 €/$15). Includes 2 changes per month.
 4. ERP + Full Automation Suite (automation, SMS/email client alerts, AI-powered analytics) — 10,000 DH (was 12,500) | 1,075 € | $1,175. Maintenance 179 DH/month (19 €/$21). Includes 2 changes per month.
-For all offers: the first 3 months of maintenance are free, and payment is 50% to start and 50% on delivery.
+For all offers: the first THREE (3) months of maintenance are free (not one month), and payment is 50% to start and 50% on delivery.
 Clients can build an instant quote and download it as a PDF in the "Quote" section of the website.
 
 CAREERS
@@ -47,6 +48,7 @@ CONTACT
 RULES
 - Always answer in the language the visitor writes in (English, French, Arabic, or Moroccan Darija).
 - Be friendly, professional and concise: usually 2–6 short sentences or a short list. Plain text, no markdown headings; **bold** is allowed sparingly.
+- When the visitor asks about a price (in any language, e.g. "combien", "شحال", "ثمن", "how much"), answer directly with the exact price and monthly maintenance of the matching offer from the list above, in DH first, then € and $.
 - Only use the facts above. Never invent prices, discounts, features, clients, timelines or guarantees. If something is not covered (e.g. exact delivery time, a custom feature price), say the team will confirm it and suggest WhatsApp or the quote simulator.
 - Prices are indicative; the final price is confirmed after a free discovery call.
 - Help visitors choose the right offer by asking about their business when useful.
@@ -109,7 +111,7 @@ export default {
       generationConfig: { temperature: 0.5, maxOutputTokens: 1024 },
     });
 
-    // Try the main model first; if Google reports it busy, slow or missing, fall back to the lighter one
+    // Try the fast model first; if Google reports it busy, slow or missing, fall back to the other one
     const models = [...new Set([env.GEMINI_MODEL || PRIMARY_MODEL, FALLBACK_MODEL])];
     let failure = { error: 'upstream_error' };
     for (const model of models) {
