@@ -754,6 +754,11 @@
     .chat-input button:hover { transform: scale(1.06); }
     .chat-input button:disabled { opacity: .5; cursor: default; transform: none; }
     body.lang-ar .chat-input button i { transform: scaleX(-1); }
+    .chat-closed-note {
+      padding: 12px 16px; text-align: center; font-size: 12.5px; color: var(--muted);
+      border-top: 1px solid var(--border); background: var(--surface-strong); flex-shrink: 0;
+    }
+    .chatbot-msg-buttons button.qa-nav { border-style: dashed; color: var(--muted); }
     .lead-form { display: grid; gap: 8px; margin-top: 12px; white-space: normal; }
     .lead-form input {
       width: 100%; padding: 10px 14px; border-radius: 12px; font-family: inherit; font-size: 13px;
@@ -2301,29 +2306,147 @@
 
     const API_BASE = CHAT_API_URL.replace(/\/+$/, '');
 
-    // ----- 3 free questions, then the visitor leaves their details (saved to the "Chatbot Leads" sheet) -----
+    // ----- 3 AI questions per visitor, then their details (saved to the "Chatbot Leads" sheet), then ready answers only -----
     const FREE_QUESTIONS = 3;
     const store = {
       get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
       set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }
     };
     let freeAsked = parseInt(store.get('noorChatAsked') || '0', 10) || 0;
-    let leadToken = store.get('noorLeadToken') || '';
+    let leadDone = store.get('noorLeadDone') === '1';
     const leadText = {
-      en: { intro: "Thanks for your questions! 🙌 To keep chatting and get a personalised answer from our team, please leave your details:", name: 'Full name *', email: 'Email', phone: 'Phone / WhatsApp', company: 'Company (optional)', consent: 'By sending, you agree that NOOR TECHNOLOGIES LABS stores these details and your questions to contact you about your request.', submit: 'Continue the chat', need: 'Please enter your name and an email or phone number.', fail: "We couldn't save your details. Please try again, or message us on WhatsApp: +212 612 974 126", thanks: 'Thank you {name}! ✅ Our team will contact you soon. You can keep asking me questions.', locked: 'Leave your details above to continue…' },
-      fr: { intro: "Merci pour vos questions ! 🙌 Pour continuer la discussion et recevoir une réponse personnalisée de notre équipe, laissez vos coordonnées :", name: 'Nom complet *', email: 'Email', phone: 'Téléphone / WhatsApp', company: 'Entreprise (optionnel)', consent: "En envoyant, vous acceptez que NOOR TECHNOLOGIES LABS conserve ces informations et vos questions pour vous recontacter au sujet de votre demande.", submit: 'Continuer la discussion', need: 'Veuillez saisir votre nom et un email ou un numéro de téléphone.', fail: "Impossible d'enregistrer vos informations. Réessayez, ou écrivez-nous sur WhatsApp : +212 612 974 126", thanks: 'Merci {name} ! ✅ Notre équipe vous contactera bientôt. Vous pouvez continuer à me poser vos questions.', locked: 'Laissez vos coordonnées ci-dessus pour continuer…' },
-      ar: { intro: 'شكراً على أسئلتك! 🙌 لمواصلة المحادثة والحصول على رد مخصص من فريقنا، يرجى ترك معلوماتك:', name: 'الاسم الكامل *', email: 'البريد الإلكتروني', phone: 'الهاتف / واتساب', company: 'الشركة (اختياري)', consent: 'بالإرسال، توافق على أن تحتفظ NOOR TECHNOLOGIES LABS بهذه المعلومات وبأسئلتك للتواصل معك بخصوص طلبك.', submit: 'متابعة المحادثة', need: 'يرجى إدخال اسمك وبريد إلكتروني أو رقم هاتف.', fail: 'تعذر حفظ معلوماتك. حاول مرة أخرى أو راسلنا عبر واتساب: 212612974126+', thanks: 'شكراً {name}! ✅ سيتواصل معك فريقنا قريباً. يمكنك مواصلة طرح أسئلتك.', locked: 'اترك معلوماتك أعلاه للمتابعة…' }
+      en: { intro: "You've used your 3 free AI questions 🙌 Leave your details and our team will answer you personally:", name: 'Full name *', email: 'Email', phone: 'Phone / WhatsApp', company: 'Company (optional)', consent: 'By sending, you agree that NOOR TECHNOLOGIES LABS stores these details and your questions to contact you about your request.', submit: 'Send my details', need: 'Please enter your name and an email or phone number.', fail: "We couldn't save your details. Please try again, or message us on WhatsApp: +212 612 974 126", thanks: 'Thank you {name}! ✅ Our team will contact you soon. Meanwhile, choose a topic below for quick answers.', closed: 'AI chat closed — choose a topic below 👇' },
+      fr: { intro: "Vous avez utilisé vos 3 questions IA gratuites 🙌 Laissez vos coordonnées et notre équipe vous répondra personnellement :", name: 'Nom complet *', email: 'Email', phone: 'Téléphone / WhatsApp', company: 'Entreprise (optionnel)', consent: "En envoyant, vous acceptez que NOOR TECHNOLOGIES LABS conserve ces informations et vos questions pour vous recontacter au sujet de votre demande.", submit: 'Envoyer mes coordonnées', need: 'Veuillez saisir votre nom et un email ou un numéro de téléphone.', fail: "Impossible d'enregistrer vos informations. Réessayez, ou écrivez-nous sur WhatsApp : +212 612 974 126", thanks: 'Merci {name} ! ✅ Notre équipe vous contactera bientôt. En attendant, choisissez un sujet ci-dessous pour des réponses rapides.', closed: 'Chat IA terminé — choisissez un sujet ci-dessous 👇' },
+      ar: { intro: 'لقد استخدمت أسئلتك الثلاثة المجانية 🙌 اترك معلوماتك وسيجيبك فريقنا شخصياً:', name: 'الاسم الكامل *', email: 'البريد الإلكتروني', phone: 'الهاتف / واتساب', company: 'الشركة (اختياري)', consent: 'بالإرسال، توافق على أن تحتفظ NOOR TECHNOLOGIES LABS بهذه المعلومات وبأسئلتك للتواصل معك بخصوص طلبك.', submit: 'إرسال معلوماتي', need: 'يرجى إدخال اسمك وبريد إلكتروني أو رقم هاتف.', fail: 'تعذر حفظ معلوماتك. حاول مرة أخرى أو راسلنا عبر واتساب: 212612974126+', thanks: 'شكراً {name}! ✅ سيتواصل معك فريقنا قريباً. في الأثناء، اختر موضوعاً أدناه للحصول على إجابات سريعة.', closed: 'انتهت المحادثة الذكية — اختر موضوعاً أدناه 👇' }
     };
     const lt = () => leadText[currentLang] || leadText.en;
 
-    function lockChat(locked) {
-      chatInput.disabled = locked;
-      chatSend.disabled = locked;
-      chatInput.placeholder = locked ? lt().locked : (chatPlaceholder[currentLang] || chatPlaceholder.en);
+    // ----- ready answers: topics → questions → answers (no AI quota used) -----
+    const qaText = {
+      en: {
+        back: '⬅ Back', home: '🏠 Main menu', insteadOf: 'instead of',
+        offers: '🏷️ Offers & prices', services: '🧠 Our services', work: '⚙️ How we work', careers: '🎓 Careers', contact: '📞 Contact us',
+        q_website: 'How much is a website?', q_erp: 'How much is an ERP?', q_chatbot: 'How much is an AI chatbot?', q_packs: 'What are the Smart Packs?', q_maint: 'How does maintenance work?', q_pay: 'How do I pay?',
+        q_ai: 'AI solutions', q_erpdev: 'ERP development', q_bi: 'Data & dashboards', q_software: 'Web, mobile & cloud',
+        q_process: 'What are the steps?', q_quote: 'How do I get a quote?', q_remote: 'Who are you?',
+        a_bi: '📊 Data & Business Intelligence\n\n• Interactive dashboards and real-time reporting\n• Data analysis and machine learning insights\n• Financial analytics and forecasting\n\nTell us about your data on WhatsApp: +212 612 974 126',
+        a_software: '💻 Custom software\n\n• Scalable web and mobile applications\n• Cloud architecture, CI/CD and DevOps\n• IT consulting and digital transformation\n\nTell us about your project on WhatsApp: +212 612 974 126',
+        a_process: '⚙️ Our process\n\n1. Discover — your goals, data and workflows\n2. Design — architecture, UX and a clear roadmap\n3. Build — agile sprints with demos at every step\n4. Deploy & Scale — launch, monitor, automate and grow\n\nThe exact timeline is confirmed after a free discovery call.',
+        a_quote: '🧾 Get your quote in 1 minute\n\nGo to the "Quote" section of this page, choose your offer, maintenance and currency, then download your PDF quote or send it to us on WhatsApp.',
+        maintHead: '🛠️ Maintenance (per month)', maintFoot: '🎁 The first 3 months are free.\nIncluded: hosting, SSL, backups, bug fixes and security updates, plus 1 change per month (website) or 2 per month (ERP).',
+        payText: '💳 Payment\n\n50% to start the project, 50% on delivery.\nPrices are indicative; the final price is confirmed after a free discovery call.',
+        packsFoot: 'Packs cost less than buying each offer separately.', chatbotFoot: 'Trained on your business, answers 24/7 in Arabic, Darija, French and English, with WhatsApp handoff — like this assistant.'
+      },
+      fr: {
+        back: '⬅ Retour', home: '🏠 Menu principal', insteadOf: 'au lieu de',
+        offers: '🏷️ Offres & prix', services: '🧠 Nos services', work: '⚙️ Notre méthode', careers: '🎓 Carrières', contact: '📞 Nous contacter',
+        q_website: 'Combien coûte un site web ?', q_erp: 'Combien coûte un ERP ?', q_chatbot: 'Combien coûte un chatbot IA ?', q_packs: 'Que sont les Packs Smart ?', q_maint: 'Comment fonctionne la maintenance ?', q_pay: 'Comment payer ?',
+        q_ai: 'Solutions IA', q_erpdev: 'Développement ERP', q_bi: 'Données & tableaux de bord', q_software: 'Web, mobile & cloud',
+        q_process: 'Quelles sont les étapes ?', q_quote: 'Comment obtenir un devis ?', q_remote: 'Qui êtes-vous ?',
+        a_bi: '📊 Data & Business Intelligence\n\n• Tableaux de bord interactifs et reporting en temps réel\n• Analyse de données et insights machine learning\n• Analytique financière et prévisions\n\nParlez-nous de vos données sur WhatsApp : +212 612 974 126',
+        a_software: '💻 Logiciels sur mesure\n\n• Applications web et mobiles scalables\n• Architecture cloud, CI/CD et DevOps\n• Conseil IT et transformation digitale\n\nParlez-nous de votre projet sur WhatsApp : +212 612 974 126',
+        a_process: '⚙️ Notre méthode\n\n1. Découvrir — vos objectifs, données et processus\n2. Concevoir — architecture, UX et feuille de route\n3. Développer — sprints agiles avec démos\n4. Déployer & évoluer — lancement, suivi, automatisation\n\nLe délai exact est confirmé après un appel de découverte gratuit.',
+        a_quote: '🧾 Votre devis en 1 minute\n\nAllez dans la section « Devis » de cette page, choisissez votre offre, la maintenance et la devise, puis téléchargez votre devis PDF ou envoyez-le-nous sur WhatsApp.',
+        maintHead: '🛠️ Maintenance (par mois)', maintFoot: '🎁 Les 3 premiers mois sont offerts.\nInclus : hébergement, SSL, sauvegardes, corrections et mises à jour de sécurité, plus 1 modification par mois (site) ou 2 par mois (ERP).',
+        payText: '💳 Paiement\n\n50% au démarrage du projet, 50% à la livraison.\nLes prix sont indicatifs ; le prix final est confirmé après un appel de découverte gratuit.',
+        packsFoot: 'Les packs coûtent moins cher que les offres séparées.', chatbotFoot: 'Entraîné sur votre activité, répond 24h/24 en arabe, darija, français et anglais, avec transfert WhatsApp — comme cet assistant.'
+      },
+      ar: {
+        back: '⬅ رجوع', home: '🏠 القائمة الرئيسية', insteadOf: 'بدلاً من',
+        offers: '🏷️ العروض والأسعار', services: '🧠 خدماتنا', work: '⚙️ طريقة عملنا', careers: '🎓 الوظائف', contact: '📞 تواصل معنا',
+        q_website: 'كم ثمن الموقع الإلكتروني؟', q_erp: 'كم ثمن نظام ERP؟', q_chatbot: 'كم ثمن الشات بوت الذكي؟', q_packs: 'ما هي الباقات الذكية؟', q_maint: 'كيف تعمل الصيانة؟', q_pay: 'كيف يتم الدفع؟',
+        q_ai: 'حلول الذكاء الاصطناعي', q_erpdev: 'تطوير ERP', q_bi: 'البيانات ولوحات المعلومات', q_software: 'الويب والهاتف والسحابة',
+        q_process: 'ما هي المراحل؟', q_quote: 'كيف أحصل على عرض سعر؟', q_remote: 'من أنتم؟',
+        a_bi: '📊 البيانات وذكاء الأعمال\n\n• لوحات معلومات تفاعلية وتقارير فورية\n• تحليل البيانات ورؤى تعلم الآلة\n• تحليلات مالية وتوقعات\n\nحدثنا عن بياناتك عبر واتساب: 212612974126+',
+        a_software: '💻 برمجيات مخصصة\n\n• تطبيقات ويب وهاتف قابلة للتوسع\n• هندسة السحابة و CI/CD و DevOps\n• استشارات تقنية وتحول رقمي\n\nحدثنا عن مشروعك عبر واتساب: 212612974126+',
+        a_process: '⚙️ طريقة عملنا\n\n1. الاكتشاف — أهدافك وبياناتك وسير عملك\n2. التصميم — البنية وتجربة المستخدم وخارطة الطريق\n3. البناء — دورات عمل مرنة مع عروض\n4. الإطلاق والتوسع — الإطلاق والمتابعة والأتمتة\n\nيتم تأكيد المدة بعد مكالمة استكشافية مجانية.',
+        a_quote: '🧾 عرض السعر في دقيقة\n\nانتقل إلى قسم «عرض السعر» في هذه الصفحة، اختر العرض والصيانة والعملة، ثم حمّل ملف PDF أو أرسله لنا عبر واتساب.',
+        maintHead: '🛠️ الصيانة (شهرياً)', maintFoot: '🎁 أول 3 أشهر مجاناً.\nتشمل: الاستضافة، SSL، النسخ الاحتياطي، إصلاح الأخطاء وتحديثات الأمان، وتعديلاً واحداً شهرياً (الموقع) أو تعديلين (ERP).',
+        payText: '💳 الدفع\n\n50% عند بدء المشروع و50% عند التسليم.\nالأسعار تقديرية ويتم تأكيد السعر النهائي بعد مكالمة استكشافية مجانية.',
+        packsFoot: 'الباقات أرخص من شراء كل عرض على حدة.', chatbotFoot: 'مدرَّب على نشاطك، يجيب 24/7 بالعربية والدارجة والفرنسية والإنجليزية، مع تحويل إلى واتساب — مثل هذا المساعد.'
+      }
+    };
+    const qt = () => qaText[currentLang] || qaText.en;
+
+    // prices always come from the offer data, so the ready answers never drift from the cards
+    function offerLine(i) {
+      const t = translations[currentLang], cur = t['currency'];
+      return `• ${t[`offer${i}-title`]}: ${t[`offer${i}-price`]} ${cur} (${qt().insteadOf} ${t[`offer${i}-original`]} ${cur}) + ${t[`offer${i}-maintenance`]} ${cur} ${t['maint-label']}`;
+    }
+    const QA_TREE = {
+      root: { children: ['offers', 'services', 'work', 'careers', 'contact'] },
+      offers: { children: ['q_website', 'q_erp', 'q_chatbot', 'q_packs', 'q_maint', 'q_pay'] },
+      services: { children: ['q_ai', 'q_erpdev', 'q_bi', 'q_software'] },
+      work: { children: ['q_process', 'q_quote', 'q_remote'] },
+      careers: { answer: () => responses[currentLang].internship },
+      contact: { answer: () => responses[currentLang].contact },
+      q_website: { answer: () => `${offerLine(1)}\n\n${qt().maintFoot}` },
+      q_erp: { answer: () => [2, 3, 4].map(offerLine).join('\n') + `\n\n${qt().maintFoot}` },
+      q_chatbot: { answer: () => `${offerLine(5)}\n\n${qt().chatbotFoot}` },
+      q_packs: { answer: () => [6, 7, 8].map(offerLine).join('\n') + `\n\n${qt().packsFoot}` },
+      q_maint: { answer: () => `${qt().maintHead}\n\n` + [1, 2, 3, 4, 5].map(i => `• ${translations[currentLang][`offer${i}-title`]}: ${translations[currentLang][`offer${i}-maintenance`]} ${translations[currentLang]['currency']}`).join('\n') + `\n\n${qt().maintFoot}` },
+      q_pay: { answer: () => qt().payText },
+      q_ai: { answer: () => responses[currentLang].ai },
+      q_erpdev: { answer: () => responses[currentLang].erp },
+      q_bi: { answer: () => qt().a_bi },
+      q_software: { answer: () => qt().a_software },
+      q_process: { answer: () => qt().a_process },
+      q_quote: { answer: () => qt().a_quote },
+      q_remote: { answer: () => responses[currentLang].about }
+    };
+    const parentOf = id => Object.keys(QA_TREE).find(k => (QA_TREE[k].children || []).includes(id));
+
+    function showMenu(nodeId) {
+      chatMessages.querySelectorAll('.qa-menu').forEach(m => m.remove());
+      const t = qt(), node = QA_TREE[nodeId];
+      const group = document.createElement('div');
+      group.className = 'chatbot-msg-buttons qa-menu';
+      group.dataset.node = nodeId;
+      const addBtn = (label, onClick, cls) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        if (cls) b.className = cls;
+        b.textContent = label;
+        b.onclick = onClick;
+        group.appendChild(b);
+      };
+      (node.children || []).forEach(id => addBtn(t[id], () => openNode(id)));
+      if (nodeId !== 'root') {
+        const parent = parentOf(nodeId);
+        if (parent && parent !== 'root') addBtn(t.back, () => showMenu(parent), 'qa-nav');
+        addBtn(t.home, () => showMenu('root'), 'qa-nav');
+      }
+      chatMessages.appendChild(group);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function openNode(id) {
+      addUserMessage(qt()[id]);
+      const node = QA_TREE[id];
+      if (node.answer) {
+        addBotMessage(node.answer());
+        showMenu(parentOf(id) === 'root' ? 'root' : parentOf(id));
+      } else {
+        showMenu(id);
+      }
+    }
+
+    // the old one-level buttons become the topic menu
+    document.getElementById('initialButtons').remove();
+    showMenu('root');
+
+    function closeAiChat() {
+      chatForm.classList.add('hidden');
+      if (!chatMessages.querySelector('.chat-closed-note')) {
+        const note = document.createElement('div');
+        note.className = 'chat-closed-note';
+        note.textContent = lt().closed;
+        chatForm.insertAdjacentElement('beforebegin', note);
+      }
     }
 
     function showLeadForm() {
-      lockChat(true);
+      closeAiChat();
       if (document.getElementById('leadForm')) return;
       const t = lt();
       const wrap = document.createElement('div');
@@ -2345,9 +2468,9 @@
       form.querySelector('button span').textContent = t.submit;
       form.addEventListener('submit', submitLead);
       wrap.appendChild(form);
+      chatMessages.querySelectorAll('.qa-menu').forEach(m => m.remove());
       chatMessages.appendChild(wrap);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-      form.elements.name.focus();
     }
 
     async function submitLead(e) {
@@ -2368,16 +2491,25 @@
           signal: AbortSignal.timeout(20000)
         });
         const data = await res.json().catch(() => ({}));
-        if (!res.ok || !data.token) throw new Error(data.error || 'lead_failed');
-        leadToken = data.token;
-        store.set('noorLeadToken', leadToken);
+        if (!res.ok || !data.ok) throw new Error(data.error || 'lead_failed');
+        leadDone = true;
+        store.set('noorLeadDone', '1');
         form.closest('.lead-box').remove();
         addBotMessage(t.thanks.replace('{name}', lead.name));
-        lockChat(false);
-        chatInput.focus();
+        showMenu('root');
       } catch (ex) {
         err.textContent = t.fail;
         btn.disabled = false;
+      }
+    }
+
+    // after the free questions: details first (once), then ready answers only
+    function endFreeChat() {
+      if (leadDone) {
+        closeAiChat();
+        showMenu('root');
+      } else {
+        showLeadForm();
       }
     }
 
@@ -2386,7 +2518,7 @@
       const res = await fetch(CHAT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang, leadToken }),
+        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang }),
         signal: AbortSignal.timeout(30000)
       });
       const data = await res.json().catch(() => ({}));
@@ -2398,41 +2530,49 @@
       e.preventDefault();
       const text = chatInput.value.trim();
       if (!text || chatSend.disabled) return;
-      if (!leadToken && freeAsked >= FREE_QUESTIONS) { showLeadForm(); return; }
+      if (freeAsked >= FREE_QUESTIONS) { endFreeChat(); return; }
       chatInput.value = '';
       chatSend.disabled = true;
       addUserMessage(text);
       chatHistory.push({ role: 'user', text });
       const typing = showTyping();
-      let needLead = false;
+      let limitReached = false;
       try {
         const reply = await askAssistant(text);
         chatHistory.push({ role: 'model', text: reply });
         typing.remove();
         addAiMessage(reply);
-        if (!leadToken) {
-          freeAsked++;
-          store.set('noorChatAsked', String(freeAsked));
-          needLead = freeAsked >= FREE_QUESTIONS;
-        }
+        freeAsked++;
+        store.set('noorChatAsked', String(freeAsked));
+        limitReached = freeAsked >= FREE_QUESTIONS;
       } catch (err) {
         typing.remove();
-        if (err.message === 'lead_required') {
-          needLead = true;  // keep the question so it is saved with the lead
+        if (err.message === 'limit_reached') {
+          limitReached = true;  // keep the question so it is saved with the lead
+          freeAsked = FREE_QUESTIONS;
+          store.set('noorChatAsked', String(freeAsked));
         } else {
           chatHistory.pop();  // keep history alternating user/model for the next attempt
-          addBotMessage(chatFallback[currentLang] || chatFallback.en, true);
+          addBotMessage(chatFallback[currentLang] || chatFallback.en);
+          showMenu('root');
         }
       } finally {
         chatSend.disabled = false;
-        if (needLead) showLeadForm(); else chatInput.focus();
+        if (limitReached) endFreeChat(); else chatInput.focus();
       }
     });
+
+    // a returning visitor who already used the free questions goes straight to details / ready answers
+    if (freeAsked >= FREE_QUESTIONS) endFreeChat();
 
     const switchLanguageBeforeChat = switchLanguage;
     switchLanguage = function (lang) {
       switchLanguageBeforeChat(lang);
-      lockChat(chatInput.disabled);
+      chatInput.placeholder = chatPlaceholder[lang] || chatPlaceholder.en;
+      const note = document.querySelector('.chat-closed-note');
+      if (note) note.textContent = lt().closed;
+      const menu = chatMessages.querySelector('.qa-menu');
+      if (menu) showMenu(menu.dataset.node);
     };
 
     // ----- quotes: every PDF / WhatsApp quote is saved to the "Quotes" sheet -----

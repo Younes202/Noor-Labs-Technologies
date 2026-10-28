@@ -1,6 +1,6 @@
 // NOOR Assistant — Cloudflare Worker behind the website chatbot and lead capture.
-//   POST /        chat with Gemini (3 free questions, then the visitor must leave their details)
-//   POST /lead    save a chatbot lead to the "Chatbot Leads" sheet and unlock the chat
+//   POST /        chat with the AI (3 questions per visitor; after that the website only offers ready answers)
+//   POST /lead    save a chatbot lead to the "Chatbot Leads" sheet
 //   POST /quote   save a generated quote to the "Quotes" sheet
 // Keys live only here as secrets (never in the website code).
 //
@@ -8,7 +8,7 @@
 //   GEMINI_API_KEY      (secret, required)
 //   GEMINI_MODEL        (optional, default "gemini-flash-lite-latest"; "gemini-flash-latest" is the automatic fallback)
 //   SHEETS_WEBHOOK_URL  (secret, optional) Google Apps Script web app URL (see google-sheets-receiver.gs)
-//   SHEETS_SECRET       (secret, optional) shared with the Apps Script; also signs chat unlock tokens
+//   SHEETS_SECRET       (secret, optional) shared with the Apps Script
 
 const ALLOWED_ORIGINS = [
   'https://noorlabstechnologies.com',
@@ -26,9 +26,8 @@ const UPSTREAM_TIMEOUT_MS = 12000;      // per model attempt; two attempts stay 
 const PRIMARY_MODEL = 'gemini-flash-lite-latest';
 const FALLBACK_MODEL = 'gemini-flash-latest';
 const RETRYABLE_STATUS = [404, 429, 500, 503, 504];  // busy, rate-limited or missing model: try the next one
-const FREE_QUESTIONS = 3;                      // questions before the visitor must leave their details
+const FREE_QUESTIONS = 3;                      // AI questions per visitor; protects the AI quota
 const FREE_WINDOW_MS = 24 * 60 * 60 * 1000;    // per IP, best effort (per Worker instance)
-const TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000; // a submitted lead unlocks the chat for 30 days
 
 const SYSTEM_PROMPT = `You are "NOOR Assistant", the website assistant of NOOR TECHNOLOGIES LABS (website: noorlabstechnologies.com).
 
@@ -84,34 +83,12 @@ function rateLimited(key) {
   return recent.length > RATE_LIMIT;
 }
 
-// Counts free (not yet unlocked) chat questions per IP so clearing the browser does not reset the limit
+// Counts answered AI questions per IP so clearing the browser does not reset the limit
 function freeQuestionsUsed(ip) {
   const now = Date.now();
   const recent = (freeAsks.get(ip) || []).filter(t => now - t < FREE_WINDOW_MS);
   freeAsks.set(ip, recent);
   return recent.length;
-}
-
-function tokenKey(env) {
-  return env.SHEETS_SECRET || env.GEMINI_API_KEY;
-}
-
-async function sign(key, text) {
-  const cryptoKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(key), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-  const sig = await crypto.subtle.sign('HMAC', cryptoKey, new TextEncoder().encode(text));
-  return [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function makeToken(env) {
-  const ts = String(Date.now());
-  return `${ts}.${await sign(tokenKey(env), `lead.${ts}`)}`;
-}
-
-async function validToken(env, token) {
-  if (typeof token !== 'string' || !token.includes('.')) return false;
-  const [ts, sig] = token.split('.');
-  if (!/^\d+$/.test(ts) || Date.now() - Number(ts) > TOKEN_TTL_MS) return false;
-  return sig === await sign(tokenKey(env), `lead.${ts}`);
 }
 
 const str = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
@@ -173,7 +150,7 @@ async function handleLead(body, env, ctx, origin) {
     const interest = await summarizeInterest(env, questions);
     await appendToSheet(env, 'chat', [name, email, phone, company, interest, questions.join(' | '), lang, page]);
   })());
-  return json({ ok: true, token: await makeToken(env) }, 200, origin);
+  return json({ ok: true }, 200, origin);
 }
 
 function corsHeaders(origin) {
@@ -219,12 +196,9 @@ export default {
       .map(m => ({ role: m.role, parts: [{ text: m.text.slice(0, MAX_CHARS) }] }));
     if (!contents.length || contents[contents.length - 1].role !== 'user') return json({ error: 'bad_request' }, 400, origin);
 
-    // After FREE_QUESTIONS the visitor must leave their details (POST /lead) to keep chatting
-    const isFreeQuestion = !(await validToken(env, body.leadToken));
-    if (isFreeQuestion) {
-      const askedInChat = contents.filter(c => c.role === 'user').length;
-      if (askedInChat > FREE_QUESTIONS || freeQuestionsUsed(ip) >= FREE_QUESTIONS) return json({ error: 'lead_required' }, 403, origin);
-    }
+    // Each visitor gets FREE_QUESTIONS AI answers; after that the website switches to ready answers
+    const askedInChat = contents.filter(c => c.role === 'user').length;
+    if (askedInChat > FREE_QUESTIONS || freeQuestionsUsed(ip) >= FREE_QUESTIONS) return json({ error: 'limit_reached' }, 403, origin);
 
     const lang = ['en', 'fr', 'ar'].includes(body.lang) ? body.lang : 'en';
     const payload = JSON.stringify({
@@ -239,7 +213,7 @@ export default {
     for (const model of models) {
       const result = await askGemini(model, payload, env.GEMINI_API_KEY);
       if (result.reply) {
-        if (isFreeQuestion) freeAsks.get(ip).push(Date.now());  // only answered questions use up the free allowance
+        freeAsks.get(ip).push(Date.now());  // only answered questions count towards the limit
         return json({ reply: result.reply }, 200, origin);
       }
       failure = result;
