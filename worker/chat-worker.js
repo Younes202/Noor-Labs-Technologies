@@ -3,7 +3,7 @@
 //
 // Environment:
 //   GEMINI_API_KEY  (secret, required)
-//   GEMINI_MODEL    (optional, default "gemini-flash-latest")
+//   GEMINI_MODEL    (optional, default "gemini-flash-latest"; "gemini-flash-lite-latest" is the automatic fallback)
 
 const ALLOWED_ORIGINS = [
   'https://noorlabstechnologies.com',
@@ -16,7 +16,10 @@ const MAX_TURNS = 12;          // messages of history sent to Gemini
 const MAX_CHARS = 1500;        // per message
 const RATE_LIMIT = 20;         // requests per IP...
 const RATE_WINDOW_MS = 10 * 60 * 1000;  // ...per 10 minutes (best effort, per Worker instance)
-const UPSTREAM_TIMEOUT_MS = 25000;      // give up on Gemini after 25 s so the chatbot can fall back
+const UPSTREAM_TIMEOUT_MS = 12000;      // per model attempt; two attempts stay under the website's 30 s limit
+const PRIMARY_MODEL = 'gemini-flash-latest';
+const FALLBACK_MODEL = 'gemini-flash-lite-latest';
+const RETRYABLE_STATUS = [404, 429, 500, 503, 504];  // busy, rate-limited or missing model: try the next one
 
 const SYSTEM_PROMPT = `You are "NOOR Assistant", the website assistant of NOOR TECHNOLOGIES LABS (website: noorlabstechnologies.com).
 
@@ -100,38 +103,50 @@ export default {
     if (!contents.length || contents[contents.length - 1].role !== 'user') return json({ error: 'bad_request' }, 400, origin);
 
     const lang = ['en', 'fr', 'ar'].includes(body.lang) ? body.lang : 'en';
-    const model = env.GEMINI_MODEL || 'gemini-flash-latest';
+    const payload = JSON.stringify({
+      system_instruction: { parts: [{ text: `${SYSTEM_PROMPT}\n\nThe website is currently displayed in: ${lang}.` }] },
+      contents,
+      generationConfig: { temperature: 0.5, maxOutputTokens: 1024 },
+    });
 
-    let geminiRes;
-    try {
-      geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: `${SYSTEM_PROMPT}\n\nThe website is currently displayed in: ${lang}.` }] },
-          contents,
-          generationConfig: { temperature: 0.5, maxOutputTokens: 1024 },
-        }),
-        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-      });
-    } catch (err) {
-      console.log('Gemini fetch failed', err && err.name, err && err.message);
-      return json({ error: err && err.name === 'TimeoutError' ? 'upstream_timeout' : 'upstream_unreachable' }, 504, origin);
+    // Try the main model first; if Google reports it busy, slow or missing, fall back to the lighter one
+    const models = [...new Set([env.GEMINI_MODEL || PRIMARY_MODEL, FALLBACK_MODEL])];
+    let failure = { error: 'upstream_error' };
+    for (const model of models) {
+      const result = await askGemini(model, payload, env.GEMINI_API_KEY);
+      if (result.reply) return json({ reply: result.reply }, 200, origin);
+      failure = result;
+      if (!result.retryable) break;
     }
-
-    if (!geminiRes.ok) {
-      const detail = await geminiRes.text();
-      console.log('Gemini error', geminiRes.status, detail);
-      // Google's error status (e.g. PERMISSION_DENIED, NOT_FOUND) helps diagnose setup problems without exposing the key
-      let reason = '';
-      try { reason = JSON.parse(detail).error.status || ''; } catch {}
-      return json({ error: 'upstream_error', upstream_status: geminiRes.status, reason }, 502, origin);
-    }
-
-    const data = await geminiRes.json();
-    const reply = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
-    if (!reply) return json({ error: 'empty_reply' }, 502, origin);
-
-    return json({ reply }, 200, origin);
+    delete failure.retryable;
+    return json(failure, failure.error === 'upstream_timeout' || failure.error === 'upstream_unreachable' ? 504 : 502, origin);
   },
 };
+
+async function askGemini(model, payload, apiKey) {
+  let res;
+  try {
+    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+      body: payload,
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+    });
+  } catch (err) {
+    console.log('Gemini fetch failed', model, err && err.name, err && err.message);
+    return { error: err && err.name === 'TimeoutError' ? 'upstream_timeout' : 'upstream_unreachable', model, retryable: true };
+  }
+
+  if (!res.ok) {
+    const detail = await res.text();
+    console.log('Gemini error', model, res.status, detail);
+    // Google's error status (e.g. PERMISSION_DENIED, UNAVAILABLE) helps diagnose problems without exposing the key
+    let reason = '';
+    try { reason = JSON.parse(detail).error.status || ''; } catch {}
+    return { error: 'upstream_error', upstream_status: res.status, reason, model, retryable: RETRYABLE_STATUS.includes(res.status) };
+  }
+
+  const data = await res.json();
+  const reply = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
+  return reply ? { reply } : { error: 'empty_reply', model, retryable: true };
+}
