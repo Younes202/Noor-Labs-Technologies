@@ -727,6 +727,29 @@
     .chatbot-msg-buttons button:hover { background: var(--grad); color: #fff; border-color: transparent; }
     .chatbot-msg-buttons button i { color: var(--p2); }
     .chatbot-msg-buttons button:hover i { color: #fff; }
+    .user-msg {
+      padding: 12px 16px; border-radius: 18px; border-start-end-radius: 6px; max-width: 85%;
+      font-size: 13px; line-height: 1.55; align-self: flex-end; white-space: pre-line;
+      background: var(--grad); color: #fff; animation: popIn .3s var(--ease);
+    }
+    .chat-input {
+      display: flex; gap: 8px; padding: 12px; flex-shrink: 0;
+      border-top: 1px solid var(--border); background: var(--surface-strong);
+    }
+    .chat-input input {
+      flex: 1; min-width: 0; padding: 12px 16px; border-radius: 999px; font-family: inherit; font-size: 13.5px;
+      background: var(--bg-alt); border: 1px solid var(--border); color: var(--text); outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    body.dark .chat-input input { background: rgba(15,10,26,.6); }
+    .chat-input input:focus { border-color: var(--p2); box-shadow: 0 0 0 3px rgba(168,85,247,.18); }
+    .chat-input button {
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer; flex-shrink: 0;
+      background: var(--grad); color: #fff; font-size: 15px; transition: transform .2s var(--ease), opacity .2s;
+    }
+    .chat-input button:hover { transform: scale(1.06); }
+    .chat-input button:disabled { opacity: .5; cursor: default; transform: none; }
+    body.lang-ar .chat-input button i { transform: scaleX(-1); }
     .typing-indicator { padding: 12px 14px; border-radius: 18px; align-self: flex-start; display: flex; gap: 4px; background: rgba(168,85,247,.14); }
     .typing-indicator span { width: 6px; height: 6px; background: var(--p2); border-radius: 50%; animation: typingBounce 1.4s infinite; }
     .typing-indicator span:nth-child(2) { animation-delay: .2s; }
@@ -1334,6 +1357,10 @@
         <button data-action="about"><i class="fas fa-building"></i> About Company</button>
       </div>
     </div>
+    <form class="chat-input" id="chatForm" autocomplete="off">
+      <input type="text" id="chatInput" maxlength="1000" placeholder="Ask me anything…" aria-label="Message">
+      <button type="submit" id="chatSend" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+    </form>
   </div>
 
   <script>
@@ -1989,6 +2016,87 @@
         handleAction(action, btn);
       };
     });
+
+    // ===== AI CHAT (Gemini via Cloudflare Worker) =====
+    // URL of the deployed worker/chat-worker.js; leave empty to keep the button-only assistant.
+    const CHAT_API_URL = '';
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatHistory = [];
+    const chatFallback = {
+      en: "I can't answer free questions right now 🙏 Use the buttons above, or message us on WhatsApp: +212 612 974 126",
+      fr: "Je ne peux pas répondre aux questions libres pour le moment 🙏 Utilisez les boutons ci-dessus, ou écrivez-nous sur WhatsApp : +212 612 974 126",
+      ar: "لا يمكنني الإجابة على الأسئلة الحرة حالياً 🙏 استخدم الأزرار أعلاه أو راسلنا عبر واتساب: +212 612 974 126"
+    };
+    const chatPlaceholder = { en: 'Ask me anything…', fr: 'Posez-moi une question…', ar: 'اسألني أي شيء…' };
+
+    function addUserMessage(text) {
+      const div = document.createElement('div');
+      div.className = 'user-msg';
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Gemini replies may use **bold**; render that safely and keep everything else as plain text
+    function addAiMessage(text) {
+      const div = document.createElement('div');
+      div.className = 'bot-msg';
+      text.split(/(\*\*[^*]+\*\*)/).forEach(part => {
+        if (/^\*\*[^*]+\*\*$/.test(part)) {
+          const b = document.createElement('b');
+          b.textContent = part.slice(2, -2);
+          div.appendChild(b);
+        } else {
+          div.appendChild(document.createTextNode(part));
+        }
+      });
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function askAssistant(text) {
+      if (!CHAT_API_URL) throw new Error('not_configured');
+      const res = await fetch(CHAT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.reply) throw new Error(data.error || 'request_failed');
+      return data.reply;
+    }
+
+    chatForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text || chatSend.disabled) return;
+      chatInput.value = '';
+      chatSend.disabled = true;
+      addUserMessage(text);
+      chatHistory.push({ role: 'user', text });
+      const typing = showTyping();
+      try {
+        const reply = await askAssistant(text);
+        chatHistory.push({ role: 'model', text: reply });
+        typing.remove();
+        addAiMessage(reply);
+      } catch (err) {
+        chatHistory.pop();  // keep history alternating user/model for the next attempt
+        typing.remove();
+        addBotMessage(chatFallback[currentLang] || chatFallback.en, true);
+      } finally {
+        chatSend.disabled = false;
+        chatInput.focus();
+      }
+    });
+
+    const switchLanguageBeforeChat = switchLanguage;
+    switchLanguage = function (lang) {
+      switchLanguageBeforeChat(lang);
+      chatInput.placeholder = chatPlaceholder[lang] || chatPlaceholder.en;
+    };
 
     // Initialize prices on page load
     setTimeout(() => {
