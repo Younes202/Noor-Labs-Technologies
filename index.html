@@ -2019,7 +2019,7 @@
 
     // ===== AI CHAT (Gemini via Cloudflare Worker) =====
     // URL of the deployed worker/chat-worker.js; leave empty to keep the button-only assistant.
-    const CHAT_API_URL = '';
+    const CHAT_API_URL = 'https://red-lab-22e9.sghyeryounes.workers.dev/';
     const chatForm = document.getElementById('chatForm');
     const chatInput = document.getElementById('chatInput');
     const chatSend = document.getElementById('chatSend');
@@ -2061,7 +2061,8 @@
       const res = await fetch(CHAT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang })
+        body: JSON.stringify({ messages: chatHistory.slice(-12), lang: currentLang }),
+        signal: AbortSignal.timeout(30000)
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.reply) throw new Error(data.error || 'request_failed');

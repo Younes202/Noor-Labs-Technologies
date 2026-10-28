@@ -16,6 +16,7 @@ const MAX_TURNS = 12;          // messages of history sent to Gemini
 const MAX_CHARS = 1500;        // per message
 const RATE_LIMIT = 20;         // requests per IP...
 const RATE_WINDOW_MS = 10 * 60 * 1000;  // ...per 10 minutes (best effort, per Worker instance)
+const UPSTREAM_TIMEOUT_MS = 25000;      // give up on Gemini after 25 s so the chatbot can fall back
 
 const SYSTEM_PROMPT = `You are "NOOR Assistant", the website assistant of NOOR TECHNOLOGIES LABS (website: noorlabstechnologies.com).
 
@@ -101,19 +102,30 @@ export default {
     const lang = ['en', 'fr', 'ar'].includes(body.lang) ? body.lang : 'en';
     const model = env.GEMINI_MODEL || 'gemini-flash-latest';
 
-    const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: `${SYSTEM_PROMPT}\n\nThe website is currently displayed in: ${lang}.` }] },
-        contents,
-        generationConfig: { temperature: 0.5, maxOutputTokens: 1024 },
-      }),
-    });
+    let geminiRes;
+    try {
+      geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: `${SYSTEM_PROMPT}\n\nThe website is currently displayed in: ${lang}.` }] },
+          contents,
+          generationConfig: { temperature: 0.5, maxOutputTokens: 1024 },
+        }),
+        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      });
+    } catch (err) {
+      console.log('Gemini fetch failed', err && err.name, err && err.message);
+      return json({ error: err && err.name === 'TimeoutError' ? 'upstream_timeout' : 'upstream_unreachable' }, 504, origin);
+    }
 
     if (!geminiRes.ok) {
-      console.log('Gemini error', geminiRes.status, await geminiRes.text());
-      return json({ error: 'upstream_error' }, 502, origin);
+      const detail = await geminiRes.text();
+      console.log('Gemini error', geminiRes.status, detail);
+      // Google's error status (e.g. PERMISSION_DENIED, NOT_FOUND) helps diagnose setup problems without exposing the key
+      let reason = '';
+      try { reason = JSON.parse(detail).error.status || ''; } catch {}
+      return json({ error: 'upstream_error', upstream_status: geminiRes.status, reason }, 502, origin);
     }
 
     const data = await geminiRes.json();
