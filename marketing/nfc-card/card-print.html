@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NOOR NFC card — print file</title>
+  <!--
+    Print file for the Smart NFC Business Card.
+    Size: 85.6 × 54 mm card (CR80) + 3 mm bleed on each side = 91.6 × 60 mm per page.
+    Keep text inside the dashed safe zone (3 mm inside the cut line) — the guides are hidden when printing.
+    Edit CARD below to make a personalised card, then export with the commands in README.md.
+    Open with ?side=front or ?side=back to show a single side.
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <style>
+    @page { size: 91.6mm 60mm; margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #777; font-family: 'Inter', sans-serif; }
+    .page {
+      position: relative; width: 91.6mm; height: 60mm; overflow: hidden; color: #fff;
+      background: linear-gradient(135deg, #1e0b3a 0%, #4c1d95 55%, #9333ea 100%);
+      page-break-after: always; break-after: page;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    /* everything important sits inside the safe zone: 3 mm bleed + 3 mm margin */
+    .safe { position: absolute; inset: 6mm; }
+    .glow { position: absolute; width: 60mm; height: 60mm; border-radius: 50%; right: -18mm; top: -22mm; background: radial-gradient(circle, rgba(217,70,239,.45), transparent 65%); }
+    .lines { position: absolute; inset: 0; opacity: .12; background-image: linear-gradient(rgba(255,255,255,.5) .2mm, transparent .2mm), linear-gradient(90deg, rgba(255,255,255,.5) .2mm, transparent .2mm); background-size: 6mm 6mm; }
+
+    /* front */
+    .logo { position: absolute; top: 0; left: 0; width: 30mm; height: 10.5mm; border-radius: 2.2mm; overflow: hidden; background: #fff; }
+    .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nfc { position: absolute; top: .5mm; right: 0; width: 8mm; height: 8mm; }
+    .name { position: absolute; left: 0; bottom: 10mm; font-family: 'Space Grotesk', sans-serif; font-size: 5.2mm; font-weight: 700; letter-spacing: -.1mm; }
+    .role { position: absolute; left: 0; bottom: 5.6mm; font-size: 2.6mm; opacity: .85; }
+    .tap { position: absolute; right: 0; bottom: 5.4mm; font-size: 2.1mm; font-weight: 600; padding: 1mm 2.6mm; border-radius: 3mm; background: rgba(255,255,255,.16); }
+    .tagline { position: absolute; left: 0; bottom: 0; font-size: 2.1mm; letter-spacing: .25mm; opacity: .7; }
+
+    /* back */
+    .qr-box { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 28mm; height: 28mm; padding: 2mm; background: #fff; border-radius: 2.4mm; }
+    .qr-box img, .qr-box svg { width: 100%; height: 100%; display: block; }
+    .back-text { position: absolute; left: 33mm; right: 0; top: 50%; transform: translateY(-50%); }
+    .scan { font-family: 'Space Grotesk', sans-serif; font-size: 3.8mm; font-weight: 700; line-height: 1.15; }
+    .scan-sub { font-size: 2.1mm; opacity: .8; margin-top: 1.2mm; line-height: 1.4; }
+    .contact { margin-top: 3mm; font-size: 2.3mm; line-height: 1.7; }
+    .contact b { color: #f0abfc; font-weight: 600; }
+
+    /* screen-only guides */
+    @media screen {
+      body { display: flex; flex-wrap: wrap; gap: 10mm; padding: 10mm; }
+      .page::after { content: ''; position: absolute; inset: 3mm; border: .2mm solid rgba(0,255,255,.9); border-radius: 3.2mm; pointer-events: none; }
+      .page::before { content: ''; position: absolute; inset: 6mm; border: .2mm dashed rgba(255,255,0,.7); pointer-events: none; z-index: 5; }
+      body.export { background: transparent; padding: 0; gap: 0; display: block; }
+      body.export .page::after, body.export .page::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page front">
+    <div class="lines"></div><div class="glow"></div>
+    <div class="safe">
+      <div class="logo"><img src="../../noorlabs.png" alt="NOOR TECHNOLOGIES LABS"></div>
+      <svg class="nfc" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+        <path d="M8.5 7.5a6 6 0 0 1 0 9"/><path d="M12 5a9.5 9.5 0 0 1 0 14"/><path d="M15.5 2.5a13 13 0 0 1 0 19"/><circle cx="5" cy="12" r="1.3" fill="#fff" stroke="none"/>
+      </svg>
+      <div class="name" id="name"></div>
+      <div class="role" id="role"></div>
+      <div class="tap" id="tap"></div>
+      <div class="tagline" id="tagline"></div>
+    </div>
+  </section>
+
+  <section class="page back">
+    <div class="lines"></div><div class="glow"></div>
+    <div class="safe">
+      <div class="qr-box" id="qr"></div>
+      <div class="back-text">
+        <div class="scan" id="scan"></div>
+        <div class="scan-sub" id="scanSub"></div>
+        <div class="contact" id="contact"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== CARD DATA — edit for each client =====
+    const CARD = {
+      name: 'NOOR TECHNOLOGIES LABS',
+      role: 'AI • ERP • Data • Automation',
+      tap: 'Tap to connect',
+      tagline: 'NOORLABSTECHNOLOGIES.COM',
+      profileUrl: 'https://noorlabstechnologies.com/card/',   // the same URL written on the NFC chip
+      scan: 'Scan or tap\nto connect',
+      scanSub: 'Contact, WhatsApp, services\n& portfolio in one place',
+      contact: [['WhatsApp', '+212 612 974 126'], ['Email', 'hello@noorlabstechnologies.com']]
+    };
+    // ===== END OF CARD DATA =====
+
+    const $ = id => document.getElementById(id);
+    $('name').textContent = CARD.name;
+    $('role').textContent = CARD.role;
+    $('tap').textContent = CARD.tap;
+    $('tagline').textContent = CARD.tagline;
+    $('scan').innerText = CARD.scan;
+    $('scanSub').innerText = CARD.scanSub;
+    $('contact').innerHTML = CARD.contact.map(([k, v]) => `<div><b></b> <span></span></div>`).join('');
+    $('contact').querySelectorAll('div').forEach((row, i) => {
+      row.querySelector('b').textContent = CARD.contact[i][0];
+      row.querySelector('span').textContent = CARD.contact[i][1];
+    });
+
+    const qr = qrcode(0, 'M');
+    qr.addData(CARD.profileUrl);
+    qr.make();
+    $('qr').innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+
+    const side = new URLSearchParams(location.search).get('side');
+    if (side) {
+      document.body.classList.add('export');
+      document.querySelectorAll('.page').forEach(p => { if (!p.classList.contains(side)) p.remove(); });
+    }
+  </script>
+</body>
+</html>
