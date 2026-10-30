@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>NOOR TECHNOLOGIES LABS | Digital Card</title>
+  <meta name="description" content="Digital business card of NOOR TECHNOLOGIES LABS — contact, services and portfolio.">
+  <meta name="theme-color" content="#0f0a1a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0f0a1a; --surface: rgba(45, 25, 75, .45); --border: rgba(168, 85, 247, .25);
+      --text: #f8fafc; --muted: #a39cb8; --p2: #a855f7; --p3: #c084fc;
+      --grad: linear-gradient(135deg, #9333ea 0%, #a855f7 50%, #d946ef 100%);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh;
+      background-image: radial-gradient(ellipse at 50% -10%, rgba(147,51,234,.45), transparent 60%);
+      -webkit-font-smoothing: antialiased;
+    }
+    body.ar { font-family: 'Noto Kufi Arabic', 'Inter', sans-serif; }
+    .wrap { max-width: 460px; margin: 0 auto; padding: 18px 16px 40px; }
+    .top { display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 14px; }
+    .top button {
+      border: 1px solid var(--border); background: var(--surface); color: var(--muted); font: inherit; font-size: 12px; font-weight: 600;
+      padding: 6px 10px; border-radius: 999px; cursor: pointer;
+    }
+    .top button.active { background: var(--grad); color: #fff; border-color: transparent; }
+    .hero { text-align: center; padding: 26px 18px 22px; border-radius: 26px; background: var(--surface); border: 1px solid var(--border); backdrop-filter: blur(12px); }
+    .logo { width: 210px; height: 74px; margin: 0 auto 18px; border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 10px 30px rgba(147,51,234,.45); }
+    .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -.01em; }
+    body.ar h1 { font-family: 'Noto Kufi Arabic', sans-serif; }
+    .tagline { color: var(--p3); font-weight: 600; font-size: 14px; margin-top: 6px; }
+    .bio { color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 12px; }
+    .save {
+      margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      padding: 15px; border-radius: 999px; border: none; background: var(--grad); color: #fff; font: inherit; font-weight: 700; font-size: 15px;
+      text-decoration: none; box-shadow: 0 12px 30px rgba(147,51,234,.5);
+    }
+    .actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+    .action {
+      display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px; border-radius: 18px; text-decoration: none; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border); font-size: 11.5px; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .action i { font-size: 20px; color: var(--p3); }
+    .action.wa i { color: #25D366; }
+    h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 28px 4px 12px; }
+    body.ar h2 { letter-spacing: 0; }
+    .list { display: grid; gap: 10px; }
+    .item {
+      display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; text-decoration: none; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .item .ic { width: 40px; height: 40px; flex-shrink: 0; border-radius: 12px; display: grid; place-items: center; background: rgba(168,85,247,.16); color: var(--p3); }
+    .item b { display: block; font-size: 14px; }
+    .item span { font-size: 12.5px; color: var(--muted); }
+    .item .go { margin-inline-start: auto; color: var(--muted); }
+    body.ar .item .go { transform: scaleX(-1); }
+    .foot { text-align: center; color: var(--muted); font-size: 12px; margin-top: 30px; }
+    .foot a { color: var(--p3); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top" id="langs">
+      <button data-lang="en" class="active">EN</button>
+      <button data-lang="fr">FR</button>
+      <button data-lang="ar">AR</button>
+    </div>
+
+    <section class="hero">
+      <div class="logo"><img src="../noorlabs.png" alt="NOOR TECHNOLOGIES LABS"></div>
+      <h1 id="name"></h1>
+      <div class="tagline" id="tagline"></div>
+      <p class="bio" id="bio"></p>
+      <a class="save" id="saveBtn" download><i class="fas fa-user-plus"></i> <span id="saveText"></span></a>
+      <div class="actions">
+        <a class="action wa" id="waBtn" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+        <a class="action" id="callBtn"><i class="fas fa-phone"></i><span id="callText"></span></a>
+        <a class="action" id="mailBtn"><i class="fas fa-envelope"></i><span>Email</span></a>
+        <button class="action" id="shareBtn" type="button"><i class="fas fa-share-nodes"></i><span id="shareText"></span></button>
+      </div>
+    </section>
+
+    <h2 id="servicesTitle"></h2>
+    <div class="list" id="services"></div>
+
+    <h2 id="portfolioTitle"></h2>
+    <div class="list" id="portfolio"></div>
+
+    <p class="foot"><span id="footText"></span> · <a href="../">noorlabstechnologies.com</a></p>
+  </div>
+
+  <script>
+    // ===== PROFILE DATA — copy this folder and edit this block to create a client's card =====
+    const PROFILE = {
+      phone: '+212612974126',
+      email: 'hello@noorlabstechnologies.com',
+      website: 'https://noorlabstechnologies.com',
+      vcard: 'noorlabs.vcf',
+      text: {
+        en: {
+          name: 'NOOR TECHNOLOGIES LABS', tagline: 'AI • ERP • Data • Automation',
+          bio: 'Remote-first technology company building websites, ERP systems, AI chatbots and automation for modern businesses.',
+          save: 'Save contact', call: 'Call', share: 'Share', services: 'Services', portfolio: 'Explore',
+          foot: 'Tap. Connect. Grow.',
+          servicesList: [['fa-globe', 'Professional websites', 'Fast, modern and SEO-ready'], ['fa-cubes', 'Custom ERP systems', 'Restaurants, pharmacies, clinics, retail'], ['fa-comments', 'AI chatbots', 'Answer your clients 24/7'], ['fa-id-card', 'Smart NFC cards', 'Like this one — tap to connect']],
+          portfolioList: [['fa-tags', 'Our offers & prices', 'See all packages', '../#offers'], ['fa-file-invoice', 'Get an instant quote', 'Download your PDF quote', '../#quote'], ['fa-robot', 'Talk to our AI assistant', 'Live demo on our website', '../'], ['fa-layer-group', 'Solutions we build', 'ERP, BI, AI and more', '../#solutions']]
+        },
+        fr: {
+          name: 'NOOR TECHNOLOGIES LABS', tagline: 'IA • ERP • Data • Automatisation',
+          bio: 'Entreprise technologique remote-first : sites web, systèmes ERP, chatbots IA et automatisation pour les entreprises modernes.',
+          save: 'Enregistrer le contact', call: 'Appeler', share: 'Partager', services: 'Services', portfolio: 'Découvrir',
+          foot: 'Un geste. Une connexion.',
+          servicesList: [['fa-globe', 'Sites web professionnels', 'Rapides, modernes et optimisés SEO'], ['fa-cubes', 'Systèmes ERP sur mesure', 'Restaurants, pharmacies, cliniques, commerces'], ['fa-comments', 'Chatbots IA', 'Répondent à vos clients 24h/24'], ['fa-id-card', 'Cartes NFC intelligentes', 'Comme celle-ci — un geste suffit']],
+          portfolioList: [['fa-tags', 'Nos offres & prix', 'Voir toutes les offres', '../#offers'], ['fa-file-invoice', 'Devis instantané', 'Téléchargez votre devis PDF', '../#quote'], ['fa-robot', 'Parlez à notre assistant IA', 'Démo sur notre site', '../'], ['fa-layer-group', 'Nos solutions', 'ERP, BI, IA et plus', '../#solutions']]
+        },
+        ar: {
+          name: 'NOOR TECHNOLOGIES LABS', tagline: 'ذكاء اصطناعي • ERP • بيانات • أتمتة',
+          bio: 'شركة تقنية تعمل عن بعد: مواقع إلكترونية، أنظمة ERP، شات بوت ذكي وأتمتة للشركات الحديثة.',
+          save: 'حفظ جهة الاتصال', call: 'اتصال', share: 'مشاركة', services: 'الخدمات', portfolio: 'اكتشف',
+          foot: 'لمسة واحدة. تواصل فوري.',
+          servicesList: [['fa-globe', 'مواقع احترافية', 'سريعة وحديثة ومهيأة لمحركات البحث'], ['fa-cubes', 'أنظمة ERP مخصصة', 'مطاعم، صيدليات، عيادات، متاجر'], ['fa-comments', 'شات بوت ذكي', 'يجيب على عملائك 24/7'], ['fa-id-card', 'بطاقات NFC ذكية', 'مثل هذه — لمسة واحدة تكفي']],
+          portfolioList: [['fa-tags', 'عروضنا وأسعارنا', 'شاهد جميع الباقات', '../#offers'], ['fa-file-invoice', 'عرض سعر فوري', 'حمّل عرض السعر PDF', '../#quote'], ['fa-robot', 'تحدث مع مساعدنا الذكي', 'عرض مباشر على موقعنا', '../'], ['fa-layer-group', 'حلولنا', 'ERP وذكاء الأعمال والذكاء الاصطناعي', '../#solutions']]
+        }
+      }
+    };
+    // ===== END OF PROFILE DATA =====
+
+    const $ = id => document.getElementById(id);
+    const digits = PROFILE.phone.replace(/\D/g, '');
+
+    function item([icon, title, sub, href]) {
+      const el = document.createElement(href ? 'a' : 'div');
+      el.className = 'item';
+      if (href) el.href = href;
+      el.innerHTML = `<div class="ic"><i class="fas ${icon}"></i></div><div><b></b><span></span></div>${href ? '<i class="fas fa-chevron-right go"></i>' : ''}`;
+      el.querySelector('b').textContent = title;
+      el.querySelector('span').textContent = sub;
+      return el;
+    }
+
+    function render(lang) {
+      const t = PROFILE.text[lang] || PROFILE.text.en;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.body.classList.toggle('ar', lang === 'ar');
+      $('name').textContent = t.name;
+      $('tagline').textContent = t.tagline;
+      $('bio').textContent = t.bio;
+      $('saveText').textContent = t.save;
+      $('callText').textContent = t.call;
+      $('shareText').textContent = t.share;
+      $('servicesTitle').textContent = t.services;
+      $('portfolioTitle').textContent = t.portfolio;
+      $('footText').textContent = t.foot;
+      $('services').replaceChildren(...t.servicesList.map(item));
+      $('portfolio').replaceChildren(...t.portfolioList.map(item));
+      document.querySelectorAll('#langs button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      try { localStorage.setItem('cardLang', lang); } catch (e) {}
+    }
+
+    $('saveBtn').href = PROFILE.vcard;
+    $('waBtn').href = `https://wa.me/${digits}`;
+    $('callBtn').href = `tel:${PROFILE.phone}`;
+    $('mailBtn').href = `mailto:${PROFILE.email}`;
+    $('shareBtn').addEventListener('click', async () => {
+      const data = { title: document.title, url: location.href };
+      if (navigator.share) {
+        try { await navigator.share(data); } catch (e) {}
+      } else {
+        try { await navigator.clipboard.writeText(location.href); $('shareText').textContent = '✓'; } catch (e) {}
+      }
+    });
+    document.querySelectorAll('#langs button').forEach(b => b.addEventListener('click', () => render(b.dataset.lang)));
+
+    let start = 'en';
+    try { start = localStorage.getItem('cardLang') || (navigator.language || 'en').slice(0, 2); } catch (e) {}
+    render(PROFILE.text[start] ? start : 'en');
+  </script>
+</body>
+</html>

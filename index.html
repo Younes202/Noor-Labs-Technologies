@@ -450,6 +450,31 @@
     .packs-head { margin: 90px 0 44px; }
     .packs-head .section-title { font-size: clamp(24px, 3vw, 38px); }
     .offer-btn.try-demo { margin-top: 10px; background: rgba(168,85,247,.12); }
+    .nfc-wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; max-width: 1060px; margin: 0 auto; }
+    .nfc-visual { position: relative; height: 380px; display: grid; place-items: center; perspective: 1000px; }
+    .nfc-card {
+      position: relative; width: 340px; height: 210px; border-radius: 20px; padding: 22px 24px; color: #fff;
+      background: linear-gradient(135deg, #1e0b3a 0%, #4c1d95 55%, #9333ea 100%);
+      box-shadow: 0 30px 60px rgba(76,29,149,.5), inset 0 1px 0 rgba(255,255,255,.2);
+      transform: rotateY(-14deg) rotateX(8deg); animation: nfcFloat 6s ease-in-out infinite; overflow: hidden;
+    }
+    .nfc-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%); transform: translateX(-100%); animation: nfcShine 4s ease-in-out infinite; }
+    .nfc-chip { width: 42px; height: 32px; border-radius: 7px; background: linear-gradient(135deg, #f5d38a, #b8892e); box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }
+    .nfc-brand { position: absolute; top: 22px; right: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: .08em; font-size: 14px; direction: ltr; }
+    .nfc-icon { position: absolute; top: 64px; right: 26px; font-size: 22px; transform: rotate(90deg); opacity: .85; }
+    .nfc-name { margin-top: 46px; font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; direction: ltr; text-align: left; }
+    .nfc-role { font-size: 12px; opacity: .8; direction: ltr; text-align: left; }
+    .nfc-tap { position: absolute; bottom: 16px; right: 24px; font-size: 11px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.15); }
+    .nfc-phone { position: absolute; right: 6%; top: 8%; font-size: 120px; color: var(--p3); opacity: .9; filter: drop-shadow(0 0 30px rgba(168,85,247,.5)); }
+    .nfc-waves { position: absolute; right: 22%; top: 30%; width: 60px; height: 60px; }
+    .nfc-waves span { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--p3); animation: ping 2.4s var(--ease) infinite; }
+    .nfc-waves span:nth-child(2) { animation-delay: .8s; }
+    .nfc-waves span:nth-child(3) { animation-delay: 1.6s; }
+    a.offer-btn { text-decoration: none; }
+    @keyframes nfcFloat { 0%, 100% { transform: rotateY(-14deg) rotateX(8deg) translateY(0); } 50% { transform: rotateY(-8deg) rotateX(4deg) translateY(-12px); } }
+    @keyframes nfcShine { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+    @media (max-width: 960px) { .nfc-wrap { grid-template-columns: 1fr; } .nfc-visual { height: 300px; } }
+    @media (max-width: 420px) { .nfc-card { width: 290px; height: 180px; } .nfc-phone { font-size: 90px; } }
     .offer-card.chatbot-wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; align-items: center; }
     .chatbot-wide .cw-main, .chatbot-wide .cw-side { display: flex; flex-direction: column; }
     .chatbot-wide .cw-side .offer-features { margin-top: 0; }
@@ -979,7 +1004,7 @@
         </div>
         <div class="hero-stats reveal" style="--d:.4s">
           <div><div class="stat-num" data-count="7">0</div><div class="stat-label" data-i18n="stat1">Competencies</div></div>
-          <div><div class="stat-num" data-count="9">0</div><div class="stat-label" data-i18n="stat2">Premium offers</div></div>
+          <div><div class="stat-num" data-count="10">0</div><div class="stat-label" data-i18n="stat2">Premium offers</div></div>
           <div><div class="stat-num" data-count="3">0</div><div class="stat-label" data-i18n="stat3">Languages</div></div>
           <div><div class="stat-num" data-count="20" data-suffix="%">0</div><div class="stat-label" data-i18n="stat4">Launch discount</div></div>
         </div>
@@ -1245,6 +1270,41 @@
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Full%20Automation%20%2B%20AI%20Chatbot%20pack%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer9-btn">Get this pack</span></button>
+        </div>
+      </div>
+      <div class="section-head reveal packs-head">
+        <h3 class="section-title" data-i18n="nfc-title">Smart NFC Business Card</h3>
+        <p class="section-subtitle" data-i18n="nfc-sub">Your business card, upgraded: one tap shares your whole professional profile.</p>
+      </div>
+      <div class="nfc-wrap">
+        <div class="nfc-visual reveal" aria-hidden="true">
+          <div class="nfc-phone"><i class="fas fa-mobile-screen-button"></i></div>
+          <div class="nfc-waves"><span></span><span></span><span></span></div>
+          <div class="nfc-card">
+            <div class="nfc-chip"></div>
+            <div class="nfc-brand">NOOR LABS</div>
+            <i class="fas fa-wifi nfc-icon"></i>
+            <div class="nfc-name">Your Name</div>
+            <div class="nfc-role">CEO · Your Company</div>
+            <div class="nfc-tap" data-i18n="nfc-tap">Tap to connect</div>
+          </div>
+        </div>
+        <!-- Offer 10: Smart NFC Business Card -->
+        <div class="offer-card glass tilt reveal" style="--d:.1s">
+          <span class="offer-badge"><i class="fas fa-id-card"></i> <span data-i18n="offer10-badge">Smart Card</span></span>
+          <div class="offer-icon"><i class="fas fa-id-card"></i></div>
+          <h3 class="offer-title" data-i18n="offer10-title">Smart NFC Business Card</h3>
+          <p class="offer-desc" data-i18n="offer10-desc">Tap your card on any phone to open your digital profile: contact, WhatsApp, portfolio and socials. Update it anytime — no reprinting.</p>
+          <div class="offer-price" id="price10">300 DH</div>
+          <div class="offer-maintenance" id="maintenance10"><i class="fas fa-infinity"></i> One-time payment — no subscription</div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f1">NFC card (NTAG chip) + QR code — works on iPhone & Android</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f2">Dynamic digital profile: contact, WhatsApp, socials, portfolio</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f3">“Save contact” button adds you to the phone in one tap</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f4">Edit your info anytime — no new card needed</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20NFC%20Business%20Card%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer10-btn">Order my card</span></button>
+          <a class="offer-btn try-demo" href="card/" target="_blank" rel="noopener"><i class="fas fa-id-card"></i> <span data-i18n="offer10-try">See a live demo profile</span></a>
         </div>
       </div>
     </div>
@@ -1594,6 +1654,19 @@
         'offer5-f4': 'First 3 months of maintenance free',
         'offer5-btn': 'Get this offer',
         'offer5-try': 'Try the live demo',
+        'offer10-badge': 'Smart Card',
+        'offer10-title': 'Smart NFC Business Card',
+        'offer10-desc': 'Tap your card on any phone to open your digital profile: contact, WhatsApp, portfolio and socials. Update it anytime — no reprinting.',
+        'offer10-f1': 'NFC card (NTAG chip) + QR code — works on iPhone & Android',
+        'offer10-f2': 'Dynamic digital profile: contact, WhatsApp, socials, portfolio',
+        'offer10-f3': '“Save contact” button adds you to the phone in one tap',
+        'offer10-f4': 'Edit your info anytime — no new card needed',
+        'offer10-btn': 'Order my card',
+        'offer10-try': 'See a live demo profile',
+        'no-sub': 'One-time payment — no subscription',
+        'nfc-title': 'Smart NFC Business Card',
+        'nfc-sub': 'Your business card, upgraded: one tap shares your whole professional profile.',
+        'nfc-tap': 'Tap to connect',
         'offer6-badge': 'Smart Pack',
         'offer6-title': 'Website + AI Chatbot',
         'offer6-desc': 'Our Professional Website with your own AI assistant built in — perfect to win clients online.',
@@ -1717,6 +1790,9 @@
         'offer9-price': '1,405',
         'offer9-original': '1,525',
         'offer9-maintenance': '23',
+        'offer10-price': '35',
+        'offer10-original': '',
+        'offer10-maintenance': '0',
       },
       fr: {
         'nav-home': 'Accueil',
@@ -1782,6 +1858,19 @@
         'offer5-f4': '3 premiers mois de maintenance offerts',
         'offer5-btn': 'Obtenir cette offre',
         'offer5-try': 'Essayer la démo',
+        'offer10-badge': 'Carte intelligente',
+        'offer10-title': 'Carte de visite NFC intelligente',
+        'offer10-desc': 'Approchez votre carte de n\'importe quel téléphone pour ouvrir votre profil digital : contact, WhatsApp, portfolio et réseaux. Modifiable à tout moment — sans réimpression.',
+        'offer10-f1': 'Carte NFC (puce NTAG) + QR code — compatible iPhone & Android',
+        'offer10-f2': 'Profil digital dynamique : contact, WhatsApp, réseaux, portfolio',
+        'offer10-f3': 'Bouton « Enregistrer le contact » en un seul geste',
+        'offer10-f4': 'Modifiez vos infos à tout moment — sans nouvelle carte',
+        'offer10-btn': 'Commander ma carte',
+        'offer10-try': 'Voir un profil démo',
+        'no-sub': 'Paiement unique — sans abonnement',
+        'nfc-title': 'Carte de visite NFC intelligente',
+        'nfc-sub': 'Votre carte de visite, en mieux : un simple contact partage tout votre profil professionnel.',
+        'nfc-tap': 'Approchez pour vous connecter',
         'offer6-badge': 'Pack Smart',
         'offer6-title': 'Site Web + Chatbot IA',
         'offer6-desc': 'Notre Site Web Professionnel avec votre propre assistant IA intégré — idéal pour gagner des clients en ligne.',
@@ -1905,6 +1994,9 @@
         'offer9-price': '1,285',
         'offer9-original': '1,395',
         'offer9-maintenance': '21',
+        'offer10-price': '32',
+        'offer10-original': '',
+        'offer10-maintenance': '0',
       },
       ar: {
         'nav-home': 'الرئيسية',
@@ -1970,6 +2062,19 @@
         'offer5-f4': 'أول 3 أشهر صيانة مجاناً',
         'offer5-btn': 'احصل على هذا العرض',
         'offer5-try': 'جرّب العرض التجريبي',
+        'offer10-badge': 'بطاقة ذكية',
+        'offer10-title': 'بطاقة أعمال ذكية NFC',
+        'offer10-desc': 'قرّب بطاقتك من أي هاتف لفتح ملفك الرقمي: الاتصال، واتساب، أعمالك وحساباتك. يمكنك تعديلها في أي وقت — بدون إعادة طباعة.',
+        'offer10-f1': 'بطاقة NFC (شريحة NTAG) + رمز QR — تعمل على iPhone و Android',
+        'offer10-f2': 'ملف رقمي ديناميكي: الاتصال، واتساب، الحسابات، الأعمال',
+        'offer10-f3': 'زر «حفظ جهة الاتصال» بلمسة واحدة',
+        'offer10-f4': 'عدّل معلوماتك في أي وقت — دون بطاقة جديدة',
+        'offer10-btn': 'اطلب بطاقتي',
+        'offer10-try': 'شاهد ملفاً تجريبياً',
+        'no-sub': 'دفعة واحدة — بدون اشتراك',
+        'nfc-title': 'بطاقة أعمال ذكية NFC',
+        'nfc-sub': 'بطاقة أعمالك بشكل أذكى: لمسة واحدة تشارك ملفك المهني بالكامل.',
+        'nfc-tap': 'قرّب للاتصال',
         'offer6-badge': 'باقة ذكية',
         'offer6-title': 'موقع ويب + شات بوت ذكي',
         'offer6-desc': 'موقعنا الاحترافي مع مساعدك الذكي الخاص — مثالي لجذب العملاء عبر الإنترنت.',
@@ -2093,6 +2198,9 @@
         'offer9-price': '11,990',
         'offer9-original': '13,000',
         'offer9-maintenance': '199',
+        'offer10-price': '300',
+        'offer10-original': '',
+        'offer10-maintenance': '0',
       }
     };
 
@@ -2103,23 +2211,27 @@
       const currencySymbol = translations[lang]['currency'] || 'DH';
       
       const prices = {};
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 10; i++) {
         prices[i] = { price: translations[lang][`offer${i}-price`], original: translations[lang][`offer${i}-original`], maintenance: translations[lang][`offer${i}-maintenance`] };
       }
       
       // Update each offer card
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 10; i++) {
         const priceEl = document.getElementById('price' + i);
         const maintenanceEl = document.getElementById('maintenance' + i);
         
         if (priceEl && prices[i]) {
           const originalPrice = prices[i].original;
           const currentPrice = prices[i].price;
-          priceEl.innerHTML = `${currentPrice} ${currencySymbol} <small><s>${originalPrice} ${currencySymbol}</s></small>`;
+          priceEl.innerHTML = originalPrice
+            ? `${currentPrice} ${currencySymbol} <small><s>${originalPrice} ${currencySymbol}</s></small>`
+            : `${currentPrice} ${currencySymbol}`;
         }
         
         if (maintenanceEl && prices[i]) {
-          maintenanceEl.innerHTML = `<i class="fas fa-calendar-alt"></i> + ${prices[i].maintenance} ${currencySymbol} ${translations[lang]['maint-label'] || '/ month maintenance'}`;
+          maintenanceEl.innerHTML = prices[i].maintenance === '0'
+            ? `<i class="fas fa-infinity"></i> ${translations[lang]['no-sub']}`
+            : `<i class="fas fa-calendar-alt"></i> + ${prices[i].maintenance} ${currencySymbol} ${translations[lang]['maint-label'] || '/ month maintenance'}`;
         }
       }
     }
@@ -2288,7 +2400,7 @@
       en: {
         ai: "🤖 AI Solutions at NOOR Labs\n\nWe offer:\n• Generative AI & LLM integration\n• Predictive analytics & forecasting\n• Computer vision solutions\n• Natural Language Processing\n• Custom AI model development\n\nWant to discuss your AI project? Contact us through WhatsApp or the form above!",
         erp: "📦 ERP Development Expertise\n\nWe build custom ERP solutions for:\n• Restaurant chains (inventory, orders, kitchen display)\n• Bike rental fleets (pricing, bookings, maintenance)\n• Manufacturing & logistics\n• Financial institutions\n\nCheck our Special Offers section for discounted packages!",
-        offers: "🏷️ Our Premium Offers (−20% launch price)\n\n1. Professional Website: $350 + $6/month maintenance\n2. Business ERP System: $590 + $10/month\n3. ERP + Report Automation: $820 + $15/month\n4. ERP + Full Automation: $1,175 + $21/month\n5. AI Chatbot: $350 + $6/month\n\n📦 Smart Packs:\n• Website + AI Chatbot: $580\n• Business ERP + AI Chatbot: $815\n• ERP + Reports + AI Chatbot: $1,050\n• Full Automation + AI Chatbot: $1,405\n\n🎁 First 3 months of maintenance free\n💳 Pay 50% to start, 50% on delivery\n\nTry the quote simulator on the site or contact us on WhatsApp!",
+        offers: "🏷️ Our Premium Offers (−20% launch price)\n\n1. Professional Website: $350 + $6/month maintenance\n2. Business ERP System: $590 + $10/month\n3. ERP + Report Automation: $820 + $15/month\n4. ERP + Full Automation: $1,175 + $21/month\n5. AI Chatbot: $350 + $6/month\n6. Smart NFC Business Card: $35 (one-time)\n\n📦 Smart Packs:\n• Website + AI Chatbot: $580\n• Business ERP + AI Chatbot: $815\n• ERP + Reports + AI Chatbot: $1,050\n• Full Automation + AI Chatbot: $1,405\n\n🎁 First 3 months of maintenance free\n💳 Pay 50% to start, 50% on delivery\n\nTry the quote simulator on the site or contact us on WhatsApp!",
         internship: "💼 Current Internship Openings\n\n1. Restaurant ERP Developer - Build full restaurant management ERP\n2. Bike Rental ERP Engineer - Fleet management & booking platform\n\n📧 Send your resume to careers@noorlabstechnologies.com",
         contact: "📞 Ready to transform your business?\n\nOur team is available for:\n• AI implementation consulting\n• Custom ERP development\n• Data analytics & BI dashboards\n• Cloud migration\n\nReach out via WhatsApp: +212 612 974 126 or email: hello@noorlabstechnologies.com",
         about: "🏢 NOOR TECHNOLOGIES LABS is a remote-first technology company specializing in AI, data science, and enterprise software development. We're a distributed team of engineers and consultants focused on delivering innovative digital solutions."
@@ -2296,7 +2408,7 @@
       fr: {
         ai: "🤖 Solutions IA chez NOOR Labs\n\nNous offrons:\n• Intégration IA générative & LLM\n• Analytique prédictive & prévisions\n• Solutions de vision par ordinateur\n• Traitement du langage naturel\n• Développement de modèles IA personnalisés\n\nVous souhaitez discuter de votre projet IA? Contactez-nous via WhatsApp ou le formulaire ci-dessus!",
         erp: "📦 Expertise en développement ERP\n\nNous construisons des solutions ERP sur mesure pour:\n• Chaînes de restaurants (inventaire, commandes, affichage cuisine)\n• Flottes de vélos en location (tarification, réservations, maintenance)\n• Industrie & logistique\n• Institutions financières\n\nConsultez notre section Offres Spéciales pour des forfaits à prix réduits!",
-        offers: "🏷️ Nos offres premium (−20% prix de lancement)\n\n1. Site Web Pro : 320 € + 5 €/mois de maintenance\n2. Système ERP Business : 540 € + 9 €/mois\n3. ERP + Automatisation des rapports : 750 € + 14 €/mois\n4. ERP + Automatisation complète : 1 075 € + 19 €/mois\n5. Chatbot IA : 320 € + 5 €/mois\n\n📦 Packs Smart :\n• Site Web + Chatbot IA : 530 €\n• ERP Business + Chatbot IA : 745 €\n• ERP + Rapports + Chatbot IA : 960 €\n• Automatisation complète + Chatbot IA : 1 285 €\n\n🎁 3 premiers mois de maintenance offerts\n💳 Paiement : 50% au démarrage, 50% à la livraison\n\nEssayez notre simulateur de devis ou contactez-nous sur WhatsApp !",
+        offers: "🏷️ Nos offres premium (−20% prix de lancement)\n\n1. Site Web Pro : 320 € + 5 €/mois de maintenance\n2. Système ERP Business : 540 € + 9 €/mois\n3. ERP + Automatisation des rapports : 750 € + 14 €/mois\n4. ERP + Automatisation complète : 1 075 € + 19 €/mois\n5. Chatbot IA : 320 € + 5 €/mois\n6. Carte de visite NFC : 32 € (paiement unique)\n\n📦 Packs Smart :\n• Site Web + Chatbot IA : 530 €\n• ERP Business + Chatbot IA : 745 €\n• ERP + Rapports + Chatbot IA : 960 €\n• Automatisation complète + Chatbot IA : 1 285 €\n\n🎁 3 premiers mois de maintenance offerts\n💳 Paiement : 50% au démarrage, 50% à la livraison\n\nEssayez notre simulateur de devis ou contactez-nous sur WhatsApp !",
         internship: "💼 Offres de stage actuelles\n\n1. Développeur ERP Restaurant - Construire un ERP complet de gestion de restaurant\n2. Ingénieur ERP Location de Vélos - Gestion de flotte et plateforme de réservation\n\n📧 Envoyez votre CV à careers@noorlabstechnologies.com",
         contact: "📞 Prêt à transformer votre entreprise?\n\nNotre équipe est disponible pour:\n• Conseil en mise en œuvre IA\n• Développement ERP sur mesure\n• Analytique de données & tableaux de bord BI\n• Migration cloud\n\nContactez-nous via WhatsApp: +212 612 974 126 ou email: hello@noorlabstechnologies.com",
         about: "🏢 NOOR TECHNOLOGIES LABS est une entreprise technologique remote-first spécialisée en IA, science des données et développement de logiciels d'entreprise. Nous sommes une équipe distribuée d'ingénieurs et consultants dédiés à des solutions digitales innovantes."
@@ -2304,7 +2416,7 @@
       ar: {
         ai: "🤖 حلول الذكاء الاصطناعي في NOOR Labs\n\nنقدم:\n• تكامل الذكاء الاصطناعي التوليدي و LLM\n• التحليلات التنبؤية والتوقعات\n• حلول الرؤية الحاسوبية\n• معالجة اللغة الطبيعية\n• تطوير نماذج ذكاء اصطناعي مخصصة\n\nترغب في مناقشة مشروع الذكاء الاصطناعي الخاص بك؟ تواصل معنا عبر واتساب أو النموذج أعلاه!",
         erp: "📦 خبرة في تطوير نظم ERP\n\nنبني حلول ERP مخصصة لـ:\n• سلاسل المطاعم (المخزون، الطلبات، شاشات المطبخ)\n• تأجير الدراجات (التسعير، الحجوزات، الصيانة)\n• التصنيع والخدمات اللوجستية\n• المؤسسات المالية\n\nتحقق من قسم العروض الخاصة للحصول على باقات مخفضة!",
-        offers: "🏷️ عروضنا المميزة (−20% سعر الإطلاق)\n\n1. موقع ويب احترافي: 3,000 د.م. + 49 د.م./شهر صيانة\n2. نظام ERP للأعمال: 5,000 د.م. + 89 د.م./شهر\n3. ERP + أتمتة التقارير: 7,000 د.م. + 129 د.م./شهر\n4. ERP + أتمتة كاملة: 10,000 د.م. + 179 د.م./شهر\n5. شات بوت ذكي: 3,000 د.م. + 49 د.م./شهر\n\n📦 الباقات الذكية:\n• موقع ويب + شات بوت: 4,990 د.م.\n• نظام ERP + شات بوت: 6,990 د.م.\n• ERP + التقارير + شات بوت: 8,990 د.م.\n• الأتمتة الكاملة + شات بوت: 11,990 د.م.\n\n🎁 أول 3 أشهر صيانة مجاناً\n💳 الدفع: 50% عند البدء و50% عند التسليم\n\nجرّب محاكي عرض السعر في الموقع أو تواصل معنا عبر واتساب!",
+        offers: "🏷️ عروضنا المميزة (−20% سعر الإطلاق)\n\n1. موقع ويب احترافي: 3,000 د.م. + 49 د.م./شهر صيانة\n2. نظام ERP للأعمال: 5,000 د.م. + 89 د.م./شهر\n3. ERP + أتمتة التقارير: 7,000 د.م. + 129 د.م./شهر\n4. ERP + أتمتة كاملة: 10,000 د.م. + 179 د.م./شهر\n5. شات بوت ذكي: 3,000 د.م. + 49 د.م./شهر\n6. بطاقة أعمال NFC: 300 د.م. (دفعة واحدة)\n\n📦 الباقات الذكية:\n• موقع ويب + شات بوت: 4,990 د.م.\n• نظام ERP + شات بوت: 6,990 د.م.\n• ERP + التقارير + شات بوت: 8,990 د.م.\n• الأتمتة الكاملة + شات بوت: 11,990 د.م.\n\n🎁 أول 3 أشهر صيانة مجاناً\n💳 الدفع: 50% عند البدء و50% عند التسليم\n\nجرّب محاكي عرض السعر في الموقع أو تواصل معنا عبر واتساب!",
         internship: "💼 فرص التدريب الحالية\n\n1. مطور ERP للمطاعم - بناء نظام ERP كامل لإدارة المطاعم\n2. مهندس ERP لتأجير الدراجات - إدارة الأسطول ومنصة الحجز\n\n📧 أرسل سيرتك الذاتية إلى careers@noorlabstechnologies.com",
         contact: "📞 مستعد لتحويل عملك؟\n\nفريقنا متاح لـ:\n• استشارات تنفيذ الذكاء الاصطناعي\n• تطوير ERP مخصص\n• تحليلات البيانات ولوحات BI\n• الانتقال إلى السحابة\n\nتواصل عبر واتساب: +212 612 974 126 أو البريد الإلكتروني: hello@noorlabstechnologies.com",
         about: "🏢 NOOR TECHNOLOGIES LABS هي شركة تقنية تعمل عن بعد متخصصة في الذكاء الاصطناعي وعلوم البيانات وتطوير برمجيات المؤسسات. نحن فريق موزع من المهندسين والمستشارين المكرسين لتقديم حلول رقمية مبتكرة."
@@ -2396,6 +2508,7 @@
       en: {
         back: '⬅ Back', home: '🏠 Main menu', insteadOf: 'instead of',
         offers: '🏷️ Offers & prices', services: '🧠 Our services', work: '⚙️ How we work', careers: '🎓 Careers', contact: '📞 Contact us',
+        q_nfc: 'How much is the NFC smart card?', nfcFoot: 'Tap the card on any phone to open your digital profile (contact, WhatsApp, portfolio, socials) and save your contact in one tap. You can update your info anytime without a new card.\nDemo: noorlabstechnologies.com/card/',
         q_website: 'How much is a website?', q_erp: 'How much is an ERP?', q_chatbot: 'How much is an AI chatbot?', q_packs: 'What are the Smart Packs?', q_maint: 'How does maintenance work?', q_pay: 'How do I pay?',
         q_ai: 'AI solutions', q_erpdev: 'ERP development', q_bi: 'Data & dashboards', q_software: 'Web, mobile & cloud',
         q_process: 'What are the steps?', q_quote: 'How do I get a quote?', q_remote: 'Who are you?',
@@ -2410,6 +2523,7 @@
       fr: {
         back: '⬅ Retour', home: '🏠 Menu principal', insteadOf: 'au lieu de',
         offers: '🏷️ Offres & prix', services: '🧠 Nos services', work: '⚙️ Notre méthode', careers: '🎓 Carrières', contact: '📞 Nous contacter',
+        q_nfc: 'Combien coûte la carte NFC ?', nfcFoot: 'Approchez la carte de n\'importe quel téléphone pour ouvrir votre profil digital (contact, WhatsApp, portfolio, réseaux) et enregistrer votre contact en un geste. Modifiable à tout moment sans nouvelle carte.\nDémo : noorlabstechnologies.com/card/',
         q_website: 'Combien coûte un site web ?', q_erp: 'Combien coûte un ERP ?', q_chatbot: 'Combien coûte un chatbot IA ?', q_packs: 'Que sont les Packs Smart ?', q_maint: 'Comment fonctionne la maintenance ?', q_pay: 'Comment payer ?',
         q_ai: 'Solutions IA', q_erpdev: 'Développement ERP', q_bi: 'Données & tableaux de bord', q_software: 'Web, mobile & cloud',
         q_process: 'Quelles sont les étapes ?', q_quote: 'Comment obtenir un devis ?', q_remote: 'Qui êtes-vous ?',
@@ -2424,6 +2538,7 @@
       ar: {
         back: '⬅ رجوع', home: '🏠 القائمة الرئيسية', insteadOf: 'بدلاً من',
         offers: '🏷️ العروض والأسعار', services: '🧠 خدماتنا', work: '⚙️ طريقة عملنا', careers: '🎓 الوظائف', contact: '📞 تواصل معنا',
+        q_nfc: 'كم ثمن بطاقة NFC الذكية؟', nfcFoot: 'قرّب البطاقة من أي هاتف لفتح ملفك الرقمي (الاتصال، واتساب، الأعمال، الحسابات) وحفظ جهة الاتصال بلمسة. يمكنك تعديل معلوماتك في أي وقت دون بطاقة جديدة.\nعرض تجريبي: noorlabstechnologies.com/card/',
         q_website: 'كم ثمن الموقع الإلكتروني؟', q_erp: 'كم ثمن نظام ERP؟', q_chatbot: 'كم ثمن الشات بوت الذكي؟', q_packs: 'ما هي الباقات الذكية؟', q_maint: 'كيف تعمل الصيانة؟', q_pay: 'كيف يتم الدفع؟',
         q_ai: 'حلول الذكاء الاصطناعي', q_erpdev: 'تطوير ERP', q_bi: 'البيانات ولوحات المعلومات', q_software: 'الويب والهاتف والسحابة',
         q_process: 'ما هي المراحل؟', q_quote: 'كيف أحصل على عرض سعر؟', q_remote: 'من أنتم؟',
@@ -2445,7 +2560,7 @@
     }
     const QA_TREE = {
       root: { children: ['offers', 'services', 'work', 'careers', 'contact'] },
-      offers: { children: ['q_website', 'q_erp', 'q_chatbot', 'q_packs', 'q_maint', 'q_pay'] },
+      offers: { children: ['q_website', 'q_erp', 'q_chatbot', 'q_packs', 'q_nfc', 'q_maint', 'q_pay'] },
       services: { children: ['q_ai', 'q_erpdev', 'q_bi', 'q_software'] },
       work: { children: ['q_process', 'q_quote', 'q_remote'] },
       careers: { answer: () => responses[currentLang].internship },
@@ -2455,6 +2570,7 @@
       q_chatbot: { answer: () => `${offerLine(5)}\n\n${qt().chatbotFoot}` },
       q_packs: { answer: () => [6, 7, 8, 9].map(offerLine).join('\n') + `\n\n${qt().packsFoot}` },
       q_maint: { answer: () => `${qt().maintHead}\n\n` + [1, 2, 3, 4, 5].map(i => `• ${translations[currentLang][`offer${i}-title`]}: ${translations[currentLang][`offer${i}-maintenance`]} ${translations[currentLang]['currency']}`).join('\n') + `\n\n${qt().maintFoot}` },
+      q_nfc: { answer: () => `• ${translations[currentLang]['offer10-title']}: ${translations[currentLang]['offer10-price']} ${translations[currentLang]['currency']} — ${translations[currentLang]['no-sub']}\n\n${qt().nfcFoot}` },
       q_pay: { answer: () => qt().payText },
       q_ai: { answer: () => responses[currentLang].ai },
       q_erpdev: { answer: () => responses[currentLang].erp },
@@ -2984,7 +3100,7 @@
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 2, years: 1, cur: null };
-    const PKG_ICONS = ['code', 'cogs', 'chart-pie', 'robot', 'comments', 'globe', 'cogs', 'chart-pie', 'rocket'];
+    const PKG_ICONS = ['code', 'cogs', 'chart-pie', 'robot', 'comments', 'globe', 'cogs', 'chart-pie', 'rocket', 'id-card'];
     const toNum = s => parseFloat(String(s).replace(/,/g, ''));
     const quoteCur = () => quote.cur || currentLang;
     function money(n, cur = quoteCur()) {
@@ -2997,8 +3113,8 @@
 
     function quoteData() {
       const cur = quoteCur(), p = translations[cur], t = translations[currentLang], i = quote.pkg;
-      const original = toNum(p[`offer${i}-original`]);
       const price = toNum(p[`offer${i}-price`]);
+      const original = toNum(p[`offer${i}-original`]) || price;  // offers without a launch discount
       const maint = toNum(p[`offer${i}-maintenance`]);  // per month
       const months = quote.years * 12;
       const maintGross = maint * months;
@@ -3013,20 +3129,20 @@
         saving: original - price + freeValue,
         title: t[`offer${i}-title`],
         desc: t[`offer${i}-desc`],
-        features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).concat(i >= 5 ? [t['feat-ai-usage']] : []).filter(Boolean)
+        features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).concat(i >= 5 && i <= 9 ? [t['feat-ai-usage']] : []).filter(Boolean)
       };
     }
 
     function renderPackages() {
       const box = document.getElementById('qPackages');
       const cur = quoteCur();
-      box.innerHTML = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => {
+      box.innerHTML = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => {
         const p = translations[cur];
         return `<label class="q-pkg${quote.pkg === i ? ' selected' : ''}" data-pkg="${i}">
           <input type="radio" name="qPkg" value="${i}"${quote.pkg === i ? ' checked' : ''}>
           <span class="q-check"></span>
           <div class="q-pkg-top"><i class="fas fa-${PKG_ICONS[i - 1]}"></i><span class="q-pkg-name">${esc(translations[currentLang][`offer${i}-title`])}</span></div>
-          <div class="q-pkg-price">${money(toNum(p[`offer${i}-price`]))}<s>${money(toNum(p[`offer${i}-original`]))}</s></div>
+          <div class="q-pkg-price">${money(toNum(p[`offer${i}-price`]))}${p[`offer${i}-original`] ? `<s>${money(toNum(p[`offer${i}-original`]))}</s>` : ''}</div>
         </label>`;
       }).join('');
       box.querySelectorAll('.q-pkg').forEach(el => el.addEventListener('click', () => {
@@ -3038,17 +3154,17 @@
     function renderQuote() {
       const t = translations[currentLang], d = quoteData();
       const lines = [
-        [d.title, money(d.original)],
-        [`${t['q-discount']} (−${d.pct}%)`, '−' + money(d.discount), 'discount']
+        [d.title, money(d.original)]
       ];
-      if (d.months > 0) {
+      if (d.discount > 0) lines.push([`${t['q-discount']} (−${d.pct}%)`, '−' + money(d.discount), 'discount']);
+      if (d.months > 0 && d.maint > 0) {
         lines.push([`${t['q-maint']} (${d.months} ${t['q-months-unit']} × ${money(d.maint)})`, money(d.maintGross)]);
         lines.push([t['q-free3'], '−' + money(d.freeValue), 'discount']);
       }
       document.getElementById('qLines').innerHTML = lines
         .map(([a, b, cls]) => `<li${cls ? ` class="${cls}"` : ''}><span>${esc(a)}</span><span>${b}</span></li>`).join('');
       document.getElementById('qTotal').textContent = money(d.total);
-      document.getElementById('qSave').textContent = `${t['q-save']} ${money(d.saving)}`;
+      document.getElementById('qSave').textContent = d.saving > 0 ? `${t['q-save']} ${money(d.saving)}` : '';
       document.querySelectorAll('#qYears button').forEach(b => b.classList.toggle('active', +b.dataset.years === quote.years));
       document.querySelectorAll('#qCurrency button').forEach(b => b.classList.toggle('active', b.dataset.cur === d.cur));
     }
@@ -3086,10 +3202,10 @@
       const cell = 'padding:12px 14px;border-bottom:1px solid #ede4fb;font-size:12.5px;vertical-align:top;';
       const num = `${cell}text-align:${rtl ? 'left' : 'right'};white-space:nowrap;`;
       const rows = [
-        `<tr><td style="${cell}"><div style="font-weight:700;color:#1e1035;">${esc(d.title)}</div><div style="color:#6b6480;font-size:11px;margin-top:4px;line-height:1.5;">${esc(d.desc)}</div></td><td style="${cell}text-align:center;">1</td><td style="${num}">${pm(d.original)}</td><td style="${num}">${pm(d.original)}</td></tr>`,
-        `<tr><td style="${cell}color:#16a34a;">${esc(`${t['q-discount']} (−${d.pct}%)`)}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`
+        `<tr><td style="${cell}"><div style="font-weight:700;color:#1e1035;">${esc(d.title)}</div><div style="color:#6b6480;font-size:11px;margin-top:4px;line-height:1.5;">${esc(d.desc)}</div></td><td style="${cell}text-align:center;">1</td><td style="${num}">${pm(d.original)}</td><td style="${num}">${pm(d.original)}</td></tr>`
       ];
-      if (d.months > 0) {
+      if (d.discount > 0) rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(`${t['q-discount']} (−${d.pct}%)`)}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`);
+      if (d.months > 0 && d.maint > 0) {
         rows.push(`<tr><td style="${cell}">${esc(t['q-maint'])}</td><td style="${cell}text-align:center;">${d.months} ${esc(t['q-months-unit'])}</td><td style="${num}">${pm(d.maint)}</td><td style="${num}">${pm(d.maintGross)}</td></tr>`);
         rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(t['q-free3'])}</td><td style="${cell}text-align:center;">3 ${esc(t['q-months-unit'])}</td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.freeValue)}</td></tr>`);
       }
@@ -3135,7 +3251,7 @@
           <div style="display:flex;justify-content:flex-end;margin-top:18px;">
             <div style="width:300px;font-size:12.5px;">
               <div style="display:flex;justify-content:space-between;padding:7px 0;color:#4a4360;"><span>${esc(t['q-subtotal'])}</span><b>${pm(d.subtotal)}</b></div>
-              <div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(`${t['q-discount']} (−${d.pct}%)`)}</span><b>${pm(-d.discount)}</b></div>
+              ${d.discount > 0 ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(`${t['q-discount']} (−${d.pct}%)`)}</span><b>${pm(-d.discount)}</b></div>` : ''}
               ${d.freeValue ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(t['q-free3'])}</span><b>${pm(-d.freeValue)}</b></div>` : ''}
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#a855f7);color:#fff;">
                 <span style="font-weight:600;">${esc(t['q-total'])}</span><span style="font-size:22px;font-weight:800;">${pm(d.total)}</span>
@@ -3210,9 +3326,9 @@
         `👤 ${client.name}${client.company ? ' — ' + client.company : ''}`,
         client.email ? `📧 ${client.email}` : null,
         client.phone ? `📱 ${client.phone}` : null, '',
-        `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)`,
-        d.months > 0 ? `🛠️ ${t['q-maint']}: ${d.months} ${t['q-months-unit']} × ${money(d.maint)} = ${money(d.maintGross)}` : null,
-        d.months > 0 ? `🎁 ${t['q-free3']}: −${money(d.freeValue)}` : null,
+        d.discount > 0 ? `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)` : `📦 ${d.title}: ${money(d.price)}`,
+        d.months > 0 && d.maint > 0 ? `🛠️ ${t['q-maint']}: ${d.months} ${t['q-months-unit']} × ${money(d.maint)} = ${money(d.maintGross)}` : null,
+        d.months > 0 && d.maint > 0 ? `🎁 ${t['q-free3']}: −${money(d.freeValue)}` : null,
         `💳 ${t['q-pay']}`,
         `💰 ${t['q-total']}: ${money(d.total)}`
       ].filter(x => x !== null).join('\n');
