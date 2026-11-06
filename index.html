@@ -441,7 +441,6 @@
     .offer-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
     .offer-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,10,26,.25), transparent 35%, transparent 70%, rgba(15,10,26,.3)); }
     .offer-card:hover .offer-photo img { transform: scale(1.05); }
-    .chatbot-wide .offer-photo { margin: 0 0 20px; border-radius: 16px; aspect-ratio: 16 / 8; }
     .offer-card.popular { border: 1px solid transparent; background: linear-gradient(var(--surface-strong), var(--surface-strong)) padding-box, conic-gradient(from var(--angle, 0deg), #9333ea, #d946ef, #c084fc, #4c1d95, #9333ea) border-box; animation: rotateBorder 5s linear infinite; }
     @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
     @keyframes rotateBorder { to { --angle: 360deg; } }
@@ -1190,7 +1189,6 @@
         <div class="offer-card glass reveal chatbot-wide">
           <span class="discount-badge-red">-20% OFF</span>
           <div class="cw-main">
-          <div class="offer-photo"><img src="assets/offers/offer5.jpg" alt="Someone typing a message on a phone" loading="lazy" width="760" height="460"></div>
             <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">Never miss a client</span></span>
             <div class="offer-icon"><i class="fas fa-comments"></i></div>
             <h3 class="offer-title" data-i18n="offer5-title">Smart Assistant 24/7</h3>

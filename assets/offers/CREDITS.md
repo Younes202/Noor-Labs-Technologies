@@ -3,7 +3,6 @@ Photos from Unsplash (free to use under the Unsplash License, https://unsplash.c
 - offer2.jpg  images.unsplash.com/photo-1728044849280-10a1a75cff83
 - offer3.jpg  images.unsplash.com/photo-1460925895917-afdab827c52f
 - offer4.jpg  images.unsplash.com/photo-1713946598456-a25ab3645730
-- offer5.jpg  images.unsplash.com/photo-1526045612212-70caf35c14df
 - offer6.jpg  images.unsplash.com/photo-1714079761488-e0c9b9ac4138
 - offer7.jpg  images.unsplash.com/photo-1556742393-d75f468bfcb0
 - offer8.jpg  images.unsplash.com/photo-1560626833-1ef263dc356c
