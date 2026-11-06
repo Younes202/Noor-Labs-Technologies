@@ -1,0 +1,11 @@
+Photos from Unsplash (free to use under the Unsplash License, https://unsplash.com/license):
+- offer1.jpg  images.unsplash.com/photo-1733503711060-1df31554390f
+- offer2.jpg  images.unsplash.com/photo-1728044849280-10a1a75cff83
+- offer3.jpg  images.unsplash.com/photo-1460925895917-afdab827c52f
+- offer4.jpg  images.unsplash.com/photo-1687422811062-a966b55cb217
+- offer5.jpg  images.unsplash.com/photo-1526045612212-70caf35c14df
+- offer6.jpg  images.unsplash.com/photo-1765648580808-76d75e4f3833
+- offer7.jpg  images.unsplash.com/photo-1753351052046-8c6818304a4f
+- offer8.jpg  images.unsplash.com/photo-1599658880436-c61792e70672
+- offer9.jpg  images.unsplash.com/photo-1790750541176-4f642caa3eda
+- offer10.jpg  images.unsplash.com/photo-1628891439478-c613e85af7d6

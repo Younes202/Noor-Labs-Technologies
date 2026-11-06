@@ -436,6 +436,12 @@
     /* Offers */
     .offers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
     .offer-card { padding: 30px 24px 26px; display: flex; flex-direction: column; }
+    .offer-card { overflow: hidden; }
+    .offer-photo { margin: -30px -24px 20px; aspect-ratio: 16 / 10; overflow: hidden; position: relative; background: var(--bg-alt); flex-shrink: 0; }
+    .offer-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
+    .offer-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,10,26,.25), transparent 35%, transparent 70%, rgba(15,10,26,.3)); }
+    .offer-card:hover .offer-photo img { transform: scale(1.05); }
+    .chatbot-wide .offer-photo { margin: 0 0 20px; border-radius: 16px; aspect-ratio: 16 / 8; }
     .offer-card.popular { border: 1px solid transparent; background: linear-gradient(var(--surface-strong), var(--surface-strong)) padding-box, conic-gradient(from var(--angle, 0deg), #9333ea, #d946ef, #c084fc, #4c1d95, #9333ea) border-box; animation: rotateBorder 5s linear infinite; }
     @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
     @keyframes rotateBorder { to { --angle: 360deg; } }
@@ -1100,6 +1106,7 @@
       <div class="offers-grid">
         <!-- Offer 1: Website Package -->
         <div class="offer-card glass tilt reveal">
+          <div class="offer-photo"><img src="assets/offers/offer1.jpg" alt="Someone browsing a business website on a laptop in a café" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Get found</span></span>
           <div class="offer-icon"><i class="fas fa-code"></i></div>
@@ -1118,6 +1125,7 @@
 
         <!-- Offer 2: ERP Package -->
         <div class="offer-card glass tilt popular reveal" style="--d:.08s">
+          <div class="offer-photo"><img src="assets/offers/offer2.jpg" alt="A tablet showing a sales and orders app on a shop counter" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-cubes"></i> <span data-i18n="offer2-badge">Stay in control</span></span>
           <div class="offer-icon"><i class="fas fa-cogs"></i></div>
@@ -1136,6 +1144,7 @@
 
         <!-- Offer 3: ERP + Automation -->
         <div class="offer-card glass tilt reveal" style="--d:.16s">
+          <div class="offer-photo"><img src="assets/offers/offer3.jpg" alt="A laptop showing clear sales charts" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-robot"></i> <span data-i18n="offer3-badge">Decide with clarity</span></span>
           <div class="offer-icon"><i class="fas fa-chart-pie"></i></div>
@@ -1154,6 +1163,7 @@
 
         <!-- Offer 4: Full Automation -->
         <div class="offer-card glass tilt reveal" style="--d:.24s">
+          <div class="offer-photo"><img src="assets/offers/offer4.jpg" alt="A happy business owner reading good news on his phone" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-rocket"></i> <span data-i18n="offer4-badge">Grow without stress</span></span>
           <div class="offer-icon"><i class="fas fa-robot"></i></div>
@@ -1180,6 +1190,7 @@
         <div class="offer-card glass reveal chatbot-wide">
           <span class="discount-badge-red">-20% OFF</span>
           <div class="cw-main">
+          <div class="offer-photo"><img src="assets/offers/offer5.jpg" alt="Someone typing a message on a phone" loading="lazy" width="760" height="460"></div>
             <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">Never miss a client</span></span>
             <div class="offer-icon"><i class="fas fa-comments"></i></div>
             <h3 class="offer-title" data-i18n="offer5-title">Smart Assistant 24/7</h3>
@@ -1202,6 +1213,7 @@
         </div>
         <!-- Offer 6: Website + AI Chatbot -->
         <div class="offer-card glass tilt reveal">
+          <div class="offer-photo"><img src="assets/offers/offer6.jpg" alt="A smiling business owner working on her laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -17%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer6-badge">Smart Pack</span></span>
           <div class="offer-icon"><i class="fas fa-globe"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
@@ -1221,6 +1233,7 @@
         </div>
         <!-- Offer 7: Business ERP + AI Chatbot -->
         <div class="offer-card glass tilt reveal" style="--d:.08s">
+          <div class="offer-photo"><img src="assets/offers/offer7.jpg" alt="Two café owners at their counter and cash register" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -13%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer7-badge">Smart Pack</span></span>
           <div class="offer-icon"><i class="fas fa-cogs"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
@@ -1240,6 +1253,7 @@
         </div>
         <!-- Offer 8: ERP + Reports + AI Chatbot -->
         <div class="offer-card glass tilt reveal" style="--d:.16s">
+          <div class="offer-photo"><img src="assets/offers/offer8.jpg" alt="Checking the day's sales report on a laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -10%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer8-badge">Smart Pack</span></span>
           <div class="offer-icon"><i class="fas fa-chart-pie"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
@@ -1259,6 +1273,7 @@
         </div>
         <!-- Offer 9: Full Automation + AI Chatbot -->
         <div class="offer-card glass tilt popular reveal" style="--d:.24s">
+          <div class="offer-photo"><img src="assets/offers/offer9.jpg" alt="A restaurant owner holding a We're open sign" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -8%</span>
           <span class="offer-badge"><i class="fas fa-crown"></i> <span data-i18n="offer9-badge">Complete Pack</span></span>
           <div class="offer-icon"><i class="fas fa-rocket"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
@@ -1296,6 +1311,7 @@
         </div>
         <!-- Offer 10: Smart NFC Business Card -->
         <div class="offer-card glass tilt reveal" style="--d:.1s">
+          <div class="offer-photo"><img src="assets/offers/offer10.jpg" alt="A hand holding a sleek black business card" loading="lazy" width="760" height="460"></div>
           <span class="offer-badge"><i class="fas fa-id-card"></i> <span data-i18n="offer10-badge">Smart Card</span></span>
           <div class="offer-icon"><i class="fas fa-id-card"></i></div>
           <h3 class="offer-title" data-i18n="offer10-title">Smart Business Card</h3>
