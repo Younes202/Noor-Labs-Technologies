@@ -864,6 +864,7 @@
     }
     .q-seg button.active { background: var(--grad); color: #fff; box-shadow: 0 6px 16px rgba(168,85,247,.35); }
     .q-client { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .q-business { display: block; width: 100%; margin-top: 12px; min-height: 92px; resize: vertical; font-family: inherit; line-height: 1.5; }
     .q-hint { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
     .q-error { color: #ef4444; font-size: 13px; margin-top: 10px; min-height: 18px; }
 
@@ -1411,6 +1412,7 @@
               <input type="email" class="contact-input" id="qEmail" placeholder="Email address">
               <input type="tel" class="contact-input" id="qPhone" placeholder="Phone">
             </div>
+            <textarea class="contact-input q-business" id="qBusiness" rows="3" maxlength="600" dir="auto" placeholder="Tell us about your business: what you sell, how many shops, what you need…"></textarea>
             <div class="q-hint" data-i18n="q-hint">Your details appear on your PDF quote and are shared securely with our team so we can follow up. We never sell your data.</div>
             <div class="q-error" id="qError"></div>
           </div>
@@ -3116,7 +3118,7 @@
         'q-months-unit': 'mo', 'q-free3': 'First 3 months of maintenance free', 'q-pay': 'Payment: 50% to start, 50% on delivery.',
         'q-err-name': 'Please enter your name to generate the quote.',
         'q-generating': 'Generating…',
-        'q-ph-name': 'Full name *', 'q-ph-company': 'Company name', 'q-ph-email': 'Email address', 'q-ph-phone': 'Phone',
+        'q-ph-name': 'Full name *', 'q-ph-company': 'Company name', 'q-ph-email': 'Email address', 'q-ph-phone': 'Phone', 'q-ph-business': 'Tell us about your business: what you sell, how many shops, what you need…', 'q-business': 'About the business',
         'q-pdf-title': 'QUOTE', 'q-no': 'Quote No.', 'q-date': 'Date', 'q-from': 'From', 'q-to': 'Prepared for',
         'q-desc': 'Description', 'q-qty': 'Qty', 'q-unit': 'Unit price', 'q-amount': 'Amount',
         'q-subtotal': 'Subtotal', 'q-included': "What's included", 'q-company-tag': 'Websites, smart assistants & business apps',
@@ -3137,7 +3139,7 @@
         'q-months-unit': 'mois', 'q-free3': '3 premiers mois de maintenance offerts', 'q-pay': 'Paiement : 50% au démarrage, 50% à la livraison.',
         'q-err-name': 'Veuillez saisir votre nom pour générer le devis.',
         'q-generating': 'Génération…',
-        'q-ph-name': 'Nom complet *', 'q-ph-company': 'Nom de l\'entreprise', 'q-ph-email': 'Adresse email', 'q-ph-phone': 'Téléphone',
+        'q-ph-name': 'Nom complet *', 'q-ph-company': 'Nom de l\'entreprise', 'q-ph-email': 'Adresse email', 'q-ph-phone': 'Téléphone', 'q-ph-business': 'Parlez-nous de votre activité : ce que vous vendez, combien de points de vente, ce dont vous avez besoin…', 'q-business': "À propos de l'activité",
         'q-pdf-title': 'DEVIS', 'q-no': 'Devis N°', 'q-date': 'Date', 'q-from': 'De', 'q-to': 'Préparé pour',
         'q-desc': 'Description', 'q-qty': 'Qté', 'q-unit': 'Prix unitaire', 'q-amount': 'Montant',
         'q-subtotal': 'Sous-total', 'q-included': 'Ce qui est inclus', 'q-company-tag': 'Sites web, assistants intelligents et applications de gestion',
@@ -3158,7 +3160,7 @@
         'q-months-unit': 'شهر', 'q-free3': 'أول 3 أشهر صيانة مجاناً', 'q-pay': 'الدفع: 50% عند البدء و50% عند التسليم.',
         'q-err-name': 'يرجى إدخال اسمك لإنشاء عرض السعر.',
         'q-generating': 'جارٍ الإنشاء…',
-        'q-ph-name': 'الاسم الكامل *', 'q-ph-company': 'اسم الشركة', 'q-ph-email': 'البريد الإلكتروني', 'q-ph-phone': 'الهاتف',
+        'q-ph-name': 'الاسم الكامل *', 'q-ph-company': 'اسم الشركة', 'q-ph-email': 'البريد الإلكتروني', 'q-ph-phone': 'الهاتف', 'q-ph-business': 'عرّفنا بنشاطك: ماذا تبيع، كم عدد المحلات، وما الذي تحتاجه…', 'q-business': 'عن النشاط',
         'q-pdf-title': 'عرض سعر', 'q-no': 'رقم العرض', 'q-date': 'التاريخ', 'q-from': 'من', 'q-to': 'مُعد لـ',
         'q-desc': 'الوصف', 'q-qty': 'الكمية', 'q-unit': 'سعر الوحدة', 'q-amount': 'المبلغ',
         'q-subtotal': 'المجموع الفرعي', 'q-included': 'ما يشمله العرض', 'q-company-tag': 'مواقع ومساعدون أذكياء وتطبيقات تسيير',
@@ -3248,7 +3250,7 @@
 
     function quoteClient() {
       const v = id => document.getElementById(id).value.trim();
-      return { name: v('qName'), company: v('qCompany'), email: v('qEmail'), phone: v('qPhone') };
+      return { name: v('qName'), company: v('qCompany'), email: v('qEmail'), phone: v('qPhone'), business: v('qBusiness') };
     }
     function requireName(client) {
       const err = document.getElementById('qError');
@@ -3283,7 +3285,7 @@
 
       const el = document.createElement('div');
       el.setAttribute('dir', rtl ? 'rtl' : 'ltr');
-      el.style.cssText = `width:794px;min-height:1120px;background:#fff;color:#1e1035;font-family:${font};position:relative;box-sizing:border-box;`;
+      el.style.cssText = `width:794px;min-height:1120px;background:#fff;color:#1e1035;font-family:${font};position:relative;box-sizing:border-box;padding-bottom:72px;`;
       el.innerHTML = `
         <div style="height:10px;background:linear-gradient(90deg,#9333ea,#a855f7,#d946ef);"></div>
         <div style="padding:36px 48px 0;display:flex;justify-content:space-between;align-items:center;">
@@ -3308,6 +3310,7 @@
             ${clientLines}
           </div>
         </div>
+        ${client.business ? `<div style="margin:16px 48px 0;padding:14px 18px;border-radius:14px;background:#faf5ff;border:1px solid #ede4fb;font-size:12px;line-height:1.7;color:#4a4360;"><div style="font-size:10.5px;font-weight:700;color:#9333ea;text-transform:uppercase;margin-bottom:4px;">${esc(t['q-business'])}</div><div data-biz dir="auto" style="white-space:pre-wrap;">${esc(client.business)}</div></div>` : ''}
         <div style="padding:28px 48px 0;">
           <table style="width:100%;border-collapse:collapse;">
             <thead><tr style="background:#1e1035;color:#fff;">
@@ -3338,6 +3341,7 @@
           <span>${esc(t['q-thanks']).replace('NOOR TECHNOLOGIES LABS', '<span dir="ltr" style="display:inline-block;">NOOR TECHNOLOGIES LABS</span>')}</span><span style="direction:ltr;unicode-bidi:isolate;">+212 612 974 126 · hello@noorlabstechnologies.com</span>
         </div>`;
       if (rtl) isolateArabicWords(el);
+      else el.querySelectorAll('[data-biz]').forEach(isolateArabicWords);
       return el;
     }
 
@@ -3371,13 +3375,20 @@
       try {
         const no = quoteNumber();
         saveQuote('pdf', client, no, quoteData());
+        // a long business description can make the page taller than A4: grow the page instead of splitting it
+        const el = buildQuotePdfElement(client, no);
+        el.style.cssText += 'position:absolute;left:-10000px;top:0;';
+        document.body.appendChild(el);
+        const pageH = Math.max(1123, Math.ceil(el.scrollHeight));
+        el.remove();
+        el.style.position = 'relative'; el.style.left = ''; el.style.top = '';
         await html2pdf().set({
           margin: 0,
           filename: `${translations[currentLang]['q-file']}-${no}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0 },
-          jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait', hotfixes: ['px_scaling'] }
-        }).from(buildQuotePdfElement(client, no)).save();
+          jsPDF: { unit: 'px', format: [794, pageH], orientation: 'portrait', hotfixes: ['px_scaling'] }
+        }).from(el).save();
       } finally {
         btn.disabled = false;
         btn.innerHTML = label;
@@ -3395,7 +3406,8 @@
         `🧾 ${t['q-no']}: ${no}`,
         `👤 ${client.name}${client.company ? ' — ' + client.company : ''}`,
         client.email ? `📧 ${client.email}` : null,
-        client.phone ? `📱 ${client.phone}` : null, '',
+        client.phone ? `📱 ${client.phone}` : null,
+        client.business ? `🏪 ${t['q-business']}: ${client.business}` : null, '',
         d.discount > 0 ? `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)` : `📦 ${d.title}: ${money(d.price)}`,
         d.months > 0 && d.maint > 0 ? `🛠️ ${t['q-maint']}: ${d.months} ${t['q-months-unit']} × ${money(d.maint)} = ${money(d.maintGross)}` : null,
         d.months > 0 && d.maint > 0 ? `🎁 ${t['q-free3']}: −${money(d.freeValue)}` : null,
@@ -3411,6 +3423,7 @@
       document.getElementById('qCompany').placeholder = t['q-ph-company'];
       document.getElementById('qEmail').placeholder = t['q-ph-email'];
       document.getElementById('qPhone').placeholder = t['q-ph-phone'];
+      document.getElementById('qBusiness').placeholder = t['q-ph-business'];
       renderPackages(); renderQuote();
     }
     const switchLanguageBeforeQuote = switchLanguage;
