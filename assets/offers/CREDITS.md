@@ -7,3 +7,5 @@ Photos from Unsplash (free to use under the Unsplash License, https://unsplash.c
 - offer7.jpg  images.unsplash.com/photo-1556742393-d75f468bfcb0
 - offer8.jpg  images.unsplash.com/photo-1560626833-1ef263dc356c
 - offer9.jpg  images.unsplash.com/photo-1790596685397-e45db9be7ff8
+- pos-software.jpg  images.unsplash.com/photo-1658282513777-deb2e68367c3
+- pos-kit.jpg  images.unsplash.com/photo-1647427017067-8f33ccbae493

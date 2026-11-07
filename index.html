@@ -480,6 +480,8 @@
     @keyframes nfcShine { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
     @media (max-width: 960px) { .nfc-wrap { grid-template-columns: 1fr; } .nfc-visual { height: 300px; } }
     @media (max-width: 420px) { .nfc-card { width: 290px; height: 180px; } .nfc-phone { font-size: 90px; } }
+    .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1060px; margin: 0 auto; }
+    @media (max-width: 768px) { .pos-grid { grid-template-columns: 1fr; } }
     .offer-card.chatbot-wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; align-items: center; }
     .chatbot-wide .cw-main, .chatbot-wide .cw-side { display: flex; flex-direction: column; }
     .chatbot-wide .cw-side .offer-features { margin-top: 0; }
@@ -1323,6 +1325,48 @@
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Business%20Card%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer10-btn">Order my card</span></button>
           <a class="offer-btn try-demo" href="card/" target="_blank" rel="noopener"><i class="fas fa-id-card"></i> <span data-i18n="offer10-try">See a live demo profile</span></a>
+        </div>
+      </div>
+      <div class="section-head reveal packs-head" id="pos">
+        <h3 class="section-title" data-i18n="pos-title">Smart Cash Register (POS)</h3>
+        <p class="section-subtitle" data-i18n="pos-sub">Sell faster and never lose track of your cash or stock. Software only, or a complete kit ready to plug in.</p>
+      </div>
+      <div class="pos-grid">
+        <!-- POS software only -->
+        <div class="offer-card glass tilt reveal" style="--d:.1s">
+          <div class="offer-photo"><img src="assets/offers/pos-software.jpg" alt="A hand tapping products on a tablet cash register" loading="lazy" width="760" height="460"></div>
+          <span class="offer-badge"><i class="fas fa-laptop-code"></i> <span data-i18n="pos1-badge">Software</span></span>
+          <div class="offer-icon"><i class="fas fa-tablet-screen-button"></i></div>
+          <h3 class="offer-title" data-i18n="pos1-title">POS Software</h3>
+          <p class="offer-desc" data-i18n="pos1-desc">Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.</p>
+          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
+          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f1">Fast sales with a barcode or one tap</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f2">Stock updated with every sale, alert before it runs out</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f3">Daily sales and cash report on your phone</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f4">Several cashiers, each with their own access</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f5">Training + 3 months of maintenance free</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20POS%20software%20(free%20demo)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos1-btn">Ask for a free demo</span></button>
+        </div>
+        <!-- POS software + hardware kit -->
+        <div class="offer-card glass tilt reveal" style="--d:.2s">
+          <div class="offer-photo"><img src="assets/offers/pos-kit.jpg" alt="A cashier using a touch-screen register with a receipt printer" loading="lazy" width="760" height="460"></div>
+          <span class="offer-badge"><i class="fas fa-box-open"></i> <span data-i18n="pos2-badge">Complete kit</span></span>
+          <div class="offer-icon"><i class="fas fa-cash-register"></i></div>
+          <h3 class="offer-title" data-i18n="pos2-title">POS Software + Hardware</h3>
+          <p class="offer-desc" data-i18n="pos2-desc">Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.</p>
+          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
+          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Touch-screen register</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Receipt printer and cash drawer</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Barcode scanner</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed and set up in your shop</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Everything in POS Software</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
         </div>
       </div>
     </div>
@@ -2526,6 +2570,7 @@
       en: {
         back: '⬅ Back', home: '🏠 Main menu', insteadOf: 'instead of',
         offers: '🏷️ Offers & prices', services: "💡 How we help", work: '⚙️ How we work', careers: '🎓 Careers', contact: '📞 Contact us',
+        q_pos: "How much is a cash register (POS)?", a_pos: "🧾 Smart Cash Register (POS)\n\n• POS Software: on your tablet or computer, fast sales, stock that updates itself, daily report on your phone\n• Complete kit: software + touch-screen register, receipt printer, cash drawer and barcode scanner, installed in your shop\n\nPrice on quote, depending on your shop. Free demo: WhatsApp +212 612 974 126",
         q_nfc: "How much is the smart business card?", nfcFoot: "Your client touches your card with their phone and your number, WhatsApp and photos are saved right away. Change your info anytime, no new card needed.\nSee an example: noorlabstechnologies.com/card/",
         q_website: 'How much is a website?', q_erp: "How much is the management app?", q_chatbot: "How much is the smart assistant?", q_packs: "What are the packs?", q_maint: 'How does maintenance work?', q_pay: 'How do I pay?',
         q_ai: "Answer my clients 24/7", q_erpdev: "Manage my business from my phone", q_bi: "Know what sells", q_software: "Something made for me",
@@ -2541,6 +2586,7 @@
       fr: {
         back: '⬅ Retour', home: '🏠 Menu principal', insteadOf: 'au lieu de',
         offers: '🏷️ Offres & prix', services: "💡 Comment on vous aide", work: '⚙️ Notre méthode', careers: '🎓 Carrières', contact: '📞 Nous contacter',
+        q_pos: "Combien coûte une caisse (POS) ?", a_pos: "🧾 Caisse Intelligente (POS)\n\n• Logiciel de caisse : sur votre tablette ou ordinateur, ventes rapides, stock mis à jour tout seul, rapport du jour sur votre téléphone\n• Kit complet : logiciel + caisse tactile, imprimante de tickets, tiroir-caisse et lecteur de code-barres, installés chez vous\n\nPrix sur devis selon votre commerce. Démo gratuite : WhatsApp +212 612 974 126",
         q_nfc: "Combien coûte la carte de visite intelligente ?", nfcFoot: "Votre client approche son téléphone de votre carte et votre numéro, WhatsApp et vos photos sont enregistrés tout de suite. Modifiable à tout moment, sans nouvelle carte.\nExemple : noorlabstechnologies.com/card/",
         q_website: 'Combien coûte un site web ?', q_erp: "Combien coûte l'application de gestion ?", q_chatbot: "Combien coûte l'assistant intelligent ?", q_packs: "Que sont les packs ?", q_maint: 'Comment fonctionne la maintenance ?', q_pay: 'Comment payer ?',
         q_ai: "Répondre à mes clients 24h/24", q_erpdev: "Gérer mon activité depuis mon téléphone", q_bi: "Savoir ce qui se vend", q_software: "Un outil fait pour moi",
@@ -2556,6 +2602,7 @@
       ar: {
         back: '⬅ رجوع', home: '🏠 القائمة الرئيسية', insteadOf: 'بدلاً من',
         offers: '🏷️ العروض والأسعار', services: "💡 كيف نساعدك", work: '⚙️ طريقة عملنا', careers: '🎓 الوظائف', contact: '📞 تواصل معنا',
+        q_pos: "كم ثمن الكاشير الذكي؟", a_pos: "🧾 كاشير ذكي (نقطة البيع)\n\n• برنامج الكاشير: على لوحتك أو حاسوبك، بيع سريع، مخزون يتحدّث وحده، وتقرير يومي على هاتفك\n• طقم كامل: البرنامج + كاشير بشاشة لمس، طابعة توصيلات، درج نقود وقارئ باركود، مركّب في محلك\n\nالسعر حسب الطلب وحسب محلك. عرض تجريبي مجاني: واتساب 212612974126+",
         q_nfc: "كم ثمن بطاقة الأعمال الذكية؟", nfcFoot: "زبونك يقرّب هاتفه من بطاقتك فيُحفظ رقمك وواتساب وصورك في الحال. يمكنك تعديل معلوماتك في أي وقت دون بطاقة جديدة.\nمثال: noorlabstechnologies.com/card/",
         q_website: 'كم ثمن الموقع الإلكتروني؟', q_erp: "كم ثمن تطبيق التسيير؟", q_chatbot: "كم ثمن المساعد الذكي؟", q_packs: "ما هي الباقات؟", q_maint: 'كيف تعمل الصيانة؟', q_pay: 'كيف يتم الدفع؟',
         q_ai: "الرد على زبائني 24/24", q_erpdev: "تسيير نشاطي من هاتفي", q_bi: "معرفة ما يُباع", q_software: "أداة مصممة لي",
@@ -2578,7 +2625,7 @@
     }
     const QA_TREE = {
       root: { children: ['offers', 'services', 'work', 'careers', 'contact'] },
-      offers: { children: ['q_website', 'q_erp', 'q_chatbot', 'q_packs', 'q_nfc', 'q_maint', 'q_pay'] },
+      offers: { children: ['q_website', 'q_erp', 'q_pos', 'q_chatbot', 'q_packs', 'q_nfc', 'q_maint', 'q_pay'] },
       services: { children: ['q_ai', 'q_erpdev', 'q_bi', 'q_software'] },
       work: { children: ['q_process', 'q_quote', 'q_remote'] },
       careers: { answer: () => responses[currentLang].internship },
@@ -2589,6 +2636,7 @@
       q_packs: { answer: () => [6, 7, 8, 9].map(offerLine).join('\n') + `\n\n${qt().packsFoot}` },
       q_maint: { answer: () => `${qt().maintHead}\n\n` + [1, 2, 3, 4, 5].map(i => `• ${translations[currentLang][`offer${i}-title`]}: ${translations[currentLang][`offer${i}-maintenance`]} ${translations[currentLang]['currency']}`).join('\n') + `\n\n${qt().maintFoot}` },
       q_nfc: { answer: () => `• ${translations[currentLang]['offer10-title']}: ${translations[currentLang]['offer10-price']} ${translations[currentLang]['currency']} — ${translations[currentLang]['no-sub']}\n\n${qt().nfcFoot}` },
+      q_pos: { answer: () => qt().a_pos },
       q_pay: { answer: () => qt().payText },
       q_ai: { answer: () => responses[currentLang].ai },
       q_erpdev: { answer: () => responses[currentLang].erp },
@@ -2806,6 +2854,7 @@
         'nav-cta': 'Start project',
         'stat1': "Ways to help", 'stat2': "Ready-made offers", 'stat3': 'Languages', 'stat4': 'Launch discount',
         'marquee-label': "Made for businesses like yours",
+        "pos-title": "Smart Cash Register (POS)", "pos-sub": "Sell faster and never lose track of your cash or stock. Software only, or a complete kit ready to plug in.", "pos1-badge": "Software", "pos1-title": "POS Software", "pos1-desc": "Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.", "pos1-f1": "Fast sales with a barcode or one tap", "pos1-f2": "Stock updated with every sale, alert before it runs out", "pos1-f3": "Daily sales and cash report on your phone", "pos1-f4": "Several cashiers, each with their own access", "pos1-f5": "Training + 3 months of maintenance free", "pos1-btn": "Ask for a free demo", "pos2-badge": "Complete kit", "pos2-title": "POS Software + Hardware", "pos2-desc": "Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.", "pos2-f1": "Touch-screen register", "pos2-f2": "Receipt printer and cash drawer", "pos2-f3": "Barcode scanner", "pos2-f4": "Installed and set up in your shop", "pos2-f5": "Everything in POS Software", "pos2-btn": "Get a quote for the kit", "pos-price": "Price on quote", "pos-demo": "Free demo in your shop or by video",
         "hc1": "Sales today", "hc2": "Clients answered", "sol1-badge": "Shop", "sol2-badge": "Restaurant", "sol3-badge": "Clinic", "sol4-badge": "Real estate", "sol5-badge": "Beauty salon", "sol6-badge": "Caterer", "mq1": "Restaurants", "mq2": "Cafés", "mq3": "Shops", "mq4": "Pharmacies", "mq5": "Clinics", "mq6": "Beauty salons", "mq7": "Real estate agencies", "mq8": "Caterers", "mq9": "Bakeries", "mq10": "Driving schools", "mq11": "Gyms", "mq12": "Freelancers",
         'svc-cta': "Not sure where to start?",
         'svc-cta-desc': "Tell us about your business in one message, and we'll suggest the simplest solution.",
@@ -2823,6 +2872,7 @@
         'nav-cta': 'Lancer un projet',
         'stat1': "Façons d'aider", 'stat2': "Offres prêtes", 'stat3': 'Langues', 'stat4': 'Remise de lancement',
         'marquee-label': "Pensé pour des entreprises comme la vôtre",
+        "pos-title": "Caisse Intelligente (POS)", "pos-sub": "Vendez plus vite et ne perdez plus le fil de votre caisse ni de votre stock. Logiciel seul, ou kit complet prêt à brancher.", "pos1-badge": "Logiciel", "pos1-title": "Logiciel de caisse", "pos1-desc": "Votre caisse sur une tablette ou un ordinateur que vous avez déjà : touchez le produit, le prix s'ajoute, le ticket s'imprime et le stock se met à jour tout seul.", "pos1-f1": "Ventes rapides par code-barres ou d'un geste", "pos1-f2": "Stock mis à jour à chaque vente, alerte avant rupture", "pos1-f3": "Rapport des ventes et de la caisse du jour sur votre téléphone", "pos1-f4": "Plusieurs caissiers, chacun avec son accès", "pos1-f5": "Formation + 3 mois de maintenance offerts", "pos1-btn": "Demander une démo gratuite", "pos2-badge": "Kit complet", "pos2-title": "Logiciel + Matériel de caisse", "pos2-desc": "Tout est prêt dès le premier jour : nous apportons le matériel, l'installons dans votre commerce et formons votre équipe. Vous n'avez plus qu'à vendre.", "pos2-f1": "Caisse à écran tactile", "pos2-f2": "Imprimante de tickets et tiroir-caisse", "pos2-f3": "Lecteur de code-barres", "pos2-f4": "Installé et configuré dans votre commerce", "pos2-f5": "Tout le logiciel de caisse inclus", "pos2-btn": "Demander un devis pour le kit", "pos-price": "Prix sur devis", "pos-demo": "Démo gratuite chez vous ou en vidéo",
         "hc1": "Ventes du jour", "hc2": "Clients répondus", "sol1-badge": "Commerce", "sol2-badge": "Restaurant", "sol3-badge": "Cabinet", "sol4-badge": "Immobilier", "sol5-badge": "Institut de beauté", "sol6-badge": "Traiteur", "mq1": "Restaurants", "mq2": "Cafés", "mq3": "Commerces", "mq4": "Pharmacies", "mq5": "Cabinets médicaux", "mq6": "Instituts de beauté", "mq7": "Agences immobilières", "mq8": "Traiteurs", "mq9": "Pâtisseries", "mq10": "Auto-écoles", "mq11": "Salles de sport", "mq12": "Indépendants",
         'svc-cta': "Vous ne savez pas par où commencer ?",
         'svc-cta-desc': "Décrivez votre activité en un message, on vous propose la solution la plus simple.",
@@ -2840,6 +2890,7 @@
         'nav-cta': 'ابدأ مشروعك',
         'stat1': "طرق للمساعدة", 'stat2': "عروض جاهزة", 'stat3': 'لغات', 'stat4': 'خصم الإطلاق',
         'marquee-label': "مصمم لأنشطة مثل نشاطك",
+        "pos-title": "كاشير ذكي (نقطة البيع)", "pos-sub": "بِع بسرعة أكبر ولا تفقد حساب صندوقك أو مخزونك. البرنامج وحده، أو طقم كامل جاهز للتشغيل.", "pos1-badge": "البرنامج", "pos1-title": "برنامج الكاشير", "pos1-desc": "صندوقك على لوحة أو حاسوب عندك: تلمس المنتج، يُضاف الثمن، يُطبع التوصيل، ويتحدّث المخزون وحده.", "pos1-f1": "بيع سريع بالباركود أو بلمسة", "pos1-f2": "المخزون يتحدّث مع كل بيعة، وتنبيه قبل النفاد", "pos1-f3": "تقرير المبيعات والصندوق اليومي على هاتفك", "pos1-f4": "عدة بائعين، لكل واحد دخوله الخاص", "pos1-f5": "تكوين + 3 أشهر صيانة مجانية", "pos1-btn": "اطلب عرضاً تجريبياً مجانياً", "pos2-badge": "طقم كامل", "pos2-title": "البرنامج + معدات الكاشير", "pos2-desc": "كل شيء جاهز من اليوم الأول: نحضر المعدات، ونركّبها في محلك، وندرّب فريقك. وأنت تبدأ البيع فقط.", "pos2-f1": "كاشير بشاشة لمس", "pos2-f2": "طابعة التوصيلات ودرج النقود", "pos2-f3": "قارئ الباركود", "pos2-f4": "تركيب وإعداد داخل محلك", "pos2-f5": "كل ما في برنامج الكاشير", "pos2-btn": "اطلب عرض سعر للطقم", "pos-price": "السعر حسب الطلب", "pos-demo": "عرض تجريبي مجاني في محلك أو بالفيديو",
         "hc1": "مبيعات اليوم", "hc2": "زبائن تمت إجابتهم", "sol1-badge": "محل تجاري", "sol2-badge": "مطعم", "sol3-badge": "عيادة", "sol4-badge": "عقار", "sol5-badge": "صالون تجميل", "sol6-badge": "ممون حفلات", "mq1": "مطاعم", "mq2": "مقاهي", "mq3": "محلات", "mq4": "صيدليات", "mq5": "عيادات", "mq6": "صالونات التجميل", "mq7": "وكالات عقارية", "mq8": "ممونو الحفلات", "mq9": "مخبزات", "mq10": "مدارس السياقة", "mq11": "قاعات الرياضة", "mq12": "المستقلون",
         'svc-cta': "لا تعرف من أين تبدأ؟",
         'svc-cta-desc': "صف لنا نشاطك في رسالة واحدة، ونقترح عليك أبسط حل.",
