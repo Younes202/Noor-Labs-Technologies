@@ -434,10 +434,10 @@
     .value-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
     /* Offers */
-    .offers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
-    .offer-card { padding: 30px 24px 26px; display: flex; flex-direction: column; }
+    .offers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }
+    .offer-card { padding: 20px 20px 20px; display: flex; flex-direction: column; }
     .offer-card { overflow: hidden; }
-    .offer-photo { margin: -30px -24px 20px; aspect-ratio: 16 / 10; overflow: hidden; position: relative; background: var(--bg-alt); flex-shrink: 0; }
+    .offer-photo { margin: -20px -20px 14px; aspect-ratio: 16 / 7; overflow: hidden; position: relative; background: var(--bg-alt); flex-shrink: 0; }
     .offer-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
     .offer-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,10,26,.25), transparent 35%, transparent 70%, rgba(15,10,26,.3)); }
     .offer-card:hover .offer-photo img { transform: scale(1.05); }
@@ -452,9 +452,9 @@
       animation: pulse-red 2s infinite;
     }
     .discount-badge-red.pack { background: var(--grad); box-shadow: 0 4px 14px rgba(168,85,247,.45); }
-    .packs-head { margin: 90px 0 44px; }
+    .packs-head { margin: 70px 0 32px; }
     .packs-head .section-title { font-size: clamp(24px, 3vw, 38px); }
-    .offer-btn.try-demo { margin-top: 10px; background: rgba(168,85,247,.12); }
+    .offer-btn.try-demo { margin-top: 8px; background: rgba(168,85,247,.12); }
     .nfc-wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; max-width: 1060px; margin: 0 auto; }
     .nfc-visual { position: relative; height: 380px; display: grid; place-items: center; perspective: 1000px; }
     .nfc-card {
@@ -491,7 +491,7 @@
     @keyframes pulse-red { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     .offer-badge {
       align-self: flex-start; display: inline-flex; gap: 6px; align-items: center;
-      padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; margin-bottom: 22px;
+      padding: 4px 11px; border-radius: 999px; font-size: 11px; font-weight: 600; margin-bottom: 10px;
       background: rgba(168,85,247,.14); color: var(--p1); border: 1px solid var(--border);
     }
     body.dark .offer-badge { color: var(--p4); }
@@ -501,17 +501,33 @@
       background: rgba(168,85,247,.12); border: 1px solid var(--border);
     }
     body.dark .offer-icon { color: var(--p3); }
-    .offer-title { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-    .offer-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+    .offer-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+    .offer-short { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+    @media (min-width: 769px) { .offers-grid .offer-title { min-height: 2.6em; } .offers-grid .offer-short { min-height: 4.5em; } .offers-grid .chatbot-wide .offer-title, .offers-grid .chatbot-wide .offer-short { min-height: 0; } }
+    .offer-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
     .offer-price {
-      font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; line-height: 1.1; margin-bottom: 4px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 27px; font-weight: 700; line-height: 1.15; margin-bottom: 2px;
       background: var(--heading-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    .offer-price small { display: block; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; color: var(--muted); -webkit-text-fill-color: var(--muted); margin-top: 4px; }
-    .offer-maintenance { font-size: 12.5px; color: var(--muted); padding: 10px 0 14px; border-bottom: 1px dashed var(--border); }
+    .offer-price small { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; color: var(--muted); -webkit-text-fill-color: var(--muted); margin-inline-start: 4px; }
+    .offer-maintenance { font-size: 12.5px; color: var(--muted); padding: 4px 0 10px; border-bottom: 1px dashed var(--border); }
     .offer-maintenance i { color: var(--p2); margin-inline-end: 4px; }
-    .offer-features { list-style: none; margin: 16px 0 20px; flex: 1; }
-    .offer-features li { font-size: 13px; color: var(--muted); margin-bottom: 9px; display: flex; align-items: flex-start; gap: 10px; }
+    .offer-more { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 10px 0; margin-bottom: 8px; background: none; border: 0; color: var(--p2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-align: start; }
+    body.dark .offer-more { color: var(--p3); }
+    .offer-more i { font-size: 11px; transition: transform .3s var(--ease); }
+    .offer-card.open .offer-more i { transform: rotate(180deg); }
+    .offer-more-body { display: none; }
+    .offer-card.open .offer-more-body { display: block; }
+    .care-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; margin: 0 auto 28px; padding: 20px 22px; }
+    .care-item { display: flex; gap: 12px; align-items: flex-start; }
+    .care-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 11px; display: grid; place-items: center; font-size: 15px; color: var(--p2); background: rgba(168,85,247,.12); border: 1px solid var(--border); }
+    body.dark .care-ico { color: var(--p3); }
+    .care-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .care-item p, .care-rule { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .care-rule { grid-column: 1 / -1; padding-top: 12px; border-top: 1px dashed var(--border); }
+    @media (max-width: 768px) { .care-strip { grid-template-columns: 1fr; } }
+    .offer-features { list-style: none; margin: 0 0 12px; }
+    .offer-features li { font-size: 13px; color: var(--muted); margin-bottom: 7px; display: flex; align-items: flex-start; gap: 10px; }
     .offer-features li i { color: var(--p2); font-size: 13px; margin-top: 2px; }
     .offer-btn {
       width: 100%; padding: 13px; border-radius: 999px; font-family: inherit;
@@ -826,7 +842,7 @@
     /* ============ QUOTE SIMULATOR ============ */
     .quote-grid { display: grid; grid-template-columns: 1.25fr .9fr; gap: 24px; align-items: start; }
     .quote-form { padding: 34px; }
-    .q-step { margin-bottom: 30px; }
+    .q-step { margin-bottom: 22px; }
     .q-step:last-child { margin-bottom: 0; }
     .q-label {
       display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; margin-bottom: 14px;
@@ -835,34 +851,14 @@
       width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
       font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #fff; background: var(--grad);
     }
-    .q-packages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .q-pkg {
-      position: relative; cursor: pointer; padding: 16px; border-radius: 18px;
-      border: 1px solid var(--border); background: var(--bg-alt);
-      transition: border-color .25s, box-shadow .25s, transform .25s var(--ease);
-    }
-    body.dark .q-pkg { background: rgba(15,10,26,.5); }
-    .q-pkg:hover { transform: translateY(-2px); border-color: var(--border-strong); }
-    .q-pkg input { position: absolute; opacity: 0; pointer-events: none; }
-    .q-pkg .q-pkg-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .q-pkg .q-pkg-top i { color: var(--p2); font-size: 18px; }
-    .q-pkg .q-pkg-name { font-weight: 600; font-size: 14px; }
-    .q-pkg .q-pkg-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; }
-    .q-pkg .q-pkg-price s { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; color: var(--muted); margin-inline-start: 6px; }
-    .q-pkg .q-check {
-      position: absolute; top: 14px; inset-inline-end: 14px; width: 20px; height: 20px; border-radius: 50%;
-      border: 2px solid var(--border-strong); transition: all .25s;
-    }
-    .q-pkg.selected { border-color: var(--p2); box-shadow: 0 0 0 3px rgba(168,85,247,.2), 0 12px 30px -10px rgba(168,85,247,.45); }
-    .q-pkg.selected .q-check { background: var(--grad); border-color: transparent; box-shadow: inset 0 0 0 4px var(--bg-alt); }
-    body.dark .q-pkg.selected .q-check { box-shadow: inset 0 0 0 4px #150d25; }
-    .q-seg { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 5px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); }
-    body.dark .q-seg { background: rgba(15,10,26,.5); }
-    .q-seg button {
-      border: none; background: transparent; color: var(--muted); font-family: inherit; font-weight: 600; font-size: 13px;
-      padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: all .25s;
-    }
-    .q-seg button.active { background: var(--grad); color: #fff; box-shadow: 0 6px 16px rgba(168,85,247,.35); }
+    .q-select-wrap { position: relative; }
+    .q-select-wrap::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 12px; position: absolute; top: 50%; inset-inline-end: 16px; transform: translateY(-50%); color: var(--p2); pointer-events: none; }
+    .q-select { width: 100%; padding-block: 14px; padding-inline: 16px 42px; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-alt); color: inherit; font: inherit; font-size: 14.5px; font-weight: 600; appearance: none; -webkit-appearance: none; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+    body.dark .q-select { background: rgba(15,10,26,.5); }
+    .q-select:hover { border-color: var(--border-strong); }
+    .q-select:focus { outline: none; border-color: var(--p2); box-shadow: 0 0 0 3px rgba(168,85,247,.2); }
+    .q-select:disabled { opacity: .55; cursor: not-allowed; }
+    .q-select option, .q-select optgroup { color: #1e1035; background: #fff; }
     .q-client { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .q-business { display: block; width: 100%; margin-top: 12px; min-height: 92px; resize: vertical; font-family: inherit; line-height: 1.5; }
     .q-hint { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
@@ -893,7 +889,7 @@
       .quote-summary { position: static; }
     }
     @media (max-width: 560px) {
-      .q-packages, .q-client { grid-template-columns: 1fr; }
+      .q-client { grid-template-columns: 1fr; }
       .quote-form, .quote-summary { padding: 24px 20px; }
     }
 
@@ -1106,23 +1102,37 @@
         <h2 class="section-title" data-i18n="offers-title">Simple offers, clear prices</h2>
         <p class="section-subtitle" data-i18n="offers-sub">Launch prices for a limited time, and even better prices with our packs</p>
       </div>
+      <div class="care-strip glass reveal">
+        <div class="care-item">
+          <div class="care-ico"><i class="fas fa-shield-halved"></i></div>
+          <div><h3 data-i18n="care-m-title">Monthly maintenance</h3><p data-i18n="care-m-text">Keeps everything online and safe: hosting, security, backups and fixing anything that breaks. The price is on each offer, and the first 3 months are free.</p></div>
+        </div>
+        <div class="care-item">
+          <div class="care-ico"><i class="fas fa-pen"></i></div>
+          <div><h3 data-i18n="care-e-title">Updates and edits (optional)</h3><p id="careEditText"></p></div>
+        </div>
+        <p class="care-rule" data-i18n="care-rule">It worked and then broke? That is maintenance, at no extra cost. It works and you want it different? That is an edit.</p>
+      </div>
       <div class="offers-grid">
         <!-- Offer 1: Website Package -->
         <div class="offer-card glass tilt reveal">
           <div class="offer-photo"><img src="assets/offers/offer1.jpg" alt="Someone browsing a business website on a laptop in a café" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Get found</span></span>
-          <div class="offer-icon"><i class="fas fa-code"></i></div>
           <h3 class="offer-title" data-i18n="offer1-title">Professional Website</h3>
-          <p class="offer-desc" data-i18n="offer1-desc">A client searches Google for a business like yours at 11 p.m. The next day, they call you, not your competitor. We build a beautiful website that works on every phone and brings clients to you.</p>
+          <p class="offer-short" data-i18n="offer1-desc-short">Get found on Google and bring new clients to you.</p>
           <div class="offer-price" id="price1">3,000 DH <small>originally 3,750 DH</small></div>
           <div class="offer-maintenance" id="maintenance1"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">1 change per month included</span></li>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer1-desc">A client searches Google for a business like yours at 11 p.m. The next day, they call you, not your competitor. We build a beautiful website that works on every phone and brings clients to you.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f2">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f3">Hosting, security &amp; backups included: nothing to worry about</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
         </div>
 
@@ -1131,17 +1141,20 @@
           <div class="offer-photo"><img src="assets/offers/offer2.jpg" alt="A tablet showing a sales and orders app on a shop counter" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-cubes"></i> <span data-i18n="offer2-badge">Stay in control</span></span>
-          <div class="offer-icon"><i class="fas fa-cogs"></i></div>
           <h3 class="offer-title" data-i18n="offer2-title">Business Management App</h3>
-          <p class="offer-desc" data-i18n="offer2-desc">No more notebooks and guesswork. See your sales, stock and staff on your phone, whether you're at the shop or at home. Made for restaurants, pharmacies, clinics, shops and more.</p>
+          <p class="offer-short" data-i18n="offer2-desc-short">See your sales, stock and staff on your phone.</p>
           <div class="offer-price" id="price2">5,000 DH <small>originally 6,250 DH</small></div>
           <div class="offer-maintenance" id="maintenance2"><i class="fas fa-calendar-alt"></i> + 89 DH / month maintenance</div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f1">2 changes per month included</span></li>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer2-desc">No more notebooks and guesswork. See your sales, stock and staff on your phone, whether you're at the shop or at home. Made for restaurants, pharmacies, clinics, shops and more.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f2">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f3">Built around the way you already work</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20Management%20App%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer2-btn">Get this offer</span></button>
         </div>
 
@@ -1150,17 +1163,20 @@
           <div class="offer-photo"><img src="assets/offers/offer3.jpg" alt="A laptop showing clear sales charts" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-robot"></i> <span data-i18n="offer3-badge">Decide with clarity</span></span>
-          <div class="offer-icon"><i class="fas fa-chart-pie"></i></div>
           <h3 class="offer-title" data-i18n="offer3-title">Management App + Daily Reports</h3>
-          <p class="offer-desc" data-i18n="offer3-desc">Every evening, a clear report lands on your phone: what you sold, what's running out, what earned you the most. No spreadsheets, just the answers you need to decide.</p>
+          <p class="offer-short" data-i18n="offer3-desc-short">The app, plus a clear report on your phone every evening.</p>
           <div class="offer-price" id="price3">7,000 DH <small>originally 8,750 DH</small></div>
           <div class="offer-maintenance" id="maintenance3"><i class="fas fa-calendar-alt"></i> + 129 DH / month maintenance</div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f1">2 changes per month included</span></li>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer3-desc">Every evening, a clear report lands on your phone: what you sold, what's running out, what earned you the most. No spreadsheets, just the answers you need to decide.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f2">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f3">Your reports, sent to you automatically</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Management%20App%20%2B%20Daily%20Reports%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer3-btn">Get this offer</span></button>
         </div>
 
@@ -1169,18 +1185,21 @@
           <div class="offer-photo"><img src="assets/offers/offer4.jpg" alt="A relaxed business owner leaning back at his desk" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-rocket"></i> <span data-i18n="offer4-badge">Grow without stress</span></span>
-          <div class="offer-icon"><i class="fas fa-robot"></i></div>
           <h3 class="offer-title" data-i18n="offer4-title">Business on Autopilot</h3>
-          <p class="offer-desc" data-i18n="offer4-desc">Your clients get reminders and thank-you messages by SMS or email, you get clear tips to sell more, and everything keeps running, even on your day off.</p>
+          <p class="offer-short" data-i18n="offer4-desc-short">The app, plus automatic reminders and messages to your clients.</p>
           <div class="offer-price" id="price4">10,000 DH <small>originally 12,500 DH</small></div>
           <div class="offer-maintenance" id="maintenance4"><i class="fas fa-calendar-alt"></i> + 179 DH / month maintenance</div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f1">2 changes per month included</span></li>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer4-desc">Your clients get reminders and thank-you messages by SMS or email, you get clear tips to sell more, and everything keeps running, even on your day off.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f2">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f3">Automatic reminders &amp; messages to your clients</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f4">Smart tips to sell more</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20on%20Autopilot%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer4-btn">Get this offer</span></button>
         </div>
       </div>
@@ -1194,21 +1213,24 @@
           <span class="discount-badge-red">-20% OFF</span>
           <div class="cw-main">
             <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">Never miss a client</span></span>
-            <div class="offer-icon"><i class="fas fa-comments"></i></div>
             <h3 class="offer-title" data-i18n="offer5-title">Smart Assistant 24/7</h3>
-            <p class="offer-desc" data-i18n="offer5-desc">It's 2 a.m. and a client asks for your price. Your assistant answers instantly, in Darija, Arabic, French or English, and sends you the interested clients on WhatsApp. Try the one on this site!</p>
+            <p class="offer-short" data-i18n="offer5-desc-short">Answers your clients day and night, in their language.</p>
             <div class="offer-price" id="price5">3,000 DH <small><s>3,750 DH</s></small></div>
             <div class="offer-maintenance" id="maintenance5"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
           </div>
           <div class="cw-side">
-            <ul class="offer-features">
+            <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+            <div class="offer-more-body">
+              <p class="offer-desc" data-i18n="offer5-desc">It's 2 a.m. and a client asks for your price. Your assistant answers instantly, in Darija, Arabic, French or English, and sends you the interested clients on WhatsApp. Try the one on this site!</p>
+              <ul class="offer-features">
               <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f1">Knows your services, prices and common questions</span></li>
               <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f2">Answers 24/7 in Arabic, Darija, French &amp; English</span></li>
               <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f3">On your website, and sends clients to your WhatsApp</span></li>
               <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f4">First 3 months of maintenance free</span></li>
               <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
               <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
+              </ul>
+            </div>
             <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer5-btn">Get this offer</span></button>
             <button class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="offer5-try">Try the live demo</span></button>
           </div>
@@ -1218,19 +1240,22 @@
           <div class="offer-photo"><img src="assets/offers/offer6.jpg" alt="A friendly man greeting clients from his laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -17%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer6-badge">Smart Pack</span></span>
-          <div class="offer-icon"><i class="fas fa-globe"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
           <h3 class="offer-title" data-i18n="offer6-title">Website + Smart Assistant</h3>
-          <p class="offer-desc" data-i18n="offer6-desc">Clients find you on Google, and your assistant answers them right away, even while you sleep. The easiest way to win new clients.</p>
+          <p class="offer-short" data-i18n="offer6-desc-short">Clients find you on Google and get answers right away.</p>
           <div class="offer-price" id="price6">4,990 DH <small><s>6,000 DH</s></small></div>
           <div class="offer-maintenance" id="maintenance6"><i class="fas fa-calendar-alt"></i> + 89 DH / month maintenance</div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer6-desc">Clients find you on Google, and your assistant answers them right away, even while you sleep. The easiest way to win new clients.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f1">Everything in Professional Website</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f2">+ Smart Assistant that knows your business</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f3">Cheaper than buying both separately</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f4">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Website%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer6-btn">Get this pack</span></button>
         </div>
         <!-- Offer 7: Business ERP + AI Chatbot -->
@@ -1238,19 +1263,22 @@
           <div class="offer-photo"><img src="assets/offers/offer7.jpg" alt="A café owner using a tablet cash register" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -13%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer7-badge">Smart Pack</span></span>
-          <div class="offer-icon"><i class="fas fa-cogs"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
           <h3 class="offer-title" data-i18n="offer7-title">Management App + Smart Assistant</h3>
-          <p class="offer-desc" data-i18n="offer7-desc">Run your business from your phone while your assistant answers your clients 24/7.</p>
+          <p class="offer-short" data-i18n="offer7-desc-short">Run your business from your phone, with clients answered 24/7.</p>
           <div class="offer-price" id="price7">6,990 DH <small><s>8,000 DH</s></small></div>
           <div class="offer-maintenance" id="maintenance7"><i class="fas fa-calendar-alt"></i> + 119 DH / month maintenance</div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer7-desc">Run your business from your phone while your assistant answers your clients 24/7.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f1">Everything in Business Management App</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f2">+ Smart Assistant that knows your business</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f3">Cheaper than buying both separately</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f4">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Management%20App%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer7-btn">Get this pack</span></button>
         </div>
         <!-- Offer 8: ERP + Reports + AI Chatbot -->
@@ -1258,19 +1286,22 @@
           <div class="offer-photo"><img src="assets/offers/offer8.jpg" alt="Checking the day's results on a tablet with a coffee" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -10%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer8-badge">Smart Pack</span></span>
-          <div class="offer-icon"><i class="fas fa-chart-pie"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
           <h3 class="offer-title" data-i18n="offer8-title">Daily Reports + Smart Assistant</h3>
-          <p class="offer-desc" data-i18n="offer8-desc">Clear reports for you every evening, instant answers for your clients all day and night.</p>
+          <p class="offer-short" data-i18n="offer8-desc-short">Clear reports for you, instant answers for your clients.</p>
           <div class="offer-price" id="price8">8,990 DH <small><s>10,000 DH</s></small></div>
           <div class="offer-maintenance" id="maintenance8"><i class="fas fa-calendar-alt"></i> + 159 DH / month maintenance</div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer8-desc">Clear reports for you every evening, instant answers for your clients all day and night.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f1">Everything in Management App + Daily Reports</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f2">+ Smart Assistant that knows your business</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f3">Cheaper than buying both separately</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f4">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Daily%20Reports%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer8-btn">Get this pack</span></button>
         </div>
         <!-- Offer 9: Full Automation + AI Chatbot -->
@@ -1278,19 +1309,22 @@
           <div class="offer-photo"><img src="assets/offers/offer9.jpg" alt="A calm business owner relaxing in his office" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -8%</span>
           <span class="offer-badge"><i class="fas fa-crown"></i> <span data-i18n="offer9-badge">Complete Pack</span></span>
-          <div class="offer-icon"><i class="fas fa-rocket"></i><i class="fas fa-plus pack-plus"></i><i class="fas fa-comments"></i></div>
           <h3 class="offer-title" data-i18n="offer9-title">Autopilot + Smart Assistant</h3>
-          <p class="offer-desc" data-i18n="offer9-desc">Our most complete pack: your business runs smoothly, your clients are always answered, and you get clear tips to grow.</p>
+          <p class="offer-short" data-i18n="offer9-desc-short">Our most complete pack: everything runs, every client is answered.</p>
           <div class="offer-price" id="price9">11,990 DH <small><s>13,000 DH</s></small></div>
           <div class="offer-maintenance" id="maintenance9"><i class="fas fa-calendar-alt"></i> + 199 DH / month maintenance</div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer9-desc">Our most complete pack: your business runs smoothly, your clients are always answered, and you get clear tips to grow.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f1">Everything in Business on Autopilot</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f2">+ Smart Assistant that knows your business</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f3">Cheaper than buying both separately</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f4">First 3 months of maintenance free</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer9-btn">Get this pack</span></button>
         </div>
       </div>
@@ -1314,17 +1348,20 @@
         <!-- Offer 10: Smart NFC Business Card -->
         <div class="offer-card glass tilt reveal" style="--d:.1s">
           <span class="offer-badge"><i class="fas fa-id-card"></i> <span data-i18n="offer10-badge">Smart Card</span></span>
-          <div class="offer-icon"><i class="fas fa-id-card"></i></div>
           <h3 class="offer-title" data-i18n="offer10-title">Smart Business Card</h3>
-          <p class="offer-desc" data-i18n="offer10-desc">You meet a client, they touch your card with their phone, and your number, WhatsApp and photos are saved on the spot. No more lost paper cards. Change your info anytime.</p>
+          <p class="offer-short" data-i18n="offer10-desc-short">One tap and you're saved in your client's phone.</p>
           <div class="offer-price" id="price10">300 DH</div>
           <div class="offer-maintenance" id="maintenance10"><i class="fas fa-infinity"></i> One-time payment — no subscription</div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer10-desc">You meet a client, they touch your card with their phone, and your number, WhatsApp and photos are saved on the spot. No more lost paper cards. Change your info anytime.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f1">Works with one tap on iPhone &amp; Android (+ QR code)</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f2">Your own page: contact, WhatsApp, social media, photos of your work</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f3">“Save contact” button: you’re in their phone in one tap</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f4">Change your info anytime, no new card needed</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Business%20Card%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer10-btn">Order my card</span></button>
           <a class="offer-btn try-demo" href="card/" target="_blank" rel="noopener"><i class="fas fa-id-card"></i> <span data-i18n="offer10-try">See a live demo profile</span></a>
         </div>
@@ -1338,36 +1375,42 @@
         <div class="offer-card glass tilt reveal" style="--d:.1s">
           <div class="offer-photo"><img src="assets/offers/pos-software.jpg" alt="A hand tapping products on a tablet cash register" loading="lazy" width="760" height="460"></div>
           <span class="offer-badge"><i class="fas fa-laptop-code"></i> <span data-i18n="pos1-badge">Software</span></span>
-          <div class="offer-icon"><i class="fas fa-tablet-screen-button"></i></div>
           <h3 class="offer-title" data-i18n="pos1-title">POS Software</h3>
-          <p class="offer-desc" data-i18n="pos1-desc">Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.</p>
+          <p class="offer-short" data-i18n="pos1-desc-short">Your counter on the tablet or computer you already have.</p>
           <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
           <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="pos1-desc">Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f1">Fast sales with a barcode or one tap</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f2">Stock updated with every sale, alert before it runs out</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f3">Daily sales and cash report on your phone</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f4">Several cashiers, each with their own access</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f5">Training + 3 months of maintenance free</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20POS%20software%20(free%20demo)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos1-btn">Ask for a free demo</span></button>
         </div>
         <!-- POS software + hardware kit -->
         <div class="offer-card glass tilt reveal" style="--d:.2s">
           <div class="offer-photo"><img src="assets/offers/pos-kit.jpg" alt="A cashier using a touch-screen register with a receipt printer" loading="lazy" width="760" height="460"></div>
           <span class="offer-badge"><i class="fas fa-box-open"></i> <span data-i18n="pos2-badge">Complete kit</span></span>
-          <div class="offer-icon"><i class="fas fa-cash-register"></i></div>
           <h3 class="offer-title" data-i18n="pos2-title">POS Software + Hardware</h3>
-          <p class="offer-desc" data-i18n="pos2-desc">Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.</p>
+          <p class="offer-short" data-i18n="pos2-desc-short">Everything ready on day one: equipment, setup and training.</p>
           <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
           <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
-          <ul class="offer-features">
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="pos2-desc">Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.</p>
+            <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Touch-screen register</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Receipt printer and cash drawer</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Barcode scanner</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed and set up in your shop</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Everything in POS Software</span></li>
-          </ul>
+            </ul>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
         </div>
       </div>
@@ -1385,28 +1428,25 @@
       <div class="quote-grid">
         <div class="quote-form glass reveal">
           <div class="q-step">
-            <div class="q-label"><span class="q-n">1</span><span data-i18n="q-step1">Choose your package</span></div>
-            <div class="q-packages" id="qPackages"></div>
+            <label class="q-label" for="qPkgSelect"><span class="q-n">1</span><span data-i18n="q-step1">Choose your package</span></label>
+            <div class="q-select-wrap"><select class="q-select" id="qPkgSelect"></select></div>
           </div>
           <div class="q-step">
-            <div class="q-label"><span class="q-n">2</span><span data-i18n="q-step2">Maintenance & support</span></div>
-            <div class="q-seg" id="qYears">
-              <button type="button" data-years="0" data-i18n="q-y0">None</button>
-              <button type="button" data-years="1" class="active" data-i18n="q-y1">1 year</button>
-              <button type="button" data-years="2" data-i18n="q-y2">2 years</button>
-              <button type="button" data-years="3" data-i18n="q-y3">3 years</button>
-            </div>
+            <label class="q-label" for="qYearsSelect"><span class="q-n">2</span><span data-i18n="q-step2">Monthly maintenance</span></label>
+            <div class="q-select-wrap"><select class="q-select" id="qYearsSelect"></select></div>
+            <div class="q-hint" id="qMaintHint"></div>
           </div>
           <div class="q-step">
-            <div class="q-label"><span class="q-n">3</span><span data-i18n="q-step3">Currency</span></div>
-            <div class="q-seg" id="qCurrency">
-              <button type="button" data-cur="ar">MAD (DH)</button>
-              <button type="button" data-cur="fr">EUR (€)</button>
-              <button type="button" data-cur="en">USD ($)</button>
-            </div>
+            <label class="q-label" for="qEditsSelect"><span class="q-n">3</span><span data-i18n="q-step-edits">Updates and edits</span></label>
+            <div class="q-select-wrap"><select class="q-select" id="qEditsSelect"></select></div>
+            <div class="q-hint" id="qEditsHint"></div>
           </div>
           <div class="q-step">
-            <div class="q-label"><span class="q-n">4</span><span data-i18n="q-step4">Your details</span></div>
+            <label class="q-label" for="qCurrencySelect"><span class="q-n">4</span><span data-i18n="q-step3">Currency</span></label>
+            <div class="q-select-wrap"><select class="q-select" id="qCurrencySelect"></select></div>
+          </div>
+          <div class="q-step">
+            <div class="q-label"><span class="q-n">5</span><span data-i18n="q-step4">Your details</span></div>
             <div class="q-client">
               <input type="text" class="contact-input" id="qName" placeholder="Full name *">
               <input type="text" class="contact-input" id="qCompany" placeholder="Company name">
@@ -1686,28 +1726,28 @@
         'offer1-badge': "Get found",
         'offer1-title': 'Professional Website',
         'offer1-desc': "A client searches Google for a business like yours at 11 p.m. The next day, they call you, not your competitor. We build a beautiful website that works on every phone and brings clients to you.",
-        'offer1-f1': '1 change per month included',
+        'offer1-f1': 'Maintenance keeps everything running and safe. Edits are optional',
         'offer1-f2': 'First 3 months of maintenance free',
         'offer1-f3': "Hosting, security & backups included: nothing to worry about",
         'offer1-btn': 'Get this offer',
         'offer2-badge': "Stay in control",
         'offer2-title': "Business Management App",
         'offer2-desc': "No more notebooks and guesswork. See your sales, stock and staff on your phone, whether you're at the shop or at home. Made for restaurants, pharmacies, clinics, shops and more.",
-        'offer2-f1': '2 changes per month included',
+        'offer2-f1': 'Maintenance keeps everything running and safe. Edits are optional',
         'offer2-f2': 'First 3 months of maintenance free',
         'offer2-f3': "Built around the way you already work",
         'offer2-btn': 'Get this offer',
         'offer3-badge': "Decide with clarity",
         'offer3-title': "Management App + Daily Reports",
         'offer3-desc': "Every evening, a clear report lands on your phone: what you sold, what's running out, what earned you the most. No spreadsheets, just the answers you need to decide.",
-        'offer3-f1': '2 changes per month included',
+        'offer3-f1': 'Maintenance keeps everything running and safe. Edits are optional',
         'offer3-f2': 'First 3 months of maintenance free',
         'offer3-f3': "Your reports, sent to you automatically",
         'offer3-btn': 'Get this offer',
         'offer4-badge': "Grow without stress",
         'offer4-title': "Business on Autopilot",
         'offer4-desc': "Your clients get reminders and thank-you messages by SMS or email, you get clear tips to sell more, and everything keeps running, even on your day off.",
-        'offer4-f1': '2 changes per month included',
+        'offer4-f1': 'Maintenance keeps everything running and safe. Edits are optional',
         'offer4-f2': 'First 3 months of maintenance free',
         'offer4-f3': "Automatic reminders & messages to your clients",
         'offer4-f4': "Smart tips to sell more",
@@ -1890,28 +1930,28 @@
         'offer1-badge': "Soyez trouvé",
         'offer1-title': 'Site Web Professionnel',
         'offer1-desc': "Un client cherche votre métier sur Google à 23h. Le lendemain, c'est vous qu'il appelle, pas votre concurrent. Nous créons un beau site, parfait sur téléphone, qui vous amène des clients.",
-        'offer1-f1': '1 modification par mois incluse',
+        'offer1-f1': 'Maintenance : tout reste en ligne et sécurisé. Modifications en option',
         'offer1-f2': '3 premiers mois de maintenance offerts',
         'offer1-f3': "Hébergement, sécurité et sauvegardes inclus : rien à gérer",
         'offer1-btn': 'Obtenir cette offre',
         'offer2-badge': "Gardez le contrôle",
         'offer2-title': "Application de Gestion",
         'offer2-desc': "Fini les cahiers et les approximations. Voyez vos ventes, votre stock et vos employés sur votre téléphone, au magasin ou à la maison. Pour restaurants, pharmacies, cabinets, commerces…",
-        'offer2-f1': '2 modifications par mois incluses',
+        'offer2-f1': 'Maintenance : tout reste en ligne et sécurisé. Modifications en option',
         'offer2-f2': '3 premiers mois de maintenance offerts',
         'offer2-f3': "Adaptée à votre façon de travailler",
         'offer2-btn': 'Obtenir cette offre',
         'offer3-badge': "Décidez sereinement",
         'offer3-title': "Gestion + Rapports Quotidiens",
         'offer3-desc': "Chaque soir, un rapport clair arrive sur votre téléphone : ce que vous avez vendu, ce qui manque, ce qui rapporte le plus. Pas de tableaux compliqués, juste les réponses pour décider.",
-        'offer3-f1': '2 modifications par mois incluses',
+        'offer3-f1': 'Maintenance : tout reste en ligne et sécurisé. Modifications en option',
         'offer3-f2': '3 premiers mois de maintenance offerts',
         'offer3-f3': "Vos rapports envoyés automatiquement",
         'offer3-btn': 'Obtenir cette offre',
         'offer4-badge': "Grandissez sans stress",
         'offer4-title': "Activité en Pilote Automatique",
         'offer4-desc': "Vos clients reçoivent rappels et remerciements par SMS ou email, vous recevez des conseils clairs pour vendre plus, et tout tourne, même votre jour de repos.",
-        'offer4-f1': '2 modifications par mois incluses',
+        'offer4-f1': 'Maintenance : tout reste en ligne et sécurisé. Modifications en option',
         'offer4-f2': '3 premiers mois de maintenance offerts',
         'offer4-f3': "Rappels et messages automatiques à vos clients",
         'offer4-f4': "Conseils intelligents pour vendre plus",
@@ -2094,28 +2134,28 @@
         'offer1-badge': "ليجدك الزبائن",
         'offer1-title': 'موقع احترافي',
         'offer1-desc': "زبون يبحث في Google عن نشاط مثل نشاطك في الحادية عشرة ليلاً، وفي الغد يتصل بك أنت لا بمنافسك. نصمم لك موقعاً جميلاً يعمل على كل هاتف ويجلب لك الزبائن.",
-        'offer1-f1': 'تعديل واحد شهرياً مشمول',
+        'offer1-f1': 'الصيانة تُبقي كل شيء يعمل بأمان، والتعديلات خيار إضافي',
         'offer1-f2': 'أول 3 أشهر صيانة مجاناً',
         'offer1-f3': "الاستضافة والحماية والنسخ الاحتياطي مشمولة: لا شيء يقلقك",
         'offer1-btn': 'احصل على هذا العرض',
         'offer2-badge': "تحكم في نشاطك",
         'offer2-title': "تطبيق تسيير النشاط",
         'offer2-desc': "وداعاً للدفاتر والتخمين. شاهد مبيعاتك ومخزونك وموظفيك على هاتفك، سواء كنت في المحل أو في البيت. مناسب للمطاعم والصيدليات والعيادات والمحلات وغيرها.",
-        'offer2-f1': 'تعديلان شهرياً مشمولان',
+        'offer2-f1': 'الصيانة تُبقي كل شيء يعمل بأمان، والتعديلات خيار إضافي',
         'offer2-f2': 'أول 3 أشهر صيانة مجاناً',
         'offer2-f3': "مصمم حسب طريقة عملك",
         'offer2-btn': 'احصل على هذا العرض',
         'offer3-badge': "قرارات واضحة",
         'offer3-title': "التسيير + تقارير يومية",
         'offer3-desc': "كل مساء يصلك تقرير واضح على هاتفك: ماذا بعت، ماذا سينفد، وما الذي ربحت منه أكثر. بدون جداول معقدة، فقط الأجوبة التي تحتاجها لتقرر.",
-        'offer3-f1': 'تعديلان شهرياً مشمولان',
+        'offer3-f1': 'الصيانة تُبقي كل شيء يعمل بأمان، والتعديلات خيار إضافي',
         'offer3-f2': 'أول 3 أشهر صيانة مجاناً',
         'offer3-f3': "تقاريرك تصلك تلقائياً",
         'offer3-btn': 'احصل على هذا العرض',
         'offer4-badge': "نمو بدون ضغط",
         'offer4-title': "نشاطك يشتغل تلقائياً",
         'offer4-desc': "زبائنك يتلقون التذكيرات ورسائل الشكر عبر SMS أو البريد، وأنت تتلقى نصائح واضحة لتبيع أكثر، وكل شيء يسير حتى في يوم عطلتك.",
-        'offer4-f1': 'تعديلان شهرياً مشمولان',
+        'offer4-f1': 'الصيانة تُبقي كل شيء يعمل بأمان، والتعديلات خيار إضافي',
         'offer4-f2': 'أول 3 أشهر صيانة مجاناً',
         'offer4-f3': "تذكيرات ورسائل تلقائية لزبائنك",
         'offer4-f4': "نصائح ذكية لتبيع أكثر",
@@ -2273,6 +2313,11 @@
 
     let currentLang = 'en';
 
+    function toggleOfferMore(btn) {
+      const open = btn.closest('.offer-card').classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    }
+
     // Function to update offer prices based on language
     function updateOfferPrices(lang) {
       const currencySymbol = translations[lang]['currency'] || 'DH';
@@ -2300,6 +2345,12 @@
             ? `<i class="fas fa-infinity"></i> ${translations[lang]['no-sub']}`
             : `<i class="fas fa-calendar-alt"></i> + ${prices[i].maintenance} ${currencySymbol} ${translations[lang]['maint-label'] || '/ month maintenance'}`;
         }
+      }
+
+      const careEl = document.getElementById('careEditText'), careText = translations[lang]['care-e-text'];
+      if (careEl && careText) {
+        const amount = k => `${translations[lang][k]} ${currencySymbol}`;
+        careEl.textContent = careText.replace('{one}', amount('edit-one')).replace('{two}', amount('edit-plan-2')).replace('{five}', amount('edit-plan-5'));
       }
     }
 
@@ -2584,7 +2635,7 @@
         a_software: "🛠️ A tool made just for you\n\n• A website or app that fits exactly how you work\n• We take care of hosting, backups and security\n• Honest advice before you spend anything\n\nTell us what you need on WhatsApp: +212 612 974 126",
         a_process: "⚙️ How it works\n\n1. We listen: a free chat about your business\n2. You see it first: a free preview with your name\n3. We build it: you give your opinion at every step\n4. You grow: we launch, show you how it works and keep it running\n\nWe confirm the timing during the free first call.",
         a_quote: '🧾 Get your quote in 1 minute\n\nGo to the "Quote" section of this page, choose your offer, maintenance and currency, then download your PDF quote or send it to us on WhatsApp.',
-        maintHead: '🛠️ Maintenance (per month)', maintFoot: "🎁 The first 3 months are free.\nIncluded: hosting, security, backups and fixes, plus 1 change per month (website) or 2 per month (management app).",
+        maintHead: '🛠️ Maintenance (per month)', maintFoot: "🎁 The first 3 months are free.\nMaintenance keeps everything online and safe: hosting, security, backups and fixing anything that breaks.\n\n✏️ Updates and edits are separate and optional: $12 per change, or a monthly plan: 2 changes for $17, or 5 changes for $35.",
         payText: "💳 Payment\n\n50% to start, 50% on delivery.\nThe final price is confirmed after a free first call.",
         packsFoot: "Packs cost less than buying each offer separately.", chatbotFoot: "It knows your business, answers 24/7 in Arabic, Darija, French and English, and sends interested clients to your WhatsApp, just like this assistant."
       },
@@ -2600,7 +2651,7 @@
         a_software: "🛠️ Un outil fait pour vous\n\n• Un site ou une application qui colle à votre façon de travailler\n• On s'occupe de l'hébergement, des sauvegardes et de la sécurité\n• Des conseils honnêtes avant de dépenser\n\nDites-nous ce qu'il vous faut sur WhatsApp : +212 612 974 126",
         a_process: "⚙️ Comment ça marche\n\n1. On vous écoute : un échange gratuit sur votre activité\n2. Vous voyez d'abord : un aperçu gratuit à votre nom\n3. On le réalise : vous donnez votre avis à chaque étape\n4. Vous grandissez : on lance, on vous montre et on garde tout en marche\n\nLe délai est confirmé lors du premier appel gratuit.",
         a_quote: '🧾 Votre devis en 1 minute\n\nAllez dans la section « Devis » de cette page, choisissez votre offre, la maintenance et la devise, puis téléchargez votre devis PDF ou envoyez-le-nous sur WhatsApp.',
-        maintHead: '🛠️ Maintenance (par mois)', maintFoot: "🎁 Les 3 premiers mois sont offerts.\nInclus : hébergement, sécurité, sauvegardes et corrections, plus 1 modification par mois (site) ou 2 par mois (application de gestion).",
+        maintHead: '🛠️ Maintenance (par mois)', maintFoot: "🎁 Les 3 premiers mois sont offerts.\nLa maintenance garde tout en ligne et sécurisé : hébergement, sécurité, sauvegardes et réparation de ce qui tombe en panne.\n\n✏️ Les mises à jour et modifications sont à part et en option : 11 € par modification, ou un forfait mensuel : 2 modifications pour 16 €, ou 5 pour 32 €.",
         payText: "💳 Paiement\n\n50% au démarrage, 50% à la livraison.\nLe prix final est confirmé après un premier appel gratuit.",
         packsFoot: "Les packs coûtent moins cher que les offres séparées.", chatbotFoot: "Il connaît votre activité, répond 24h/24 en arabe, darija, français et anglais, et envoie les clients intéressés sur votre WhatsApp, comme cet assistant."
       },
@@ -2616,7 +2667,7 @@
         a_software: "🛠️ أداة مصممة لك\n\n• موقع أو تطبيق يناسب طريقة عملك تماماً\n• نتكفل بالاستضافة والنسخ الاحتياطي والحماية\n• نصيحة صادقة قبل أن تصرف\n\nأخبرنا بما تحتاجه عبر واتساب: 212612974126+",
         a_process: "⚙️ كيف نعمل\n\n1. نستمع إليك: محادثة مجانية حول نشاطك\n2. تراه أولاً: نموذج مجاني باسمك\n3. ننجزه: تعطي رأيك في كل خطوة\n4. تكبر: نطلق المشروع ونريك كيف يعمل ونحافظ على سيره\n\nنؤكد المدة خلال المكالمة الأولى المجانية.",
         a_quote: '🧾 عرض السعر في دقيقة\n\nانتقل إلى قسم «عرض السعر» في هذه الصفحة، اختر العرض والصيانة والعملة، ثم حمّل ملف PDF أو أرسله لنا عبر واتساب.',
-        maintHead: '🛠️ الصيانة (شهرياً)', maintFoot: "🎁 أول 3 أشهر مجاناً.\nتشمل: الاستضافة والحماية والنسخ الاحتياطي والإصلاحات، وتعديلاً واحداً شهرياً (الموقع) أو تعديلين (تطبيق التسيير).",
+        maintHead: '🛠️ الصيانة (شهرياً)', maintFoot: "🎁 أول 3 أشهر مجاناً.\nالصيانة تُبقي كل شيء يعمل بأمان: الاستضافة والحماية والنسخ الاحتياطي وإصلاح أي عطل.\n\n✏️ التحديثات والتعديلات منفصلة واختيارية: 99 د.م. لكل تعديل، أو باقة شهرية: تعديلان مقابل 149 د.م.، أو 5 تعديلات مقابل 299 د.م.",
         payText: "💳 الدفع\n\n50% عند البدء و50% عند التسليم.\nيتم تأكيد السعر النهائي بعد مكالمة أولى مجانية.",
         packsFoot: "الباقات أرخص من شراء كل عرض على حدة.", chatbotFoot: "يعرف نشاطك، ويجيب 24/24 بالعربية والدارجة والفرنسية والإنجليزية، ويرسل الزبائن المهتمين إلى واتساب الخاص بك، مثل هذا المساعد."
       }
@@ -2842,7 +2893,7 @@
         keepalive: true,
         body: JSON.stringify({
           quoteNo, action, ...client,
-          package: translations.en[`offer${quote.pkg}-title`], years: quote.years, currency,
+          package: translations.en[`offer${quote.pkg}-title`] + (d.editPlan ? ` + ${d.editPlan} edits/month` : ''), years: quote.years, currency,
           price: d.price, maintenance: d.maint, total: d.total, lang: currentLang, page: location.href
         })
       }).catch(() => {});
@@ -3117,7 +3168,7 @@
         'nav-quote': 'Quote',
         'q-title': 'Simulate your quote',
         'q-sub': 'Choose your package and options, see the price instantly, and download your quote as a PDF.',
-        'q-step1': 'Choose your package', 'q-step2': 'Maintenance & support', 'q-step3': 'Currency', 'q-step4': 'Your details',
+        'q-step1': 'Choose your package', 'q-step2': 'Monthly maintenance', 'q-step3': 'Currency', 'q-step4': 'Your details',
         'q-y0': 'None', 'q-y1': '1 year', 'q-y2': '2 years', 'q-y3': '3 years',
         'q-hint': 'Your details appear on your PDF quote and are shared securely with our team so we can follow up. We never sell your data.',
         'q-summary': 'Your estimate', 'q-total': 'Total',
@@ -3138,7 +3189,7 @@
         'nav-quote': 'Devis',
         'q-title': 'Simulez votre devis',
         'q-sub': 'Choisissez votre offre et vos options, voyez le prix instantanément et téléchargez votre devis en PDF.',
-        'q-step1': 'Choisissez votre offre', 'q-step2': 'Maintenance & support', 'q-step3': 'Devise', 'q-step4': 'Vos informations',
+        'q-step1': 'Choisissez votre offre', 'q-step2': 'Maintenance mensuelle', 'q-step3': 'Devise', 'q-step4': 'Vos informations',
         'q-y0': 'Aucune', 'q-y1': '1 an', 'q-y2': '2 ans', 'q-y3': '3 ans',
         'q-hint': 'Vos informations apparaissent sur votre devis PDF et sont transmises de façon sécurisée à notre équipe pour le suivi. Nous ne vendons jamais vos données.',
         'q-summary': 'Votre estimation', 'q-total': 'Total',
@@ -3159,7 +3210,7 @@
         'nav-quote': 'عرض سعر',
         'q-title': 'احسب عرض السعر الخاص بك',
         'q-sub': 'اختر الباقة والخيارات، شاهد السعر فوراً، وحمّل عرض السعر بصيغة PDF.',
-        'q-step1': 'اختر الباقة', 'q-step2': 'الصيانة والدعم', 'q-step3': 'العملة', 'q-step4': 'معلوماتك',
+        'q-step1': 'اختر الباقة', 'q-step2': 'الصيانة الشهرية', 'q-step3': 'العملة', 'q-step4': 'معلوماتك',
         'q-y0': 'بدون', 'q-y1': 'سنة', 'q-y2': 'سنتان', 'q-y3': '3 سنوات',
         'q-hint': 'تظهر معلوماتك في ملف PDF الخاص بك وتُرسل بشكل آمن إلى فريقنا للمتابعة. لا نبيع بياناتك أبداً.',
         'q-summary': 'تقديرك', 'q-total': 'المجموع',
@@ -3178,10 +3229,122 @@
       }
     };
     for (const l in quoteI18n) Object.assign(translations[l], quoteI18n[l]);
+    // maintenance and edits are priced separately; short texts shown on the collapsed offer cards
+    const careI18n = {
+          "en": {
+                "offer-more": "See what's included",
+                "care-m-title": "Monthly maintenance",
+                "care-m-text": "Keeps everything online and safe: hosting, security, backups and fixing anything that breaks. The price is on each offer, and the first 3 months are free.",
+                "care-e-title": "Updates and edits (optional)",
+                "care-e-text": "New text, photos or prices? {one} per change, or a monthly plan: 2 changes for {two}, or 5 changes for {five}.",
+                "care-rule": "It worked and then broke? That is maintenance, at no extra cost. It works and you want it different? That is an edit.",
+                "edit-one": "12",
+                "edit-plan-2": "17",
+                "edit-plan-5": "35",
+                "q-step-edits": "Updates and edits",
+                "q-group-offers": "Main offers",
+                "q-group-packs": "Smart Assistant and packs",
+                "q-group-card": "Smart Business Card",
+                "q-y05": "6 months",
+                "q-edit-none": "No plan: pay per change ({one} each)",
+                "q-edit-2": "2 changes a month: {price} / month",
+                "q-edit-5": "5 changes a month: {price} / month",
+                "q-edit-line": "{n} edits a month",
+                "q-maint-hint": "Keeps your project online and safe. The first 3 months are free.",
+                "q-edits-hint": "Optional. New text, photos or prices. Billed for the same period as maintenance.",
+                "q-edits-need-maint": "Choose a maintenance period to add a monthly plan.",
+                "q-not-needed": "Not needed for this offer.",
+                "offer1-desc-short": "Get found on Google and bring new clients to you.",
+                "offer2-desc-short": "See your sales, stock and staff on your phone.",
+                "offer3-desc-short": "The app, plus a clear report on your phone every evening.",
+                "offer4-desc-short": "The app, plus automatic reminders and messages to your clients.",
+                "offer5-desc-short": "Answers your clients day and night, in their language.",
+                "offer6-desc-short": "Clients find you on Google and get answers right away.",
+                "offer7-desc-short": "Run your business from your phone, with clients answered 24/7.",
+                "offer8-desc-short": "Clear reports for you, instant answers for your clients.",
+                "offer9-desc-short": "Our most complete pack: everything runs, every client is answered.",
+                "offer10-desc-short": "One tap and you're saved in your client's phone.",
+                "pos1-desc-short": "Your counter on the tablet or computer you already have.",
+                "pos2-desc-short": "Everything ready on day one: equipment, setup and training."
+          },
+          "fr": {
+                "offer-more": "Voir ce qui est inclus",
+                "care-m-title": "Maintenance mensuelle",
+                "care-m-text": "Garde tout en ligne et sécurisé : hébergement, sécurité, sauvegardes et réparation de ce qui tombe en panne. Le prix est sur chaque offre, et les 3 premiers mois sont offerts.",
+                "care-e-title": "Mises à jour et modifications (en option)",
+                "care-e-text": "Nouveaux textes, photos ou prix ? {one} par modification, ou un forfait mensuel : 2 modifications pour {two}, ou 5 pour {five}.",
+                "care-rule": "Ça marchait et c'est tombé en panne ? C'est la maintenance, sans frais en plus. Ça marche et vous voulez changer quelque chose ? C'est une modification.",
+                "edit-one": "11",
+                "edit-plan-2": "16",
+                "edit-plan-5": "32",
+                "q-step-edits": "Mises à jour et modifications",
+                "q-group-offers": "Offres principales",
+                "q-group-packs": "Assistant intelligent et packs",
+                "q-group-card": "Carte de visite intelligente",
+                "q-y05": "6 mois",
+                "q-edit-none": "Sans forfait : à la modification ({one} chacune)",
+                "q-edit-2": "2 modifications par mois : {price} / mois",
+                "q-edit-5": "5 modifications par mois : {price} / mois",
+                "q-edit-line": "{n} modifications par mois",
+                "q-maint-hint": "Garde votre projet en ligne et sécurisé. Les 3 premiers mois sont offerts.",
+                "q-edits-hint": "En option. Nouveaux textes, photos ou prix. Facturé sur la même durée que la maintenance.",
+                "q-edits-need-maint": "Choisissez une durée de maintenance pour ajouter un forfait mensuel.",
+                "q-not-needed": "Pas nécessaire pour cette offre.",
+                "offer1-desc-short": "Soyez trouvé sur Google et attirez de nouveaux clients.",
+                "offer2-desc-short": "Vos ventes, votre stock et votre équipe sur votre téléphone.",
+                "offer3-desc-short": "L'application, plus un rapport clair chaque soir sur votre téléphone.",
+                "offer4-desc-short": "L'application, plus des rappels et messages automatiques à vos clients.",
+                "offer5-desc-short": "Répond à vos clients jour et nuit, dans leur langue.",
+                "offer6-desc-short": "Vos clients vous trouvent sur Google et ont une réponse tout de suite.",
+                "offer7-desc-short": "Gérez depuis votre téléphone, vos clients ont une réponse 24h/24.",
+                "offer8-desc-short": "Des rapports clairs pour vous, des réponses immédiates pour vos clients.",
+                "offer9-desc-short": "Notre pack le plus complet : tout tourne, chaque client a une réponse.",
+                "offer10-desc-short": "Un geste et vous êtes enregistré dans le téléphone du client.",
+                "pos1-desc-short": "Votre caisse sur la tablette ou l'ordinateur que vous avez déjà.",
+                "pos2-desc-short": "Tout est prêt dès le premier jour : matériel, installation et formation."
+          },
+          "ar": {
+                "offer-more": "شاهد ما يشمله العرض",
+                "care-m-title": "الصيانة الشهرية",
+                "care-m-text": "تُبقي كل شيء يعمل بأمان: الاستضافة والحماية والنسخ الاحتياطي وإصلاح أي عطل. السعر مذكور في كل عرض، وأول 3 أشهر مجاناً.",
+                "care-e-title": "التحديثات والتعديلات (اختيارية)",
+                "care-e-text": "نص أو صور أو أسعار جديدة؟ {one} لكل تعديل، أو باقة شهرية: تعديلان مقابل {two}، أو 5 تعديلات مقابل {five}",
+                "care-rule": "كان يعمل ثم تعطّل؟ هذه صيانة دون تكلفة إضافية. يعمل وتريد تغييره؟ هذا تعديل.",
+                "edit-one": "99",
+                "edit-plan-2": "149",
+                "edit-plan-5": "299",
+                "q-step-edits": "التحديثات والتعديلات",
+                "q-group-offers": "العروض الرئيسية",
+                "q-group-packs": "المساعد الذكي والباقات",
+                "q-group-card": "بطاقة الأعمال الذكية",
+                "q-y05": "6 أشهر",
+                "q-edit-none": "بدون باقة: الدفع عند كل تعديل ({one} للتعديل)",
+                "q-edit-2": "تعديلان شهرياً: {price} / شهر",
+                "q-edit-5": "5 تعديلات شهرياً: {price} / شهر",
+                "q-edit-line": "عدد التعديلات شهرياً: {n}",
+                "q-maint-hint": "تُبقي مشروعك يعمل بأمان. أول 3 أشهر مجاناً.",
+                "q-edits-hint": "اختياري. نص أو صور أو أسعار جديدة. يُحتسب لنفس مدة الصيانة.",
+                "q-edits-need-maint": "اختر مدة الصيانة لإضافة باقة شهرية.",
+                "q-not-needed": "غير ضروري لهذا العرض.",
+                "offer1-desc-short": "اظهر على Google واجذب زبائن جدد.",
+                "offer2-desc-short": "مبيعاتك ومخزونك وفريقك على هاتفك.",
+                "offer3-desc-short": "التطبيق، مع تقرير واضح على هاتفك كل مساء.",
+                "offer4-desc-short": "التطبيق، مع تذكيرات ورسائل تلقائية لزبائنك.",
+                "offer5-desc-short": "يجيب زبائنك ليلاً ونهاراً بلغتهم.",
+                "offer6-desc-short": "يجدك الزبائن على Google ويحصلون على جواب فوراً.",
+                "offer7-desc-short": "سيّر نشاطك من هاتفك، وزبائنك يتلقون الجواب على مدار الساعة.",
+                "offer8-desc-short": "تقارير واضحة لك وأجوبة فورية لزبائنك.",
+                "offer9-desc-short": "باقتنا الأشمل: كل شيء يشتغل وكل زبون يتلقى جواباً.",
+                "offer10-desc-short": "لمسة واحدة وتُحفظ في هاتف زبونك.",
+                "pos1-desc-short": "صندوقك على اللوحة أو الحاسوب الذي تملكه.",
+                "pos2-desc-short": "كل شيء جاهز من اليوم الأول: المعدات والتركيب والتدريب."
+          }
+    };
+    for (const l in careI18n) Object.assign(translations[l], careI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
-    const quote = { pkg: 2, years: 1, cur: null };
-    const PKG_ICONS = ['code', 'cogs', 'chart-pie', 'robot', 'comments', 'globe', 'cogs', 'chart-pie', 'rocket', 'id-card'];
+    const quote = { pkg: 2, years: 1, edits: 0, cur: null };
+    const PKG_GROUPS = [['q-group-offers', [1, 2, 3, 4]], ['q-group-packs', [5, 6, 7, 8, 9]], ['q-group-card', [10]]];
     const toNum = s => parseFloat(String(s).replace(/,/g, ''));
     const quoteCur = () => quote.cur || currentLang;
     function money(n, cur = quoteCur()) {
@@ -3201,12 +3364,16 @@
       const maintGross = maint * months;
       const freeValue = months > 0 ? maint * 3 : 0;  // first 3 months of maintenance are free
       const maintTotal = maintGross - freeValue;
+      const editPlan = maint > 0 && months > 0 ? quote.edits : 0;  // optional, separate from maintenance
+      const editMonthly = editPlan ? toNum(p[`edit-plan-${editPlan}`]) : 0;
+      const editTotal = editMonthly * months;
       return {
         cur, original, price, maint, months, maintGross, freeValue, maintTotal,
+        editPlan, editMonthly, editTotal, editLabel: t['q-edit-line'].replace('{n}', editPlan),
         discount: original - price,
         pct: Math.round((original - price) / original * 100),
-        subtotal: original + maintGross,
-        total: price + maintTotal,
+        subtotal: original + maintGross + editTotal,
+        total: price + maintTotal + editTotal,
         saving: original - price + freeValue,
         title: t[`offer${i}-title`],
         desc: t[`offer${i}-desc`],
@@ -3214,22 +3381,22 @@
       };
     }
 
-    function renderPackages() {
-      const box = document.getElementById('qPackages');
-      const cur = quoteCur();
-      box.innerHTML = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => {
-        const p = translations[cur];
-        return `<label class="q-pkg${quote.pkg === i ? ' selected' : ''}" data-pkg="${i}">
-          <input type="radio" name="qPkg" value="${i}"${quote.pkg === i ? ' checked' : ''}>
-          <span class="q-check"></span>
-          <div class="q-pkg-top"><i class="fas fa-${PKG_ICONS[i - 1]}"></i><span class="q-pkg-name">${esc(translations[currentLang][`offer${i}-title`])}</span></div>
-          <div class="q-pkg-price">${money(toNum(p[`offer${i}-price`]))}${p[`offer${i}-original`] ? `<s>${money(toNum(p[`offer${i}-original`]))}</s>` : ''}</div>
-        </label>`;
-      }).join('');
-      box.querySelectorAll('.q-pkg').forEach(el => el.addEventListener('click', () => {
-        quote.pkg = +el.dataset.pkg;
-        renderPackages(); renderQuote();
-      }));
+    function renderSelects() {
+      const t = translations[currentLang], cur = quoteCur(), p = translations[cur];
+      const opt = (value, label, selected) => `<option value="${value}"${selected ? ' selected' : ''}>${esc(label)}</option>`;
+      const d = quoteData(), noMaint = !(d.maint > 0);
+      document.getElementById('qPkgSelect').innerHTML = PKG_GROUPS.map(([key, ids]) => `<optgroup label="${esc(t[key])}">` +
+        ids.map(i => opt(i, `${t[`offer${i}-title`]} — ${money(toNum(p[`offer${i}-price`]))}`, quote.pkg === i)).join('') + '</optgroup>').join('');
+      const years = document.getElementById('qYearsSelect');
+      years.innerHTML = [[0, 'q-y0'], [0.5, 'q-y05'], [1, 'q-y1'], [2, 'q-y2'], [3, 'q-y3']].map(([y, key]) => opt(y, t[key], quote.years === y)).join('');
+      years.disabled = noMaint;
+      const edits = document.getElementById('qEditsSelect');
+      edits.innerHTML = opt(0, t['q-edit-none'].replace('{one}', money(toNum(p['edit-one']))), d.editPlan === 0) +
+        [2, 5].map(n => opt(n, t[`q-edit-${n}`].replace('{price}', money(toNum(p[`edit-plan-${n}`]))), d.editPlan === n)).join('');
+      edits.disabled = noMaint || d.months === 0;
+      document.getElementById('qCurrencySelect').innerHTML = [['ar', 'MAD (DH)'], ['fr', 'EUR (€)'], ['en', 'USD ($)']].map(([c, label]) => opt(c, label, cur === c)).join('');
+      document.getElementById('qMaintHint').textContent = noMaint ? t['q-not-needed'] : t['q-maint-hint'];
+      document.getElementById('qEditsHint').textContent = noMaint ? t['q-not-needed'] : d.months === 0 ? t['q-edits-need-maint'] : t['q-edits-hint'];
     }
 
     function renderQuote() {
@@ -3242,20 +3409,20 @@
         lines.push([`${t['q-maint']} (${d.months} ${t['q-months-unit']} × ${money(d.maint)})`, money(d.maintGross)]);
         lines.push([t['q-free3'], '−' + money(d.freeValue), 'discount']);
       }
+      if (d.editPlan) lines.push([`${d.editLabel} (${d.months} ${t['q-months-unit']} × ${money(d.editMonthly)})`, money(d.editTotal)]);
       document.getElementById('qLines').innerHTML = lines
         .map(([a, b, cls]) => `<li${cls ? ` class="${cls}"` : ''}><span>${esc(a)}</span><span>${b}</span></li>`).join('');
       document.getElementById('qTotal').textContent = money(d.total);
       document.getElementById('qSave').textContent = d.saving > 0 ? `${t['q-save']} ${money(d.saving)}` : '';
-      document.querySelectorAll('#qYears button').forEach(b => b.classList.toggle('active', +b.dataset.years === quote.years));
-      document.querySelectorAll('#qCurrency button').forEach(b => b.classList.toggle('active', b.dataset.cur === d.cur));
     }
 
-    document.querySelectorAll('#qYears button').forEach(b => b.addEventListener('click', () => {
-      quote.years = +b.dataset.years; renderQuote();
-    }));
-    document.querySelectorAll('#qCurrency button').forEach(b => b.addEventListener('click', () => {
-      quote.cur = b.dataset.cur; renderPackages(); renderQuote();
-    }));
+    const onQuoteSelect = (id, apply) => document.getElementById(id).addEventListener('change', e => {
+      apply(e.target.value); renderSelects(); renderQuote();
+    });
+    onQuoteSelect('qPkgSelect', v => { quote.pkg = +v; });
+    onQuoteSelect('qYearsSelect', v => { quote.years = +v; });
+    onQuoteSelect('qEditsSelect', v => { quote.edits = +v; });
+    onQuoteSelect('qCurrencySelect', v => { quote.cur = v; });
 
     function quoteClient() {
       const v = id => document.getElementById(id).value.trim();
@@ -3290,6 +3457,7 @@
         rows.push(`<tr><td style="${cell}">${esc(t['q-maint'])}</td><td style="${cell}text-align:center;">${d.months} ${esc(t['q-months-unit'])}</td><td style="${num}">${pm(d.maint)}</td><td style="${num}">${pm(d.maintGross)}</td></tr>`);
         rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(t['q-free3'])}</td><td style="${cell}text-align:center;">3 ${esc(t['q-months-unit'])}</td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.freeValue)}</td></tr>`);
       }
+      if (d.editPlan) rows.push(`<tr><td style="${cell}">${esc(d.editLabel)}</td><td style="${cell}text-align:center;">${d.months} ${esc(t['q-months-unit'])}</td><td style="${num}">${pm(d.editMonthly)}</td><td style="${num}">${pm(d.editTotal)}</td></tr>`);
       const clientLines = [client.company, client.email, client.phone].filter(Boolean).map(x => `<div>${esc(x)}</div>`).join('');
 
       const el = document.createElement('div');
@@ -3420,6 +3588,7 @@
         d.discount > 0 ? `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)` : `📦 ${d.title}: ${money(d.price)}`,
         d.months > 0 && d.maint > 0 ? `🛠️ ${t['q-maint']}: ${d.months} ${t['q-months-unit']} × ${money(d.maint)} = ${money(d.maintGross)}` : null,
         d.months > 0 && d.maint > 0 ? `🎁 ${t['q-free3']}: −${money(d.freeValue)}` : null,
+        d.editPlan ? `✏️ ${d.editLabel}: ${d.months} ${t['q-months-unit']} × ${money(d.editMonthly)} = ${money(d.editTotal)}` : null,
         `💳 ${t['q-pay']}`,
         `💰 ${t['q-total']}: ${money(d.total)}`
       ].filter(x => x !== null).join('\n');
@@ -3433,7 +3602,7 @@
       document.getElementById('qEmail').placeholder = t['q-ph-email'];
       document.getElementById('qPhone').placeholder = t['q-ph-phone'];
       document.getElementById('qBusiness').placeholder = t['q-ph-business'];
-      renderPackages(); renderQuote();
+      renderSelects(); renderQuote();
     }
     const switchLanguageBeforeQuote = switchLanguage;
     switchLanguage = function (lang) {
