@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://red-lab-22e9.sghyeryounes.workers.dev; form-action 'none'; base-uri 'none'">
+<title>NOOR Dashboard</title>
+<!-- Private dashboard. This page holds no data and no password: it asks the Worker, which checks the password
+     server-side (hash stored as a Cloudflare secret) and only then reads the Google Sheet. -->
+<style>
+  :root {
+    --p1: #9333ea; --p2: #a855f7; --p3: #c084fc; --deep: #4c1d95;
+    --bg: #0f0a1a; --bg-alt: #140d24; --surface: rgba(45, 25, 75, .38); --surface-strong: rgba(30, 18, 52, .85);
+    --border: rgba(168, 85, 247, .22); --text: #f8fafc; --muted: #a39cb8;
+    --ok: #34d399; --warn: #fbbf24; --bad: #f87171; --radius: 18px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #ffffff; --bg-alt: #faf5ff; --surface: rgba(255, 255, 255, .8); --surface-strong: #fff;
+      --border: #e9d5ff; --text: #0f172a; --muted: #64748b; --ok: #059669; --warn: #b45309; --bad: #dc2626;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--text);
+         background: radial-gradient(1200px 600px at 10% -10%, rgba(147, 51, 234, .18), transparent), var(--bg); min-height: 100vh; }
+  button, input { font: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 16px 60px; }
+  .brand { font-weight: 800; letter-spacing: .02em; }
+  .brand span { background: linear-gradient(135deg, #9333ea, #d946ef); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; backdrop-filter: blur(10px); }
+  .btn { border: 0; border-radius: 12px; padding: 10px 16px; cursor: pointer; color: #fff; font-weight: 600;
+         background: linear-gradient(135deg, #9333ea, #a855f7); }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+
+  /* Login */
+  #login { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+  #login form { width: 100%; max-width: 360px; display: grid; gap: 14px; }
+  #login h1 { margin: 0; font-size: 22px; }
+  #login p { margin: 0; color: var(--muted); font-size: 14px; }
+  .field { position: relative; }
+  .field input { width: 100%; padding: 12px 44px 12px 14px; border-radius: 12px; border: 1px solid var(--border);
+                 background: var(--surface-strong); color: var(--text); }
+  .field input:focus { outline: 2px solid var(--p2); outline-offset: 1px; }
+  .eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: var(--muted); cursor: pointer; padding: 6px; }
+  .err { color: var(--bad); font-size: 14px; min-height: 20px; }
+
+  /* Dashboard */
+  #app[hidden], #login[hidden] { display: none; }
+  header.top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  header.top .meta { color: var(--muted); font-size: 13px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi .label { color: var(--muted); font-size: 13px; }
+  .kpi .value { font-size: 28px; font-weight: 800; margin-top: 2px; }
+  .kpi .sub { color: var(--muted); font-size: 12px; }
+  .grid2 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media (max-width: 820px) { .grid2 { grid-template-columns: 1fr; } }
+  h2 { font-size: 15px; margin: 0 0 12px; }
+  .bars { display: grid; gap: 8px; }
+  .bar { display: grid; grid-template-columns: minmax(90px, 40%) 1fr auto; gap: 8px; align-items: center; font-size: 13px; }
+  .bar .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar .track { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; }
+  .bar .fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #9333ea, #c084fc); }
+  .bar .n { color: var(--muted); font-variant-numeric: tabular-nums; }
+  svg text { fill: var(--muted); font-size: 10px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .toolbar input[type=search] { flex: 1; min-width: 180px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-strong); color: var(--text); }
+  .toolbar label { color: var(--muted); font-size: 13px; display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .seg button { background: none; border: 0; color: var(--muted); padding: 7px 12px; cursor: pointer; }
+  .seg button.on { background: var(--p1); color: #fff; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 760px; }
+  th { text-align: left; color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; padding: 8px; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr.dim td { opacity: .55; }
+  td .small { color: var(--muted); font-size: 12px; }
+  td a { color: var(--p3); text-decoration: none; }
+  td a:hover { text-decoration: underline; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin: 0 4px 4px 0; white-space: nowrap; }
+  .b-chat { background: rgba(168, 85, 247, .18); color: var(--p3); }
+  .b-quote { background: rgba(217, 70, 239, .18); color: #e879f9; }
+  .b-new { background: rgba(52, 211, 153, .18); color: var(--ok); }
+  .b-warn { background: rgba(251, 191, 36, .18); color: var(--warn); }
+  .b-test { background: rgba(148, 163, 184, .2); color: var(--muted); }
+  .wa { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 700; color: #fff !important; background: #16a34a; padding: 3px 8px; border-radius: 8px; }
+  .empty { color: var(--muted); text-align: center; padding: 24px; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<section id="login">
+  <form class="card" id="loginForm" autocomplete="off">
+    <div class="brand">NOOR <span>LABS</span></div>
+    <h1>Private dashboard</h1>
+    <p>Leads and quotes from noorlabstechnologies.com.</p>
+    <div class="field">
+      <input id="pw" type="password" placeholder="Password" autocomplete="current-password" required aria-label="Password">
+      <button type="button" class="eye" id="eye" aria-label="Show password">👁</button>
+    </div>
+    <button class="btn" id="loginBtn" type="submit">Open dashboard</button>
+    <div class="err" id="loginErr" role="alert"></div>
+  </form>
+</section>
+
+<main id="app" class="wrap" hidden>
+  <header class="top">
+    <div>
+      <div class="brand" style="font-size:20px">NOOR <span>LABS</span> · Dashboard</div>
+      <div class="meta" id="meta"></div>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="refresh">↻ Refresh</button>
+      <button class="btn ghost" id="exportCsv">⬇ CSV</button>
+      <button class="btn ghost" id="logout">Lock</button>
+    </div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <div class="card"><h2>Activity, last 8 weeks</h2><div id="weekly"></div></div>
+    <div class="card"><h2>Languages</h2><div class="bars" id="langs"></div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2>What clients ask for</h2><div class="bars" id="packages"></div></div>
+    <div class="card"><h2>Contact quality</h2><div class="bars" id="quality"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <input type="search" id="q" placeholder="Search name, company, email, phone, need…">
+      <div class="seg" id="srcSeg">
+        <button data-v="all" class="on">All</button><button data-v="chat">Chatbot</button><button data-v="quote">Quotes</button>
+      </div>
+      <label><input type="checkbox" id="showTests"> Show tests &amp; my own entries</label>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Source</th><th>Client</th><th>Contact</th><th>What they want</th><th>Flags</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="note">Amounts in MAD are approximate (USD × 9.74, EUR × 10.9), based on the site's prices. "New" = arrived since your last visit on this device.</div>
+  </div>
+</main>
+
+<script>
+(() => {
+  const API = 'https://red-lab-22e9.sghyeryounes.workers.dev/admin';
+  const OWN_EMAILS = ['sghyeryounes@gmail.com'];
+  const TO_MAD = { MAD: 1, DH: 1, USD: 9.74, EUR: 10.9 };
+  const LAST_SEEN_KEY = 'noor_admin_last_seen';
+
+  let password = '';          // kept only in memory: closing or reloading the tab locks the dashboard
+  let items = [];
+  let lastSeen = 0;
+  let source = 'all';
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  };
+
+  // ---------- Data ----------
+  function parseDate(v) {
+    if (!v) return null;
+    const iso = new Date(v);
+    if (!isNaN(iso)) return iso;
+    const m = String(v).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?/);  // dd/mm/yyyy hh:mm:ss
+    return m ? new Date(+m[3], m[2] - 1, +m[1], +m[4], +m[5], +(m[6] || 0)) : null;
+  }
+  const validEmail = e => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e) && !/@(gamail|gmial|gmai|gmal|hotmial|hotmal|outlok|yahooo)\./i.test(e);
+  const phoneDigits = p => String(p || '').replace(/\D/g, '');
+  function whatsapp(p) {
+    let d = phoneDigits(p);
+    if (!d) return '';
+    if (d.startsWith('00')) d = d.slice(2);
+    else if (d.startsWith('0')) d = '212' + d.slice(1);
+    else if (d.length === 9 && /^[5-7]/.test(d)) d = '212' + d;
+    return d.length >= 10 ? 'https://wa.me/' + d : '';
+  }
+  const isTestText = s => /delete me|\btest\b/i.test(s || '');
+
+  function normalise(quotes, chats) {
+    const out = [];
+    for (const r of quotes) {
+      // Date, Quote No., Action, Name, Company, Email, Phone, Package, Years, Currency, Price, Maint/month, Total, Lang, Page, Business
+      const currency = String(r[9] || '').toUpperCase();
+      const total = Number(r[12]) || 0;
+      out.push({
+        kind: 'quote', date: parseDate(r[0]), name: r[3], company: r[4], email: String(r[5] || '').trim(), phone: r[6],
+        need: r[7] ? `${r[7]}${r[8] ? ` · ${r[8]} yr maintenance` : ''}` : '', pkg: r[7] || '',
+        amount: total ? `${total.toLocaleString()} ${currency}` : '', mad: total * (TO_MAD[currency] || 0),
+        lang: r[13], extra: r[15] || '', test: isTestText(r[3]) || isTestText(r[4]) || /^TEST/i.test(r[1] || ''),
+      });
+    }
+    for (const r of chats) {
+      // Date, Name, Email, Phone, Company, Interest, then Questions/Language (order changed once), Page
+      const a = String(r[6] || ''), b = String(r[7] || '');
+      const langFirst = /^(en|fr|ar)$/i.test(a.trim());
+      out.push({
+        kind: 'chat', date: parseDate(r[0]), name: r[1], email: String(r[2] || '').trim(), phone: r[3], company: r[4],
+        need: r[5] || '', pkg: '', amount: '', mad: 0, lang: langFirst ? a : b, extra: langFirst ? b : a,
+        test: isTestText(r[1]) || isTestText(r[4]) || /example\.com$/i.test(r[2] || ''),
+      });
+    }
+    for (const it of out) {
+      it.own = OWN_EMAILS.includes(it.email.toLowerCase());
+      it.badEmail = !!it.email && !validEmail(it.email);
+      it.noContact = !it.email && phoneDigits(it.phone).length < 9;
+      it.looksFake = !it.test && !it.own && (/^[^aeiouy]{3,}$/i.test(String(it.name || '').replace(/[^a-z]/gi, '')) || (it.badEmail && phoneDigits(it.phone).length < 9));
+      it.isNew = it.date && it.date.getTime() > lastSeen;
+      it.wa = whatsapp(it.phone);
+    }
+    return out.sort((x, y) => (y.date || 0) - (x.date || 0));
+  }
+
+  const real = list => list.filter(i => !i.test && !i.own);
+
+  // ---------- Render ----------
+  function kpis() {
+    const r = real(items);
+    const now = Date.now(), week = 7 * 864e5;
+    const last7 = r.filter(i => i.date && now - i.date < week).length;
+    const prev7 = r.filter(i => i.date && now - i.date >= week && now - i.date < 2 * week).length;
+    const contacts = new Set(r.map(i => (i.email || '').toLowerCase() || phoneDigits(i.phone)).filter(Boolean)).size;
+    const reachable = r.filter(i => i.wa || (i.email && !i.badEmail)).length;
+    const pipeline = r.reduce((s, i) => s + i.mad, 0);
+    const newCount = r.filter(i => i.isNew).length;
+    const tiles = [
+      ['Real contacts', contacts, `${items.length - r.length} tests / own hidden`],
+      ['Chatbot leads', r.filter(i => i.kind === 'chat').length, 'left their details in the chat'],
+      ['Quotes downloaded', r.filter(i => i.kind === 'quote').length, 'PDF quotes with details'],
+      ['Last 7 days', last7, `previous 7 days: ${prev7}`],
+      ['New since last visit', newCount, newCount ? 'follow them up today' : 'nothing new'],
+      ['Quoted value', `${Math.round(pipeline).toLocaleString()} DH`, `${reachable} reachable contacts`],
+    ];
+    $('kpis').innerHTML = tiles.map(([l, v, s]) =>
+      `<div class="card kpi"><div class="label">${esc(l)}</div><div class="value">${esc(v)}</div><div class="sub">${esc(s)}</div></div>`).join('');
+  }
+
+  function bars(el, entries) {
+    const max = Math.max(1, ...entries.map(e => e[1]));
+    $(el).innerHTML = entries.length ? entries.map(([name, n]) =>
+      `<div class="bar"><span class="name" title="${esc(name)}">${esc(name)}</span><span class="track"><span class="fill" style="width:${(n / max) * 100}%"></span></span><span class="n">${n}</span></div>`).join('')
+      : '<div class="empty">No data yet</div>';
+  }
+  const countBy = (list, key) => Object.entries(list.reduce((m, i) => { const k = key(i); if (k) m[k] = (m[k] || 0) + 1; return m; }, {})).sort((a, b) => b[1] - a[1]);
+
+  function weekly() {
+    const r = real(items);
+    const start = new Date(); start.setHours(0, 0, 0, 0); start.setDate(start.getDate() - ((start.getDay() + 6) % 7));  // this Monday
+    const weeks = Array.from({ length: 8 }, (_, k) => { const d = new Date(start); d.setDate(d.getDate() - 7 * (7 - k)); return { d, chat: 0, quote: 0 }; });
+    for (const i of r) {
+      if (!i.date) continue;
+      for (let k = weeks.length - 1; k >= 0; k--) if (i.date >= weeks[k].d) { weeks[k][i.kind]++; break; }
+    }
+    const W = 560, H = 170, pad = 24, bw = (W - pad) / weeks.length;
+    const max = Math.max(1, ...weeks.map(w => w.chat + w.quote));
+    const y = v => (v / max) * (H - 40);
+    let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Leads per week">`;
+    weeks.forEach((w, k) => {
+      const x = pad + k * bw + 6, wd = bw - 12;
+      const hq = y(w.quote), hc = y(w.chat), base = H - 22;
+      svg += `<rect x="${x}" y="${base - hq}" width="${wd}" height="${hq}" rx="3" fill="#d946ef"/>`;
+      svg += `<rect x="${x}" y="${base - hq - hc}" width="${wd}" height="${hc}" rx="3" fill="#a855f7"/>`;
+      if (w.chat + w.quote) svg += `<text x="${x + wd / 2}" y="${base - hq - hc - 4}" text-anchor="middle">${w.chat + w.quote}</text>`;
+      svg += `<text x="${x + wd / 2}" y="${H - 6}" text-anchor="middle">${w.d.getDate()}/${w.d.getMonth() + 1}</text>`;
+    });
+    svg += `</svg><div class="note"><span class="badge b-chat">Chatbot</span><span class="badge b-quote">Quotes</span> week starting Monday</div>`;
+    $('weekly').innerHTML = svg;
+  }
+
+  function charts() {
+    const r = real(items);
+    const langName = { en: 'English', fr: 'French', ar: 'Arabic' };
+    bars('langs', countBy(r, i => langName[String(i.lang || '').toLowerCase().trim()] || (i.lang ? String(i.lang) : '')));
+    bars('packages', countBy(r, i => {
+      if (i.pkg) return i.pkg;
+      const t = (i.need || '').toLowerCase();
+      if (/assistant|chatbot/.test(t)) return 'Smart Assistant';
+      if (/web ?app|management|erp|stock|pos|caisse/.test(t)) return 'Management app / POS';
+      if (/website|site web|web site/.test(t)) return 'Professional Website';
+      if (/card|nfc/.test(t)) return 'Smart Business Card';
+      return t ? 'Other' : '';
+    }));
+    bars('quality', [
+      ['WhatsApp ready', r.filter(i => i.wa).length],
+      ['Valid email', r.filter(i => i.email && !i.badEmail).length],
+      ['Invalid email / typo', r.filter(i => i.badEmail).length],
+      ['Looks fake', r.filter(i => i.looksFake).length],
+    ]);
+  }
+
+  function table() {
+    const q = $('q').value.trim().toLowerCase();
+    const showTests = $('showTests').checked;
+    const list = items.filter(i =>
+      (showTests || (!i.test && !i.own)) && (source === 'all' || i.kind === source) &&
+      (!q || [i.name, i.company, i.email, i.phone, i.need, i.extra, i.amount].join(' ').toLowerCase().includes(q)));
+    $('rows').innerHTML = list.length ? list.map(i => {
+      const d = i.date ? i.date.toLocaleString(undefined, { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+      const flags = [
+        i.isNew && !i.test && !i.own ? '<span class="badge b-new">New</span>' : '',
+        i.badEmail ? '<span class="badge b-warn">Invalid email</span>' : '',
+        i.looksFake ? '<span class="badge b-warn">Looks fake</span>' : '',
+        i.noContact ? '<span class="badge b-warn">No contact</span>' : '',
+        i.test ? '<span class="badge b-test">Test</span>' : '',
+        i.own ? '<span class="badge b-test">You</span>' : '',
+      ].join('');
+      const contact = [
+        i.email ? (i.badEmail ? esc(i.email) : `<a href="mailto:${esc(i.email)}">${esc(i.email)}</a>`) : '',
+        i.phone ? `<div class="small">${esc(i.phone)}</div>` : '',
+        i.wa ? `<a class="wa" href="${esc(i.wa)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : '',
+      ].join('');
+      return `<tr class="${i.test || i.own ? 'dim' : ''}">
+        <td>${esc(d)}</td>
+        <td><span class="badge ${i.kind === 'chat' ? 'b-chat' : 'b-quote'}">${i.kind === 'chat' ? 'Chatbot' : 'Quote'}</span></td>
+        <td><strong>${esc(i.name || '—')}</strong>${i.company ? `<div class="small">${esc(i.company)}</div>` : ''}</td>
+        <td>${contact || '—'}</td>
+        <td>${esc(i.need || '—')}${i.amount ? `<div class="small">${esc(i.amount)}</div>` : ''}${i.extra ? `<div class="small" title="${esc(i.extra)}">${esc(i.extra.length > 140 ? i.extra.slice(0, 140) + '…' : i.extra)}</div>` : ''}</td>
+        <td>${flags}</td></tr>`;
+    }).join('') : '<tr><td colspan="6" class="empty">No matching contacts</td></tr>';
+  }
+
+  function render(fetched) {
+    $('meta').textContent = `Updated ${new Date(fetched || Date.now()).toLocaleString()} · ${items.length} rows in the sheet`;
+    kpis(); weekly(); charts(); table();
+  }
+
+  // ---------- Network ----------
+  async function load() {
+    const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }), cache: 'no-store' });
+    let data = {};
+    try { data = await res.json(); } catch (e) {}
+    if (res.ok && data.ok) return data;
+    const msg = {
+      wrong_password: `Wrong password.${data.attempts_left != null ? ` ${data.attempts_left} attempt(s) left.` : ''}`,
+      too_many_attempts: 'Too many wrong attempts. Try again in 15 minutes.',
+      rate_limited: 'Too many requests. Wait a few minutes.',
+      not_configured: 'The dashboard is not configured on the server yet.',
+      sheet_error: 'The Google Sheet refused the request (check the Apps Script deployment).',
+      sheet_unreachable: 'The Google Sheet did not answer. Try again.',
+    }[data.error] || `Server error (${res.status}).`;
+    const err = new Error(msg); err.code = data.error; throw err;
+  }
+
+  async function open(fresh) {
+    const data = await load();
+    if (fresh) lastSeen = Number(store.get(LAST_SEEN_KEY)) || 0;
+    items = normalise(data.quotes, data.chats);
+    $('login').hidden = true; $('app').hidden = false;
+    render(data.fetched);
+    store.set(LAST_SEEN_KEY, String(Date.now()));
+  }
+
+  $('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    password = $('pw').value;
+    $('loginBtn').disabled = true; $('loginErr').textContent = '';
+    try { await open(true); $('pw').value = ''; }
+    catch (err) { password = ''; $('loginErr').textContent = err.message || 'Network error. Check your connection.'; }
+    finally { $('loginBtn').disabled = false; }
+  });
+  $('eye').addEventListener('click', () => { const p = $('pw'); p.type = p.type === 'password' ? 'text' : 'password'; });
+  $('refresh').addEventListener('click', async () => {
+    const b = $('refresh'); b.disabled = true;
+    try { await open(false); } catch (err) { if (err.code === 'wrong_password') lock(); else alert(err.message); }
+    finally { b.disabled = false; }
+  });
+  function lock() { password = ''; items = []; $('rows').innerHTML = ''; $('app').hidden = true; $('login').hidden = false; $('pw').focus(); }
+  $('logout').addEventListener('click', lock);
+  $('q').addEventListener('input', table);
+  $('showTests').addEventListener('change', table);
+  $('srcSeg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    source = b.dataset.v;
+    [...$('srcSeg').children].forEach(x => x.classList.toggle('on', x === b));
+    table();
+  });
+  $('exportCsv').addEventListener('click', () => {
+    const cols = ['date', 'kind', 'name', 'company', 'email', 'phone', 'need', 'amount', 'lang', 'extra'];
+    const cell = v => `"${String(v instanceof Date ? v.toISOString() : v == null ? '' : v).replace(/"/g, '""')}"`;
+    const csv = [cols.join(',')].concat(real(items).map(i => cols.map(c => cell(i[c])).join(','))).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+    a.download = `noor-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+  // Lock automatically after 20 minutes without activity
+  let idle;
+  const resetIdle = () => { clearTimeout(idle); idle = setTimeout(() => { if (password) lock(); }, 20 * 60 * 1000); };
+  ['click', 'keydown', 'scroll'].forEach(ev => addEventListener(ev, resetIdle, { passive: true }));
+  resetIdle();
+  $('pw').focus();
+})();
+</script>
+</body>
+</html>
