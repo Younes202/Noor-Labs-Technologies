@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>NOOR TECHNOLOGIES LABS | Websites, Smart Assistants & Business Apps</title>
-  <meta name="description" content="Websites, smart assistants that answer your clients 24/7, simple business management apps and smart business cards for every business. Clear prices, help in your language.">
+  <title>NOOR TECHNOLOGIES LABS | Darija AI Assistant, Business App &amp; POS for Moroccan SMEs</title>
+  <meta name="description" content="A 24/7 AI assistant that speaks Darija, Arabic, French and English, plus a cloud business management app and smart cash register for Moroccan shops, cafés, restaurants, pharmacies and clinics. Websites and smart cards as add-ons.">
   <meta name="theme-color" content="#0f0a1a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -435,6 +435,8 @@
 
     /* Offers */
     .offers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }
+    #apps + .offers-grid { grid-template-columns: repeat(3, 1fr); }
+    .offers-grid.addons-grid { grid-template-columns: minmax(0, 420px); justify-content: center; }
     .offer-card { padding: 20px 20px 20px; display: flex; flex-direction: column; }
     .offer-card { overflow: hidden; }
     .offer-photo { margin: -20px -20px 14px; aspect-ratio: 16 / 7; overflow: hidden; position: relative; background: var(--bg-alt); flex-shrink: 0; }
@@ -912,7 +914,7 @@
     @media (max-width: 1100px) {
       .hero-grid { grid-template-columns: 1fr; }
       .holo { height: 460px; max-width: 560px; margin: 0 auto; width: 100%; }
-      .offers-grid { grid-template-columns: repeat(2, 1fr); }
+      .offers-grid, #apps + .offers-grid { grid-template-columns: repeat(2, 1fr); }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .solutions-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links a { padding: 8px 10px; font-size: 13px; }
@@ -948,7 +950,7 @@
       .hc-3 { display: none; }
       .hc-big { font-size: 20px; }
       .values-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-      .offers-grid, .services-grid, .solutions-grid, .careers-grid { grid-template-columns: 1fr; }
+      .offers-grid, #apps + .offers-grid, .offers-grid.addons-grid, .services-grid, .solutions-grid { grid-template-columns: 1fr; }
       .service-card.wide { grid-column: auto; }
       #contactForm { grid-template-columns: 1fr; }
       .contact-form-card, .contact-side { padding: 28px 22px; }
@@ -991,7 +993,6 @@
         <a href="#quote" data-i18n="nav-quote">Quote</a>
         <a href="#solutions" data-i18n="nav-solutions">Examples</a>
         <a href="#about" data-i18n="nav-about">About</a>
-        <a href="#careers" data-i18n="nav-careers">Careers</a>
         <a href="#contact" data-i18n="nav-contact">Contact</a>
       </div>
       <div class="flex items-center gap-2">
@@ -1014,7 +1015,7 @@
     <div class="hero-floor" aria-hidden="true"></div>
     <div class="container hero-grid">
       <div>
-        <div class="hero-badge reveal"><span class="hero-badge-dot"></span><span data-i18n="hero-badge">Websites • Smart assistants • Business apps • Smart cards</span></div>
+        <div class="hero-badge reveal"><span class="hero-badge-dot"></span><span data-i18n="hero-badge">Smart assistant • Business app &amp; POS • Websites • Smart cards</span></div>
         <h1 class="hero-title reveal" style="--d:.1s" data-i18n="hero-title">More clients. <span class="hero-gradient">Less headache.</span></h1>
         <p class="hero-description reveal" style="--d:.2s" data-i18n="hero-desc">You focus on your business. We make sure new clients find you, get an answer at any hour, and that you know at a glance how your day went. Simple tools for every business, at clear prices.</p>
         <div class="hero-actions reveal" style="--d:.3s">
@@ -1023,10 +1024,10 @@
           <a href="https://calendar.app.google/2Sxn8QdoZmcvQgA18" target="_blank" rel="noopener" class="btn-outline"><i class="fas fa-calendar-check"></i> <span data-i18n="book-call">Free 15-min call</span></a>
         </div>
         <div class="hero-stats reveal" style="--d:.4s">
-          <div><div class="stat-num" data-count="7">0</div><div class="stat-label" data-i18n="stat1">Ways to help</div></div>
-          <div><div class="stat-num" data-count="10">0</div><div class="stat-label" data-i18n="stat2">Ready-made offers</div></div>
-          <div><div class="stat-num" data-count="3">0</div><div class="stat-label" data-i18n="stat3">Languages</div></div>
-          <div><div class="stat-num" data-count="20" data-suffix="%">0</div><div class="stat-label" data-i18n="stat4">Launch discount</div></div>
+          <div><div class="stat-num" data-count="8">8</div><div class="stat-label" data-i18n="stat1">Ways to help</div></div>
+          <div><div class="stat-num" data-count="10">10</div><div class="stat-label" data-i18n="stat2">Ready-made offers</div></div>
+          <div><div class="stat-num" data-count="3">3</div><div class="stat-label" data-i18n="stat3">Languages</div></div>
+          <div><div class="stat-num" data-count="20" data-suffix="%">20%</div><div class="stat-label" data-i18n="stat4">Launch discount</div></div>
         </div>
       </div>
 
@@ -1123,30 +1124,45 @@
         </div>
         <p class="care-rule" data-i18n="care-rule">It worked and then broke? That is maintenance, at no extra cost. It works and you want it different? That is an edit.</p>
       </div>
+      <div class="section-head reveal packs-head" id="assistant">
+        <h3 class="section-title" data-i18n="flag-title">Our flagship: the Smart Assistant 24/7</h3>
+        <p class="section-subtitle" data-i18n="flag-sub">Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers on your website and WhatsApp, and sends you interested clients day and night.</p>
+      </div>
       <div class="offers-grid">
-        <!-- Offer 1: Website Package -->
-        <div class="offer-card glass tilt reveal">
-          <div class="offer-photo"><img src="assets/offers/offer1.jpg" alt="Someone browsing a business website on a laptop in a café" loading="lazy" width="760" height="460"></div>
+        <!-- Offer 5: AI Chatbot (alone) -->
+        <div class="offer-card glass reveal chatbot-wide">
           <span class="discount-badge-red">-20% OFF</span>
-          <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Get found</span></span>
-          <h3 class="offer-title" data-i18n="offer1-title">Professional Website</h3>
-          <p class="offer-short" data-i18n="offer1-desc-short">Get found on Google and bring new clients to you.</p>
-          <div class="offer-price" id="price1">3,000 DH <small>originally 3,750 DH</small></div>
-          <div class="offer-maintenance" id="maintenance1"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer1-desc">A client searches Google for a business like yours at 11 p.m. The next day, they call you, not your competitor. We build a beautiful website that works on every phone and brings clients to you.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f2">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f3">Hosting, security &amp; backups included: nothing to worry about</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
+          <div class="cw-main">
+            <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">Never miss a client</span></span>
+            <h3 class="offer-title" data-i18n="offer5-title">Smart Assistant 24/7</h3>
+            <p class="offer-short" data-i18n="offer5-desc-short">Answers your clients day and night, in their language.</p>
+            <div class="offer-price" id="price5">3,000 DH <small><s>3,750 DH</s></small></div>
+            <div class="offer-maintenance" id="maintenance5"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
           </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
+          <div class="cw-side">
+            <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+            <div class="offer-more-body">
+              <p class="offer-desc" data-i18n="offer5-desc">It's 2 a.m. and a client asks for your price. Your assistant answers instantly, in Darija, Arabic, French or English, and sends you the interested clients on WhatsApp. Try the one on this site!</p>
+              <ul class="offer-features">
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f1">Knows your services, prices and common questions</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f2">Answers 24/7 in Arabic, Darija, French &amp; English</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f3">On your website, and sends clients to your WhatsApp</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f4">First 3 months of maintenance free</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+              </ul>
+            </div>
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer5-btn">Get this offer</span></button>
+            <button class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="offer5-try">Try the live demo</span></button>
+          </div>
         </div>
-
-        <!-- Offer 2: ERP Package -->
+        <!-- Offer 6: Website + AI Chatbot -->
+      </div>
+      <div class="section-head reveal packs-head" id="apps">
+        <h3 class="section-title" data-i18n="apps-title">Business Management App &amp; Smart Cash Register</h3>
+        <p class="section-subtitle" data-i18n="apps-sub">Our cloud software for shops, cafés, restaurants, pharmacies and clinics: sales, stock, staff and cash on your phone, with a daily report and a cash register that updates everything by itself.</p>
+      </div>
+      <div class="offers-grid">
         <div class="offer-card glass tilt popular reveal" style="--d:.08s">
           <div class="offer-photo"><img src="assets/offers/offer2.jpg" alt="A tablet showing a sales and orders app on a shop counter" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
@@ -1213,39 +1229,59 @@
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20on%20Autopilot%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer4-btn">Get this offer</span></button>
         </div>
       </div>
+      <div class="section-head reveal packs-head" id="pos">
+        <h3 class="section-title" data-i18n="pos-title">Smart Cash Register (POS)</h3>
+        <p class="section-subtitle" data-i18n="pos-sub">Sell faster and never lose track of your cash or stock. Software only, or a complete kit ready to plug in.</p>
+      </div>
+      <div class="pos-grid">
+        <!-- POS software only -->
+        <div class="offer-card glass tilt reveal" style="--d:.1s">
+          <div class="offer-photo"><img src="assets/offers/pos-software.jpg" alt="A hand tapping products on a tablet cash register" loading="lazy" width="760" height="460"></div>
+          <span class="offer-badge"><i class="fas fa-laptop-code"></i> <span data-i18n="pos1-badge">Software</span></span>
+          <h3 class="offer-title" data-i18n="pos1-title">POS Software</h3>
+          <p class="offer-short" data-i18n="pos1-desc-short">Your counter on the tablet or computer you already have.</p>
+          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
+          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="pos1-desc">Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f1">Fast sales with a barcode or one tap</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f2">Stock updated with every sale, alert before it runs out</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f3">Daily sales and cash report on your phone</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f4">Several cashiers, each with their own access</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f5">Training + 3 months of maintenance free</span></li>
+            </ul>
+          </div>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20POS%20software%20(free%20demo)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos1-btn">Ask for a free demo</span></button>
+        </div>
+        <!-- POS software + hardware kit -->
+        <div class="offer-card glass tilt reveal" style="--d:.2s">
+          <div class="offer-photo"><img src="assets/offers/pos-kit.jpg" alt="A cashier using a touch-screen register with a receipt printer" loading="lazy" width="760" height="460"></div>
+          <span class="offer-badge"><i class="fas fa-box-open"></i> <span data-i18n="pos2-badge">Complete kit</span></span>
+          <h3 class="offer-title" data-i18n="pos2-title">POS Software + Hardware</h3>
+          <p class="offer-short" data-i18n="pos2-desc-short">Everything ready on day one: equipment, setup and training.</p>
+          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
+          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="pos2-desc">Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Touch-screen register</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Receipt printer and cash drawer</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Barcode scanner</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed and set up in your shop</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Everything in POS Software</span></li>
+            </ul>
+          </div>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
+        </div>
+      </div>
       <div class="section-head reveal packs-head">
-        <h3 class="section-title" data-i18n="packs-title">Smart Assistant &amp; Smart Packs</h3>
-        <p class="section-subtitle" data-i18n="packs-sub">Take the assistant alone, or add it to any of our 4 offers and save.</p>
+        <h3 class="section-title" data-i18n="packs-title">Smart Packs: save by combining</h3>
+        <p class="section-subtitle" data-i18n="packs-sub">Add the Smart Assistant to a website or to the business app, and pay less than separately.</p>
       </div>
       <div class="offers-grid">
-        <!-- Offer 5: AI Chatbot (alone) -->
-        <div class="offer-card glass reveal chatbot-wide">
-          <span class="discount-badge-red">-20% OFF</span>
-          <div class="cw-main">
-            <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">Never miss a client</span></span>
-            <h3 class="offer-title" data-i18n="offer5-title">Smart Assistant 24/7</h3>
-            <p class="offer-short" data-i18n="offer5-desc-short">Answers your clients day and night, in their language.</p>
-            <div class="offer-price" id="price5">3,000 DH <small><s>3,750 DH</s></small></div>
-            <div class="offer-maintenance" id="maintenance5"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
-          </div>
-          <div class="cw-side">
-            <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-            <div class="offer-more-body">
-              <p class="offer-desc" data-i18n="offer5-desc">It's 2 a.m. and a client asks for your price. Your assistant answers instantly, in Darija, Arabic, French or English, and sends you the interested clients on WhatsApp. Try the one on this site!</p>
-              <ul class="offer-features">
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f1">Knows your services, prices and common questions</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f2">Answers 24/7 in Arabic, Darija, French &amp; English</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f3">On your website, and sends clients to your WhatsApp</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f4">First 3 months of maintenance free</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-              </ul>
-            </div>
-            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer5-btn">Get this offer</span></button>
-            <button class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="offer5-try">Try the live demo</span></button>
-          </div>
-        </div>
-        <!-- Offer 6: Website + AI Chatbot -->
         <div class="offer-card glass tilt reveal">
           <div class="offer-photo"><img src="assets/offers/offer6.jpg" alt="A friendly man greeting clients from his laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -17%</span>
@@ -1338,7 +1374,36 @@
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer9-btn">Get this pack</span></button>
         </div>
       </div>
-      <div class="section-head reveal packs-head">
+      <div class="section-head reveal packs-head" id="addons">
+        <h3 class="section-title" data-i18n="addons-title">Add-ons: website and smart business card</h3>
+        <p class="section-subtitle" data-i18n="addons-sub">Complete your setup: a professional website to be found on Google, and a smart card to be saved in your clients' phones in one tap.</p>
+      </div>
+      <div class="offers-grid addons-grid">
+        <!-- Offer 1: Website Package -->
+        <div class="offer-card glass tilt reveal">
+          <div class="offer-photo"><img src="assets/offers/offer1.jpg" alt="Someone browsing a business website on a laptop in a café" loading="lazy" width="760" height="460"></div>
+          <span class="discount-badge-red">-20% OFF</span>
+          <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Get found</span></span>
+          <h3 class="offer-title" data-i18n="offer1-title">Professional Website</h3>
+          <p class="offer-short" data-i18n="offer1-desc-short">Get found on Google and bring new clients to you.</p>
+          <div class="offer-price" id="price1">3,000 DH <small>originally 3,750 DH</small></div>
+          <div class="offer-maintenance" id="maintenance1"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="offer-desc" data-i18n="offer1-desc">A client searches Google for a business like yours at 11 p.m. The next day, they call you, not your competitor. We build a beautiful website that works on every phone and brings clients to you.</p>
+            <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f2">First 3 months of maintenance free</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f3">Hosting, security &amp; backups included: nothing to worry about</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+            </ul>
+          </div>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
+        </div>
+
+        <!-- Offer 2: ERP Package -->
+      </div>
+      <div class="section-head reveal packs-head nfc-head">
         <h3 class="section-title" data-i18n="nfc-title">Smart Business Card</h3>
         <p class="section-subtitle" data-i18n="nfc-sub">Your business card, upgraded: one tap and you're saved in your client's phone.</p>
       </div>
@@ -1374,54 +1439,6 @@
           </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Business%20Card%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer10-btn">Order my card</span></button>
           <a class="offer-btn try-demo" href="card/" target="_blank" rel="noopener"><i class="fas fa-id-card"></i> <span data-i18n="offer10-try">See a live demo profile</span></a>
-        </div>
-      </div>
-      <div class="section-head reveal packs-head" id="pos">
-        <h3 class="section-title" data-i18n="pos-title">Smart Cash Register (POS)</h3>
-        <p class="section-subtitle" data-i18n="pos-sub">Sell faster and never lose track of your cash or stock. Software only, or a complete kit ready to plug in.</p>
-      </div>
-      <div class="pos-grid">
-        <!-- POS software only -->
-        <div class="offer-card glass tilt reveal" style="--d:.1s">
-          <div class="offer-photo"><img src="assets/offers/pos-software.jpg" alt="A hand tapping products on a tablet cash register" loading="lazy" width="760" height="460"></div>
-          <span class="offer-badge"><i class="fas fa-laptop-code"></i> <span data-i18n="pos1-badge">Software</span></span>
-          <h3 class="offer-title" data-i18n="pos1-title">POS Software</h3>
-          <p class="offer-short" data-i18n="pos1-desc-short">Your counter on the tablet or computer you already have.</p>
-          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
-          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="pos1-desc">Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f1">Fast sales with a barcode or one tap</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f2">Stock updated with every sale, alert before it runs out</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f3">Daily sales and cash report on your phone</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f4">Several cashiers, each with their own access</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f5">Training + 3 months of maintenance free</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20POS%20software%20(free%20demo)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos1-btn">Ask for a free demo</span></button>
-        </div>
-        <!-- POS software + hardware kit -->
-        <div class="offer-card glass tilt reveal" style="--d:.2s">
-          <div class="offer-photo"><img src="assets/offers/pos-kit.jpg" alt="A cashier using a touch-screen register with a receipt printer" loading="lazy" width="760" height="460"></div>
-          <span class="offer-badge"><i class="fas fa-box-open"></i> <span data-i18n="pos2-badge">Complete kit</span></span>
-          <h3 class="offer-title" data-i18n="pos2-title">POS Software + Hardware</h3>
-          <p class="offer-short" data-i18n="pos2-desc-short">Everything ready on day one: equipment, setup and training.</p>
-          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
-          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="pos2-desc">Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Touch-screen register</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Receipt printer and cash drawer</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Barcode scanner</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed and set up in your shop</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Everything in POS Software</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
         </div>
       </div>
     </div>
@@ -1474,8 +1491,8 @@
             <h3><i class="fas fa-file-invoice"></i> <span data-i18n="q-summary">Your estimate</span></h3>
             <span class="live-dot">live</span>
           </div>
-          <ul class="qs-lines" id="qLines"></ul>
-          <div class="qs-total"><span class="lbl" data-i18n="q-total">Total</span><span class="val" id="qTotal">—</span></div>
+          <ul class="qs-lines" id="qLines"><li><span>Business Management App</span><span>6,250 DH</span></li><li class="discount"><span>Discount (−20%)</span><span>−1,250 DH</span></li><li><span>Maintenance (12 mo × 89 DH)</span><span>1,068 DH</span></li><li class="discount"><span>First 3 months of maintenance free</span><span>−267 DH</span></li></ul>
+          <div class="qs-total"><span class="lbl" data-i18n="q-total">Total</span><span class="val" id="qTotal">5,801 DH</span></div>
           <div class="qs-save" id="qSave"></div>
           <div class="qs-actions">
             <button type="button" class="btn-primary" id="qPdfBtn"><i class="fas fa-file-pdf"></i> <span data-i18n="q-pdf">Download PDF quote</span></button>
@@ -1575,19 +1592,7 @@
   </section>
 
   <!-- CAREERS SECTION -->
-  <section id="careers" class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="eyebrow">07 / Careers</div>
-        <h2 class="section-title" data-i18n="careers-title">Join Our Team</h2>
-        <p class="section-subtitle" data-i18n="careers-sub">Remote learning opportunities • Real-world project experience</p>
-      </div>
-      <div class="careers-grid">
-        <div class="internship-card glass tilt reveal"><div class="badge-intern"><i class="fas fa-utensils"></i> <span data-i18n="intern1-badge">Remote Internship</span></div><i class="fas fa-hamburger intern-icon"></i><h3 data-i18n="intern1-title">Restaurant ERP Developer</h3><p data-i18n="intern1-desc">Build a complete ERP system for restaurant chains including inventory, order management, and analytics.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabstechnologies.com')" data-i18n="intern1-btn">Apply now</button></div>
-        <div class="internship-card glass tilt reveal" style="--d:.1s"><div class="badge-intern"><i class="fas fa-bicycle"></i> <span data-i18n="intern2-badge">Remote Internship</span></div><i class="fas fa-motorcycle intern-icon"></i><h3 data-i18n="intern2-title">Bike Rental ERP Engineer</h3><p data-i18n="intern2-desc">Develop an ERP solution for bike rental businesses including fleet management, booking, and pricing engines.</p><button class="apply-btn" onclick="alert('📧 Send your resume and portfolio to careers@noorlabstechnologies.com')" data-i18n="intern2-btn">Apply now</button></div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- CONTACT SECTION -->
   <section id="contact" class="section alt">
@@ -1626,7 +1631,6 @@
           <a href="#offers" data-i18n="nav-offers">Offers</a>
           <a href="#solutions" data-i18n="nav-solutions">Examples</a>
           <a href="#about" data-i18n="nav-about">About</a>
-          <a href="#careers" data-i18n="nav-careers">Careers</a>
           <a href="#contact" data-i18n="nav-contact">Contact</a>
         </div>
       </div>
@@ -1715,7 +1719,7 @@
         'nav-about': 'About',
         'nav-careers': 'Careers',
         'nav-contact': 'Contact',
-        'hero-badge': "Websites • Smart assistants • Business apps • Smart cards",
+        'hero-badge': "Smart assistant • Business app & POS • Websites • Smart cards",
         'hero-title': "More clients. <span class=\"hero-gradient\">Less headache.</span>",
         'hero-desc': "You focus on your business. We make sure new clients find you, get an answer at any hour, and that you know at a glance how your day went. Simple tools for every business, at clear prices.",
         'hero-btn-offers': 'View our offers',
@@ -1817,8 +1821,11 @@
         'offer9-f4': 'First 3 months of maintenance free',
         'offer9-btn': 'Get this pack',
         'feat-ai-usage': "Assistant messages: free up to a generous monthly amount, then charged at cost",
-        'packs-title': "Smart Assistant & Smart Packs",
-        'packs-sub': "Take the assistant alone, or add it to any of our 4 offers and save.",
+        'packs-title': "Smart Packs: save by combining",
+        'packs-sub': "Add the Smart Assistant to a website or to the business app, and pay less than separately.",
+        'flag-title': "Our flagship: the Smart Assistant 24/7", 'flag-sub': "Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers on your website and WhatsApp, and sends you interested clients day and night.",
+        'apps-title': "Business Management App & Smart Cash Register", 'apps-sub': "Our cloud software for shops, cafés, restaurants, pharmacies and clinics: sales, stock, staff and cash on your phone, with a daily report and a cash register that updates everything by itself.",
+        'addons-title': "Add-ons: website and smart business card", 'addons-sub': "Complete your setup: a professional website to be found on Google, and a smart card to be saved in your clients' phones in one tap.",
         'svc8': "Never miss a client again",
         'svc8-desc': "A smart assistant answers your clients 24/7 in Darija, Arabic, French and English.",
         'services-title': "How we help you",
@@ -1919,7 +1926,7 @@
         'nav-about': 'À propos',
         'nav-careers': 'Carrières',
         'nav-contact': 'Contact',
-        'hero-badge': "Sites web • Assistants intelligents • Applications de gestion • Cartes intelligentes",
+        'hero-badge': "Assistant intelligent • Application de gestion & caisse • Sites web • Cartes intelligentes",
         'hero-title': "Plus de clients. <span class=\"hero-gradient\">Moins de soucis.</span>",
         'hero-desc': "Vous vous occupez de votre métier. Nous faisons en sorte que de nouveaux clients vous trouvent, reçoivent une réponse à toute heure, et que vous sachiez d'un coup d'œil comment s'est passée votre journée. Des outils simples pour toutes les entreprises, à prix clairs.",
         'hero-btn-offers': 'Voir nos offres',
@@ -2021,8 +2028,11 @@
         'offer9-f4': '3 premiers mois de maintenance offerts',
         'offer9-btn': 'Obtenir ce pack',
         'feat-ai-usage': "Messages de l'assistant : gratuits jusqu'à un large volume mensuel, puis facturés au prix coûtant",
-        'packs-title': "Assistant Intelligent & Packs Smart",
-        'packs-sub': "Prenez l'assistant seul, ou ajoutez-le à l'une de nos 4 offres et économisez.",
+        'packs-title': "Packs Smart : économisez en combinant",
+        'packs-sub': "Ajoutez l'Assistant Intelligent à un site ou à l'application de gestion, et payez moins cher que séparément.",
+        'flag-title': "Notre produit phare : l'Assistant Intelligent 24h/24", 'flag-sub': "Notre propre assistant IA, conçu pour les entreprises marocaines : il comprend la darija, l'arabe, le français et l'anglais, répond sur votre site et WhatsApp, et vous envoie les clients intéressés jour et nuit.",
+        'apps-title': "Application de gestion & Caisse intelligente", 'apps-sub': "Notre logiciel cloud pour commerces, cafés, restaurants, pharmacies et cabinets : ventes, stock, équipe et caisse sur votre téléphone, avec un rapport chaque soir et une caisse qui met tout à jour toute seule.",
+        'addons-title': "Options : site web et carte de visite intelligente", 'addons-sub': "Complétez votre équipement : un site professionnel pour être trouvé sur Google, et une carte intelligente pour être enregistré dans le téléphone de vos clients en un geste.",
         'svc8': "Ne ratez plus aucun client",
         'svc8-desc': "Un assistant intelligent répond à vos clients 24h/24 en darija, arabe, français et anglais.",
         'services-title': "Comment nous vous aidons",
@@ -2123,7 +2133,7 @@
         'nav-about': 'من نحن',
         'nav-careers': 'وظائف',
         'nav-contact': 'اتصل بنا',
-        'hero-badge': "مواقع • مساعدون أذكياء • تطبيقات تسيير • بطاقات ذكية",
+        'hero-badge': "مساعد ذكي • تطبيق تسيير وصندوق ذكي • مواقع إلكترونية • بطاقات ذكية",
         'hero-title': "زبائن أكثر. <span class=\"hero-gradient\">هموم أقل.</span>",
         'hero-desc': "ركّز أنت على عملك، ونحن نتكفل بأن يجدك زبائن جدد، ويحصلوا على جواب في أي ساعة، وأن تعرف بنظرة واحدة كيف كان يومك. أدوات بسيطة لكل المقاولات، بأسعار واضحة.",
         'hero-btn-offers': 'عرض عروضنا',
@@ -2225,8 +2235,11 @@
         'offer9-f4': 'أول 3 أشهر صيانة مجاناً',
         'offer9-btn': 'احصل على هذه الباقة',
         'feat-ai-usage': "رسائل المساعد: مجانية حتى حجم شهري كبير، ثم تُحتسب بسعر التكلفة",
-        'packs-title': "المساعد الذكي والباقات الذكية",
-        'packs-sub': "خذ المساعد وحده، أو أضفه إلى أي من عروضنا الأربعة ووفّر.",
+        'packs-title': "الباقات الذكية: وفّر بالجمع",
+        'packs-sub': "أضف المساعد الذكي إلى موقع إلكتروني أو إلى تطبيق التسيير، وادفع أقل من الشراء المنفصل.",
+        'flag-title': "منتجنا الرئيسي: المساعد الذكي 24/7", 'flag-sub': "مساعدنا الذكي الخاص، مصمم للمقاولات المغربية: يفهم الدارجة والعربية والفرنسية والإنجليزية، يجيب على موقعك وعلى واتساب، ويرسل لك الزبناء المهتمين ليلاً ونهاراً.",
+        'apps-title': "تطبيق تسيير المقاولة والصندوق الذكي", 'apps-sub': "برنامجنا السحابي للمحلات والمقاهي والمطاعم والصيدليات والعيادات: المبيعات والمخزون والموظفون والصندوق على هاتفك، مع تقرير كل مساء وصندوق يحدّث كل شيء تلقائياً.",
+        'addons-title': "إضافات: موقع إلكتروني وبطاقة أعمال ذكية", 'addons-sub': "أكمل تجهيزك: موقع احترافي ليجدك الزبناء على Google، وبطاقة ذكية لتُحفظ في هاتف زبنائك بلمسة واحدة.",
         'svc8': "لا تضيّع أي زبون بعد اليوم",
         'svc8-desc': "مساعد ذكي يجيب زبائنك 24/24 بالدارجة والعربية والفرنسية والإنجليزية.",
         'services-title': "كيف نساعدك",
@@ -2690,11 +2703,10 @@
       return `• ${t[`offer${i}-title`]}: ${t[`offer${i}-price`]} ${cur} (${qt().insteadOf} ${t[`offer${i}-original`]} ${cur}) + ${t[`offer${i}-maintenance`]} ${cur} ${t['maint-label']}`;
     }
     const QA_TREE = {
-      root: { children: ['offers', 'services', 'work', 'careers', 'contact'] },
+      root: { children: ['offers', 'services', 'work', 'contact'] },
       offers: { children: ['q_website', 'q_erp', 'q_pos', 'q_chatbot', 'q_packs', 'q_nfc', 'q_maint', 'q_pay'] },
       services: { children: ['q_ai', 'q_erpdev', 'q_bi', 'q_software'] },
       work: { children: ['q_process', 'q_quote', 'q_remote'] },
-      careers: { answer: () => responses[currentLang].internship },
       contact: { answer: () => responses[currentLang].contact },
       q_website: { answer: () => `${offerLine(1)}\n\n${qt().maintFoot}` },
       q_erp: { answer: () => [2, 3, 4].map(offerLine).join('\n') + `\n\n${qt().maintFoot}` },
@@ -3019,7 +3031,7 @@
         navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['home', 'services', 'offers', 'quote', 'solutions', 'about', 'careers', 'contact'].forEach(id => {
+    ['home', 'services', 'offers', 'quote', 'solutions', 'about', 'contact'].forEach(id => {
       const s = document.getElementById(id);
       if (s) sectionObserver.observe(s);
     });
