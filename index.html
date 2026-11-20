@@ -436,6 +436,16 @@
     /* Offers */
     .offers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }
     #apps + .offers-grid { grid-template-columns: repeat(3, 1fr); }
+    .plan-toggle { display: flex; justify-content: center; gap: 0; margin: 0 auto 22px; width: max-content; max-width: 100%; border: 1px solid var(--border); border-radius: 999px; padding: 4px; background: var(--surface); }
+    .plan-toggle button { border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600; font-size: 14px; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
+    .plan-toggle button.on { background: var(--grad); color: #fff; }
+    .plan-card { position: relative; }
+    .plan-popular { position: absolute; top: 14px; right: 14px; background: var(--grad); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+    .plan-price small { font-size: 14px; font-weight: 500; color: var(--muted); }
+    .plan-equiv { min-height: 18px; font-size: 12px; color: var(--muted); margin: -4px 0 6px; }
+    .plan-rules, .plan-founders, .plans-or-once { text-align: center; max-width: 820px; margin: 18px auto 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .plan-founders { color: var(--p2); font-weight: 600; }
+    .plans-or-once { margin-top: 34px; font-size: 15px; font-weight: 600; color: var(--text); }
     .offers-grid.addons-grid { grid-template-columns: minmax(0, 420px); justify-content: center; }
     .offer-card { padding: 20px 20px 20px; display: flex; flex-direction: column; }
     .offer-card { overflow: hidden; }
@@ -1111,7 +1121,7 @@
       <div class="section-head reveal">
         <div class="eyebrow">02 / Offers</div>
         <h2 class="section-title" data-i18n="offers-title">Simple offers, clear prices</h2>
-        <p class="section-subtitle" data-i18n="offers-sub">Launch prices for a limited time, and even better prices with our packs</p>
+        <p class="section-subtitle" data-i18n="offers-sub">Start with a small monthly plan, or buy once at launch prices</p>
       </div>
       <div class="care-strip glass reveal">
         <div class="care-item">
@@ -1124,6 +1134,76 @@
         </div>
         <p class="care-rule" data-i18n="care-rule">It worked and then broke? That is maintenance, at no extra cost. It works and you want it different? That is an edit.</p>
       </div>
+      <div class="section-head reveal packs-head" id="plans">
+        <h3 class="section-title" data-i18n="plans-title">Monthly plans: start small, no big upfront cost</h3>
+        <p class="section-subtitle" data-i18n="plans-sub">Our software as a subscription, with hosting, updates and support included. Stop anytime with one month's notice.</p>
+      </div>
+      <div class="plan-toggle reveal" role="group" aria-label="Billing">
+        <button type="button" class="on" data-billing="monthly" data-i18n="plans-monthly">Monthly</button>
+        <button type="button" data-billing="yearly" data-i18n="plans-yearly">Yearly · 2 months free</button>
+      </div>
+      <div class="offers-grid plans-grid">
+        <div class="offer-card plan-card glass reveal" style="--d:0s">
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer11-badge">Start here</span></span>
+          <h3 class="offer-title" data-i18n="offer11-title">Smart Assistant</h3>
+          <p class="offer-short" data-i18n="offer11-desc">Answers your clients 24/7 in Darija, Arabic, French and English, on your website and WhatsApp.</p>
+          <div class="offer-price plan-price" data-plan="11">249 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="plan-equiv" data-plan-equiv="11"></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f1">On your website and your WhatsApp</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f2">1,000 WhatsApp messages a month included</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f3">Sends interested clients to you</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f4">Hosting, updates and support included</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+        </div>
+        <div class="offer-card plan-card glass reveal" style="--d:.08s">
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer12-badge">Run your shop</span></span>
+          <h3 class="offer-title" data-i18n="offer12-title">Business App & POS</h3>
+          <p class="offer-short" data-i18n="offer12-desc">Sales, stock, staff and cash on your phone, with a cash register on your own tablet or computer.</p>
+          <div class="offer-price plan-price" data-plan="12">249 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="plan-equiv" data-plan-equiv="12"></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f1">Cash register on your tablet or computer</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f2">Stock updated with every sale</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f3">Staff accounts with their own access</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f4">Hosting, backups and support included</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20App%20&%20POS%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+        </div>
+        <div class="offer-card plan-card glass reveal popular" style="--d:.16s">
+          <span class="plan-popular" data-i18n="plan-popular">Most popular</span>
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer13-badge">App + Assistant + Report</span></span>
+          <h3 class="offer-title" data-i18n="offer13-title">Pro</h3>
+          <p class="offer-short" data-i18n="offer13-desc">The business app and POS, the Smart Assistant 24/7, and a clear report on your phone every evening.</p>
+          <div class="offer-price plan-price" data-plan="13">449 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="plan-equiv" data-plan-equiv="13"></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f1">Everything in Business App & POS</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f2">The Smart Assistant 24/7</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f3">A clear report on your phone every evening</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f4">Priority support</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Pro%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+        </div>
+        <div class="offer-card plan-card glass reveal" style="--d:.24s">
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer14-badge">Everything, automatic</span></span>
+          <h3 class="offer-title" data-i18n="offer14-title">Autopilot</h3>
+          <p class="offer-short" data-i18n="offer14-desc">Pro, plus automatic reminders and messages that bring your clients back.</p>
+          <div class="offer-price plan-price" data-plan="14">699 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="plan-equiv" data-plan-equiv="14"></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f1">Everything in Pro</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f2">Reminders the day before an appointment or order</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f3">Thank-you and come-back messages to clients</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f4">A monthly check-in call with us</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+        </div>
+      </div>
+      <p class="plan-rules reveal" id="planRules">Setup 990 DH once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.</p>
+      <p class="plan-founders reveal"><i class="fas fa-seedling"></i> <span data-i18n="plan-founders">Founding clients: 30 days free, then −50% for 3 months for our first 10 clients.</span></p>
+      <p class="plans-or-once reveal" data-i18n="plans-or-once">Prefer to own it? One-time prices below.</p>
       <div class="section-head reveal packs-head" id="assistant">
         <h3 class="section-title" data-i18n="flag-title">Our flagship: the Smart Assistant 24/7</h3>
         <p class="section-subtitle" data-i18n="flag-sub">Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers on your website and WhatsApp, and sends you interested clients day and night.</p>
@@ -1491,8 +1571,8 @@
             <h3><i class="fas fa-file-invoice"></i> <span data-i18n="q-summary">Your estimate</span></h3>
             <span class="live-dot">live</span>
           </div>
-          <ul class="qs-lines" id="qLines"><li><span>Business Management App</span><span>6,250 DH</span></li><li class="discount"><span>Discount (−20%)</span><span>−1,250 DH</span></li><li><span>Maintenance (12 mo × 89 DH)</span><span>1,068 DH</span></li><li class="discount"><span>First 3 months of maintenance free</span><span>−267 DH</span></li></ul>
-          <div class="qs-total"><span class="lbl" data-i18n="q-total">Total</span><span class="val" id="qTotal">5,801 DH</span></div>
+          <ul class="qs-lines" id="qLines"><li><span>Pro (12 mo × 449 DH)</span><span>5,388 DH</span></li><li class="discount"><span>Yearly billing: 2 months free per year</span><span>−898 DH</span></li><li><span>Setup (import, Darija set-up, training)</span><span>990 DH</span></li><li class="discount"><span>Setup offered with yearly billing</span><span>−990 DH</span></li></ul>
+          <div class="qs-total"><span class="lbl" data-i18n="q-total">Total</span><span class="val" id="qTotal">4,490 DH</span></div>
           <div class="qs-save" id="qSave"></div>
           <div class="qs-actions">
             <button type="button" class="btn-primary" id="qPdfBtn"><i class="fas fa-file-pdf"></i> <span data-i18n="q-pdf">Download PDF quote</span></button>
@@ -1735,7 +1815,7 @@
         'value4-title': "Results first",
         'value4-desc': "Everything we build has one goal: more clients and less work for you.",
         'offers-title': "Simple offers, clear prices",
-        'offers-sub': "Launch prices for a limited time, and even better prices with our packs",
+        'offers-sub': "Start with a small monthly plan, or buy once at launch prices",
         'popular': 'Most Popular',
         'offer1-badge': "Get found",
         'offer1-title': 'Professional Website',
@@ -1942,7 +2022,7 @@
         'value4-title': "Des résultats avant tout",
         'value4-desc': "Chaque outil a un seul but : plus de clients et moins de travail pour vous.",
         'offers-title': "Des offres simples, des prix clairs",
-        'offers-sub': "Prix de lancement pour une durée limitée, et encore mieux avec nos packs",
+        'offers-sub': "Commencez avec un petit abonnement mensuel, ou achetez une fois aux prix de lancement",
         'popular': 'Le plus populaire',
         'offer1-badge': "Soyez trouvé",
         'offer1-title': 'Site Web Professionnel',
@@ -2149,7 +2229,7 @@
         'value4-title': "النتيجة أولاً",
         'value4-desc': "كل ما نصنعه له هدف واحد: زبائن أكثر وعمل أقل بالنسبة لك.",
         'offers-title': "عروض بسيطة وأسعار واضحة",
-        'offers-sub': "أسعار الإطلاق لمدة محدودة، وأسعار أفضل مع باقاتنا",
+        'offers-sub': "ابدأ باشتراك شهري صغير، أو اشترِ مرة واحدة بأسعار الإطلاق",
         'popular': 'الأكثر طلباً',
         'offer1-badge': "ليجدك الزبائن",
         'offer1-title': 'موقع احترافي',
@@ -3366,10 +3446,164 @@
           }
     };
     for (const l in careI18n) Object.assign(translations[l], careI18n[l]);
+    const planI18n = {
+  "en": {
+    "plans-title": "Monthly plans: start small, no big upfront cost",
+    "plans-sub": "Our software as a subscription, with hosting, updates and support included. Stop anytime with one month's notice.",
+    "plans-monthly": "Monthly",
+    "plans-yearly": "Yearly · 2 months free",
+    "plan-per-month": "/ month",
+    "plan-per-year": "/ year",
+    "plan-equiv": "≈ {price} / month",
+    "plan-btn": "Start with this plan",
+    "plan-popular": "Most popular",
+    "plan-rules": "Setup {setup} once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.",
+    "plan-founders": "Founding clients: 30 days free, then −50% for 3 months for our first 10 clients.",
+    "plans-or-once": "Prefer to own it? One-time prices below.",
+    "offer11-title": "Smart Assistant",
+    "offer11-badge": "Start here",
+    "offer11-desc": "Answers your clients 24/7 in Darija, Arabic, French and English, on your website and WhatsApp.",
+    "offer11-f1": "On your website and your WhatsApp",
+    "offer11-f2": "1,000 WhatsApp messages a month included",
+    "offer11-f3": "Sends interested clients to you",
+    "offer11-f4": "Hosting, updates and support included",
+    "offer12-title": "Business App & POS",
+    "offer12-badge": "Run your shop",
+    "offer12-desc": "Sales, stock, staff and cash on your phone, with a cash register on your own tablet or computer.",
+    "offer12-f1": "Cash register on your tablet or computer",
+    "offer12-f2": "Stock updated with every sale",
+    "offer12-f3": "Staff accounts with their own access",
+    "offer12-f4": "Hosting, backups and support included",
+    "offer13-title": "Pro",
+    "offer13-badge": "App + Assistant + Report",
+    "offer13-desc": "The business app and POS, the Smart Assistant 24/7, and a clear report on your phone every evening.",
+    "offer13-f1": "Everything in Business App & POS",
+    "offer13-f2": "The Smart Assistant 24/7",
+    "offer13-f3": "A clear report on your phone every evening",
+    "offer13-f4": "Priority support",
+    "offer14-title": "Autopilot",
+    "offer14-badge": "Everything, automatic",
+    "offer14-desc": "Pro, plus automatic reminders and messages that bring your clients back.",
+    "offer14-f1": "Everything in Pro",
+    "offer14-f2": "Reminders the day before an appointment or order",
+    "offer14-f3": "Thank-you and come-back messages to clients",
+    "offer14-f4": "A monthly check-in call with us",
+    "q-group-plans": "Monthly plans (subscription)",
+    "q-plan-yearly": "Yearly billing: 2 months free per year",
+    "q-setup": "Setup (import, Darija set-up, training)",
+    "q-setup-free": "Setup offered with yearly billing",
+    "q-plan-hint": "6 months = monthly billing + setup. 1 year or more = yearly billing, 2 months free per year and free setup.",
+    "q-plan-pay": "Payment: monthly or yearly, in advance. Stop anytime with one month's notice.",
+    "q-duration": "Duration"
+  },
+  "fr": {
+    "plans-title": "Abonnements mensuels : commencez petit, sans gros investissement",
+    "plans-sub": "Nos logiciels en abonnement, hébergement, mises à jour et support inclus. Arrêt à tout moment avec un mois de préavis.",
+    "plans-monthly": "Mensuel",
+    "plans-yearly": "Annuel · 2 mois offerts",
+    "plan-per-month": "/ mois",
+    "plan-per-year": "/ an",
+    "plan-equiv": "≈ {price} / mois",
+    "plan-btn": "Choisir cette formule",
+    "plan-popular": "Le plus choisi",
+    "plan-rules": "Mise en place {setup} une fois (import des produits, réglage darija, formation), offerte en annuel · Magasin supplémentaire : +50 % · WhatsApp : 1 000 messages par mois inclus, frais Meta au-delà refacturés au coût réel.",
+    "plan-founders": "Clients fondateurs : 30 jours gratuits, puis −50 % pendant 3 mois pour nos 10 premiers clients.",
+    "plans-or-once": "Vous préférez acheter une fois ? Prix uniques ci-dessous.",
+    "offer11-title": "Assistant Intelligent",
+    "offer11-badge": "Pour commencer",
+    "offer11-desc": "Répond à vos clients 24h/24 en darija, arabe, français et anglais, sur votre site et WhatsApp.",
+    "offer11-f1": "Sur votre site et votre WhatsApp",
+    "offer11-f2": "1 000 messages WhatsApp par mois inclus",
+    "offer11-f3": "Vous envoie les clients intéressés",
+    "offer11-f4": "Hébergement, mises à jour et support inclus",
+    "offer12-title": "Gestion & Caisse",
+    "offer12-badge": "Pilotez votre commerce",
+    "offer12-desc": "Ventes, stock, équipe et caisse sur votre téléphone, avec une caisse sur votre propre tablette ou ordinateur.",
+    "offer12-f1": "Caisse sur votre tablette ou ordinateur",
+    "offer12-f2": "Stock mis à jour à chaque vente",
+    "offer12-f3": "Comptes employés avec leur propre accès",
+    "offer12-f4": "Hébergement, sauvegardes et support inclus",
+    "offer13-title": "Pro",
+    "offer13-badge": "Gestion + Assistant + Rapport",
+    "offer13-desc": "La gestion et la caisse, l'Assistant Intelligent 24h/24, et un rapport clair sur votre téléphone chaque soir.",
+    "offer13-f1": "Tout Gestion & Caisse",
+    "offer13-f2": "L'Assistant Intelligent 24h/24",
+    "offer13-f3": "Un rapport clair chaque soir sur votre téléphone",
+    "offer13-f4": "Support prioritaire",
+    "offer14-title": "Pilote automatique",
+    "offer14-badge": "Tout, automatiquement",
+    "offer14-desc": "Pro, plus des rappels et messages automatiques qui font revenir vos clients.",
+    "offer14-f1": "Tout Pro",
+    "offer14-f2": "Rappels la veille d'un rendez-vous ou d'une commande",
+    "offer14-f3": "Messages de remerciement et de relance aux clients",
+    "offer14-f4": "Un point mensuel avec nous",
+    "q-group-plans": "Abonnements mensuels",
+    "q-plan-yearly": "Paiement annuel : 2 mois offerts par an",
+    "q-setup": "Mise en place (import, réglage darija, formation)",
+    "q-setup-free": "Mise en place offerte en annuel",
+    "q-plan-hint": "6 mois = paiement mensuel + mise en place. 1 an ou plus = paiement annuel, 2 mois offerts par an et mise en place offerte.",
+    "q-plan-pay": "Paiement : mensuel ou annuel, d'avance. Arrêt à tout moment avec un mois de préavis.",
+    "q-duration": "Durée"
+  },
+  "ar": {
+    "plans-title": "اشتراكات شهرية: ابدأ صغيراً، بدون استثمار كبير",
+    "plans-sub": "برامجنا بالاشتراك، مع الاستضافة والتحديثات والدعم. يمكنك التوقف في أي وقت بإشعار قبل شهر.",
+    "plans-monthly": "شهري",
+    "plans-yearly": "سنوي · شهران مجاناً",
+    "plan-per-month": "/ شهر",
+    "plan-per-year": "/ سنة",
+    "plan-equiv": "≈ {price} / شهر",
+    "plan-btn": "ابدأ بهذا الاشتراك",
+    "plan-popular": "الأكثر طلباً",
+    "plan-rules": "التشغيل {setup} مرة واحدة (إدخال المنتجات، ضبط الدارجة، التدريب)، مجاناً مع الدفع السنوي · محل إضافي: +50% · واتساب: 1000 رسالة شهرياً مشمولة، وما فوقها برسوم Meta بسعر التكلفة.",
+    "plan-founders": "الزبناء المؤسسون: 30 يوماً مجاناً، ثم −50% لمدة 3 أشهر لأول 10 زبناء.",
+    "plans-or-once": "تفضل الشراء مرة واحدة؟ الأسعار الثابتة أسفله.",
+    "offer11-title": "المساعد الذكي",
+    "offer11-badge": "ابدأ من هنا",
+    "offer11-desc": "يجيب زبناءك على مدار الساعة بالدارجة والعربية والفرنسية والإنجليزية، على موقعك وواتساب.",
+    "offer11-f1": "على موقعك وعلى واتساب",
+    "offer11-f2": "1000 رسالة واتساب شهرياً مشمولة",
+    "offer11-f3": "يرسل لك الزبناء المهتمين",
+    "offer11-f4": "الاستضافة والتحديثات والدعم مشمولة",
+    "offer12-title": "التسيير والصندوق",
+    "offer12-badge": "سيّر محلك",
+    "offer12-desc": "المبيعات والمخزون والموظفون والصندوق على هاتفك، مع صندوق على لوحتك أو حاسوبك.",
+    "offer12-f1": "صندوق على لوحتك أو حاسوبك",
+    "offer12-f2": "مخزون يتحدث مع كل عملية بيع",
+    "offer12-f3": "حسابات للموظفين بصلاحيات خاصة",
+    "offer12-f4": "الاستضافة والنسخ الاحتياطي والدعم مشمولة",
+    "offer13-title": "برو",
+    "offer13-badge": "تسيير + مساعد + تقرير",
+    "offer13-desc": "التسيير والصندوق، المساعد الذكي على مدار الساعة، وتقرير واضح على هاتفك كل مساء.",
+    "offer13-f1": "كل ما في التسيير والصندوق",
+    "offer13-f2": "المساعد الذكي على مدار الساعة",
+    "offer13-f3": "تقرير واضح على هاتفك كل مساء",
+    "offer13-f4": "دعم ذو أولوية",
+    "offer14-title": "الطيار الآلي",
+    "offer14-badge": "كل شيء تلقائياً",
+    "offer14-desc": "برو، مع تذكيرات ورسائل تلقائية تعيد زبناءك.",
+    "offer14-f1": "كل ما في برو",
+    "offer14-f2": "تذكير قبل الموعد أو الطلبية بيوم",
+    "offer14-f3": "رسائل شكر وتذكير للزبناء",
+    "offer14-f4": "مكالمة متابعة شهرية معنا",
+    "q-group-plans": "الاشتراكات الشهرية",
+    "q-plan-yearly": "الدفع السنوي: شهران مجاناً كل سنة",
+    "q-setup": "التشغيل (إدخال المنتجات، ضبط الدارجة، التدريب)",
+    "q-setup-free": "التشغيل مجاناً مع الدفع السنوي",
+    "q-plan-hint": "6 أشهر = دفع شهري + التشغيل. سنة أو أكثر = دفع سنوي، شهران مجاناً كل سنة والتشغيل مجاناً.",
+    "q-plan-pay": "الدفع: شهرياً أو سنوياً مسبقاً. يمكنك التوقف في أي وقت بإشعار قبل شهر.",
+    "q-duration": "المدة"
+  }
+};
+    for (const l in planI18n) Object.assign(translations[l], planI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
-    const quote = { pkg: 2, years: 1, edits: 0, cur: null };
-    const PKG_GROUPS = [['q-group-offers', [1, 2, 3, 4]], ['q-group-packs', [5, 6, 7, 8, 9]], ['q-group-card', [10]]];
+    const quote = { pkg: 13, years: 1, edits: 0, cur: null };
+    const PKG_GROUPS = [['q-group-plans', [11, 12, 13, 14]], ['q-group-offers', [1, 2, 3, 4]], ['q-group-packs', [5, 6, 7, 8, 9]], ['q-group-card', [10]]];
+    // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
+    const PLAN_PRICE = { ar: { 11: 249, 12: 249, 13: 449, 14: 699 }, fr: { 11: 23, 12: 23, 13: 41, 14: 64 }, en: { 11: 26, 12: 26, 13: 46, 14: 72 } };
+    const PLAN_SETUP = { ar: 990, fr: 91, en: 102 };
+    const isPlan = i => i >= 11;
     const toNum = s => parseFloat(String(s).replace(/,/g, ''));
     const quoteCur = () => quote.cur || currentLang;
     function money(n, cur = quoteCur()) {
@@ -3380,7 +3614,24 @@
     }
     const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+    function planData() {
+      const cur = quoteCur(), t = translations[currentLang], i = quote.pkg;
+      const monthly = PLAN_PRICE[cur][i], setup = PLAN_SETUP[cur];
+      const years = quote.years >= 0.5 ? quote.years : 1, months = Math.round(years * 12), yearly = years >= 1;
+      const gross = monthly * months, discount = yearly ? monthly * 2 * years : 0, waived = yearly ? setup : 0;
+      return {
+        cur, plan: true, monthly, months, yearly, setup, original: gross, price: gross - discount,
+        maint: 0, maintGross: 0, freeValue: waived, freeLabel: t['q-setup-free'], maintTotal: 0,
+        editPlan: 0, editMonthly: 0, editTotal: 0, editLabel: '',
+        discount, pct: discount ? Math.round(discount / gross * 100) : 0, discountLabel: t['q-plan-yearly'],
+        subtotal: gross + setup, total: gross - discount + setup - waived, saving: discount + waived,
+        title: t[`offer${i}-title`], desc: t[`offer${i}-desc`], pay: t['q-plan-pay'],
+        features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).filter(Boolean)
+      };
+    }
+
     function quoteData() {
+      if (isPlan(quote.pkg)) return planData();
       const cur = quoteCur(), p = translations[cur], t = translations[currentLang], i = quote.pkg;
       const price = toNum(p[`offer${i}-price`]);
       const original = toNum(p[`offer${i}-original`]) || price;  // offers without a launch discount
@@ -3411,25 +3662,34 @@
       const opt = (value, label, selected) => `<option value="${value}"${selected ? ' selected' : ''}>${esc(label)}</option>`;
       const d = quoteData(), noMaint = !(d.maint > 0);
       document.getElementById('qPkgSelect').innerHTML = PKG_GROUPS.map(([key, ids]) => `<optgroup label="${esc(t[key])}">` +
-        ids.map(i => opt(i, `${t[`offer${i}-title`]} — ${money(toNum(p[`offer${i}-price`]))}`, quote.pkg === i)).join('') + '</optgroup>').join('');
+        ids.map(i => opt(i, isPlan(i) ? `${t[`offer${i}-title`]} — ${money(PLAN_PRICE[cur][i])} ${t['plan-per-month']}`
+          : `${t[`offer${i}-title`]} — ${money(toNum(p[`offer${i}-price`]))}`, quote.pkg === i)).join('') + '</optgroup>').join('');
       const years = document.getElementById('qYearsSelect');
-      years.innerHTML = [[0, 'q-y0'], [0.5, 'q-y05'], [1, 'q-y1'], [2, 'q-y2'], [3, 'q-y3']].map(([y, key]) => opt(y, t[key], quote.years === y)).join('');
-      years.disabled = noMaint;
+      const plan = isPlan(quote.pkg);
+      if (plan && quote.years === 0) quote.years = 1;
+      years.innerHTML = (plan ? [] : [[0, 'q-y0']]).concat([[0.5, 'q-y05'], [1, 'q-y1'], [2, 'q-y2'], [3, 'q-y3']]).map(([y, key]) => opt(y, t[key], quote.years === y)).join('');
+      years.disabled = noMaint && !plan;
       const edits = document.getElementById('qEditsSelect');
       edits.innerHTML = opt(0, t['q-edit-none'].replace('{one}', money(toNum(p['edit-one']))), d.editPlan === 0) +
         [2, 5].map(n => opt(n, t[`q-edit-${n}`].replace('{price}', money(toNum(p[`edit-plan-${n}`]))), d.editPlan === n)).join('');
       edits.disabled = noMaint || d.months === 0;
       document.getElementById('qCurrencySelect').innerHTML = [['ar', 'MAD (DH)'], ['fr', 'EUR (€)'], ['en', 'USD ($)']].map(([c, label]) => opt(c, label, cur === c)).join('');
-      document.getElementById('qMaintHint').textContent = noMaint ? t['q-not-needed'] : t['q-maint-hint'];
+      document.getElementById('qMaintHint').textContent = plan ? t['q-plan-hint'] : noMaint ? t['q-not-needed'] : t['q-maint-hint'];
+      const yLabel = document.querySelector('label[for="qYearsSelect"] span[data-i18n]');
+      if (yLabel) yLabel.textContent = plan ? t['q-duration'] : t[yLabel.dataset.i18n];
       document.getElementById('qEditsHint').textContent = noMaint ? t['q-not-needed'] : d.months === 0 ? t['q-edits-need-maint'] : t['q-edits-hint'];
     }
 
     function renderQuote() {
       const t = translations[currentLang], d = quoteData();
       const lines = [
-        [d.title, money(d.original)]
+        [d.plan ? `${d.title} (${d.months} ${t['q-months-unit']} × ${money(d.monthly)})` : d.title, money(d.original)]
       ];
-      if (d.discount > 0) lines.push([`${t['q-discount']} (−${d.pct}%)`, '−' + money(d.discount), 'discount']);
+      if (d.discount > 0) lines.push([d.discountLabel || `${t['q-discount']} (−${d.pct}%)`, '−' + money(d.discount), 'discount']);
+      if (d.plan) {
+        lines.push([t['q-setup'], money(d.setup)]);
+        if (d.freeValue) lines.push([d.freeLabel, '−' + money(d.freeValue), 'discount']);
+      }
       if (d.months > 0 && d.maint > 0) {
         lines.push([`${t['q-maint']} (${d.months} ${t['q-months-unit']} × ${money(d.maint)})`, money(d.maintGross)]);
         lines.push([t['q-free3'], '−' + money(d.freeValue), 'discount']);
@@ -3477,9 +3737,13 @@
       const cell = 'padding:12px 14px;border-bottom:1px solid #ede4fb;font-size:12.5px;vertical-align:top;';
       const num = `${cell}text-align:${rtl ? 'left' : 'right'};white-space:nowrap;`;
       const rows = [
-        `<tr><td style="${cell}"><div style="font-weight:700;color:#1e1035;">${esc(d.title)}</div><div style="color:#6b6480;font-size:11px;margin-top:4px;line-height:1.5;">${esc(d.desc)}</div></td><td style="${cell}text-align:center;">1</td><td style="${num}">${pm(d.original)}</td><td style="${num}">${pm(d.original)}</td></tr>`
+        `<tr><td style="${cell}"><div style="font-weight:700;color:#1e1035;">${esc(d.title)}</div><div style="color:#6b6480;font-size:11px;margin-top:4px;line-height:1.5;">${esc(d.desc)}</div></td><td style="${cell}text-align:center;">${d.plan ? `${d.months} ${esc(t['q-months-unit'])}` : 1}</td><td style="${num}">${pm(d.plan ? d.monthly : d.original)}</td><td style="${num}">${pm(d.original)}</td></tr>`
       ];
-      if (d.discount > 0) rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(`${t['q-discount']} (−${d.pct}%)`)}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`);
+      if (d.discount > 0) rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(d.discountLabel || `${t['q-discount']} (−${d.pct}%)`)}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.discount)}</td></tr>`);
+      if (d.plan) {
+        rows.push(`<tr><td style="${cell}">${esc(t['q-setup'])}</td><td style="${cell}text-align:center;">1</td><td style="${num}">${pm(d.setup)}</td><td style="${num}">${pm(d.setup)}</td></tr>`);
+        if (d.freeValue) rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(d.freeLabel)}</td><td style="${cell}"></td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.freeValue)}</td></tr>`);
+      }
       if (d.months > 0 && d.maint > 0) {
         rows.push(`<tr><td style="${cell}">${esc(t['q-maint'])}</td><td style="${cell}text-align:center;">${d.months} ${esc(t['q-months-unit'])}</td><td style="${num}">${pm(d.maint)}</td><td style="${num}">${pm(d.maintGross)}</td></tr>`);
         rows.push(`<tr><td style="${cell}color:#16a34a;">${esc(t['q-free3'])}</td><td style="${cell}text-align:center;">3 ${esc(t['q-months-unit'])}</td><td style="${num}"></td><td style="${num}color:#16a34a;">${pm(-d.freeValue)}</td></tr>`);
@@ -3528,8 +3792,8 @@
           <div style="display:flex;justify-content:flex-end;margin-top:18px;">
             <div style="width:300px;font-size:12.5px;">
               <div style="display:flex;justify-content:space-between;padding:7px 0;color:#4a4360;"><span>${esc(t['q-subtotal'])}</span><b>${pm(d.subtotal)}</b></div>
-              ${d.discount > 0 ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(`${t['q-discount']} (−${d.pct}%)`)}</span><b>${pm(-d.discount)}</b></div>` : ''}
-              ${d.freeValue ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(t['q-free3'])}</span><b>${pm(-d.freeValue)}</b></div>` : ''}
+              ${d.discount > 0 ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(d.discountLabel || `${t['q-discount']} (−${d.pct}%)`)}</span><b>${pm(-d.discount)}</b></div>` : ''}
+              ${d.freeValue ? `<div style="display:flex;justify-content:space-between;padding:7px 0;color:#16a34a;"><span>${esc(d.freeLabel || t['q-free3'])}</span><b>${pm(-d.freeValue)}</b></div>` : ''}
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#a855f7);color:#fff;">
                 <span style="font-weight:600;">${esc(t['q-total'])}</span><span style="font-size:22px;font-weight:800;">${pm(d.total)}</span>
               </div>
@@ -3540,7 +3804,7 @@
           <div style="font-size:13px;font-weight:700;color:#7e22ce;margin-bottom:10px;">${esc(t['q-included'])}</div>
           ${d.features.map(f => `<div style="font-size:12px;color:#4a4360;margin-bottom:6px;"><span style="color:#a855f7;font-weight:700;">✓</span>&nbsp; ${esc(f)}</div>`).join('')}
         </div>
-        <div style="margin:26px 48px 0;padding:14px 16px;border-radius:12px;background:#faf5ff;border:1px dashed #d8b4fe;font-size:11.5px;color:#6b6480;line-height:1.6;"><b style="color:#4a4360;">${esc(t['q-pay'])}</b><br>${esc(t['q-note'])}</div>
+        <div style="margin:26px 48px 0;padding:14px 16px;border-radius:12px;background:#faf5ff;border:1px dashed #d8b4fe;font-size:11.5px;color:#6b6480;line-height:1.6;"><b style="color:#4a4360;">${esc(d.pay || t['q-pay'])}</b><br>${esc(t['q-note'])}</div>
         <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 48px;border-top:1px solid #ede4fb;display:flex;justify-content:space-between;font-size:11px;color:#6b6480;">
           <span>${esc(t['q-thanks']).replace('NOOR TECHNOLOGIES LABS', '<span dir="ltr" style="display:inline-block;">NOOR TECHNOLOGIES LABS</span>')}</span><span style="direction:ltr;unicode-bidi:isolate;">+212 612 974 126 · hello@noorlabstechnologies.com</span>
         </div>`;
@@ -3612,11 +3876,14 @@
         client.email ? `📧 ${client.email}` : null,
         client.phone ? `📱 ${client.phone}` : null,
         client.business ? `🏪 ${t['q-business']}: ${client.business}` : null, '',
-        d.discount > 0 ? `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)` : `📦 ${d.title}: ${money(d.price)}`,
+        d.plan ? `📦 ${d.title}: ${d.months} ${t['q-months-unit']} × ${money(d.monthly)} = ${money(d.original)}`
+          : d.discount > 0 ? `📦 ${d.title}: ${money(d.price)} (${money(d.original)} −${d.pct}%)` : `📦 ${d.title}: ${money(d.price)}`,
+        d.plan && d.discount > 0 ? `🎁 ${d.discountLabel}: −${money(d.discount)}` : null,
+        d.plan ? `🛠️ ${t['q-setup']}: ${money(d.setup)}${d.freeValue ? ` → ${d.freeLabel}` : ''}` : null,
         d.months > 0 && d.maint > 0 ? `🛠️ ${t['q-maint']}: ${d.months} ${t['q-months-unit']} × ${money(d.maint)} = ${money(d.maintGross)}` : null,
         d.months > 0 && d.maint > 0 ? `🎁 ${t['q-free3']}: −${money(d.freeValue)}` : null,
         d.editPlan ? `✏️ ${d.editLabel}: ${d.months} ${t['q-months-unit']} × ${money(d.editMonthly)} = ${money(d.editTotal)}` : null,
-        `💳 ${t['q-pay']}`,
+        `💳 ${d.pay || t['q-pay']}`,
         `💰 ${t['q-total']}: ${money(d.total)}`
       ].filter(x => x !== null).join('\n');
       window.open(`https://wa.me/212612974126?text=${encodeURIComponent(lines)}`, '_blank');
@@ -3744,7 +4011,31 @@
     const phoneBadMsg = () => (PHONE_MSG[currentLang] || PHONE_MSG.en).bad;
     phoneField(document.getElementById('qPhone'));
 
+    // ----- Monthly plan cards: price in the page currency, monthly or yearly -----
+    let planBilling = 'monthly';
+    function renderPlanCards() {
+      const t = translations[currentLang], cur = currentLang;
+      document.querySelectorAll('[data-plan]').forEach(el => {
+        const i = +el.dataset.plan, m = PLAN_PRICE[cur][i];
+        el.innerHTML = planBilling === 'yearly'
+          ? `${money(m * 10, cur)} <small>${esc(t['plan-per-year'])}</small>`
+          : `${money(m, cur)} <small>${esc(t['plan-per-month'])}</small>`;
+      });
+      document.querySelectorAll('[data-plan-equiv]').forEach(el => {
+        const m = PLAN_PRICE[cur][+el.dataset.planEquiv];
+        el.textContent = planBilling === 'yearly' ? t['plan-equiv'].replace('{price}', money(m * 10 / 12, cur)) : '';
+      });
+      const rules = document.getElementById('planRules');
+      if (rules) rules.textContent = t['plan-rules'].replace('{setup}', money(PLAN_SETUP[cur], cur));
+    }
+    document.querySelectorAll('.plan-toggle button').forEach(b => b.addEventListener('click', () => {
+      planBilling = b.dataset.billing;
+      document.querySelectorAll('.plan-toggle button').forEach(x => x.classList.toggle('on', x === b));
+      renderPlanCards();
+    }));
+
     function applyQuoteLanguage() {
+      renderPlanCards();
       refreshPhoneFields();
       const t = translations[currentLang];
       document.getElementById('qName').placeholder = t['q-ph-name'];
