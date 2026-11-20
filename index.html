@@ -464,6 +464,12 @@
     .plan-soon { opacity: .82; }
     @media (max-width: 1100px) { .caisse-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 960px) { .caisse-grid { grid-template-columns: 1fr; } }
+    .offers-grid.addons-row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1100px; margin: 0 auto; }
+    .nfc-photo { display: flex; align-items: center; justify-content: center; aspect-ratio: 760 / 460; background: radial-gradient(circle at 30% 20%, rgba(217,70,239,.35), transparent 60%), linear-gradient(135deg, #1e1035, #4c1d95); }
+    .nfc-photo { overflow: hidden; }
+    .nfc-card.nfc-mini { flex: 0 0 auto; zoom: .62; animation: none; transform: rotate(-6deg); box-shadow: 0 18px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.2); }
+    @media (max-width: 1100px) { .offers-grid.addons-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 960px) { .offers-grid.addons-row { grid-template-columns: 1fr; max-width: 460px; } }
     .offers-grid.addons-grid { grid-template-columns: minmax(0, 420px); justify-content: center; }
     .offer-card { padding: 20px 20px 20px; display: flex; flex-direction: column; }
     .offer-card { overflow: hidden; }
@@ -1322,11 +1328,11 @@
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
         </div>
       </div>
-      <div class="section-head reveal packs-head">
-        <h3 class="section-title" data-i18n="packs-title">Website + Smart Assistant pack</h3>
-        <p class="section-subtitle" data-i18n="packs-sub">Get found on Google and answer every client, for less than buying both separately.</p>
+      <div class="section-head reveal packs-head" id="addons">
+        <h3 class="section-title" data-i18n="addons-title">Add-ons: website, pack and smart card</h3>
+        <p class="section-subtitle" data-i18n="addons-sub">Complete your setup: be found on Google, answer every client, and be saved in their phone in one tap.</p>
       </div>
-      <div class="offers-grid addons-grid">
+      <div class="offers-grid addons-row">
         <div class="offer-card glass tilt reveal">
           <div class="offer-photo"><img src="assets/offers/offer6.jpg" alt="A friendly man greeting clients from his laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -17%</span>
@@ -1349,14 +1355,7 @@
           </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Website%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer6-btn">Get this pack</span></button>
         </div>
-      </div>
-      <div class="section-head reveal packs-head" id="addons">
-        <h3 class="section-title" data-i18n="addons-title">Add-ons: website and smart business card</h3>
-        <p class="section-subtitle" data-i18n="addons-sub">Complete your setup: a professional website to be found on Google, and a smart card to be saved in your clients' phones in one tap.</p>
-      </div>
-      <div class="offers-grid addons-grid">
-        <!-- Offer 1: Website Package -->
-        <div class="offer-card glass tilt reveal">
+        <div class="offer-card glass tilt reveal" style="--d:.08s">
           <div class="offer-photo"><img src="assets/offers/offer1.jpg" alt="Someone browsing a business website on a laptop in a café" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Get found</span></span>
@@ -1376,27 +1375,17 @@
           </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
         </div>
-
-      </div>
-      <div class="section-head reveal packs-head nfc-head">
-        <h3 class="section-title" data-i18n="nfc-title">Smart Business Card</h3>
-        <p class="section-subtitle" data-i18n="nfc-sub">Your business card, upgraded: one tap and you're saved in your client's phone.</p>
-      </div>
-      <div class="nfc-wrap">
-        <div class="nfc-visual reveal" aria-hidden="true">
-          <div class="nfc-phone"><i class="fas fa-mobile-screen-button"></i></div>
-          <div class="nfc-waves"><span></span><span></span><span></span></div>
-          <div class="nfc-card">
-            <div class="nfc-chip"></div>
-            <div class="nfc-brand">NOOR LABS</div>
-            <i class="fas fa-wifi nfc-icon"></i>
-            <div class="nfc-name">Your Name</div>
-            <div class="nfc-role">CEO · Your Company</div>
-            <div class="nfc-tap" data-i18n="nfc-tap">Tap to connect</div>
+        <div class="offer-card glass tilt reveal" style="--d:.16s">
+          <div class="offer-photo nfc-photo" aria-hidden="true">
+            <div class="nfc-card nfc-mini">
+              <div class="nfc-chip"></div>
+              <div class="nfc-brand">NOOR LABS</div>
+              <i class="fas fa-wifi nfc-icon"></i>
+              <div class="nfc-name">Your Name</div>
+              <div class="nfc-role">CEO · Your Company</div>
+              <div class="nfc-tap" data-i18n="nfc-tap">Tap to connect</div>
+            </div>
           </div>
-        </div>
-        <!-- Offer 10: Smart NFC Business Card -->
-        <div class="offer-card glass tilt reveal" style="--d:.1s">
           <span class="offer-badge"><i class="fas fa-id-card"></i> <span data-i18n="offer10-badge">Smart Card</span></span>
           <h3 class="offer-title" data-i18n="offer10-title">Smart Business Card</h3>
           <p class="offer-short" data-i18n="offer10-desc-short">One tap and you're saved in your client's phone.</p>
@@ -3657,6 +3646,8 @@
     for (const l in demoI18n) Object.assign(translations[l], demoI18n[l]);
     const dashDemoI18n = {"en": {"dash-try": "Try the owner dashboard", "caisse-try-sub": "Works in your browser, no sign-up: take an order on the till, then see it in the owner dashboard (sales, best sellers, staff, menu and photos)."}, "fr": {"dash-try": "Essayer l'espace gérant", "caisse-try-sub": "Directement dans votre navigateur, sans inscription : prenez une commande sur la caisse, puis retrouvez-la dans l'espace gérant (ventes, meilleures ventes, équipe, menu et photos)."}, "ar": {"dash-try": "جرّب فضاء المسير", "caisse-try-sub": "مباشرة في متصفحك وبدون تسجيل: خذ طلباً على الكاشير، ثم شاهده في فضاء المسير (المبيعات، الأكثر مبيعاً، الفريق، القائمة والصور)."}};
     for (const l in dashDemoI18n) Object.assign(translations[l], dashDemoI18n[l]);
+    const addonsI18n = {"en": {"addons-title": "Add-ons: website, pack and smart card", "addons-sub": "Complete your setup: be found on Google, answer every client, and be saved in their phone in one tap."}, "fr": {"addons-title": "Options : site web, pack et carte intelligente", "addons-sub": "Complétez votre équipement : soyez trouvé sur Google, répondez à chaque client et soyez enregistré dans son téléphone en un geste."}, "ar": {"addons-title": "إضافات: موقع إلكتروني، باقة وبطاقة ذكية", "addons-sub": "أكمل تجهيزك: ليجدك الزبناء على Google، أجب كل زبون، واحفظ اسمك في هاتفه بلمسة واحدة."}};
+    for (const l in addonsI18n) Object.assign(translations[l], addonsI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 13, years: 1, edits: 0, cur: null };
