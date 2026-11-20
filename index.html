@@ -448,6 +448,7 @@
     .plans-or-once { margin-top: 34px; font-size: 15px; font-weight: 600; color: var(--text); }
     .caisse-cta { text-align: center; margin: 6px auto 8px; max-width: 640px; }
     .caisse-cta .caisse-try-big { display: inline-flex; width: auto; padding: 14px 26px; font-size: 16px; background: var(--grad); color: #fff; border: none; }
+    .caisse-cta .dash-try { background: transparent; color: var(--text); border: 1px solid var(--border-strong, #c084fc); margin-left: 8px; }
     .caisse-cta p { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
     .caisse-shots { display: grid; grid-template-columns: 1.7fr 1fr; gap: 18px; margin-bottom: 10px; align-items: start; }
     .caisse-shots figure { margin: 0; padding: 10px; border-radius: 18px; }
@@ -1276,7 +1277,7 @@
           </figure>
         </div>
       </div>
-      <div class="caisse-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a><p data-i18n="caisse-try-sub">Works in your browser: take an order, pay, see the ticket, even with internet cut. No sign-up.</p></div>
+      <div class="caisse-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a> <a class="offer-btn try-demo caisse-try-big dash-try" href="demo/dashboard/" target="_blank" rel="noopener"><i class="fas fa-chart-line"></i> <span data-i18n="dash-try">Try the owner dashboard</span></a><p data-i18n="caisse-try-sub">Works in your browser, no sign-up: take an order on the till, then see it in the owner dashboard (sales, best sellers, staff, menu and photos).</p></div>
       <p class="shot-note" data-i18n="shot-note">Real NOOR Caisse screens, shown with a sample café menu. Each café adds its own photos from the dashboard.</p>
       <div class="caisse-grid">
         <div class="offer-card glass reveal caisse-card">
@@ -3654,6 +3655,8 @@
     for (const l in shotsI18n) Object.assign(translations[l], shotsI18n[l]);
     const demoI18n = {"en": {"caisse-try": "Try the NOOR Caisse demo", "caisse-try-sub": "Works in your browser: take an order, pay, see the ticket, even with internet cut. No sign-up."}, "fr": {"caisse-try": "Essayer la démo de NOOR Caisse", "caisse-try-sub": "Directement dans votre navigateur : prenez une commande, encaissez, voyez le ticket, même sans internet. Sans inscription."}, "ar": {"caisse-try": "جرّب النسخة التجريبية من NOOR Caisse", "caisse-try-sub": "مباشرة في متصفحك: خذ طلباً، استخلص الأداء، شاهد التذكرة، حتى بدون إنترنت. بدون تسجيل."}};
     for (const l in demoI18n) Object.assign(translations[l], demoI18n[l]);
+    const dashDemoI18n = {"en": {"dash-try": "Try the owner dashboard", "caisse-try-sub": "Works in your browser, no sign-up: take an order on the till, then see it in the owner dashboard (sales, best sellers, staff, menu and photos)."}, "fr": {"dash-try": "Essayer l'espace gérant", "caisse-try-sub": "Directement dans votre navigateur, sans inscription : prenez une commande sur la caisse, puis retrouvez-la dans l'espace gérant (ventes, meilleures ventes, équipe, menu et photos)."}, "ar": {"dash-try": "جرّب فضاء المسير", "caisse-try-sub": "مباشرة في متصفحك وبدون تسجيل: خذ طلباً على الكاشير، ثم شاهده في فضاء المسير (المبيعات، الأكثر مبيعاً، الفريق، القائمة والصور)."}};
+    for (const l in dashDemoI18n) Object.assign(translations[l], dashDemoI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 13, years: 1, edits: 0, cur: null };

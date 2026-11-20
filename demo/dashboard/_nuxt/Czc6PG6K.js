@@ -1,0 +1,1 @@
+const e="noorlabs_dashboard_session";function o(){if(typeof window>"u")return null;const n=window.localStorage.getItem(e);if(!n)return null;try{return JSON.parse(n)}catch{return null}}function t(n){window.localStorage.setItem(e,JSON.stringify(n))}function s(){window.localStorage.removeItem(e)}export{s as c,o as g,t as s};
