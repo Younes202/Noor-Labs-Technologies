@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>NOOR TECHNOLOGIES LABS | Darija AI Assistant, Business App &amp; POS for Moroccan SMEs</title>
-  <meta name="description" content="A 24/7 AI assistant that speaks Darija, Arabic, French and English, plus a cloud business management app and smart cash register for Moroccan shops, cafés, restaurants, pharmacies and clinics. Websites and smart cards as add-ons.">
+  <title>NOOR TECHNOLOGIES LABS | Darija AI Assistant &amp; NOOR Caisse for Moroccan Cafés and Restaurants</title>
+  <meta name="description" content="A 24/7 AI assistant that answers your clients in Darija, Arabic, French and English, and NOOR Caisse, an offline-ready cash register for cafés and restaurants. Monthly plans from 249 DH. Websites and smart cards as add-ons.">
   <meta name="theme-color" content="#0f0a1a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -446,6 +446,13 @@
     .plan-rules, .plan-founders, .plans-or-once { text-align: center; max-width: 820px; margin: 18px auto 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
     .plan-founders { color: var(--p2); font-weight: 600; }
     .plans-or-once { margin-top: 34px; font-size: 15px; font-weight: 600; color: var(--text); }
+    .caisse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+    .caisse-card .offer-title { display: flex; gap: 8px; align-items: center; }
+    .caisse-next { opacity: .9; border-style: dashed; }
+    .caisse-next .offer-features i { color: var(--muted); }
+    .plan-soon { opacity: .82; }
+    @media (max-width: 1100px) { .caisse-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 960px) { .caisse-grid { grid-template-columns: 1fr; } }
     .offers-grid.addons-grid { grid-template-columns: minmax(0, 420px); justify-content: center; }
     .offer-card { padding: 20px 20px 20px; display: flex; flex-direction: column; }
     .offer-card { overflow: hidden; }
@@ -1025,7 +1032,7 @@
     <div class="hero-floor" aria-hidden="true"></div>
     <div class="container hero-grid">
       <div>
-        <div class="hero-badge reveal"><span class="hero-badge-dot"></span><span data-i18n="hero-badge">Smart assistant • Business app &amp; POS • Websites • Smart cards</span></div>
+        <div class="hero-badge reveal"><span class="hero-badge-dot"></span><span data-i18n="hero-badge">Smart assistant • Cash register for cafés &amp; restaurants • Websites • Smart cards</span></div>
         <h1 class="hero-title reveal" style="--d:.1s" data-i18n="hero-title">More clients. <span class="hero-gradient">Less headache.</span></h1>
         <p class="hero-description reveal" style="--d:.2s" data-i18n="hero-desc">You focus on your business. We make sure new clients find you, get an answer at any hour, and that you know at a glance how your day went. Simple tools for every business, at clear prices.</p>
         <div class="hero-actions reveal" style="--d:.3s">
@@ -1035,7 +1042,7 @@
         </div>
         <div class="hero-stats reveal" style="--d:.4s">
           <div><div class="stat-num" data-count="8">8</div><div class="stat-label" data-i18n="stat1">Ways to help</div></div>
-          <div><div class="stat-num" data-count="10">10</div><div class="stat-label" data-i18n="stat2">Ready-made offers</div></div>
+          <div><div class="stat-num" data-count="9">9</div><div class="stat-label" data-i18n="stat2">Ready-made offers</div></div>
           <div><div class="stat-num" data-count="3">3</div><div class="stat-label" data-i18n="stat3">Languages</div></div>
           <div><div class="stat-num" data-count="20" data-suffix="%">20%</div><div class="stat-label" data-i18n="stat4">Launch discount</div></div>
         </div>
@@ -1146,50 +1153,50 @@
         <div class="offer-card plan-card glass reveal" style="--d:0s">
           <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer11-badge">Start here</span></span>
           <h3 class="offer-title" data-i18n="offer11-title">Smart Assistant</h3>
-          <p class="offer-short" data-i18n="offer11-desc">Answers your clients 24/7 in Darija, Arabic, French and English, on your website and WhatsApp.</p>
+          <p class="offer-short" data-i18n="offer11-desc">Answers your clients 24/7 on your website, in Darija, Arabic, French and English, and sends the interested ones to your WhatsApp.</p>
           <div class="offer-price plan-price" data-plan="11">249 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="11"></div>
           <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f1">On your website and your WhatsApp</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f2">1,000 WhatsApp messages a month included</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f1">On your website, sends clients to your WhatsApp</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f2">Answering directly inside WhatsApp: coming soon</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f3">Sends interested clients to you</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f4">Hosting, updates and support included</span></li>
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
         </div>
         <div class="offer-card plan-card glass reveal" style="--d:.08s">
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer12-badge">Run your shop</span></span>
-          <h3 class="offer-title" data-i18n="offer12-title">Business App & POS</h3>
-          <p class="offer-short" data-i18n="offer12-desc">Sales, stock, staff and cash on your phone, with a cash register on your own tablet or computer.</p>
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer12-badge">Cafés &amp; restaurants</span></span>
+          <h3 class="offer-title" data-i18n="offer12-title">NOOR Caisse</h3>
+          <p class="offer-short" data-i18n="offer12-desc">The cash register for cafés and restaurants: orders, payments, tickets and staff, and it keeps working without internet.</p>
           <div class="offer-price plan-price" data-plan="12">249 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="12"></div>
           <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f1">Cash register on your tablet or computer</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f2">Stock updated with every sale</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f3">Staff accounts with their own access</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f4">Hosting, backups and support included</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f1">Works offline, syncs when the internet comes back</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f2">Ticket printer and cash drawer</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f3">Staff accounts with their own permissions</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f4">Owner dashboard: daily sales, best sellers, cancellations</span></li>
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20App%20&%20POS%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
         </div>
         <div class="offer-card plan-card glass reveal popular" style="--d:.16s">
           <span class="plan-popular" data-i18n="plan-popular">Most popular</span>
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer13-badge">App + Assistant + Report</span></span>
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer13-badge">Caisse + Assistant</span></span>
           <h3 class="offer-title" data-i18n="offer13-title">Pro</h3>
-          <p class="offer-short" data-i18n="offer13-desc">The business app and POS, the Smart Assistant 24/7, and a clear report on your phone every evening.</p>
+          <p class="offer-short" data-i18n="offer13-desc">NOOR Caisse and the Smart Assistant 24/7, in one subscription.</p>
           <div class="offer-price plan-price" data-plan="13">449 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="13"></div>
           <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f1">Everything in Business App & POS</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f1">Everything in NOOR Caisse</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f2">The Smart Assistant 24/7</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f3">A clear report on your phone every evening</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f3">Evening sales report on WhatsApp (coming soon, included)</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f4">Priority support</span></li>
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Pro%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
         </div>
-        <div class="offer-card plan-card glass reveal" style="--d:.24s">
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer14-badge">Everything, automatic</span></span>
+        <div class="offer-card plan-card plan-soon glass reveal" style="--d:.24s">
+          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer14-badge">Coming soon</span></span>
           <h3 class="offer-title" data-i18n="offer14-title">Autopilot</h3>
-          <p class="offer-short" data-i18n="offer14-desc">Pro, plus automatic reminders and messages that bring your clients back.</p>
+          <p class="offer-short" data-i18n="offer14-desc">Pro, plus automatic reminders and messages to your clients. In development: join the waiting list to get the founding price.</p>
           <div class="offer-price plan-price" data-plan="14">699 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="14"></div>
           <ul class="offer-features">
@@ -1198,7 +1205,7 @@
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f3">Thank-you and come-back messages to clients</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f4">A monthly check-in call with us</span></li>
           </ul>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20plan%20(waiting%20list)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-wait">Join the waiting list</span></button>
         </div>
       </div>
       <p class="plan-rules reveal" id="planRules">Setup 990 DH once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.</p>
@@ -1206,7 +1213,7 @@
       <p class="plans-or-once reveal" data-i18n="plans-or-once">Prefer to own it? One-time prices below.</p>
       <div class="section-head reveal packs-head" id="assistant">
         <h3 class="section-title" data-i18n="flag-title">Our flagship: the Smart Assistant 24/7</h3>
-        <p class="section-subtitle" data-i18n="flag-sub">Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers on your website and WhatsApp, and sends you interested clients day and night.</p>
+        <p class="section-subtitle" data-i18n="flag-sub">Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers your clients on your website day and night, and sends the interested ones to your WhatsApp.</p>
       </div>
       <div class="offers-grid">
         <!-- Offer 5: AI Chatbot (alone) -->
@@ -1236,132 +1243,59 @@
             <button class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="offer5-try">Try the live demo</span></button>
           </div>
         </div>
-        <!-- Offer 6: Website + AI Chatbot -->
       </div>
       <div class="section-head reveal packs-head" id="apps">
-        <h3 class="section-title" data-i18n="apps-title">Business Management App &amp; Smart Cash Register</h3>
-        <p class="section-subtitle" data-i18n="apps-sub">Our cloud software for shops, cafés, restaurants, pharmacies and clinics: sales, stock, staff and cash on your phone, with a daily report and a cash register that updates everything by itself.</p>
+        <h3 class="section-title" data-i18n="apps-title">NOOR Caisse: the cash register for cafés and restaurants</h3>
+        <p class="section-subtitle" data-i18n="apps-sub">Our own software, built and tested by us. It runs on the till PC, keeps taking orders without internet, and sends everything to the cloud when the connection comes back. Included in the NOOR Caisse plan.</p>
       </div>
-      <div class="offers-grid">
-        <div class="offer-card glass tilt popular reveal" style="--d:.08s">
-          <div class="offer-photo"><img src="assets/offers/offer2.jpg" alt="A tablet showing a sales and orders app on a shop counter" loading="lazy" width="760" height="460"></div>
-          <span class="discount-badge-red">-20% OFF</span>
-          <span class="offer-badge"><i class="fas fa-cubes"></i> <span data-i18n="offer2-badge">Stay in control</span></span>
-          <h3 class="offer-title" data-i18n="offer2-title">Business Management App</h3>
-          <p class="offer-short" data-i18n="offer2-desc-short">See your sales, stock and staff on your phone.</p>
-          <div class="offer-price" id="price2">5,000 DH <small>originally 6,250 DH</small></div>
-          <div class="offer-maintenance" id="maintenance2"><i class="fas fa-calendar-alt"></i> + 89 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer2-desc">No more notebooks and guesswork. See your sales, stock and staff on your phone, whether you're at the shop or at home. Made for restaurants, pharmacies, clinics, shops and more.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f2">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer2-f3">Built around the way you already work</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20Management%20App%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer2-btn">Get this offer</span></button>
+      <div class="caisse-grid">
+        <div class="offer-card glass reveal caisse-card">
+          <h3 class="offer-title"><i class="fas fa-circle-check" style="color:#16a34a"></i> <span data-i18n="caisse-now">Already working</span></h3>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n1">Orders, payments and voids with a reason</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n2">Ticket printing and cash drawer</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n3">Works offline, zero lost orders when the connection returns</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n4">Staff accounts and permissions (cashier, manager)</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n5">Owner dashboard: daily sales, best sellers, cancellations</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n6">Automatic daily backups</span></li>
+          </ul>
         </div>
-
-        <!-- Offer 3: ERP + Automation -->
-        <div class="offer-card glass tilt reveal" style="--d:.16s">
-          <div class="offer-photo"><img src="assets/offers/offer3.jpg" alt="A laptop showing clear sales charts" loading="lazy" width="760" height="460"></div>
-          <span class="discount-badge-red">-20% OFF</span>
-          <span class="offer-badge"><i class="fas fa-robot"></i> <span data-i18n="offer3-badge">Decide with clarity</span></span>
-          <h3 class="offer-title" data-i18n="offer3-title">Management App + Daily Reports</h3>
-          <p class="offer-short" data-i18n="offer3-desc-short">The app, plus a clear report on your phone every evening.</p>
-          <div class="offer-price" id="price3">7,000 DH <small>originally 8,750 DH</small></div>
-          <div class="offer-maintenance" id="maintenance3"><i class="fas fa-calendar-alt"></i> + 129 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer3-desc">Every evening, a clear report lands on your phone: what you sold, what's running out, what earned you the most. No spreadsheets, just the answers you need to decide.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f2">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer3-f3">Your reports, sent to you automatically</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Management%20App%20%2B%20Daily%20Reports%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer3-btn">Get this offer</span></button>
-        </div>
-
-        <!-- Offer 4: Full Automation -->
-        <div class="offer-card glass tilt reveal" style="--d:.24s">
-          <div class="offer-photo"><img src="assets/offers/offer4.jpg" alt="A relaxed business owner leaning back at his desk" loading="lazy" width="760" height="460"></div>
-          <span class="discount-badge-red">-20% OFF</span>
-          <span class="offer-badge"><i class="fas fa-rocket"></i> <span data-i18n="offer4-badge">Grow without stress</span></span>
-          <h3 class="offer-title" data-i18n="offer4-title">Business on Autopilot</h3>
-          <p class="offer-short" data-i18n="offer4-desc-short">The app, plus automatic reminders and messages to your clients.</p>
-          <div class="offer-price" id="price4">10,000 DH <small>originally 12,500 DH</small></div>
-          <div class="offer-maintenance" id="maintenance4"><i class="fas fa-calendar-alt"></i> + 179 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer4-desc">Your clients get reminders and thank-you messages by SMS or email, you get clear tips to sell more, and everything keeps running, even on your day off.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f2">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f3">Automatic reminders &amp; messages to your clients</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer4-f4">Smart tips to sell more</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20on%20Autopilot%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer4-btn">Get this offer</span></button>
-        </div>
-      </div>
-      <div class="section-head reveal packs-head" id="pos">
-        <h3 class="section-title" data-i18n="pos-title">Smart Cash Register (POS)</h3>
-        <p class="section-subtitle" data-i18n="pos-sub">Sell faster and never lose track of your cash or stock. Software only, or a complete kit ready to plug in.</p>
-      </div>
-      <div class="pos-grid">
-        <!-- POS software only -->
-        <div class="offer-card glass tilt reveal" style="--d:.1s">
-          <div class="offer-photo"><img src="assets/offers/pos-software.jpg" alt="A hand tapping products on a tablet cash register" loading="lazy" width="760" height="460"></div>
-          <span class="offer-badge"><i class="fas fa-laptop-code"></i> <span data-i18n="pos1-badge">Software</span></span>
-          <h3 class="offer-title" data-i18n="pos1-title">POS Software</h3>
-          <p class="offer-short" data-i18n="pos1-desc-short">Your counter on the tablet or computer you already have.</p>
-          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
-          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="pos1-desc">Your counter on a tablet or computer you already have: tap the product, the price is added, the receipt prints, and your stock updates by itself.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f1">Fast sales with a barcode or one tap</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f2">Stock updated with every sale, alert before it runs out</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f3">Daily sales and cash report on your phone</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f4">Several cashiers, each with their own access</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos1-f5">Training + 3 months of maintenance free</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20POS%20software%20(free%20demo)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos1-btn">Ask for a free demo</span></button>
+        <div class="offer-card glass reveal caisse-card caisse-next" style="--d:.08s">
+          <h3 class="offer-title"><i class="fas fa-hourglass-half"></i> <span data-i18n="caisse-next">Coming next</span></h3>
+          <ul class="offer-features">
+            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x1">Evening sales report sent on WhatsApp</span></li>
+            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x2">Stock management</span></li>
+            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x3">Interface in French and Arabic</span></li>
+            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x4">Version for shops and pharmacies</span></li>
+          </ul>
         </div>
         <!-- POS software + hardware kit -->
         <div class="offer-card glass tilt reveal" style="--d:.2s">
           <div class="offer-photo"><img src="assets/offers/pos-kit.jpg" alt="A cashier using a touch-screen register with a receipt printer" loading="lazy" width="760" height="460"></div>
           <span class="offer-badge"><i class="fas fa-box-open"></i> <span data-i18n="pos2-badge">Complete kit</span></span>
-          <h3 class="offer-title" data-i18n="pos2-title">POS Software + Hardware</h3>
+          <h3 class="offer-title" data-i18n="pos2-title">Complete kit: NOOR Caisse + hardware</h3>
           <p class="offer-short" data-i18n="pos2-desc-short">Everything ready on day one: equipment, setup and training.</p>
           <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
           <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
           <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
           <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="pos2-desc">Everything ready on day one: we bring the equipment, install it in your shop and train your team. You just start selling.</p>
+            <p class="offer-desc" data-i18n="pos2-desc">We bring the till PC, the ticket printer and the cash drawer, install NOOR Caisse, enter your menu and train your team.</p>
             <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Touch-screen register</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Receipt printer and cash drawer</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Barcode scanner</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed and set up in your shop</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Everything in POS Software</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Till PC (Windows) or touch-screen register</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Ticket printer and cash drawer</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Your menu, prices and staff set up for you</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed in your café or restaurant</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Then the NOOR Caisse plan (249 DH / month)</span></li>
             </ul>
           </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
         </div>
       </div>
       <div class="section-head reveal packs-head">
-        <h3 class="section-title" data-i18n="packs-title">Smart Packs: save by combining</h3>
-        <p class="section-subtitle" data-i18n="packs-sub">Add the Smart Assistant to a website or to the business app, and pay less than separately.</p>
+        <h3 class="section-title" data-i18n="packs-title">Website + Smart Assistant pack</h3>
+        <p class="section-subtitle" data-i18n="packs-sub">Get found on Google and answer every client, for less than buying both separately.</p>
       </div>
-      <div class="offers-grid">
+      <div class="offers-grid addons-grid">
         <div class="offer-card glass tilt reveal">
           <div class="offer-photo"><img src="assets/offers/offer6.jpg" alt="A friendly man greeting clients from his laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -17%</span>
@@ -1383,75 +1317,6 @@
             </ul>
           </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Website%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer6-btn">Get this pack</span></button>
-        </div>
-        <!-- Offer 7: Business ERP + AI Chatbot -->
-        <div class="offer-card glass tilt reveal" style="--d:.08s">
-          <div class="offer-photo"><img src="assets/offers/offer7.jpg" alt="A café owner using a tablet cash register" loading="lazy" width="760" height="460"></div>
-          <span class="discount-badge-red pack">PACK -13%</span>
-          <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer7-badge">Smart Pack</span></span>
-          <h3 class="offer-title" data-i18n="offer7-title">Management App + Smart Assistant</h3>
-          <p class="offer-short" data-i18n="offer7-desc-short">Run your business from your phone, with clients answered 24/7.</p>
-          <div class="offer-price" id="price7">6,990 DH <small><s>8,000 DH</s></small></div>
-          <div class="offer-maintenance" id="maintenance7"><i class="fas fa-calendar-alt"></i> + 119 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer7-desc">Run your business from your phone while your assistant answers your clients 24/7.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f1">Everything in Business Management App</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f2">+ Smart Assistant that knows your business</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f3">Cheaper than buying both separately</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer7-f4">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Management%20App%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer7-btn">Get this pack</span></button>
-        </div>
-        <!-- Offer 8: ERP + Reports + AI Chatbot -->
-        <div class="offer-card glass tilt reveal" style="--d:.16s">
-          <div class="offer-photo"><img src="assets/offers/offer8.jpg" alt="Checking the day's results on a tablet with a coffee" loading="lazy" width="760" height="460"></div>
-          <span class="discount-badge-red pack">PACK -10%</span>
-          <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer8-badge">Smart Pack</span></span>
-          <h3 class="offer-title" data-i18n="offer8-title">Daily Reports + Smart Assistant</h3>
-          <p class="offer-short" data-i18n="offer8-desc-short">Clear reports for you, instant answers for your clients.</p>
-          <div class="offer-price" id="price8">8,990 DH <small><s>10,000 DH</s></small></div>
-          <div class="offer-maintenance" id="maintenance8"><i class="fas fa-calendar-alt"></i> + 159 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer8-desc">Clear reports for you every evening, instant answers for your clients all day and night.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f1">Everything in Management App + Daily Reports</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f2">+ Smart Assistant that knows your business</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f3">Cheaper than buying both separately</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer8-f4">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Daily%20Reports%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer8-btn">Get this pack</span></button>
-        </div>
-        <!-- Offer 9: Full Automation + AI Chatbot -->
-        <div class="offer-card glass tilt popular reveal" style="--d:.24s">
-          <div class="offer-photo"><img src="assets/offers/offer9.jpg" alt="A calm business owner relaxing in his office" loading="lazy" width="760" height="460"></div>
-          <span class="discount-badge-red pack">PACK -8%</span>
-          <span class="offer-badge"><i class="fas fa-crown"></i> <span data-i18n="offer9-badge">Complete Pack</span></span>
-          <h3 class="offer-title" data-i18n="offer9-title">Autopilot + Smart Assistant</h3>
-          <p class="offer-short" data-i18n="offer9-desc-short">Our most complete pack: everything runs, every client is answered.</p>
-          <div class="offer-price" id="price9">11,990 DH <small><s>13,000 DH</s></small></div>
-          <div class="offer-maintenance" id="maintenance9"><i class="fas fa-calendar-alt"></i> + 199 DH / month maintenance</div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="offer9-desc">Our most complete pack: your business runs smoothly, your clients are always answered, and you get clear tips to grow.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f1">Everything in Business on Autopilot</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f2">+ Smart Assistant that knows your business</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f3">Cheaper than buying both separately</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer9-f4">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer9-btn">Get this pack</span></button>
         </div>
       </div>
       <div class="section-head reveal packs-head" id="addons">
@@ -1481,7 +1346,6 @@
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
         </div>
 
-        <!-- Offer 2: ERP Package -->
       </div>
       <div class="section-head reveal packs-head nfc-head">
         <h3 class="section-title" data-i18n="nfc-title">Smart Business Card</h3>
@@ -1596,8 +1460,8 @@
       <div class="services-grid">
         <div class="service-card glass tilt wide reveal"><span class="num">/01</span><i class="fas fa-globe service-icon"></i><h3 class="service-title" data-i18n="svc1">Get found by new clients</h3><p class="service-desc" data-i18n="svc1-desc">A website that shows your work, your prices and your WhatsApp, so new clients come to you.</p><div class="line-deco"></div></div>
         <div class="service-card glass tilt reveal" style="--d:.08s"><span class="num">/02</span><i class="fas fa-chart-line service-icon"></i><h3 class="service-title" data-i18n="svc2">Know what really sells</h3><p class="service-desc" data-i18n="svc2-desc">We turn your sales into simple answers: your best products, your best days, what to stop.</p><div class="line-deco"></div></div>
-        <div class="service-card glass tilt reveal" style="--d:.16s"><span class="num">/03</span><i class="fas fa-chart-pie service-icon"></i><h3 class="service-title" data-i18n="svc3">Your whole day on one screen</h3><p class="service-desc" data-i18n="svc3-desc">Sales, expenses and cash on one clear page that updates by itself.</p><div class="line-deco"></div></div>
-        <div class="service-card glass tilt reveal"><span class="num">/04</span><i class="fas fa-mobile-screen-button service-icon"></i><h3 class="service-title" data-i18n="svc4">Run your business from your phone</h3><p class="service-desc" data-i18n="svc4-desc">Stock, orders, staff and cash in one simple app, made for your trade.</p><div class="line-deco"></div></div>
+        <div class="service-card glass tilt reveal" style="--d:.16s"><span class="num">/03</span><i class="fas fa-chart-pie service-icon"></i><h3 class="service-title" data-i18n="svc3">Your whole day on one screen</h3><p class="service-desc" data-i18n="svc3-desc">Daily sales, best sellers and cancellations on one clear page.</p><div class="line-deco"></div></div>
+        <div class="service-card glass tilt reveal"><span class="num">/04</span><i class="fas fa-mobile-screen-button service-icon"></i><h3 class="service-title" data-i18n="svc4">Run your business from your phone</h3><p class="service-desc" data-i18n="svc4-desc">Orders, payments, tickets and staff in one register made for cafés and restaurants.</p><div class="line-deco"></div></div>
         <div class="service-card glass tilt reveal" style="--d:.08s"><span class="num">/05</span><i class="fas fa-screwdriver-wrench service-icon"></i><h3 class="service-title" data-i18n="svc5">A tool made just for you</h3><p class="service-desc" data-i18n="svc5-desc">Have a special need? We build the app or website that fits exactly how you work.</p><div class="line-deco"></div></div>
         <div class="service-card glass tilt wide reveal" style="--d:.16s"><span class="num">/06</span><i class="fas fa-shield-halved service-icon"></i><h3 class="service-title" data-i18n="svc6">Always running, always safe</h3><p class="service-desc" data-i18n="svc6-desc">We host your website and app, back everything up and keep it secure, so you never have to think about it.</p><div class="line-deco"></div></div>
         <div class="service-card glass tilt reveal" style="--d:.08s"><span class="num">/07</span><i class="fas fa-chalkboard-teacher service-icon"></i><h3 class="service-title" data-i18n="svc7">Honest advice before you spend</h3><p class="service-desc" data-i18n="svc7-desc">Not sure what you need? We listen and tell you what is worth it, and what is not.</p><div class="line-deco"></div></div>
@@ -1637,9 +1501,9 @@
         <p class="section-subtitle" data-i18n="solutions-sub">Everyday situations we solve. Does one sound like yours?</p>
       </div>
       <div class="solutions-grid">
-        <div class="solution-card glass tilt reveal"><div class="sol-photo"><img src="assets/stories/shop.jpg" alt="Shop shelves fully stocked with groceries" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-store solution-icon"></i><span class="solution-badge" data-i18n="sol1-badge">Shop</span></div><h3 class="solution-title" data-i18n="sol1">The shop that never runs out</h3><p class="solution-desc" data-i18n="sol1-desc">The owner never knew what was left on the shelves. Now the phone warns them before a product runs out, so orders arrive just in time.</p></div>
+        <div class="solution-card glass tilt reveal"><div class="sol-photo"><img src="assets/stories/shop.jpg" alt="Shop shelves fully stocked with groceries" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-store solution-icon"></i><span class="solution-badge" data-i18n="sol1-badge">Shop</span></div><h3 class="solution-title" data-i18n="sol1">The café that never loses an order</h3><p class="solution-desc" data-i18n="sol1-desc">When the internet cut during service, orders were lost. Now the register keeps taking orders offline and sends everything once the connection is back.</p></div>
         <div class="solution-card glass tilt reveal" style="--d:.08s"><div class="sol-photo"><img src="assets/stories/restaurant.jpg" alt="A table full of dishes ready to be served" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-utensils solution-icon"></i><span class="solution-badge" data-i18n="sol2-badge">Restaurant</span></div><h3 class="solution-title" data-i18n="sol2">The restaurant that answers at midnight</h3><p class="solution-desc" data-i18n="sol2-desc">Clients ask for the menu late at night, while you sleep. Your assistant sends the menu and takes the order, and you read it in the morning.</p></div>
-        <div class="solution-card glass tilt reveal" style="--d:.16s"><div class="sol-photo"><img src="assets/stories/clinic.jpg" alt="A dentist talking with a smiling patient" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-tooth solution-icon"></i><span class="solution-badge" data-i18n="sol3-badge">Clinic</span></div><h3 class="solution-title" data-i18n="sol3">The clinic with no empty chairs</h3><p class="solution-desc" data-i18n="sol3-desc">Patients forget their appointments. With an automatic reminder the day before, they come, and the agenda stays full.</p></div>
+        <div class="solution-card glass tilt reveal" style="--d:.16s"><div class="sol-photo"><img src="assets/stories/clinic.jpg" alt="A dentist talking with a smiling patient" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-tooth solution-icon"></i><span class="solution-badge" data-i18n="sol3-badge">Clinic</span></div><h3 class="solution-title" data-i18n="sol3">The clinic that answers at night</h3><p class="solution-desc" data-i18n="sol3-desc">Patients ask prices and opening hours late in the evening. The assistant answers right away and sends them to WhatsApp to book.</p></div>
         <div class="solution-card glass tilt reveal"><div class="sol-photo"><img src="assets/stories/realestate.jpg" alt="A hand holding the keys of a new home" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-house solution-icon"></i><span class="solution-badge" data-i18n="sol4-badge">Real estate</span></div><h3 class="solution-title" data-i18n="sol4">The agent nobody forgets</h3><p class="solution-desc" data-i18n="sol4-desc">Paper cards end up in the trash. With a smart card, one tap and your number and listings stay in your client's phone.</p></div>
         <div class="solution-card glass tilt reveal" style="--d:.08s"><div class="sol-photo"><img src="assets/stories/salon.jpg" alt="A beautician doing a manicure" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-spa solution-icon"></i><span class="solution-badge" data-i18n="sol5-badge">Beauty salon</span></div><h3 class="solution-title" data-i18n="sol5">The salon that books while you work</h3><p class="solution-desc" data-i18n="sol5-desc">Bookings get lost in Instagram messages. Clients book by themselves at any hour, while you take care of the client in front of you.</p></div>
         <div class="solution-card glass tilt reveal" style="--d:.16s"><div class="sol-photo"><img src="assets/stories/caterer.jpg" alt="A wedding dessert table with pastries and flowers" loading="lazy" width="760" height="460"></div><div class="sol-top"><i class="fas fa-champagne-glasses solution-icon"></i><span class="solution-badge" data-i18n="sol6-badge">Caterer</span></div><h3 class="solution-title" data-i18n="sol6">The caterer who closes faster</h3><p class="solution-desc" data-i18n="sol6-desc">Families want photos and a price before they call. Your website shows everything and your assistant sends a quote in seconds.</p></div>
@@ -2620,7 +2484,7 @@
     const responses = {
       en: {
         ai: "💬 Never miss a client again\n\nYour smart assistant:\n• answers your clients 24/7, even at 2 a.m.\n• speaks Darija, Arabic, French and English\n• knows your services, prices and opening hours\n• sends you the interested clients on WhatsApp\n\nYou're talking to one right now 😉 Want the same for your business? WhatsApp: +212 612 974 126",
-        erp: "📱 Run your business from your phone\n\nOne simple app to see:\n• what you sold today\n• what is running out in stock\n• your staff and your cash\n• a clear report every evening\n\nMade for restaurants, shops, pharmacies, clinics and more. Want a free demo? WhatsApp: +212 612 974 126",
+        erp: "🧾 NOOR Caisse: the cash register for cafés and restaurants\n\n• Orders, payments, tickets and cash drawer\n• Keeps working without internet\n• Staff accounts with their own permissions\n• Owner dashboard: daily sales, best sellers, cancellations\n\n249 DH / month (2,490 DH / year). Free demo on WhatsApp: +212 612 974 126",
         offers: "🏷️ Our offers (−20% launch price)\n\n1. Professional Website: $308 + $5/month\n2. Business Management App: $513 + $9/month\n3. Management App + Daily Reports: $718 + $13/month\n4. Business on Autopilot: $1,025 + $18/month\n5. Smart Assistant 24/7: $308 + $5/month\n6. Smart Business Card: $31 (one-time)\n\n📦 Packs:\n• Website + Smart Assistant: $511\n• Management App + Smart Assistant: $716\n• Daily Reports + Smart Assistant: $921\n• Autopilot + Smart Assistant: $1,229\n\n🎁 First 3 months of maintenance free\n💳 Pay 50% to start, 50% on delivery\n\nGet your quote on this page or message us on WhatsApp!",
         internship: "💼 Current Internship Openings\n\n1. Restaurant ERP Developer - Build full restaurant management ERP\n2. Bike Rental ERP Engineer - Fleet management & booking platform\n\n📧 Send your resume to careers@noorlabstechnologies.com",
         contact: "📞 Let's talk about your business\n\nTell us in one message what you'd like to improve: more clients, less paperwork, faster answers… We reply quickly, with no commitment.\n\nWhatsApp: +212 612 974 126\nEmail: hello@noorlabstechnologies.com\n\n📅 Prefer to talk? Book a free 15-minute call: https://calendar.app.google/2Sxn8QdoZmcvQgA18",
@@ -2628,7 +2492,7 @@
       },
       fr: {
         ai: "💬 Ne ratez plus aucun client\n\nVotre assistant intelligent :\n• répond à vos clients 24h/24, même à 2h du matin\n• parle darija, arabe, français et anglais\n• connaît vos services, vos prix et vos horaires\n• vous envoie les clients intéressés sur WhatsApp\n\nVous parlez à l'un d'eux en ce moment 😉 Le même pour votre activité ? WhatsApp : +212 612 974 126",
-        erp: "📱 Gérez votre activité depuis votre téléphone\n\nUne application simple pour voir :\n• ce que vous avez vendu aujourd'hui\n• ce qui manque en stock\n• vos employés et votre caisse\n• un rapport clair chaque soir\n\nPour restaurants, commerces, pharmacies, cabinets… Une démo gratuite ? WhatsApp : +212 612 974 126",
+        erp: "🧾 NOOR Caisse : la caisse des cafés et restaurants\n\n• Commandes, encaissements, tickets et tiroir-caisse\n• Fonctionne même sans internet\n• Comptes employés avec leurs propres droits\n• Tableau de bord : ventes du jour, meilleures ventes, annulations\n\n249 DH / mois (2 490 DH / an). Démo gratuite sur WhatsApp : +212 612 974 126",
         offers: "🏷️ Nos offres (−20% prix de lancement)\n\n1. Site Web Professionnel : 275 € + 4 €/mois\n2. Application de Gestion : 459 € + 8 €/mois\n3. Gestion + Rapports Quotidiens : 642 € + 12 €/mois\n4. Activité en Pilote Automatique : 917 € + 16 €/mois\n5. Assistant Intelligent 24h/24 : 275 € + 4 €/mois\n6. Carte de Visite Intelligente : 28 € (paiement unique)\n\n📦 Packs :\n• Site Web + Assistant : 458 €\n• Gestion + Assistant : 641 €\n• Rapports Quotidiens + Assistant : 824 €\n• Pilote Automatique + Assistant : 1 099 €\n\n🎁 3 premiers mois de maintenance offerts\n💳 50% au démarrage, 50% à la livraison\n\nFaites votre devis sur cette page ou écrivez-nous sur WhatsApp !",
         internship: "💼 Offres de stage actuelles\n\n1. Développeur ERP Restaurant - Construire un ERP complet de gestion de restaurant\n2. Ingénieur ERP Location de Vélos - Gestion de flotte et plateforme de réservation\n\n📧 Envoyez votre CV à careers@noorlabstechnologies.com",
         contact: "📞 Parlons de votre activité\n\nDites-nous en un message ce que vous voulez améliorer : plus de clients, moins de paperasse, des réponses plus rapides… On répond vite, sans engagement.\n\nWhatsApp : +212 612 974 126\nEmail : hello@noorlabstechnologies.com\n\n📅 Vous préférez en parler ? Réservez un appel gratuit de 15 minutes : https://calendar.app.google/2Sxn8QdoZmcvQgA18",
@@ -2636,7 +2500,7 @@
       },
       ar: {
         ai: "💬 لا تضيّع أي زبون بعد اليوم\n\nمساعدك الذكي:\n• يجيب زبائنك 24/24، حتى في الثانية ليلاً\n• يتكلم الدارجة والعربية والفرنسية والإنجليزية\n• يعرف خدماتك وأسعارك وأوقات عملك\n• يرسل لك الزبائن المهتمين على واتساب\n\nأنت تتحدث مع واحد منهم الآن 😉 تريد مثله لنشاطك؟ واتساب: 212612974126+",
-        erp: "📱 سيّر نشاطك من هاتفك\n\nتطبيق بسيط لترى:\n• ماذا بعت اليوم\n• ما الذي سينفد من المخزون\n• موظفيك وصندوقك\n• تقريراً واضحاً كل مساء\n\nمناسب للمطاعم والمحلات والصيدليات والعيادات وغيرها. تريد عرضاً مجانياً؟ واتساب: 212612974126+",
+        erp: "🧾 NOOR Caisse: كاشير المقاهي والمطاعم\n\n• الطلبات والأداء والتذاكر ودرج النقود\n• يعمل حتى بدون إنترنت\n• حسابات للموظفين بصلاحيات خاصة\n• لوحة المالك: مبيعات اليوم، الأكثر مبيعاً، الإلغاءات\n\n249 درهم / شهر (2490 درهم / سنة). عرض تجريبي مجاني على واتساب: 126 974 612 212+",
         offers: "🏷️ عروضنا (−20% سعر الإطلاق)\n\n1. موقع إلكتروني احترافي: 3,000 د.م. + 49 د.م./شهر\n2. تطبيق تسيير النشاط: 5,000 د.م. + 89 د.م./شهر\n3. التسيير + تقارير يومية: 7,000 د.م. + 129 د.م./شهر\n4. نشاطك يشتغل تلقائياً: 10,000 د.م. + 179 د.م./شهر\n5. مساعد ذكي 24/24: 3,000 د.م. + 49 د.م./شهر\n6. بطاقة أعمال ذكية: 300 د.م. (دفعة واحدة)\n\n📦 الباقات:\n• موقع + مساعد ذكي: 4,990 د.م.\n• التسيير + مساعد ذكي: 6,990 د.م.\n• تقارير يومية + مساعد ذكي: 8,990 د.م.\n• التشغيل التلقائي + مساعد ذكي: 11,990 د.م.\n\n🎁 أول 3 أشهر صيانة مجاناً\n💳 50% عند البدء و50% عند التسليم\n\nاحصل على عرض السعر في هذه الصفحة أو راسلنا على واتساب!",
         internship: "💼 فرص التدريب الحالية\n\n1. مطور ERP للمطاعم - بناء نظام ERP كامل لإدارة المطاعم\n2. مهندس ERP لتأجير الدراجات - إدارة الأسطول ومنصة الحجز\n\n📧 أرسل سيرتك الذاتية إلى careers@noorlabstechnologies.com",
         contact: "📞 لنتحدث عن نشاطك\n\nأخبرنا في رسالة واحدة ما الذي تريد تحسينه: زبائن أكثر، أوراق أقل، أجوبة أسرع… نجيبك بسرعة وبدون أي التزام.\n\nواتساب: 212612974126+\nالبريد: hello@noorlabstechnologies.com\n\n📅 تفضّل الكلام؟ احجز مكالمة مجانية 15 دقيقة: https://calendar.app.google/2Sxn8QdoZmcvQgA18",
@@ -2729,12 +2593,12 @@
       en: {
         back: '⬅ Back', home: '🏠 Main menu', insteadOf: 'instead of',
         offers: '🏷️ Offers & prices', services: "💡 How we help", work: '⚙️ How we work', careers: '🎓 Careers', contact: '📞 Contact us',
-        q_pos: "How much is a cash register (POS)?", a_pos: "🧾 Smart Cash Register (POS)\n\n• POS Software: on your tablet or computer, fast sales, stock that updates itself, daily report on your phone\n• Complete kit: software + touch-screen register, receipt printer, cash drawer and barcode scanner, installed in your shop\n\nPrice on quote, depending on your shop. Free demo: WhatsApp +212 612 974 126",
+        q_pos: "How much is a cash register (POS)?", a_pos: "🧾 NOOR Caisse (cafés and restaurants)\n\n• Software: 249 DH / month, works offline, tickets, cash drawer, staff, sales dashboard\n• Complete kit: till PC + ticket printer + cash drawer, installed with your menu and training (price on quote)\n\nStock and the evening report on WhatsApp are coming soon. Free demo: WhatsApp +212 612 974 126",
         q_nfc: "How much is the smart business card?", nfcFoot: "Your client touches your card with their phone and your number, WhatsApp and photos are saved right away. Change your info anytime, no new card needed.\nSee an example: noorlabstechnologies.com/card/",
         q_website: 'How much is a website?', q_erp: "How much is the management app?", q_chatbot: "How much is the smart assistant?", q_packs: "What are the packs?", q_maint: 'How does maintenance work?', q_pay: 'How do I pay?',
         q_ai: "Answer my clients 24/7", q_erpdev: "Manage my business from my phone", q_bi: "Know what sells", q_software: "Something made for me",
         q_process: 'What are the steps?', q_quote: 'How do I get a quote?', q_remote: 'Who are you?',
-        a_bi: "📊 Know what really sells\n\n• Your best products and your best days\n• Your sales, expenses and cash on one clear page\n• A short report on your phone every evening\n\nTell us about your business on WhatsApp: +212 612 974 126",
+        a_bi: "📊 Know what really sells\n\n• Daily sales, best sellers and cancellations in your NOOR Caisse dashboard\n• Evening report on WhatsApp: coming soon\n\nTell us about your business on WhatsApp: +212 612 974 126",
         a_software: "🛠️ A tool made just for you\n\n• A website or app that fits exactly how you work\n• We take care of hosting, backups and security\n• Honest advice before you spend anything\n\nTell us what you need on WhatsApp: +212 612 974 126",
         a_process: "⚙️ How it works\n\n1. We listen: a free chat about your business\n2. You see it first: a free preview with your name\n3. We build it: you give your opinion at every step\n4. You grow: we launch, show you how it works and keep it running\n\nWe confirm the timing during the free first call.",
         a_quote: '🧾 Get your quote in 1 minute\n\nGo to the "Quote" section of this page, choose your offer, maintenance and currency, then download your PDF quote or send it to us on WhatsApp.',
@@ -2745,12 +2609,12 @@
       fr: {
         back: '⬅ Retour', home: '🏠 Menu principal', insteadOf: 'au lieu de',
         offers: '🏷️ Offres & prix', services: "💡 Comment on vous aide", work: '⚙️ Notre méthode', careers: '🎓 Carrières', contact: '📞 Nous contacter',
-        q_pos: "Combien coûte une caisse (POS) ?", a_pos: "🧾 Caisse Intelligente (POS)\n\n• Logiciel de caisse : sur votre tablette ou ordinateur, ventes rapides, stock mis à jour tout seul, rapport du jour sur votre téléphone\n• Kit complet : logiciel + caisse tactile, imprimante de tickets, tiroir-caisse et lecteur de code-barres, installés chez vous\n\nPrix sur devis selon votre commerce. Démo gratuite : WhatsApp +212 612 974 126",
+        q_pos: "Combien coûte une caisse (POS) ?", a_pos: "🧾 NOOR Caisse (cafés et restaurants)\n\n• Logiciel : 249 DH / mois, hors ligne, tickets, tiroir-caisse, équipe, tableau de bord des ventes\n• Kit complet : PC de caisse + imprimante de tickets + tiroir-caisse, installés avec votre menu et la formation (prix sur devis)\n\nLe stock et le rapport du soir sur WhatsApp arrivent bientôt. Démo gratuite : WhatsApp +212 612 974 126",
         q_nfc: "Combien coûte la carte de visite intelligente ?", nfcFoot: "Votre client approche son téléphone de votre carte et votre numéro, WhatsApp et vos photos sont enregistrés tout de suite. Modifiable à tout moment, sans nouvelle carte.\nExemple : noorlabstechnologies.com/card/",
         q_website: 'Combien coûte un site web ?', q_erp: "Combien coûte l'application de gestion ?", q_chatbot: "Combien coûte l'assistant intelligent ?", q_packs: "Que sont les packs ?", q_maint: 'Comment fonctionne la maintenance ?', q_pay: 'Comment payer ?',
         q_ai: "Répondre à mes clients 24h/24", q_erpdev: "Gérer mon activité depuis mon téléphone", q_bi: "Savoir ce qui se vend", q_software: "Un outil fait pour moi",
         q_process: 'Quelles sont les étapes ?', q_quote: 'Comment obtenir un devis ?', q_remote: 'Qui êtes-vous ?',
-        a_bi: "📊 Sachez ce qui se vend vraiment\n\n• Vos meilleurs produits et vos meilleurs jours\n• Ventes, dépenses et caisse sur une page claire\n• Un court rapport sur votre téléphone chaque soir\n\nParlez-nous de votre activité sur WhatsApp : +212 612 974 126",
+        a_bi: "📊 Sachez ce qui se vend vraiment\n\n• Ventes du jour, meilleures ventes et annulations dans le tableau de bord NOOR Caisse\n• Rapport du soir sur WhatsApp : bientôt\n\nParlez-nous de votre activité sur WhatsApp : +212 612 974 126",
         a_software: "🛠️ Un outil fait pour vous\n\n• Un site ou une application qui colle à votre façon de travailler\n• On s'occupe de l'hébergement, des sauvegardes et de la sécurité\n• Des conseils honnêtes avant de dépenser\n\nDites-nous ce qu'il vous faut sur WhatsApp : +212 612 974 126",
         a_process: "⚙️ Comment ça marche\n\n1. On vous écoute : un échange gratuit sur votre activité\n2. Vous voyez d'abord : un aperçu gratuit à votre nom\n3. On le réalise : vous donnez votre avis à chaque étape\n4. Vous grandissez : on lance, on vous montre et on garde tout en marche\n\nLe délai est confirmé lors du premier appel gratuit.",
         a_quote: '🧾 Votre devis en 1 minute\n\nAllez dans la section « Devis » de cette page, choisissez votre offre, la maintenance et la devise, puis téléchargez votre devis PDF ou envoyez-le-nous sur WhatsApp.',
@@ -2761,12 +2625,12 @@
       ar: {
         back: '⬅ رجوع', home: '🏠 القائمة الرئيسية', insteadOf: 'بدلاً من',
         offers: '🏷️ العروض والأسعار', services: "💡 كيف نساعدك", work: '⚙️ طريقة عملنا', careers: '🎓 الوظائف', contact: '📞 تواصل معنا',
-        q_pos: "كم ثمن الكاشير الذكي؟", a_pos: "🧾 كاشير ذكي (نقطة البيع)\n\n• برنامج الكاشير: على لوحتك أو حاسوبك، بيع سريع، مخزون يتحدّث وحده، وتقرير يومي على هاتفك\n• طقم كامل: البرنامج + كاشير بشاشة لمس، طابعة توصيلات، درج نقود وقارئ باركود، مركّب في محلك\n\nالسعر حسب الطلب وحسب محلك. عرض تجريبي مجاني: واتساب 212612974126+",
+        q_pos: "كم ثمن الكاشير الذكي؟", a_pos: "🧾 NOOR Caisse (المقاهي والمطاعم)\n\n• البرنامج: 249 درهم / شهر، يعمل بدون إنترنت، تذاكر، درج النقود، الفريق، لوحة المبيعات\n• طقم كامل: حاسوب كاشير + طابعة تذاكر + درج نقود، مع إدخال القائمة والتدريب (السعر حسب الطلب)\n\nالمخزون وتقرير المساء على واتساب قريباً. عرض مجاني: واتساب 126 974 612 212+",
         q_nfc: "كم ثمن بطاقة الأعمال الذكية؟", nfcFoot: "زبونك يقرّب هاتفه من بطاقتك فيُحفظ رقمك وواتساب وصورك في الحال. يمكنك تعديل معلوماتك في أي وقت دون بطاقة جديدة.\nمثال: noorlabstechnologies.com/card/",
         q_website: 'كم ثمن الموقع الإلكتروني؟', q_erp: "كم ثمن تطبيق التسيير؟", q_chatbot: "كم ثمن المساعد الذكي؟", q_packs: "ما هي الباقات؟", q_maint: 'كيف تعمل الصيانة؟', q_pay: 'كيف يتم الدفع؟',
         q_ai: "الرد على زبائني 24/24", q_erpdev: "تسيير نشاطي من هاتفي", q_bi: "معرفة ما يُباع", q_software: "أداة مصممة لي",
         q_process: 'ما هي المراحل؟', q_quote: 'كيف أحصل على عرض سعر؟', q_remote: 'من أنتم؟',
-        a_bi: "📊 اعرف ما يُباع فعلاً\n\n• أفضل منتجاتك وأفضل أيامك\n• المبيعات والمصاريف والصندوق في صفحة واضحة\n• تقرير قصير على هاتفك كل مساء\n\nحدثنا عن نشاطك عبر واتساب: 212612974126+",
+        a_bi: "📊 اعرف ما يُباع فعلاً\n\n• مبيعات اليوم والأكثر مبيعاً والإلغاءات في لوحة NOOR Caisse\n• تقرير المساء على واتساب: قريباً\n\nحدثنا عن نشاطك على واتساب: 126 974 612 212+",
         a_software: "🛠️ أداة مصممة لك\n\n• موقع أو تطبيق يناسب طريقة عملك تماماً\n• نتكفل بالاستضافة والنسخ الاحتياطي والحماية\n• نصيحة صادقة قبل أن تصرف\n\nأخبرنا بما تحتاجه عبر واتساب: 212612974126+",
         a_process: "⚙️ كيف نعمل\n\n1. نستمع إليك: محادثة مجانية حول نشاطك\n2. تراه أولاً: نموذج مجاني باسمك\n3. ننجزه: تعطي رأيك في كل خطوة\n4. تكبر: نطلق المشروع ونريك كيف يعمل ونحافظ على سيره\n\nنؤكد المدة خلال المكالمة الأولى المجانية.",
         a_quote: '🧾 عرض السعر في دقيقة\n\nانتقل إلى قسم «عرض السعر» في هذه الصفحة، اختر العرض والصيانة والعملة، ثم حمّل ملف PDF أو أرسله لنا عبر واتساب.',
@@ -3244,9 +3108,9 @@
 
     // Hero: terminal typing loop
     const termLinesByLang = {
-      en: [['> Client: "Are you open on Sunday?"', ''], ['✓ Answered in 2 seconds', 'ok'], ['> Tomatoes are running low', ''], ['✓ Owner warned on WhatsApp', 'ok'], ['> Today\'s sales report', ''], ['✓ Sent to your phone', 'ok']],
-      fr: [['> Client : « Vous êtes ouverts dimanche ? »', ''], ['✓ Réponse en 2 secondes', 'ok'], ['> Stock de tomates bas', ''], ['✓ Patron prévenu sur WhatsApp', 'ok'], ['> Rapport des ventes du jour', ''], ['✓ Envoyé sur votre téléphone', 'ok']],
-      ar: [['> زبون: «هل أنتم مفتوحون يوم الأحد؟»', ''], ['✓ تمت الإجابة في ثانيتين', 'ok'], ['> الطماطم على وشك النفاد', ''], ['✓ تم تنبيه صاحب المحل على واتساب', 'ok'], ['> تقرير مبيعات اليوم', ''], ['✓ أُرسل إلى هاتفك', 'ok']]
+      en: [['> Client: "Are you open on Sunday?"', ''], ['✓ Answered in 2 seconds', 'ok'], ['> Internet cut during service', ''], ['✓ Orders kept, synced later', 'ok'], ['> Today\'s sales', ''], ['✓ In your dashboard', 'ok']],
+      fr: [['> Client : « Vous êtes ouverts dimanche ? »', ''], ['✓ Réponse en 2 secondes', 'ok'], ['> Coupure internet pendant le service', ''], ['✓ Commandes gardées, synchronisées après', 'ok'], ['> Ventes du jour', ''], ['✓ Dans votre tableau de bord', 'ok']],
+      ar: [['> زبون: «هل أنتم مفتوحون يوم الأحد؟»', ''], ['✓ تمت الإجابة في ثانيتين', 'ok'], ['> انقطاع الإنترنت أثناء الخدمة', ''], ['✓ الطلبات محفوظة وتتزامن لاحقاً', 'ok'], ['> مبيعات اليوم', ''], ['✓ في لوحة التحكم', 'ok']]
     };
     const termLines = new Proxy([], { get: (_, p) => (termLinesByLang[currentLang] || termLinesByLang.en)[p] });
     const term = document.getElementById('terminal');
@@ -3596,10 +3460,170 @@
   }
 };
     for (const l in planI18n) Object.assign(translations[l], planI18n[l]);
+    // What exists today vs coming soon (Nov 2026): the register is NOOR Caisse for cafés and restaurants
+    const truthI18n = {
+  "en": {
+    "hero-badge": "Smart assistant • Cash register for cafés & restaurants • Websites • Smart cards",
+    "flag-sub": "Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers your clients on your website day and night, and sends the interested ones to your WhatsApp.",
+    "offer11-desc": "Answers your clients 24/7 on your website, in Darija, Arabic, French and English, and sends the interested ones to your WhatsApp.",
+    "offer11-f1": "On your website, sends clients to your WhatsApp",
+    "offer11-f2": "Answering directly inside WhatsApp: coming soon",
+    "offer12-title": "NOOR Caisse",
+    "offer12-badge": "Cafés & restaurants",
+    "offer12-desc": "The cash register for cafés and restaurants: orders, payments, tickets and staff, and it keeps working without internet.",
+    "offer12-f1": "Works offline, syncs when the internet comes back",
+    "offer12-f2": "Ticket printer and cash drawer",
+    "offer12-f3": "Staff accounts with their own permissions",
+    "offer12-f4": "Owner dashboard: daily sales, best sellers, cancellations",
+    "offer13-badge": "Caisse + Assistant",
+    "offer13-desc": "NOOR Caisse and the Smart Assistant 24/7, in one subscription.",
+    "offer13-f1": "Everything in NOOR Caisse",
+    "offer13-f3": "Evening sales report on WhatsApp (coming soon, included)",
+    "offer14-badge": "Coming soon",
+    "offer14-desc": "Pro, plus automatic reminders and messages to your clients. In development: join the waiting list to get the founding price.",
+    "plan-wait": "Join the waiting list",
+    "plan-rules": "Setup {setup} once (menu import, set-up, training), free with yearly billing · Extra café or restaurant: +50% · Stop anytime with one month's notice.",
+    "apps-title": "NOOR Caisse: the cash register for cafés and restaurants",
+    "apps-sub": "Our own software, built and tested by us. It runs on the till PC, keeps taking orders without internet, and sends everything to the cloud when the connection comes back. Included in the NOOR Caisse plan.",
+    "caisse-now": "Already working",
+    "caisse-next": "Coming next",
+    "caisse-n1": "Orders, payments and voids with a reason",
+    "caisse-n2": "Ticket printing and cash drawer",
+    "caisse-n3": "Works offline, zero lost orders when the connection returns",
+    "caisse-n4": "Staff accounts and permissions (cashier, manager)",
+    "caisse-n5": "Owner dashboard: daily sales, best sellers, cancellations",
+    "caisse-n6": "Automatic daily backups",
+    "caisse-x1": "Evening sales report sent on WhatsApp",
+    "caisse-x2": "Stock management",
+    "caisse-x3": "Interface in French and Arabic",
+    "caisse-x4": "Version for shops and pharmacies",
+    "pos2-title": "Complete kit: NOOR Caisse + hardware",
+    "pos2-desc": "We bring the till PC, the ticket printer and the cash drawer, install NOOR Caisse, enter your menu and train your team.",
+    "pos2-f1": "Till PC (Windows) or touch-screen register",
+    "pos2-f2": "Ticket printer and cash drawer",
+    "pos2-f3": "Your menu, prices and staff set up for you",
+    "pos2-f4": "Installed in your café or restaurant",
+    "pos2-f5": "Then the NOOR Caisse plan (249 DH / month)",
+    "packs-title": "Website + Smart Assistant pack",
+    "packs-sub": "Get found on Google and answer every client, for less than buying both separately.",
+    "svc3-desc": "Daily sales, best sellers and cancellations on one clear page.",
+    "svc4-desc": "Orders, payments, tickets and staff in one register made for cafés and restaurants.",
+    "sol1": "The café that never loses an order",
+    "sol1-desc": "When the internet cut during service, orders were lost. Now the register keeps taking orders offline and sends everything once the connection is back.",
+    "sol3": "The clinic that answers at night",
+    "sol3-desc": "Patients ask prices and opening hours late in the evening. The assistant answers right away and sends them to WhatsApp to book.",
+    "q-group-once": "One-time purchase"
+  },
+  "fr": {
+    "hero-badge": "Assistant intelligent • Caisse pour cafés et restaurants • Sites web • Cartes intelligentes",
+    "flag-sub": "Notre propre assistant IA, conçu pour les entreprises marocaines : il comprend la darija, l'arabe, le français et l'anglais, répond à vos clients sur votre site jour et nuit, et vous envoie les clients intéressés sur WhatsApp.",
+    "offer11-desc": "Répond à vos clients 24h/24 sur votre site, en darija, arabe, français et anglais, et vous envoie les clients intéressés sur WhatsApp.",
+    "offer11-f1": "Sur votre site, vous envoie les clients sur WhatsApp",
+    "offer11-f2": "Réponses directement dans WhatsApp : bientôt",
+    "offer12-title": "NOOR Caisse",
+    "offer12-badge": "Cafés et restaurants",
+    "offer12-desc": "La caisse des cafés et restaurants : commandes, encaissements, tickets et équipe, et elle continue de fonctionner sans internet.",
+    "offer12-f1": "Fonctionne hors ligne, se synchronise au retour d'internet",
+    "offer12-f2": "Imprimante de tickets et tiroir-caisse",
+    "offer12-f3": "Comptes employés avec leurs propres droits",
+    "offer12-f4": "Tableau de bord : ventes du jour, meilleures ventes, annulations",
+    "offer13-badge": "Caisse + Assistant",
+    "offer13-desc": "NOOR Caisse et l'Assistant Intelligent 24h/24, en un seul abonnement.",
+    "offer13-f1": "Tout NOOR Caisse",
+    "offer13-f3": "Rapport du soir sur WhatsApp (bientôt, inclus)",
+    "offer14-badge": "Bientôt",
+    "offer14-desc": "Pro, plus des rappels et messages automatiques à vos clients. En développement : inscrivez-vous sur la liste d'attente pour garder le prix fondateur.",
+    "plan-wait": "Rejoindre la liste d'attente",
+    "plan-rules": "Mise en place {setup} une fois (import du menu, réglages, formation), offerte en annuel · Café ou restaurant supplémentaire : +50 % · Arrêt à tout moment avec un mois de préavis.",
+    "apps-title": "NOOR Caisse : la caisse des cafés et restaurants",
+    "apps-sub": "Notre propre logiciel, développé et testé par nous. Il tourne sur le PC de caisse, continue de prendre les commandes sans internet, et envoie tout dans le cloud au retour de la connexion. Inclus dans l'abonnement NOOR Caisse.",
+    "caisse-now": "Déjà opérationnel",
+    "caisse-next": "Prochaines étapes",
+    "caisse-n1": "Commandes, encaissements et annulations avec motif",
+    "caisse-n2": "Impression des tickets et tiroir-caisse",
+    "caisse-n3": "Fonctionne hors ligne, aucune commande perdue au retour de la connexion",
+    "caisse-n4": "Comptes employés et droits (caissier, gérant)",
+    "caisse-n5": "Tableau de bord : ventes du jour, meilleures ventes, annulations",
+    "caisse-n6": "Sauvegardes automatiques chaque jour",
+    "caisse-x1": "Rapport des ventes du soir envoyé sur WhatsApp",
+    "caisse-x2": "Gestion du stock",
+    "caisse-x3": "Interface en français et en arabe",
+    "caisse-x4": "Version pour commerces et pharmacies",
+    "pos2-title": "Kit complet : NOOR Caisse + matériel",
+    "pos2-desc": "Nous apportons le PC de caisse, l'imprimante de tickets et le tiroir-caisse, installons NOOR Caisse, saisissons votre menu et formons votre équipe.",
+    "pos2-f1": "PC de caisse (Windows) ou caisse à écran tactile",
+    "pos2-f2": "Imprimante de tickets et tiroir-caisse",
+    "pos2-f3": "Votre menu, vos prix et votre équipe configurés pour vous",
+    "pos2-f4": "Installé dans votre café ou restaurant",
+    "pos2-f5": "Puis l'abonnement NOOR Caisse (249 DH / mois)",
+    "packs-title": "Pack site web + Assistant Intelligent",
+    "packs-sub": "Soyez trouvé sur Google et répondez à chaque client, pour moins cher que les deux séparément.",
+    "svc3-desc": "Ventes du jour, meilleures ventes et annulations sur une page claire.",
+    "svc4-desc": "Commandes, encaissements, tickets et équipe dans une caisse pensée pour les cafés et restaurants.",
+    "sol1": "Le café qui ne perd plus aucune commande",
+    "sol1-desc": "Quand internet coupait pendant le service, des commandes se perdaient. Maintenant la caisse continue hors ligne et envoie tout dès que la connexion revient.",
+    "sol3": "Le cabinet qui répond même le soir",
+    "sol3-desc": "Les patients demandent les prix et les horaires tard le soir. L'assistant répond tout de suite et les envoie sur WhatsApp pour prendre rendez-vous.",
+    "q-group-once": "Achat unique"
+  },
+  "ar": {
+    "hero-badge": "مساعد ذكي • كاشير للمقاهي والمطاعم • مواقع إلكترونية • بطاقات ذكية",
+    "flag-sub": "مساعدنا الذكي الخاص، مصمم للمقاولات المغربية: يفهم الدارجة والعربية والفرنسية والإنجليزية، يجيب زبناءك على موقعك ليلاً ونهاراً، ويرسل المهتمين منهم إلى واتساب.",
+    "offer11-desc": "يجيب زبناءك على موقعك على مدار الساعة بالدارجة والعربية والفرنسية والإنجليزية، ويرسل المهتمين إلى واتساب.",
+    "offer11-f1": "على موقعك، ويرسل الزبناء إلى واتساب",
+    "offer11-f2": "الإجابة مباشرة داخل واتساب: قريباً",
+    "offer12-title": "NOOR Caisse",
+    "offer12-badge": "المقاهي والمطاعم",
+    "offer12-desc": "كاشير المقاهي والمطاعم: الطلبات والأداء والتذاكر والفريق، ويستمر في العمل بدون إنترنت.",
+    "offer12-f1": "يعمل بدون إنترنت ويتزامن عند عودته",
+    "offer12-f2": "طابعة التذاكر ودرج النقود",
+    "offer12-f3": "حسابات للموظفين بصلاحيات خاصة",
+    "offer12-f4": "لوحة المالك: مبيعات اليوم، الأكثر مبيعاً، الإلغاءات",
+    "offer13-badge": "كاشير + مساعد",
+    "offer13-desc": "NOOR Caisse والمساعد الذكي على مدار الساعة، في اشتراك واحد.",
+    "offer13-f1": "كل ما في NOOR Caisse",
+    "offer13-f3": "تقرير المساء على واتساب (قريباً، مشمول)",
+    "offer14-badge": "قريباً",
+    "offer14-desc": "برو، مع تذكيرات ورسائل تلقائية لزبنائك. قيد التطوير: سجّل في لائحة الانتظار لتحتفظ بالسعر التأسيسي.",
+    "plan-wait": "التسجيل في لائحة الانتظار",
+    "plan-rules": "التشغيل {setup} مرة واحدة (إدخال القائمة، الإعداد، التدريب)، مجاناً مع الدفع السنوي · مقهى أو مطعم إضافي: +50% · يمكنك التوقف في أي وقت بإشعار قبل شهر.",
+    "apps-title": "NOOR Caisse: كاشير المقاهي والمطاعم",
+    "apps-sub": "برنامجنا الخاص، طورناه واختبرناه بأنفسنا. يعمل على حاسوب الكاشير، ويستمر في أخذ الطلبات بدون إنترنت، ويرسل كل شيء إلى السحابة عند عودة الاتصال. مشمول في اشتراك NOOR Caisse.",
+    "caisse-now": "يعمل حالياً",
+    "caisse-next": "المراحل القادمة",
+    "caisse-n1": "الطلبات والأداء والإلغاء مع ذكر السبب",
+    "caisse-n2": "طباعة التذاكر ودرج النقود",
+    "caisse-n3": "يعمل بدون إنترنت، ولا يضيع أي طلب عند عودة الاتصال",
+    "caisse-n4": "حسابات وصلاحيات الموظفين (كاشير، مسير)",
+    "caisse-n5": "لوحة المالك: مبيعات اليوم، الأكثر مبيعاً، الإلغاءات",
+    "caisse-n6": "نسخ احتياطية تلقائية كل يوم",
+    "caisse-x1": "تقرير مبيعات المساء على واتساب",
+    "caisse-x2": "تسيير المخزون",
+    "caisse-x3": "واجهة بالفرنسية والعربية",
+    "caisse-x4": "نسخة للمحلات والصيدليات",
+    "pos2-title": "طقم كامل: NOOR Caisse + المعدات",
+    "pos2-desc": "نحضر حاسوب الكاشير وطابعة التذاكر ودرج النقود، ونثبت NOOR Caisse، وندخل قائمتك وندرب فريقك.",
+    "pos2-f1": "حاسوب كاشير (Windows) أو كاشير بشاشة لمس",
+    "pos2-f2": "طابعة التذاكر ودرج النقود",
+    "pos2-f3": "إعداد قائمتك وأسعارك وفريقك",
+    "pos2-f4": "التركيب داخل مقهاك أو مطعمك",
+    "pos2-f5": "ثم اشتراك NOOR Caisse (249 درهم / شهر)",
+    "packs-title": "باقة الموقع + المساعد الذكي",
+    "packs-sub": "ليجدك الزبناء على Google وتجيب كل زبون، بثمن أقل من شراء الاثنين منفصلين.",
+    "svc3-desc": "مبيعات اليوم والأكثر مبيعاً والإلغاءات في صفحة واضحة.",
+    "svc4-desc": "الطلبات والأداء والتذاكر والفريق في كاشير مصمم للمقاهي والمطاعم.",
+    "sol1": "المقهى الذي لا يضيع أي طلب",
+    "sol1-desc": "كانت الطلبات تضيع عند انقطاع الإنترنت أثناء الخدمة. الآن يستمر الكاشير بدون إنترنت ويرسل كل شيء عند عودة الاتصال.",
+    "sol3": "العيادة التي تجيب حتى في المساء",
+    "sol3-desc": "المرضى يسألون عن الأسعار والمواعيد في وقت متأخر. المساعد يجيب فوراً ويرسلهم إلى واتساب لحجز موعد.",
+    "q-group-once": "شراء مرة واحدة"
+  }
+};
+    for (const l in truthI18n) Object.assign(translations[l], truthI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 13, years: 1, edits: 0, cur: null };
-    const PKG_GROUPS = [['q-group-plans', [11, 12, 13, 14]], ['q-group-offers', [1, 2, 3, 4]], ['q-group-packs', [5, 6, 7, 8, 9]], ['q-group-card', [10]]];
+    const PKG_GROUPS = [['q-group-plans', [11, 12, 13]], ['q-group-once', [5, 6, 1, 10]]];
     // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
     const PLAN_PRICE = { ar: { 11: 249, 12: 249, 13: 449, 14: 699 }, fr: { 11: 23, 12: 23, 13: 41, 14: 64 }, en: { 11: 26, 12: 26, 13: 46, 14: 72 } };
     const PLAN_SETUP = { ar: 990, fr: 91, en: 102 };
