@@ -825,6 +825,16 @@
     }
     body.dark .lead-form input { background: rgba(15,10,26,.6); }
     .lead-form input:focus { border-color: var(--p2); box-shadow: 0 0 0 3px rgba(168,85,247,.18); }
+    .phone-field { display: flex; gap: 8px; min-width: 0; }
+    .phone-field input { flex: 1; min-width: 0; }
+    .dial-select {
+      flex: 0 0 auto; width: 108px; padding: 0 8px; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer;
+      background: var(--bg-alt); border: 1px solid var(--border); color: var(--text); outline: none;
+    }
+    body.dark .dial-select { background: rgba(15,10,26,.6); }
+    body.dark .dial-select option { background: #1a1030; color: #f8fafc; }
+    .dial-select:focus { border-color: var(--p2); box-shadow: 0 0 0 4px rgba(168,85,247,.18); }
+    .lead-form .dial-select { width: 96px; border-radius: 12px; font-size: 13px; }
     .lead-consent { font-size: 11px; color: var(--muted); line-height: 1.5; }
     .lead-error { font-size: 12px; color: #ef4444; }
     .lead-form button {
@@ -2772,6 +2782,7 @@
         <div class="lead-error"></div>
         <button type="submit"><i class="fas fa-paper-plane"></i> <span></span></button>`;
       [['name', t.name], ['email', t.email], ['phone', t.phone], ['company', t.company]].forEach(([n, ph]) => { form.elements[n].placeholder = ph; });
+      phoneField(form.elements.phone);
       form.querySelector('.lead-consent').textContent = t.consent;
       form.querySelector('button span').textContent = t.submit;
       form.addEventListener('submit', submitLead);
@@ -2785,9 +2796,11 @@
       e.preventDefault();
       const form = e.target, t = lt();
       const v = n => form.elements[n].value.trim();
-      const lead = { name: v('name'), email: v('email'), phone: v('phone'), company: v('company') };
+      const phone = phoneValue(form.elements.phone);
+      const lead = { name: v('name'), email: v('email'), phone: phone || '', company: v('company') };
       const err = form.querySelector('.lead-error');
-      if (!lead.name || (!lead.email && !lead.phone)) { err.textContent = t.need; return; }
+      if (!lead.name || (!lead.email && !lead.phone && phone !== null)) { err.textContent = t.need; return; }
+      if (phone === null) { err.textContent = phoneBadMsg(); form.elements.phone.focus(); return; }
       const btn = form.querySelector('button');
       btn.disabled = true;
       err.textContent = '';
@@ -3426,10 +3439,12 @@
 
     function quoteClient() {
       const v = id => document.getElementById(id).value.trim();
-      return { name: v('qName'), company: v('qCompany'), email: v('qEmail'), phone: v('qPhone'), business: v('qBusiness') };
+      const phone = phoneValue(document.getElementById('qPhone'));
+      return { name: v('qName'), company: v('qCompany'), email: v('qEmail'), phone: phone || '', phoneBad: phone === null, business: v('qBusiness') };
     }
     function requireName(client) {
       const err = document.getElementById('qError');
+      if (client.name && client.phoneBad) { err.textContent = phoneBadMsg(); document.getElementById('qPhone').focus(); return false; }
       if (client.name) { err.textContent = ''; return true; }
       err.textContent = translations[currentLang]['q-err-name'];
       document.getElementById('qName').focus();
@@ -3595,7 +3610,130 @@
       window.open(`https://wa.me/212612974126?text=${encodeURIComponent(lines)}`, '_blank');
     });
 
+    // ----- Phone fields: the visitor picks the country code, then types the number -----
+    // Saved as "+212 612345678" so every number in the sheet works with WhatsApp.
+    const DIAL_CODES = [
+      ['MA', '212'], ['FR', '33'], ['ES', '34'], ['BE', '32'], ['NL', '31'], ['DE', '49'], ['IT', '39'], ['GB', '44'],
+      ['CH', '41'], ['PT', '351'], ['US', '1'], ['CA', '1'], ['AE', '971'], ['SA', '966'], ['QA', '974'], ['KW', '965'],
+      ['BH', '973'], ['OM', '968'], ['DZ', '213'], ['TN', '216'], ['LY', '218'], ['EG', '20'], ['MR', '222'], ['SN', '221'],
+      ['CI', '225'], ['ML', '223'], ['CM', '237'], ['GA', '241'], ['NG', '234'], ['GH', '233'], ['KE', '254'], ['ZA', '27'],
+      ['TR', '90'], ['JO', '962'], ['LB', '961'], ['IQ', '964'], ['SE', '46'], ['NO', '47'], ['DK', '45'], ['IE', '353'],
+      ['AT', '43'], ['PL', '48'], ['RO', '40'], ['GR', '30'], ['LU', '352'], ['RU', '7'], ['IN', '91'], ['PK', '92'],
+      ['CN', '86'], ['JP', '81'], ['KR', '82'], ['ID', '62'], ['MY', '60'], ['SG', '65'], ['AU', '61'], ['NZ', '64'],
+      ['BR', '55'], ['MX', '52'], ['AR', '54'], ['CO', '57'], ['CL', '56'],
+    ];
+    const PHONE_MSG = {
+      en: { bad: 'Please check the phone number (choose your country, then type your number).', label: 'Country code' },
+      fr: { bad: 'Vérifiez le numéro de téléphone (choisissez votre pays, puis tapez votre numéro).', label: 'Indicatif du pays' },
+      ar: { bad: 'المرجو التحقق من رقم الهاتف (اختر بلدك ثم اكتب رقمك).', label: 'رمز الدولة' },
+    };
+    const TZ_COUNTRY = {
+      'Africa/Casablanca': 'MA', 'Africa/El_Aaiun': 'MA', 'Europe/Paris': 'FR', 'Europe/Madrid': 'ES', 'Europe/Brussels': 'BE',
+      'Europe/Amsterdam': 'NL', 'Europe/Berlin': 'DE', 'Europe/Rome': 'IT', 'Europe/London': 'GB', 'Europe/Zurich': 'CH',
+      'Europe/Lisbon': 'PT', 'Asia/Dubai': 'AE', 'Asia/Riyadh': 'SA', 'Asia/Qatar': 'QA', 'Africa/Algiers': 'DZ',
+      'Africa/Tunis': 'TN', 'Africa/Cairo': 'EG', 'Africa/Dakar': 'SN', 'Africa/Abidjan': 'CI', 'America/Toronto': 'CA',
+      'America/Montreal': 'CA', 'Europe/Istanbul': 'TR',
+    };
+    const flagOf = cc => cc.replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt(0)));
+    function countryName(cc) {
+      try { return new Intl.DisplayNames([currentLang], { type: 'region' }).of(cc) || cc; } catch (e) { return cc; }
+    }
+    function guessCountry() {
+      const saved = store.get('noorDialCountry');
+      if (saved && DIAL_CODES.some(([cc]) => cc === saved)) return saved;
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (TZ_COUNTRY[tz]) return TZ_COUNTRY[tz];
+      } catch (e) {}
+      const region = (navigator.language || '').split('-')[1];
+      return region && DIAL_CODES.some(([cc]) => cc === region.toUpperCase()) ? region.toUpperCase() : 'MA';
+    }
+    function fillDialSelect(select) {
+      const chosen = select.value || guessCountry();
+      const first = DIAL_CODES[0];
+      const rest = DIAL_CODES.slice(1).sort((a, b) => countryName(a[0]).localeCompare(countryName(b[0]), currentLang));
+      select.innerHTML = '';
+      [first].concat(rest).forEach(([cc, code]) => {
+        const o = document.createElement('option');
+        o.value = cc;
+        o.dataset.full = `${flagOf(cc)} +${code}  ${countryName(cc)}`;
+        o.dataset.short = `${flagOf(cc)} +${code}`;
+        o.textContent = o.dataset.full;
+        select.appendChild(o);
+      });
+      select.value = chosen;
+      dialLabels(select, false);
+      select.setAttribute('aria-label', (PHONE_MSG[currentLang] || PHONE_MSG.en).label);
+    }
+    // Closed: only "+212" shows in the small box; open: the full list with country names
+    function dialLabels(select, open) {
+      [...select.options].forEach(o => { o.textContent = open || !o.selected ? o.dataset.full : o.dataset.short; });
+    }
+    // Wraps an existing <input type="tel"> with a country-code dropdown in front of it
+    function phoneField(input) {
+      if (!input || input.previousElementSibling?.classList.contains('dial-select')) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'phone-field';
+      wrap.dir = 'ltr';
+      input.parentNode.insertBefore(wrap, input);
+      const select = document.createElement('select');
+      select.className = 'dial-select';
+      wrap.append(select, input);
+      input.setAttribute('inputmode', 'tel');
+      input.setAttribute('autocomplete', 'tel-national');
+      fillDialSelect(select);
+      ['mousedown', 'focus', 'keydown'].forEach(ev => select.addEventListener(ev, () => dialLabels(select, true)));
+      select.addEventListener('blur', () => dialLabels(select, false));
+      select.addEventListener('change', () => { store.set('noorDialCountry', select.value); dialLabels(select, false); input.focus(); });
+      // A pasted "+33 6…" or "0033 6…" picks the matching country by itself
+      input.addEventListener('blur', () => {
+        const raw = input.value.trim().replace(/^00/, '+');
+        if (!raw.startsWith('+')) return;
+        const digits = raw.replace(/\D/g, '');
+        const match = DIAL_CODES.filter(([, code]) => digits.startsWith(code)).sort((a, b) => b[1].length - a[1].length)[0];
+        if (!match) return;
+        if (!DIAL_CODES.some(([cc, code]) => cc === select.value && code === match[1])) select.value = match[0];
+        dialLabels(select, false);
+        input.value = digits.slice(match[1].length);
+      });
+    }
+    // Full international number, '' if empty, or null if it does not look like a phone number
+    function phoneValue(input) {
+      const raw = (input.value || '').trim();
+      if (!raw) return '';
+      const select = input.previousElementSibling;
+      let [cc, code] = DIAL_CODES.find(([c]) => c === (select && select.value)) || DIAL_CODES[0];
+      let digits = raw.replace(/^00/, '+').replace(/[^\d+]/g, '');
+      let national;
+      if (digits.startsWith('+')) {
+        // Typed in international form: the number's own code wins over the dropdown
+        digits = digits.slice(1);
+        const own = DIAL_CODES.some(([, c]) => c === code) && digits.startsWith(code) ? [cc, code]
+          : DIAL_CODES.filter(([, c]) => digits.startsWith(c)).sort((a, b) => b[1].length - a[1].length)[0];
+        if (!own) return null;
+        [cc, code] = own;
+        national = digits.slice(code.length);
+      } else {
+        if (digits.startsWith(code) && digits.length > code.length + 7) digits = digits.slice(code.length);
+        national = code === '39' ? digits : digits.replace(/^0+/, '');  // trunk 0 (Italy keeps it)
+      }
+      const [min, max] = NATIONAL_LEN[cc] || [6, 14];
+      if (national.length < min || national.length > max) return null;
+      return `+${code} ${national}`;
+    }
+    // Digits after the country code, for the most common countries (others: 6 to 14)
+    const NATIONAL_LEN = {
+      MA: [9, 9], FR: [9, 9], ES: [9, 9], BE: [8, 9], NL: [9, 9], PT: [9, 9], GB: [9, 10], IT: [6, 11], US: [10, 10],
+      CA: [10, 10], AE: [8, 9], SA: [9, 9], QA: [8, 8], DZ: [9, 9], TN: [8, 8], EG: [9, 10], SN: [9, 9], CI: [10, 10],
+    };
+    function refreshPhoneFields() {
+      document.querySelectorAll('.dial-select').forEach(fillDialSelect);
+    }
+    const phoneBadMsg = () => (PHONE_MSG[currentLang] || PHONE_MSG.en).bad;
+    phoneField(document.getElementById('qPhone'));
+
     function applyQuoteLanguage() {
+      refreshPhoneFields();
       const t = translations[currentLang];
       document.getElementById('qName').placeholder = t['q-ph-name'];
       document.getElementById('qCompany').placeholder = t['q-ph-company'];
