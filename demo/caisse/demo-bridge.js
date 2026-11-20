@@ -57,6 +57,9 @@
       D.load();
       return S().menu.filter((m) => m.is_active).map((m) => ({
         id: m.id, name: m.name, price: m.price, is_active: 1, is_available: m.is_available ? 1 : 0, image_data: D.picture(m),
+        category_id: m.category_id || null,
+        category_name: ((S().categories || []).find((c) => c.id === m.category_id) || {}).name || null,
+        category_sort: ((S().categories || []).find((c) => c.id === m.category_id) || {}).sort_order || 99,
       })).sort((a, b) => a.name.localeCompare(b.name, "fr"));
     },
 

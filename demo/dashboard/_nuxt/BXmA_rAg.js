@@ -1,1 +1,0 @@
-import{g as e}from"./Czc6PG6K.js";import{g as a,n,c as o,o as t}from"./C5-EqJOz.js";const _={__name:"index",setup(s){return a(async()=>{await n(e()?"/menu":"/login")}),(r,c)=>(t(),o("main"))}};export{_ as default};

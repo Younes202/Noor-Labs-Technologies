@@ -39,6 +39,17 @@
     const total = today.reduce((s, o) => s + Number(o.order.total), 0);
     return { date: new Date().toISOString().slice(0, 10), total_sales: total.toFixed(2), order_count: today.length };
   }
+  function salesByDay(days) {
+    const out = [];
+    for (let k = days - 1; k >= 0; k--) {
+      const from = dayStart(new Date()); from.setDate(from.getDate() - k);
+      const to = new Date(from); to.setDate(to.getDate() + 1);
+      const list = paidOrders(from).filter((o) => new Date(o.order.paid_at || o.order.opened_at) < to);
+      const y = from.getFullYear(), mo = String(from.getMonth() + 1).padStart(2, "0"), da = String(from.getDate()).padStart(2, "0");
+      out.push({ date: `${y}-${mo}-${da}`, total_sales: list.reduce((sum, o) => sum + Number(o.order.total), 0).toFixed(2), order_count: list.length });
+    }
+    return out;
+  }
   function bestSellers(range) {
     const from = dayStart(new Date());
     if (range === "week") from.setDate(from.getDate() - 6);
@@ -132,6 +143,7 @@
 
     // reports
     if (path === "/api/v1/reports/daily-sales") return json(dailySales());
+    if (path === "/api/v1/reports/sales-by-day") return json(salesByDay(Math.min(31, Math.max(1, Number(params.get("days")) || 7))));
     if (path === "/api/v1/reports/best-sellers") return json(bestSellers(params.get("range") || "day"));
     if (path === "/api/v1/reports/voids") return json(voids(params));
 

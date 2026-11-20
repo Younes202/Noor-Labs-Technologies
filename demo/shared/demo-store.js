@@ -162,13 +162,15 @@
   // ------------------------------------------------------------------ demo ribbon
   const CSS = `
   #noorDemoBar{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:center;
-    padding:7px 12px;background:linear-gradient(90deg,#4c1d95,#7c3aed);color:#fff;font:600 12.5px/1.3 system-ui,"Segoe UI",sans-serif}
-  #noorDemoBar b{background:#fff;color:#4c1d95;border-radius:999px;padding:2px 9px;font-size:11px;letter-spacing:.04em}
+    padding:6px 12px;background:#17112b;box-shadow:0 1px 0 rgba(255,255,255,.08);color:#fff;font:600 12.5px/1.3 system-ui,"Segoe UI",sans-serif}
+  #noorDemoBar b{background:linear-gradient(135deg,#8b5cf6,#c026d3);color:#fff;border-radius:999px;padding:2px 9px;font-size:11px;letter-spacing:.04em}
   #noorDemoBar button,#noorDemoBar a{all:unset;cursor:pointer;border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:3px 10px;color:#fff;font-size:12px}
   #noorDemoBar button:hover,#noorDemoBar a:hover{background:rgba(255,255,255,.15)}
   #noorDemoBar .off{background:#dc2626;border-color:#dc2626}
   #noorDemoBar .here{background:#fff;color:#4c1d95}
-  body{padding-top:40px!important}`;
+  body{padding-top:var(--demo-bar-h,40px)!important}
+  @media (max-width:700px){#noorDemoBar{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;white-space:nowrap;font-size:11.5px;gap:8px}
+    #noorDemoBar::-webkit-scrollbar{display:none}#noorDemoBar>*{flex:0 0 auto}}`;
 
   function ribbon({ text, here, extra }) {
     const build = () => {
@@ -180,6 +182,9 @@
         <a href="/demo/dashboard/" class="${here === "dashboard" ? "here" : ""}">📊 Espace gérant</a>
         <button id="noorReset">Réinitialiser</button><a href="/#apps">← Site</a>`;
       document.body.appendChild(el);
+      const syncHeight = () => document.documentElement.style.setProperty("--demo-bar-h", el.offsetHeight + "px");
+      syncHeight();
+      if (window.ResizeObserver) new ResizeObserver(syncHeight).observe(el);
       el.querySelector("#noorReset").onclick = () => { reset(); location.href = here === "dashboard" ? "/demo/dashboard/" : "/demo/caisse/"; };
       if (extra) extra(el);
     };
