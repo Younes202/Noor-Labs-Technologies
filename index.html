@@ -455,6 +455,7 @@
     .caisse-shots img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--border); background: #fff; }
     .caisse-shots figcaption { font-size: 13px; color: var(--muted); padding: 8px 4px 2px; line-height: 1.5; }
     .shot-side { display: grid; gap: 18px; }
+    .shot-wide { grid-column: 1 / -1; max-width: 980px; justify-self: center; width: 100%; }
     .shot-note { text-align: center; color: var(--muted); font-size: 12px; margin: 4px auto 22px; max-width: 760px; }
     @media (max-width: 960px) { .caisse-shots { grid-template-columns: 1fr; } }
     .caisse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
@@ -1269,19 +1270,23 @@
       </div>
       <div class="caisse-shots reveal">
         <figure class="shot-main glass">
-          <img src="assets/caisse/caisse-commande.jpg" alt="NOOR Caisse order screen with item photos" loading="lazy" width="1366" height="720">
+          <img src="assets/caisse/caisse-commande.jpg" alt="NOOR Caisse order screen with item photos and the current order" loading="lazy" width="2160" height="1290">
           <figcaption data-i18n="shot-main">Taking an order: staff tap the photo, the total updates, then cash or card.</figcaption>
         </figure>
         <div class="shot-side">
           <figure class="glass">
-            <img src="assets/caisse/caisse-employes.jpg" alt="Staff picker before clocking in" loading="lazy" width="606" height="230">
-            <figcaption data-i18n="shot-staff">Each staff member clocks in with their own PIN.</figcaption>
+            <img src="assets/caisse/caisse-especes.jpg" alt="Cash payment with the change calculated" loading="lazy" width="2160" height="1290">
+            <figcaption data-i18n="shot-cash">Cash: type what the customer gives, the till shows the change.</figcaption>
           </figure>
           <figure class="glass">
-            <img src="assets/caisse/caisse-mes-commandes.jpg" alt="Today's orders list" loading="lazy" width="1086" height="310">
+            <img src="assets/caisse/caisse-mes-commandes.jpg" alt="Today's orders list" loading="lazy" width="1920" height="1140">
             <figcaption data-i18n="shot-history">Today's orders: paid or cancelled, with the reason.</figcaption>
           </figure>
         </div>
+        <figure class="shot-wide glass">
+          <img src="assets/dashboard/dashboard-apercu.jpg" alt="Owner dashboard: today's sales, 7-day chart, best sellers" loading="lazy" width="2160" height="1350">
+          <figcaption data-i18n="shot-dash">The owner's dashboard, on phone or computer: today's sales, the week, best sellers and what needs attention.</figcaption>
+        </figure>
       </div>
       <div class="caisse-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a> <a class="offer-btn try-demo caisse-try-big dash-try" href="demo/dashboard/" target="_blank" rel="noopener"><i class="fas fa-chart-line"></i> <span data-i18n="dash-try">Try the owner dashboard</span></a><p data-i18n="caisse-try-sub">Works in your browser, no sign-up: take an order on the till, then see it in the owner dashboard (sales, best sellers, staff, menu and photos).</p></div>
       <p class="shot-note" data-i18n="shot-note">Real NOOR Caisse screens, shown with a sample café menu. Each café adds its own photos from the dashboard.</p>
@@ -3640,7 +3645,7 @@
   }
 };
     for (const l in truthI18n) Object.assign(translations[l], truthI18n[l]);
-    const shotsI18n = {"en": {"shot-main": "Taking an order: staff tap the photo, the total updates, then cash or card.", "shot-staff": "Each staff member clocks in with their own PIN.", "shot-history": "Today's orders: paid or cancelled, with the reason.", "shot-note": "Real NOOR Caisse screens, shown with a sample café menu. Each café adds its own photos from the dashboard."}, "fr": {"shot-main": "Prise de commande : l'employé touche la photo, le total se met à jour, puis espèces ou carte.", "shot-staff": "Chaque employé commence son service avec son propre code PIN.", "shot-history": "Les commandes du jour : payées ou annulées, avec le motif.", "shot-note": "Vrais écrans de NOOR Caisse, montrés avec un menu de café d'exemple. Chaque café ajoute ses propres photos depuis le tableau de bord."}, "ar": {"shot-main": "أخذ الطلب: يلمس الموظف الصورة، يتحدث المجموع، ثم الأداء نقداً أو بالبطاقة.", "shot-staff": "كل موظف يبدأ خدمته برمزه السري الخاص.", "shot-history": "طلبات اليوم: مؤداة أو ملغاة، مع ذكر السبب.", "shot-note": "شاشات حقيقية لـ NOOR Caisse، معروضة بقائمة مقهى تجريبية. كل مقهى يضيف صوره من لوحة التحكم."}};
+    const shotsI18n = {"en": {"shot-main": "Taking an order: staff tap the photo, the total updates, then cash or card.", "shot-cash": "Cash: type what the customer gives, the till shows the change.", "shot-dash": "The owner's dashboard, on phone or computer: today's sales, the week, best sellers and what needs attention.", "shot-history": "Today's orders: paid or cancelled, with the reason.", "shot-note": "Real NOOR Caisse screens, shown with a sample café menu. Each café adds its own photos from the dashboard."}, "fr": {"shot-main": "Prise de commande : l'employé touche la photo, le total se met à jour, puis espèces ou carte.", "shot-cash": "Espèces : saisissez ce que donne le client, la caisse affiche la monnaie à rendre.", "shot-dash": "L'espace gérant, sur téléphone ou ordinateur : ventes du jour, la semaine, meilleures ventes et points à surveiller.", "shot-history": "Les commandes du jour : payées ou annulées, avec le motif.", "shot-note": "Vrais écrans de NOOR Caisse, montrés avec un menu de café d'exemple. Chaque café ajoute ses propres photos depuis le tableau de bord."}, "ar": {"shot-main": "أخذ الطلب: يلمس الموظف الصورة، يتحدث المجموع، ثم الأداء نقداً أو بالبطاقة.", "shot-cash": "الأداء نقداً: أدخل المبلغ الذي يقدمه الزبون، فيعرض الصندوق الباقي.", "shot-dash": "لوحة صاحب المقهى، على الهاتف أو الحاسوب: مبيعات اليوم، الأسبوع، الأكثر مبيعاً وما يحتاج انتباهك.", "shot-history": "طلبات اليوم: مؤداة أو ملغاة، مع ذكر السبب.", "shot-note": "شاشات حقيقية لـ NOOR Caisse، معروضة بقائمة مقهى تجريبية. كل مقهى يضيف صوره من لوحة التحكم."}};
     for (const l in shotsI18n) Object.assign(translations[l], shotsI18n[l]);
     const demoI18n = {"en": {"caisse-try": "Try the NOOR Caisse demo", "caisse-try-sub": "Works in your browser: take an order, pay, see the ticket, even with internet cut. No sign-up."}, "fr": {"caisse-try": "Essayer la démo de NOOR Caisse", "caisse-try-sub": "Directement dans votre navigateur : prenez une commande, encaissez, voyez le ticket, même sans internet. Sans inscription."}, "ar": {"caisse-try": "جرّب النسخة التجريبية من NOOR Caisse", "caisse-try-sub": "مباشرة في متصفحك: خذ طلباً، استخلص الأداء، شاهد التذكرة، حتى بدون إنترنت. بدون تسجيل."}};
     for (const l in demoI18n) Object.assign(translations[l], demoI18n[l]);
