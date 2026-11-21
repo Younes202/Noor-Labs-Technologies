@@ -159,20 +159,13 @@
     setAutoStart: async (enabled) => { S().autoStart = !!enabled; D.save(); },
   };
 
+  // The till is an online (cloud) service: older demo sessions may still carry the removed "internet cut" toggle.
+  try { D.load(); if (!S().online) { S().online = true; D.save(); } } catch (e) { /* ignore */ }
+
   // ------------------------------------------------------------------ ribbon + printed-ticket preview
   D.ribbon({
     here: "caisse",
     text: "NOOR Caisse · données fictives · PIN Yassine <u>1234</u> (gérant), Salma <u>5678</u>",
-    extra: (el) => {
-      const net = document.createElement("button");
-      const paint = () => {
-        net.textContent = S().online ? "📶 Internet : connecté (simuler une coupure)" : "🚫 Internet coupé (rétablir)";
-        net.classList.toggle("off", !S().online);
-      };
-      net.onclick = () => { S().online = !S().online; D.save(); paint(); };
-      el.insertBefore(net, el.querySelector("a"));
-      paint();
-    },
   });
 
   const TICKET_CSS = `
@@ -201,7 +194,7 @@
       <div class="row"><strong>Total :</strong><strong>${o.order.total} DH</strong></div>
       <div class="row"><span>Paiement :</span><span>${method === "cash" ? "Espèces" : "Carte"}</span></div><hr>
       <div class="c">Merci de votre visite</div>
-      <div class="note">Aperçu du ticket imprimé${method === "cash" ? " · le tiroir-caisse s'ouvre" : ""}${S().online ? "" : " · commande gardée sur la caisse, envoyée au retour d'internet"}
+      <div class="note">Aperçu du ticket imprimé${method === "cash" ? " · le tiroir-caisse s'ouvre" : ""}
         <br>Elle apparaît aussi dans l'<a href="/demo/dashboard/reports" target="_blank">espace gérant</a>.</div>
       <button>Commande suivante</button></div>`;
     box.querySelector("button").onclick = () => box.remove();
