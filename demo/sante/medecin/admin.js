@@ -109,7 +109,7 @@
     for (var i = 0; i < r.length - 1; i++) parts += '<div class="brk" style="left:' + pos(r[i][1]) + ';width:' + ((r[i + 1][0] - r[i][1]) / W * 100) + '%"></div>';
     NS.active(date).forEach(function (x) {
       var st, en, col;
-      if (x.status === 'done') { st = NS.minOf(x.calledAt); en = NS.minOf(x.doneAt); col = '#5eead4'; }
+      if (x.status === 'done') { st = NS.minOf(x.calledAt); en = NS.minOf(x.doneAt); col = '#d8b4fe'; }
       else if (x.status === 'in') { st = NS.minOf(x.calledAt); en = Math.max(NS.nowMin(), st + avg); col = '#16a34a'; }
       else if (x.status === 'waiting') { var e = NS.eta(x); st = e.min; en = e.min + avg; col = x.priority ? '#f2674e' : '#93c5fd'; }
       else return;
@@ -120,7 +120,7 @@
     var now = NS.nowMin(); if (now > a && now < b) parts += '<div class="nowline" style="left:' + pos(now) + '"></div>';
     var ticks = ''; for (var h = Math.ceil(a / 60) * 60; h <= b; h += 120) ticks += '<span>' + NS.fmt(h) + '</span>';
     return '<div class="dayline" style="margin-top:14px">' + parts + '</div><div class="axis">' + ticks + '</div>' +
-      '<div class="legend"><span><i style="background:#5eead4"></i>Vus</span><span><i style="background:#16a34a"></i>En cours</span><span><i style="background:#93c5fd"></i>Prévu (estimation)</span><span><i style="background:repeating-linear-gradient(-45deg,#eef3f2,#eef3f2 3px,#d5e0de 3px,#d5e0de 6px)"></i>Pause</span></div>';
+      '<div class="legend"><span><i style="background:#d8b4fe"></i>Vus</span><span><i style="background:#16a34a"></i>En cours</span><span><i style="background:#93c5fd"></i>Prévu (estimation)</span><span><i style="background:repeating-linear-gradient(-45deg,#f1ebf9,#f1ebf9 3px,#dccff0 3px,#dccff0 6px)"></i>Pause</span></div>';
   }
 
   function openDays() {
@@ -243,7 +243,7 @@
     var rate = tot + absN ? absN / (tot + absN) * 100 : 0;
     var order = [1, 2, 3, 4, 5, 6], wmax = Math.max.apply(null, order.map(function (k) { return wdN[k] ? wd[k] / wdN[k] : 0; })) || 1;
     var hb = order.filter(function (k) { return s.days[k].on; }).map(function (k) { var v = wdN[k] ? wd[k] / wdN[k] : 0; return '<div class="hbar"><span>' + NS.DAYS[k] + '</span><div class="tr"><i style="width:' + (v / wmax * 100) + '%"></i></div><span class="v num">' + v.toFixed(1) + '</span></div>'; }).join('');
-    var sTot = src.web + src.phone + src.walkin || 1, C = 2 * Math.PI * 54, off = 0, cols = { web: '#0f766e', phone: '#60a5fa', walkin: '#f59e0b' };
+    var sTot = src.web + src.phone + src.walkin || 1, C = 2 * Math.PI * 54, off = 0, cols = { web: '#9333ea', phone: '#60a5fa', walkin: '#f59e0b' };
     var donut = '<svg width="150" height="150" viewBox="0 0 150 150" style="transform:rotate(-90deg)">' + ['web', 'phone', 'walkin'].map(function (k) {
       var len = src[k] / sTot * C, seg = '<circle cx="75" cy="75" r="54" fill="none" stroke="' + cols[k] + '" stroke-width="22" stroke-dasharray="' + len + ' ' + (C - len) + '" stroke-dashoffset="' + (-off) + '"/>'; off += len; return seg;
     }).join('') + '</svg>';
@@ -298,9 +298,9 @@
     var a = r[0][0], b = r[r.length - 1][1], W = b - a, html = '<div class="dayline">', j, c = 0;
     for (i = 0; i < r.length - 1; i++) html += '<div class="brk" style="left:' + ((r[i][1] - a) / W * 100) + '%;width:' + ((r[i + 1][0] - r[i][1]) / W * 100) + '%"></div>';
     for (i = 0; i < r.length; i++) for (j = r[i][0]; j + avg <= r[i][1]; j += avg) {
-      html += '<div class="blk" style="left:' + ((j - a) / W * 100) + '%;width:calc(' + (avg / W * 100) + '% - 2px);background:' + (c === p ? '#0f766e' : c < p ? '#99f6e4' : '#e2e8f0') + '"></div>'; c++;
+      html += '<div class="blk" style="left:' + ((j - a) / W * 100) + '%;width:calc(' + (avg / W * 100) + '% - 2px);background:' + (c === p ? '#9333ea' : c < p ? '#e9d5ff' : '#ece4f7') + '"></div>'; c++;
     }
-    html += '</div><div class="axis"><span>' + NS.fmt(a) + '</span><span>' + NS.fmt(b) + '</span></div><div class="legend"><span><i style="background:#99f6e4"></i>Patients avant</span><span><i style="background:#0f766e"></i>Ce patient</span><span><i style="background:#e2e8f0"></i>Places suivantes</span></div>';
+    html += '</div><div class="axis"><span>' + NS.fmt(a) + '</span><span>' + NS.fmt(b) + '</span></div><div class="legend"><span><i style="background:#e9d5ff"></i>Patients avant</span><span><i style="background:#9333ea"></i>Ce patient</span><span><i style="background:#ece4f7"></i>Places suivantes</span></div>';
     return { cap: cap, eta: m == null ? '—' : NS.fmt(m), arrive: m == null ? '—' : NS.fmt(Math.max(a - 10, m - NS.settings.arriveEarly)), line: html };
   }
 
