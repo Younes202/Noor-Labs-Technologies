@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suivi de mon ticket | Démo NOOR Santé</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f766e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/sante.css">
+</head>
+<body>
+<div class="demo-ribbon"><b>Démo</b> — page de suivi du patient. Testez : <a href="medecin/" target="_blank">appelez le suivant</a> depuis l'espace médecin.</div>
+<header class="site-nav"><div class="wrap"><a class="brandmark" href="index.html"><span class="logo" id="logo"></span><span><b id="cab"></b><small id="doc"></small></span></a></div></header>
+<main class="track" id="track"></main>
+<script src="shared/store.js"></script>
+<script src="shared/ui.js"></script>
+<script>
+(function () {
+  var ic = UI.ic, esc = UI.esc, el = document.getElementById('track');
+  var code = new URLSearchParams(location.search).get('c');
+  document.getElementById('logo').innerHTML = ic('stetho');
+  var last = null;
+
+  function ring(ahead, total) {
+    var pct = total ? Math.max(.04, 1 - ahead / total) : 1, C = 2 * Math.PI * 80;
+    return '<svg viewBox="0 0 190 190"><circle cx="95" cy="95" r="80" stroke="rgba(255,255,255,.15)" stroke-width="12" fill="none"/>' +
+      '<circle cx="95" cy="95" r="80" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - pct)) + '" style="transition:stroke-dashoffset .8s"/></svg>';
+  }
+
+  function render() {
+    var s = NS.settings;
+    document.getElementById('cab').textContent = s.cabinet;
+    document.getElementById('doc').textContent = s.doctor + ' · ' + s.specialty;
+    var tk = NS.byCode(code);
+    if (!tk) {
+      el.innerHTML = '<div class="track-hero bad"><div class="lbl">Ticket introuvable</div><h2>Ce code n\'existe pas</h2><p>Vérifiez le lien ou retrouvez votre ticket avec votre numéro de téléphone.</p></div>' +
+        '<a class="btn btn-primary btn-lg" style="width:100%;margin-top:14px" href="index.html#retrouver">Retrouver mon ticket</a>';
+      return;
+    }
+    var e = NS.eta(tk), isToday = tk.date === NS.today(), hero, extra = '';
+    if (tk.status === 'in') {
+      hero = '<div class="track-hero called"><div class="lbl">C\'est votre tour</div><div class="tnum num">' + tk.num + '</div><h2>Présentez-vous au cabinet</h2><p>' + esc(s.doctor) + ' vous attend.</p></div>';
+      if (last && last !== 'in' && navigator.vibrate) navigator.vibrate([300, 120, 300]);
+    } else if (tk.status === 'done') {
+      hero = '<div class="track-hero done"><div class="lbl">Ticket n° ' + tk.num + '</div><h2>Consultation terminée</h2><p>Merci de votre visite. Bon rétablissement !</p></div>';
+    } else if (tk.status === 'cancelled') {
+      hero = '<div class="track-hero done"><div class="lbl">Ticket n° ' + tk.num + '</div><h2>Ticket annulé</h2><p>Votre place a été libérée.</p></div>';
+    } else if (tk.status === 'absent') {
+      hero = '<div class="track-hero bad"><div class="lbl">Ticket n° ' + tk.num + '</div><h2>Vous avez été appelé</h2><p>Vous étiez absent à l\'appel. Présentez-vous à l\'accueil : vous serez réintégré après le patient suivant.</p></div>';
+    } else if (!isToday) {
+      hero = '<div class="track-hero"><div class="lbl">Votre ticket</div><div class="tnum num">' + tk.num + '</div><h2>' + NS.longDate(tk.date) + '</h2><p>Passage estimé vers <b>' + e.label + '</b> · ' + e.ahead + ' patient' + (e.ahead > 1 ? 's' : '') + ' inscrit' + (e.ahead > 1 ? 's' : '') + ' avant vous</p></div>';
+    } else {
+      var total = Math.max(e.ahead + 1, NS.active(tk.date).filter(function (x) { return x.order <= tk.order || x.status !== 'waiting'; }).length);
+      var head = e.ahead === 0 ? 'Vous êtes le prochain !' : e.ahead + ' patient' + (e.ahead > 1 ? 's' : '') + ' avant vous';
+      hero = '<div class="track-hero"><div class="lbl">Ticket n° ' + tk.num + ' · aujourd\'hui</div>' +
+        '<div class="ring">' + ring(e.ahead, total) + '<div class="c"><b class="num">' + e.ahead + '</b><span>avant vous</span></div></div>' +
+        '<h2>' + head + '</h2><p>Passage estimé vers <b>' + e.label + '</b>' + (e.wait != null ? ' (dans ' + UI.mins(e.wait) + ')' : '') + '</p></div>';
+    }
+    if (tk.status === 'waiting') {
+      var arrive = Math.max(e.min - s.arriveEarly, NS.ranges(tk.date)[0][0] - 10);
+      extra += '<div class="track-grid"><div class="card"><small>Heure estimée</small><b class="num">' + e.label + '</b></div><div class="card"><small>Arrivez vers</small><b class="num">' + NS.fmt(arrive) + '</b></div>' +
+        '<div class="card"><small>' + (isToday ? 'En consultation' : 'Jour') + '</small><b class="num">' + (isToday ? (NS.current(tk.date) ? 'n° ' + NS.current(tk.date).num : '—') : NS.shortDate(tk.date)) + '</b></div>' +
+        '<div class="card"><small>Code</small><b class="num" style="letter-spacing:.15em">' + tk.code + '</b></div></div>';
+    }
+    if (isToday && (tk.status === 'waiting' || tk.status === 'in')) {
+      var list = NS.active(tk.date).sort(function (a, b) { return a.num - b.num; });
+      var lo = Math.max(0, list.indexOf(list.find(function (x) { return x.id === tk.id; })) - 6), view = list.slice(lo, lo + 14);
+      extra += '<div class="card timeline"><h4>La file en direct</h4><div class="tl">' + view.map(function (x) {
+        var c = x.id === tk.id ? 'me' : x.status === 'in' ? 'in' : (x.status === 'done' || x.status === 'absent') ? 'd' : 'w';
+        return '<span class="num ' + c + '">' + x.num + '</span>';
+      }).join('') + '</div><p class="muted" style="font-size:12.5px;margin:12px 0 0">' + ic('activity').replace('class="ico ', 'style="display:inline;width:14px;height:14px;vertical-align:-2px" class="ico ') + ' Mis à jour automatiquement · durée moyenne aujourd\'hui ' + Math.round(NS.liveAvg(tk.date)) + ' min</p></div>';
+    }
+    extra += '<div class="card" style="padding:16px;margin-top:14px;display:grid;gap:4px;font-size:14px"><b>' + esc(tk.name) + '</b><span class="muted">' + esc(tk.reason) + ' · ' + NS.longDate(tk.date) + '</span><span class="muted">' + esc(s.address) + '</span></div>';
+    if (tk.status === 'waiting') extra += '<button class="btn btn-danger btn-lg" style="width:100%;margin-top:14px" id="cancel">' + ic('x') + 'Annuler mon ticket</button>';
+    extra += '<a class="btn btn-ghost btn-lg" style="width:100%;margin-top:10px" href="index.html">' + ic('arrowL') + 'Retour au site du cabinet</a>';
+    el.innerHTML = hero + extra;
+    var c = document.getElementById('cancel');
+    if (c) c.addEventListener('click', function () {
+      if (c.dataset.sure) { NS.cancel(tk.id); UI.toast('Ticket annulé'); return; }
+      c.dataset.sure = '1'; c.innerHTML = ic('alert') + 'Confirmer l\'annulation';
+    });
+    last = tk.status;
+  }
+  render();
+  NS.subscribe(render);
+  setInterval(render, 15000);
+})();
+</script>
+</body>
+</html>

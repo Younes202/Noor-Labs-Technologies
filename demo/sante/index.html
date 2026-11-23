@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prendre un ticket — Cabinet médical | Démo NOOR Santé</title>
+<meta name="description" content="Démo NOOR Santé : les patients prennent un ticket en ligne (premier arrivé, premier servi), suivent la file d'attente en direct et le médecin gère sa journée.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f766e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/sante.css">
+</head>
+<body>
+<div class="demo-ribbon"><b>Démo NOOR Santé</b><span class="hide-sm"> — le site du cabinet, côté patient.</span> Ouvrir aussi : <a href="medecin/" target="_blank">Espace médecin</a><a href="ecran.html" target="_blank" class="hide-sm">Écran salle d'attente</a></div>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brandmark" href="#">
+      <span class="logo" id="logo"></span>
+      <span><b data-s="cabinet"></b><small><span data-s="doctor"></span> · <span data-s="specialty"></span></small></span>
+    </a>
+    <nav>
+      <a href="#reserver">Réserver</a>
+      <a href="#fonctionnement">Comment ça marche</a>
+      <a href="#services">Soins</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <a class="btn btn-primary" href="#reserver" id="navCta"></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" id="openBadge"></span>
+      <h1>Votre place chez le médecin, <em>sans attendre au cabinet.</em></h1>
+      <p class="lead">Prenez votre ticket en ligne en 30 secondes. Vous recevez votre numéro de passage et une heure estimée, mise à jour en direct : vous venez juste avant votre tour.</p>
+      <div class="ctas">
+        <a class="btn btn-primary btn-lg" href="#reserver" id="heroCta"></a>
+        <a class="btn btn-ghost btn-lg" href="#retrouver" id="heroTrack"></a>
+      </div>
+      <div class="facts" id="facts"></div>
+    </div>
+    <div class="card live" id="live"></div>
+  </div>
+</section>
+
+<section class="block" id="reserver" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Prendre un ticket</div>
+      <h2>Choisissez votre jour, on s'occupe de l'ordre de passage.</h2>
+      <p>Les patients sont reçus dans l'ordre des tickets : premier arrivé, premier servi. Seuls les jours de consultation sont proposés.</p>
+    </div>
+    <div class="booking">
+      <div class="card book-card" id="book"></div>
+      <aside class="side">
+        <div class="card">
+          <h4 id="hoursTitle"></h4>
+          <div class="hours" id="hours"></div>
+        </div>
+        <div class="card" id="retrouver">
+          <h4 id="findTitle"></h4>
+          <p class="muted" style="margin:0 0 12px;font-size:13.5px">Entrez le code de votre ticket ou votre numéro de téléphone.</p>
+          <form class="find-row" id="findForm">
+            <input class="input" id="findInput" placeholder="Ex. K7Q2 ou 06 12 34 56 78" autocomplete="off">
+            <button class="btn btn-soft" type="submit" id="findBtn"></button>
+          </form>
+          <div class="err" id="findErr"></div>
+        </div>
+        <div class="card">
+          <h4 id="addrTitle"></h4>
+          <p style="margin:0;font-size:14px;color:var(--ink-2)" data-s="address"></p>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--ink-2)">Tél. : <b data-s="phone"></b> · Consultation : <b><span data-s="fee"></span> DH</b></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="fonctionnement">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Comment ça marche</div>
+      <h2>Une file d'attente juste et transparente.</h2>
+      <p>Le cabinet n'attribue pas d'heures fixes que personne ne tient : chacun garde sa place dans la file, et l'heure estimée s'ajuste au rythme réel des consultations.</p>
+    </div>
+    <div class="how">
+      <div class="card"><div class="n">1</div><h4>Choisissez un jour</h4><p>Seuls les jours ouvrables du cabinet sont proposés, avec le nombre de places restantes.</p></div>
+      <div class="card"><div class="n">2</div><h4>Recevez votre numéro</h4><p>Votre numéro suit l'ordre d'inscription. Personne ne peut vous doubler.</p></div>
+      <div class="card"><div class="n">3</div><h4>Suivez la file en direct</h4><p>Votre page de suivi indique combien de patients restent avant vous et l'heure estimée.</p></div>
+      <div class="card"><div class="n">4</div><h4>Venez au bon moment</h4><p>Arrivez environ <span data-s="arriveEarly"></span> minutes avant l'heure estimée. Fini la salle d'attente pleine.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="services" style="padding-top:8px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Soins</div>
+      <h2>Au cabinet</h2>
+    </div>
+    <div class="services" id="svcs"></div>
+  </div>
+</section>
+
+<section class="block" id="faq" style="padding-top:8px">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Questions fréquentes</div><h2>Bon à savoir</h2></div>
+    <div class="faq">
+      <details open><summary>Comment est calculée mon heure de passage ?</summary><p>Heure d'ouverture + (patients devant vous × durée moyenne d'une consultation), en sautant la pause de midi. Le jour même, le calcul repart de l'heure réelle et de la durée moyenne observée aujourd'hui : si le médecin a du retard ou de l'avance, votre heure se met à jour.</p></details>
+      <details><summary>Que se passe-t-il si je suis en retard ?</summary><p>Si vous n'êtes pas là quand votre numéro est appelé, vous êtes marqué absent. À votre arrivée, l'accueil vous réintègre juste après le patient suivant : vous ne perdez pas toute votre place, mais vous ne passez pas devant ceux qui attendent.</p></details>
+      <details><summary>Puis-je réserver pour un autre jour ?</summary><p>Oui, jusqu'à <span data-s="horizon"></span> jours à l'avance, uniquement les jours de consultation. Les jours fériés et les congés du cabinet sont fermés automatiquement.</p></details>
+      <details><summary>Et les urgences ?</summary><p>Le médecin peut faire passer une urgence en priorité. C'est la seule exception à l'ordre d'arrivée, et l'heure estimée des autres patients se met à jour aussitôt.</p></details>
+      <details><summary>Comment annuler ?</summary><p>Depuis votre page de suivi, en un clic. Votre place est libérée et les patients suivants avancent.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div><b data-s="cabinet"></b> · <span data-s="address"></span></div>
+    <a class="powered" href="../../" style="text-decoration:none"><i></i> Propulsé par NOOR Santé — NOOR Labs Technologies</a>
+  </div>
+</footer>
+
+<script src="shared/store.js"></script>
+<script src="shared/ui.js"></script>
+<script src="shared/site.js"></script>
+</body>
+</html>

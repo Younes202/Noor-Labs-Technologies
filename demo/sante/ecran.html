@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Écran salle d'attente | Démo NOOR Santé</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/sante.css">
+<style>body{background:#061513}</style>
+</head>
+<body>
+<div class="screen">
+  <header>
+    <div class="brandmark"><span class="logo" id="logo"></span><span><b id="cab" style="color:#fff;font-size:20px"></b><small id="doc" style="color:#7fa39d;font-size:15px"></small></span></div>
+    <div style="text-align:right"><div class="clock num" id="clock"></div><div id="date" style="opacity:.7;font-weight:600"></div></div>
+  </header>
+  <main>
+    <div class="scr-now" id="now"></div>
+    <div class="scr-next" id="next"></div>
+  </main>
+  <footer><span>Prenez votre ticket en ligne et suivez la file sur votre téléphone.</span><span>NOOR Santé</span></footer>
+</div>
+<script src="shared/store.js"></script>
+<script src="shared/ui.js"></script>
+<script>
+(function () {
+  document.getElementById('logo').innerHTML = UI.ic('stetho');
+  var lastNum = null;
+  function render() {
+    var s = NS.settings, t = NS.today(), cur = NS.current(t), q = NS.waiting(t);
+    document.getElementById('cab').textContent = s.cabinet;
+    document.getElementById('doc').textContent = s.doctor + ' · ' + s.specialty;
+    var now = document.getElementById('now');
+    now.innerHTML = cur ? '<div class="lbl">Patient appelé</div><div class="big num">' + cur.num + '</div><div class="room">Cabinet de consultation</div>'
+      : '<div class="lbl">' + (NS.isWorkingDay(t) ? 'Merci de patienter' : 'Cabinet fermé aujourd\'hui') + '</div><div class="big num">—</div><div class="room">' + (q.length ? 'Prochain : n° ' + q[0].num : '') + '</div>';
+    if (cur && lastNum !== null && cur.num !== lastNum) { now.classList.remove('flash'); void now.offsetWidth; now.classList.add('flash'); }
+    lastNum = cur ? cur.num : lastNum;
+    document.getElementById('next').innerHTML = '<h3>Prochains patients</h3>' + (q.length ? q.slice(0, 5).map(function (x) {
+      var e = NS.eta(x); return '<div class="row"><b class="num">n° ' + x.num + (x.priority ? ' <span style="color:#fca5a5">· urgence</span>' : '') + '</b><span>vers ' + e.label + '</span></div>';
+    }).join('') : '<div class="row"><span>Aucun patient en attente</span></div>') + (q.length > 5 ? '<div style="opacity:.6;font-weight:600;font-size:18px;padding:4px 8px">+ ' + (q.length - 5) + ' autres en attente</div>' : '');
+  }
+  function tick() {
+    document.getElementById('clock').textContent = NS.fmt(Math.floor(NS.nowMin()));
+    document.getElementById('date').textContent = NS.longDate(NS.today());
+  }
+  render(); tick(); NS.subscribe(render); setInterval(tick, 5000); setInterval(render, 20000);
+})();
+</script>
+</body>
+</html>
