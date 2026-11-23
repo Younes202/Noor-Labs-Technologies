@@ -458,6 +458,18 @@
     .shot-wide { grid-column: 1 / -1; max-width: 980px; justify-self: center; width: 100%; }
     .shot-note { text-align: center; color: var(--muted); font-size: 12px; margin: 4px auto 22px; max-width: 760px; }
     @media (max-width: 960px) { .caisse-shots { grid-template-columns: 1fr; } }
+
+    /* NOOR Santé section */
+    .sante-shots { display: grid; grid-template-columns: 1.7fr 1fr; gap: 18px; margin-bottom: 10px; align-items: start; }
+    .sante-shots figure { margin: 0; padding: 10px; border-radius: 18px; }
+    .sante-shots img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--border); background: #fff; }
+    .sante-shots figcaption { font-size: 13px; color: var(--muted); padding: 8px 4px 2px; line-height: 1.5; }
+    .sante-row2 { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, .62fr) minmax(0, 2fr); gap: 18px; align-items: start; }
+    .sante-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; margin-top: 6px; }
+    .sante-cta .sante-doc { background: transparent; color: var(--text); border: 1px solid var(--border-strong, #c084fc); margin-left: 8px; }
+    @media (max-width: 1100px) { .sante-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 960px) { .sante-shots, .sante-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .sante-row2 { grid-template-columns: 1fr; } .sante-row2 .sante-phone { max-width: 300px; justify-self: center; } .sante-cta .sante-doc { margin: 10px 0 0; } }
     .caisse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
     .caisse-card .offer-title { display: flex; gap: 8px; align-items: center; }
     .caisse-next { opacity: .9; border-style: dashed; }
@@ -1333,6 +1345,67 @@
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
         </div>
       </div>
+      <div class="section-head reveal packs-head" id="sante">
+        <h3 class="section-title" data-i18n="sante-title">NOOR Santé: online tickets for doctors' practices</h3>
+        <p class="section-subtitle" data-i18n="sante-sub">Patients take a ticket on the practice's website, first come first served, only on working days. They follow the queue live on their phone and come just before their turn. The doctor runs the day from one screen.</p>
+      </div>
+      <div class="sante-shots reveal">
+        <figure class="glass">
+          <img src="assets/sante/06-medecin-aujourdhui.jpg" alt="NOOR Santé doctor dashboard: patient in consultation, live queue with estimated times, day timeline" loading="lazy" width="2160" height="1350">
+          <figcaption data-i18n="sante-shot-doc">The doctor's day: who is in consultation, who is next, and the estimated time of every patient.</figcaption>
+        </figure>
+        <div class="shot-side">
+          <figure class="glass">
+            <img src="assets/sante/02-site-choix-du-jour.jpg" alt="Booking calendar showing working days with places left" loading="lazy" width="1650" height="1083">
+            <figcaption data-i18n="sante-shot-days">Booking: only working days are offered, with the places left.</figcaption>
+          </figure>
+          <figure class="glass">
+            <img src="assets/sante/04-site-ticket-confirme.jpg" alt="Confirmed ticket with number, estimated time and tracking code" loading="lazy" width="1650" height="888">
+            <figcaption data-i18n="sante-shot-ticket">The ticket: a number in the queue, an estimated time and a tracking code.</figcaption>
+          </figure>
+        </div>
+        <div class="sante-row2">
+          <figure class="glass sante-phone">
+            <img src="assets/sante/suivi-mobile.jpg" alt="Patient tracking page on a phone: patients ahead and estimated time" loading="lazy" width="585" height="1170">
+            <figcaption data-i18n="sante-shot-track">On the patient's phone, updated live.</figcaption>
+          </figure>
+          <figure class="glass">
+            <img src="assets/sante/14-ecran-salle-attente.jpg" alt="Waiting-room screen showing the number called and the next patients" loading="lazy" width="2400" height="1350">
+            <figcaption data-i18n="sante-shot-screen">The waiting-room screen: the number called and the next patients.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="caisse-cta sante-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/sante/" target="_blank" rel="noopener"><i class="fas fa-calendar-check"></i> <span data-i18n="sante-try">Try the patient site</span></a> <a class="offer-btn try-demo caisse-try-big sante-doc" href="demo/sante/medecin/" target="_blank" rel="noopener"><i class="fas fa-user-doctor"></i> <span data-i18n="sante-try-doc">Try the doctor's space</span></a><p data-i18n="sante-try-sub">Works in your browser, no sign-up: take a ticket as a patient, then call it from the doctor's space and watch the patient's page update.</p></div>
+      <div class="sante-grid">
+        <div class="offer-card glass reveal caisse-card">
+          <h3 class="offer-title"><i class="fas fa-mobile-screen" style="color:#0f766e"></i> <span data-i18n="sante-p-title">For patients</span></h3>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p1">Take a ticket online in 30 seconds</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p2">Ticket number and estimated time right away</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p3">Follow the queue live: patients ahead and time</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p4">Cancel in one tap: the next patients move up</span></li>
+          </ul>
+        </div>
+        <div class="offer-card glass reveal caisse-card" style="--d:.08s">
+          <h3 class="offer-title"><i class="fas fa-user-doctor" style="color:#0f766e"></i> <span data-i18n="sante-d-title">For the doctor</span></h3>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d1">Call the next patient, mark absent, handle emergencies</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d2">Agenda, patient files and history</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d3">Statistics: patients per day, no-shows, revenue</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d4">Working days, hours, holidays and days off</span></li>
+          </ul>
+        </div>
+        <div class="offer-card glass reveal caisse-card" style="--d:.16s">
+          <h3 class="offer-title"><i class="fas fa-list-ol" style="color:#0f766e"></i> <span data-i18n="sante-a-title">A fair queue</span></h3>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a1">First come, first served: nobody can jump the queue</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a2">Places per day = consultation hours ÷ average length</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a3">Estimated time adjusts to the real pace of the day</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a4">Late patients go back in after the next one</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="shot-note" data-i18n="sante-note">Demo screens with a sample practice and fictional patients. Each practice gets its own name, hours and website.</p>
       <div class="section-head reveal packs-head" id="addons">
         <h3 class="section-title" data-i18n="addons-title">Add-ons: website, pack and smart card</h3>
         <p class="section-subtitle" data-i18n="addons-sub">Complete your setup: be found on Google, answer every client, and be saved in their phone in one tap.</p>
@@ -3653,6 +3726,8 @@
     for (const l in dashDemoI18n) Object.assign(translations[l], dashDemoI18n[l]);
     const addonsI18n = {"en": {"addons-title": "Add-ons: website, pack and smart card", "addons-sub": "Complete your setup: be found on Google, answer every client, and be saved in their phone in one tap."}, "fr": {"addons-title": "Options : site web, pack et carte intelligente", "addons-sub": "Complétez votre équipement : soyez trouvé sur Google, répondez à chaque client et soyez enregistré dans son téléphone en un geste."}, "ar": {"addons-title": "إضافات: موقع إلكتروني، باقة وبطاقة ذكية", "addons-sub": "أكمل تجهيزك: ليجدك الزبناء على Google، أجب كل زبون، واحفظ اسمك في هاتفه بلمسة واحدة."}};
     for (const l in addonsI18n) Object.assign(translations[l], addonsI18n[l]);
+    const santeI18n = {"en": {"sante-title": "NOOR Santé: online tickets for doctors' practices", "sante-sub": "Patients take a ticket on the practice's website, first come first served, only on working days. They follow the queue live on their phone and come just before their turn. The doctor runs the day from one screen.", "sante-shot-doc": "The doctor's day: who is in consultation, who is next, and the estimated time of every patient.", "sante-shot-days": "Booking: only working days are offered, with the places left.", "sante-shot-ticket": "The ticket: a number in the queue, an estimated time and a tracking code.", "sante-shot-track": "On the patient's phone, updated live.", "sante-shot-screen": "The waiting-room screen: the number called and the next patients.", "sante-try": "Try the patient site", "sante-try-doc": "Try the doctor's space", "sante-try-sub": "Works in your browser, no sign-up: take a ticket as a patient, then call it from the doctor's space and watch the patient's page update.", "sante-p-title": "For patients", "sante-p1": "Take a ticket online in 30 seconds", "sante-p2": "Ticket number and estimated time right away", "sante-p3": "Follow the queue live: patients ahead and time", "sante-p4": "Cancel in one tap: the next patients move up", "sante-d-title": "For the doctor", "sante-d1": "Call the next patient, mark absent, handle emergencies", "sante-d2": "Agenda, patient files and history", "sante-d3": "Statistics: patients per day, no-shows, revenue", "sante-d4": "Working days, hours, holidays and days off", "sante-a-title": "A fair queue", "sante-a1": "First come, first served: nobody can jump the queue", "sante-a2": "Places per day = consultation hours ÷ average length", "sante-a3": "Estimated time adjusts to the real pace of the day", "sante-a4": "Late patients go back in after the next one", "sante-note": "Demo screens with a sample practice and fictional patients. Each practice gets its own name, hours and website."}, "fr": {"sante-title": "NOOR Santé : la prise de ticket en ligne pour les cabinets médicaux", "sante-sub": "Les patients prennent un ticket sur le site du cabinet, premier arrivé premier servi, uniquement les jours de consultation. Ils suivent la file en direct sur leur téléphone et arrivent juste avant leur tour. Le médecin gère sa journée sur un seul écran.", "sante-shot-doc": "La journée du médecin : qui est en consultation, qui est le suivant, et l'heure estimée de chaque patient.", "sante-shot-days": "Réservation : seuls les jours de consultation sont proposés, avec les places restantes.", "sante-shot-ticket": "Le ticket : un numéro dans la file, une heure estimée et un code de suivi.", "sante-shot-track": "Sur le téléphone du patient, mis à jour en direct.", "sante-shot-screen": "L'écran de la salle d'attente : le numéro appelé et les prochains patients.", "sante-try": "Essayer le site patient", "sante-try-doc": "Essayer l'espace médecin", "sante-try-sub": "Directement dans votre navigateur, sans inscription : prenez un ticket comme patient, appelez-le depuis l'espace médecin et voyez la page du patient se mettre à jour.", "sante-p-title": "Pour les patients", "sante-p1": "Un ticket en ligne en 30 secondes", "sante-p2": "Numéro et heure estimée tout de suite", "sante-p3": "La file en direct : patients devant et heure", "sante-p4": "Annulation en un clic : les suivants avancent", "sante-d-title": "Pour le médecin", "sante-d1": "Appeler le suivant, marquer absent, gérer les urgences", "sante-d2": "Agenda, fichier patients et historique", "sante-d3": "Statistiques : patients par jour, absences, recette", "sante-d4": "Jours de travail, horaires, fériés et congés", "sante-a-title": "Une file juste", "sante-a1": "Premier arrivé, premier servi : personne ne double", "sante-a2": "Places par jour = heures de consultation ÷ durée moyenne", "sante-a3": "L'heure estimée suit le rythme réel de la journée", "sante-a4": "Un patient en retard repasse après le suivant", "sante-note": "Écrans de démonstration avec un cabinet et des patients fictifs. Chaque cabinet a son propre nom, ses horaires et son site."}, "ar": {"sante-title": "NOOR Santé: حجز التذاكر عبر الإنترنت لعيادات الأطباء", "sante-sub": "يأخذ المرضى تذكرة من موقع العيادة، الأسبقية لمن يحجز أولاً، وفي أيام العمل فقط. يتابعون الطابور مباشرة على هاتفهم ويأتون قبيل دورهم. والطبيب يسيّر يومه من شاشة واحدة.", "sante-shot-doc": "يوم الطبيب: من في الفحص، من التالي، والوقت المتوقع لكل مريض.", "sante-shot-days": "الحجز: تُعرض أيام العمل فقط مع الأماكن المتبقية.", "sante-shot-ticket": "التذكرة: رقم في الطابور، وقت متوقع ورمز للتتبع.", "sante-shot-track": "على هاتف المريض، محدّث مباشرة.", "sante-shot-screen": "شاشة قاعة الانتظار: الرقم المنادى والمرضى التالون.", "sante-try": "جرّب موقع المريض", "sante-try-doc": "جرّب فضاء الطبيب", "sante-try-sub": "مباشرة في متصفحك وبدون تسجيل: خذ تذكرة كمريض، ثم نادِ عليها من فضاء الطبيب وشاهد صفحة المريض تتحدث.", "sante-p-title": "للمرضى", "sante-p1": "تذكرة عبر الإنترنت في 30 ثانية", "sante-p2": "الرقم والوقت المتوقع فوراً", "sante-p3": "الطابور مباشرة: عدد من قبلك والوقت", "sante-p4": "إلغاء بنقرة واحدة: يتقدم المرضى التالون", "sante-d-title": "للطبيب", "sante-d1": "مناداة التالي، تسجيل الغياب، تدبير الحالات المستعجلة", "sante-d2": "الأجندة، ملفات المرضى والسجل", "sante-d3": "إحصائيات: المرضى يومياً، الغيابات، المداخيل", "sante-d4": "أيام العمل، الأوقات، العطل والإجازات", "sante-a-title": "طابور عادل", "sante-a1": "الأسبقية لمن يحجز أولاً: لا أحد يتجاوز دوره", "sante-a2": "الأماكن يومياً = ساعات الفحص ÷ المدة المتوسطة", "sante-a3": "الوقت المتوقع يتبع الإيقاع الحقيقي لليوم", "sante-a4": "المريض المتأخر يعود بعد المريض التالي", "sante-note": "شاشات تجريبية بعيادة ومرضى وهميين. لكل عيادة اسمها وأوقاتها وموقعها الخاص."}};
+    for (const l in santeI18n) Object.assign(translations[l], santeI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 13, years: 1, edits: 0, cur: null };
