@@ -452,7 +452,7 @@
     .caisse-tiers li span:first-child { min-width: 0; }
     .caisse-tiers li small { display: block; opacity: .7; font-size: 11.5px; }
     .caisse-tiers li b { white-space: nowrap; font-variant-numeric: tabular-nums; }
-    .offers-grid.plans-grid { grid-template-columns: repeat(2, minmax(0, 460px)); justify-content: center; }
+    .offers-grid.plans-grid { grid-template-columns: repeat(3, minmax(0, 420px)); justify-content: center; }
     @media (max-width: 1010px) { .offers-grid.plans-grid { grid-template-columns: minmax(0, 460px); } }
     .caisse-options { margin: 0 0 14px; padding-top: 12px; border-top: 1px dashed rgba(168, 85, 247, .35); display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
     .caisse-options-title { margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; font-weight: 600; }
@@ -1235,6 +1235,21 @@
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20App%20&%20POS%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
           <a class="offer-btn try-demo" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a>
         </div>
+        <div class="offer-card plan-card glass reveal" style="--d:.16s">
+          <span class="offer-badge"><i class="fas fa-stethoscope"></i> <span data-i18n="offer15-badge">Doctors' practices</span></span>
+          <h3 class="offer-title" data-i18n="offer15-title">NOOR Santé</h3>
+          <p class="offer-short" data-i18n="offer15-desc">Online tickets for doctors' practices: patients book on your website, first come first served, and follow the queue live on their phone.</p>
+          <div class="offer-price plan-price" data-plan="15">299 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="plan-equiv" data-plan-equiv="15"></div>
+          <ul class="offer-features">
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f1">Online ticket in 30 seconds, only on working days</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f2">Live queue and estimated time on the patient's phone</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f3">Doctor's space: call next, absents, emergencies, agenda</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f4">Waiting-room screen and monthly statistics</span></li>
+          </ul>
+          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20NOOR%20Sant%C3%A9%20for%20my%20practice','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+          <a class="offer-btn try-demo" href="demo/sante/" target="_blank" rel="noopener"><i class="fas fa-user-doctor"></i> <span data-i18n="offer15-try">Try the NOOR Santé demo</span></a>
+        </div>
       </div>
       <p class="plan-rules reveal" id="planRules">Setup 990 DH once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.</p>
       <p class="plan-launch reveal" id="planLaunch"></p>
@@ -1299,49 +1314,6 @@
       </div>
       <div class="caisse-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a> <a class="offer-btn try-demo caisse-try-big dash-try" href="demo/dashboard/" target="_blank" rel="noopener"><i class="fas fa-chart-line"></i> <span data-i18n="dash-try">Try the owner dashboard</span></a><p data-i18n="caisse-try-sub">Works in your browser, no sign-up: take an order on the till, then see it in the owner dashboard (sales, best sellers, staff, menu and photos).</p></div>
       <p class="shot-note" data-i18n="shot-note">Real NOOR Caisse screens, shown with a sample café menu. Each café adds its own photos from the dashboard.</p>
-      <div class="caisse-grid">
-        <div class="offer-card glass reveal caisse-card">
-          <h3 class="offer-title"><i class="fas fa-circle-check" style="color:#16a34a"></i> <span data-i18n="caisse-now">Already working</span></h3>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n1">Orders, payments and voids with a reason</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n2">Ticket printing and cash drawer</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n3">Cloud hosted: live data, automatic updates and daily backups</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n4">Staff accounts and permissions (cashier, manager)</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n5">Owner dashboard: daily sales, best sellers, cancellations</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="caisse-n6">Automatic daily backups</span></li>
-          </ul>
-        </div>
-        <div class="offer-card glass reveal caisse-card caisse-next" style="--d:.08s">
-          <h3 class="offer-title"><i class="fas fa-hourglass-half"></i> <span data-i18n="caisse-next">Coming next</span></h3>
-          <ul class="offer-features">
-            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x1">Evening sales report sent on WhatsApp</span></li>
-            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x2">Stock management</span></li>
-            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x3">Interface in French and Arabic</span></li>
-            <li><i class="fas fa-clock"></i> <span data-i18n="caisse-x4">Version for shops and pharmacies</span></li>
-          </ul>
-        </div>
-        <!-- POS software + hardware kit -->
-        <div class="offer-card glass tilt reveal" style="--d:.2s">
-          <div class="offer-photo"><img src="assets/offers/pos-kit.jpg" alt="A cashier using a touch-screen register with a receipt printer" loading="lazy" width="760" height="460"></div>
-          <span class="offer-badge"><i class="fas fa-box-open"></i> <span data-i18n="pos2-badge">Complete kit</span></span>
-          <h3 class="offer-title" data-i18n="pos2-title">Complete kit: NOOR Caisse + hardware</h3>
-          <p class="offer-short" data-i18n="pos2-desc-short">Everything ready on day one: equipment, setup and training.</p>
-          <div class="offer-price" style="font-size:28px" data-i18n="pos-price">Price on quote</div>
-          <div class="offer-maintenance"><i class="fas fa-store"></i> <span data-i18n="pos-demo">Free demo in your shop or by video</span></div>
-          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-          <div class="offer-more-body">
-            <p class="offer-desc" data-i18n="pos2-desc">We bring the till PC, the ticket printer and the cash drawer, install NOOR Caisse, enter your menu and train your team.</p>
-            <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f1">Till PC (Windows) or touch-screen register</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f2">Ticket printer and cash drawer</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f3">Your menu, prices and staff set up for you</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f4">Installed in your café or restaurant</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="pos2-f5">Then the NOOR Caisse plan (249 DH / month)</span></li>
-            </ul>
-          </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27d%20like%20a%20quote%20for%20the%20POS%20software%20%2B%20hardware%20kit','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="pos2-btn">Get a quote for the kit</span></button>
-        </div>
-      </div>
       <div class="section-head reveal packs-head" id="sante">
         <h3 class="section-title" data-i18n="sante-title">NOOR Santé: online tickets for doctors' practices</h3>
         <p class="section-subtitle" data-i18n="sante-sub">Patients take a ticket on the practice's website, first come first served, only on working days. They follow the queue live on their phone and come just before their turn. The doctor runs the day from one screen.</p>
@@ -3745,7 +3717,14 @@
         'q-later': 'Normal price after our first {n} cafés (your launch price stays 2 years)',
         'opt-title': 'Options', 'opt-assistant': 'Smart Assistant 24/7: +{price}',
         'opt-soon': 'Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients',
-        'q-assistant': 'Add the Smart Assistant 24/7 (+{price} / month)'
+        'q-assistant': 'Add the Smart Assistant 24/7 (+{price} / month)',
+        'offer15-badge': "Doctors' practices", 'offer15-title': 'NOOR Santé',
+        'offer15-desc': "Online tickets for doctors' practices: patients book on your website, first come first served, and follow the queue live on their phone.",
+        'offer15-f1': 'Online ticket in 30 seconds, only on working days',
+        'offer15-f2': "Live queue and estimated time on the patient's phone",
+        'offer15-f3': "Doctor's space: call next, absents, emergencies, agenda",
+        'offer15-f4': 'Waiting-room screen and monthly statistics',
+        'offer15-try': 'Try the NOOR Santé demo'
       },
       fr: {
         'plan-from': 'Dès',
@@ -3759,7 +3738,14 @@
         'q-later': 'Prix normal après nos {n} premiers cafés (votre prix de lancement reste 2 ans)',
         'opt-title': 'Options', 'opt-assistant': 'Assistant Intelligent 24h/24 : +{price}',
         'opt-soon': 'Bientôt, inclus : rapport du soir sur WhatsApp, rappels et messages de relance à vos clients',
-        'q-assistant': "Ajouter l'Assistant Intelligent 24h/24 (+{price} / mois)"
+        'q-assistant': "Ajouter l'Assistant Intelligent 24h/24 (+{price} / mois)",
+        'offer15-badge': 'Cabinets médicaux', 'offer15-title': 'NOOR Santé',
+        'offer15-desc': "La prise de ticket en ligne pour les cabinets médicaux : les patients réservent sur votre site, premier arrivé premier servi, et suivent la file en direct sur leur téléphone.",
+        'offer15-f1': 'Un ticket en ligne en 30 secondes, uniquement les jours de consultation',
+        'offer15-f2': 'File en direct et heure estimée sur le téléphone du patient',
+        'offer15-f3': 'Espace médecin : appeler le suivant, absents, urgences, agenda',
+        'offer15-f4': "Écran de salle d'attente et statistiques du mois",
+        'offer15-try': 'Essayer la démo de NOOR Santé'
       },
       ar: {
         'plan-from': 'ابتداءً من',
@@ -3773,18 +3759,25 @@
         'q-later': 'السعر العادي بعد أول {n} مقهى (سعر الإطلاق الخاص بك يبقى سنتين)',
         'opt-title': 'خيارات', 'opt-assistant': 'المساعد الذكي على مدار الساعة: +{price}',
         'opt-soon': 'قريباً ومشمول: تقرير المساء على واتساب، تذكيرات ورسائل لإرجاع زبنائك',
-        'q-assistant': 'أضف المساعد الذكي على مدار الساعة (+{price} / شهر)'
+        'q-assistant': 'أضف المساعد الذكي على مدار الساعة (+{price} / شهر)',
+        'offer15-badge': 'عيادات الأطباء', 'offer15-title': 'NOOR Santé',
+        'offer15-desc': 'حجز التذاكر عبر الإنترنت لعيادات الأطباء: يحجز المرضى من موقعك، الأسبقية لمن يحجز أولاً، ويتابعون الطابور مباشرة على هاتفهم.',
+        'offer15-f1': 'تذكرة عبر الإنترنت في 30 ثانية، في أيام العمل فقط',
+        'offer15-f2': 'الطابور مباشرة والوقت المتوقع على هاتف المريض',
+        'offer15-f3': 'فضاء الطبيب: مناداة التالي، الغياب، الحالات المستعجلة، الأجندة',
+        'offer15-f4': 'شاشة قاعة الانتظار وإحصائيات الشهر',
+        'offer15-try': 'جرّب النسخة التجريبية من NOOR Santé'
       }
     };
     for (const l in tiersI18n) Object.assign(translations[l], tiersI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
     const quote = { pkg: 12, years: 1, edits: 0, cur: null, orders: 60, assistant: false };
-    const PKG_GROUPS = [['q-group-plans', [12, 11]], ['q-group-once', [5, 6, 1, 10]]];
+    const PKG_GROUPS = [['q-group-plans', [12, 15, 11]], ['q-group-once', [5, 6, 1, 10]]];
     // Smart Assistant added to a NOOR Caisse plan, per month (replaces the former Pro bundle)
     const ASSISTANT_ADDON = { ar: 200, fr: 18, en: 20 };
     // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
-    const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64 }, en: { 11: 26, 12: 15, 13: 46, 14: 72 } };
+    const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699, 15: 299 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64, 15: 28 }, en: { 11: 26, 12: 15, 13: 46, 14: 72, 15: 30 } };
     const PLAN_SETUP = { ar: 990, fr: 91, en: 102 };
     // NOOR Caisse (plan 12) is priced by café size: orders per day picks the tier.
     // Launch prices hold for our first LAUNCH_SPOTS cafés (locked 2 years); CAISSE_LATER is the price after that.
