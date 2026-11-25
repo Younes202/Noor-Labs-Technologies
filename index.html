@@ -452,8 +452,23 @@
     .caisse-tiers li span:first-child { min-width: 0; }
     .caisse-tiers li small { display: block; opacity: .7; font-size: 11.5px; }
     .caisse-tiers li b { white-space: nowrap; font-variant-numeric: tabular-nums; }
-    .offers-grid.plans-grid { grid-template-columns: repeat(3, minmax(0, 420px)); justify-content: center; }
-    @media (max-width: 1010px) { .offers-grid.plans-grid { grid-template-columns: minmax(0, 460px); } }
+    .offers-grid.all-offers { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+    .all-offers .offer-card { display: flex; flex-direction: column; }
+    .all-offers .card-actions { margin-top: auto; padding-top: 12px; display: flex; flex-direction: column; }
+    .all-offers .offer-photo.shot img { object-position: top left; }
+    .all-offers .plan-popular { z-index: 2; }
+    @media (max-width: 1010px) { .offers-grid.all-offers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 700px) { .offers-grid.all-offers { grid-template-columns: minmax(0, 1fr); } }
+    .demos-strip { margin: 28px auto 24px; padding: 22px; border-radius: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .demos-head h3 { margin: 0 0 4px; font-family: 'Space Grotesk', sans-serif; font-size: 20px; }
+    .demos-head p { margin: 0; color: var(--muted); font-size: 13px; }
+    .demos-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .demos-links a, .demos-links button { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(168,85,247,.08); color: inherit; font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; text-align: start; transition: background .2s, border-color .2s; }
+    .demos-links a:hover, .demos-links button:hover { background: rgba(168,85,247,.18); border-color: var(--p2); }
+    .demos-links i { color: var(--p2); width: 18px; text-align: center; }
+    @media (max-width: 900px) { .demos-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .demos-links { grid-template-columns: minmax(0, 1fr); } }
+    .caisse-options-title { margin: 10px 0 4px; }
     .caisse-options { margin: 0 0 14px; padding-top: 12px; border-top: 1px dashed rgba(168, 85, 247, .35); display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
     .caisse-options-title { margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; font-weight: 600; }
     .caisse-opt { margin: 0; display: flex; gap: 8px; align-items: baseline; }
@@ -1179,208 +1194,95 @@
         <h2 class="section-title" data-i18n="offers-title">Simple offers, clear prices</h2>
         <p class="section-subtitle" data-i18n="offers-sub">Start with a small monthly plan, or buy once at launch prices</p>
       </div>
-      <div class="care-strip glass reveal">
-        <div class="care-item">
-          <div class="care-ico"><i class="fas fa-shield-halved"></i></div>
-          <div><h3 data-i18n="care-m-title">Monthly maintenance</h3><p data-i18n="care-m-text">Keeps everything online and safe: hosting, security, backups and fixing anything that breaks. The price is on each offer, and the first 3 months are free.</p></div>
-        </div>
-        <div class="care-item">
-          <div class="care-ico"><i class="fas fa-pen"></i></div>
-          <div><h3 data-i18n="care-e-title">Updates and edits (optional)</h3><p id="careEditText"></p></div>
-        </div>
-        <p class="care-rule" data-i18n="care-rule">It worked and then broke? That is maintenance, at no extra cost. It works and you want it different? That is an edit.</p>
-      </div>
-      <div class="section-head reveal packs-head" id="plans">
-        <h3 class="section-title" data-i18n="plans-title">Monthly plans: start small, no big upfront cost</h3>
-        <p class="section-subtitle" data-i18n="plans-sub">Our software as a subscription, with hosting, updates and support included. Stop anytime with one month's notice.</p>
-      </div>
       <div class="plan-toggle reveal" role="group" aria-label="Billing">
         <button type="button" class="on" data-billing="monthly" data-i18n="plans-monthly">Monthly</button>
         <button type="button" data-billing="yearly" data-i18n="plans-yearly">Yearly · 2 months free</button>
       </div>
-      <div class="offers-grid plans-grid">
-        <div class="offer-card plan-card glass reveal" style="--d:0s">
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer11-badge">Start here</span></span>
-          <h3 class="offer-title" data-i18n="offer11-title">Smart Assistant</h3>
-          <p class="offer-short" data-i18n="offer11-desc">Answers your clients 24/7 on your website, in Darija, Arabic, French and English, and sends the interested ones to your WhatsApp.</p>
-          <div class="offer-price plan-price" data-plan="11">249 DH <small data-i18n="plan-per-month">/ month</small></div>
-          <div class="plan-equiv" data-plan-equiv="11"></div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f1">On your website, sends clients to your WhatsApp</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f2">Answering directly inside WhatsApp: coming soon</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f3">Sends interested clients to you</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f4">Hosting, updates and support included</span></li>
-          </ul>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
-        </div>
-        <div class="offer-card plan-card glass reveal popular" style="--d:.08s">
+      <div class="offers-grid all-offers" id="plans">
+        <!-- 1. NOOR Caisse -->
+        <div class="offer-card plan-card glass reveal popular" id="apps">
+          <div class="offer-photo shot"><img src="assets/caisse/caisse-commande.jpg" alt="NOOR Caisse order screen with item photos and the current order" loading="lazy" width="2160" height="1290"></div>
           <span class="plan-popular" data-i18n="plan-popular">Most popular</span>
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer12-badge">Cafés &amp; restaurants</span></span>
+          <span class="offer-badge"><i class="fas fa-mug-hot"></i> <span data-i18n="offer12-badge">Cafés &amp; restaurants</span></span>
           <h3 class="offer-title" data-i18n="offer12-title">NOOR Caisse</h3>
           <p class="offer-short" data-i18n="offer12-desc">The online cash register for cafés and restaurants: orders, payments, tickets and staff, with every sale live in the cloud.</p>
           <div class="offer-price plan-price" data-plan="12">From 149 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="12"></div>
           <ul class="caisse-tiers" id="caisseTiers"></ul>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f1">Online: every sale live in the cloud, on your phone</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f2">Ticket printer and cash drawer</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f3">Staff accounts with their own permissions</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f4">Owner dashboard: daily sales, best sellers, cancellations</span></li>
-          </ul>
-          <div class="caisse-options">
-            <p class="caisse-options-title" data-i18n="opt-title">Options</p>
-            <p class="caisse-opt"><i class="fas fa-plus-circle"></i> <span id="optAssistant">Smart Assistant 24/7: +200 DH / month</span></p>
-            <p class="caisse-opt soon"><i class="fas fa-clock"></i> <span data-i18n="opt-soon">Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients</span></p>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <ul class="offer-features">
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f1">Online: every sale live in the cloud, on your phone</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f2">Ticket printer and cash drawer</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f3">Staff accounts with their own permissions</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f4">Owner dashboard: daily sales, best sellers, cancellations</span></li>
+            </ul>
+            <div class="caisse-options">
+              <p class="caisse-options-title" data-i18n="opt-title">Options</p>
+              <p class="caisse-opt"><i class="fas fa-plus-circle"></i> <span id="optAssistant">Smart Assistant 24/7: +200 DH / month</span></p>
+              <p class="caisse-opt soon"><i class="fas fa-clock"></i> <span data-i18n="opt-soon">Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients</span></p>
+            </div>
           </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20App%20&%20POS%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
-          <a class="offer-btn try-demo" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a>
+          <div class="card-actions">
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20NOOR%20Caisse','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+            <a class="offer-btn try-demo" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-play"></i> <span data-i18n="card-try">Try the demo</span></a>
+          </div>
         </div>
-        <div class="offer-card plan-card glass reveal" style="--d:.16s">
+        <!-- 2. NOOR Santé -->
+        <div class="offer-card plan-card glass reveal" id="sante" style="--d:.06s">
+          <div class="offer-photo shot"><img src="assets/sante/06-medecin-aujourdhui.jpg" alt="NOOR Santé doctor dashboard with the live queue and estimated times" loading="lazy" width="2160" height="1350"></div>
           <span class="offer-badge"><i class="fas fa-stethoscope"></i> <span data-i18n="offer15-badge">Doctors' practices</span></span>
           <h3 class="offer-title" data-i18n="offer15-title">NOOR Santé</h3>
-          <p class="offer-short" data-i18n="offer15-desc">Online tickets for doctors' practices: patients book on your website, first come first served, and follow the queue live on their phone.</p>
-          <div class="offer-price plan-price" data-plan="15">299 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <p class="offer-short" data-i18n="offer15-desc-short">Run your practice's day from one screen, and let patients take a ticket online if you want.</p>
+          <div class="offer-price plan-price" data-plan="15">From 199 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="15"></div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f1">Online ticket in 30 seconds, only on working days</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f2">Live queue and estimated time on the patient's phone</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f3">Doctor's space: call next, absents, emergencies, agenda</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer15-f4">Waiting-room screen and monthly statistics</span></li>
-          </ul>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20NOOR%20Sant%C3%A9%20for%20my%20practice','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
-          <a class="offer-btn try-demo" href="demo/sante/" target="_blank" rel="noopener"><i class="fas fa-user-doctor"></i> <span data-i18n="offer15-try">Try the NOOR Santé demo</span></a>
-        </div>
-      </div>
-      <p class="plan-rules reveal" id="planRules">Setup 990 DH once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.</p>
-      <p class="plan-launch reveal" id="planLaunch"></p>
-      <p class="plan-founders reveal"><i class="fas fa-seedling"></i> <span data-i18n="plan-founders">Founding clients: 30 days free, then −50% for 3 months for our first 10 clients.</span></p>
-      <p class="plans-or-once reveal" data-i18n="plans-or-once">Prefer to own it? One-time prices below.</p>
-      <div class="section-head reveal packs-head" id="assistant">
-        <h3 class="section-title" data-i18n="flag-title">Our flagship: the Smart Assistant 24/7</h3>
-        <p class="section-subtitle" data-i18n="flag-sub">Our own AI assistant, built for Moroccan businesses: it understands Darija, Arabic, French and English, answers your clients on your website day and night, and sends the interested ones to your WhatsApp.</p>
-      </div>
-      <div class="offers-grid">
-        <!-- Offer 5: AI Chatbot (alone) -->
-        <div class="offer-card glass reveal chatbot-wide">
-          <span class="discount-badge-red">-20% OFF</span>
-          <div class="cw-main">
-            <span class="offer-badge"><i class="fas fa-brain"></i> <span data-i18n="offer5-badge">Never miss a client</span></span>
-            <h3 class="offer-title" data-i18n="offer5-title">Smart Assistant 24/7</h3>
-            <p class="offer-short" data-i18n="offer5-desc-short">Answers your clients day and night, in their language.</p>
-            <div class="offer-price" id="price5">3,000 DH <small><s>3,750 DH</s></small></div>
-            <div class="offer-maintenance" id="maintenance5"><i class="fas fa-calendar-alt"></i> + 49 DH / month maintenance</div>
+          <ul class="caisse-tiers" id="santeTiers"></ul>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <p class="caisse-options-title" data-i18n="sante-g-title">Practice management (both plans)</p>
+            <ul class="offer-features">
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d1">Call the next patient, mark absent, handle emergencies</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d2">Agenda, patient files and history</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d3">Statistics: patients per day, no-shows, revenue</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d4">Working days, hours, holidays and days off</span></li>
+            </ul>
+            <p class="caisse-options-title" data-i18n="sante-b-title">Patient booking (Management + booking plan)</p>
+            <ul class="offer-features">
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p1">Take a ticket online in 30 seconds</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p3">Follow the queue live: patients ahead and time</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a1">First come, first served: nobody can jump the queue</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-b4">Waiting-room screen with the number called</span></li>
+            </ul>
           </div>
-          <div class="cw-side">
-            <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
-            <div class="offer-more-body">
-              <p class="offer-desc" data-i18n="offer5-desc">It's 2 a.m. and a client asks for your price. Your assistant answers instantly, in Darija, Arabic, French or English, and sends you the interested clients on WhatsApp. Try the one on this site!</p>
-              <ul class="offer-features">
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f1">Knows your services, prices and common questions</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f2">Answers 24/7 in Arabic, Darija, French &amp; English</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f3">On your website, and sends clients to your WhatsApp</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer5-f4">First 3 months of maintenance free</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
-              </ul>
-            </div>
-            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer5-btn">Get this offer</span></button>
-            <button class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="offer5-try">Try the live demo</span></button>
+          <div class="card-actions">
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20NOOR%20Sant%C3%A9%20for%20my%20practice','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+            <a class="offer-btn try-demo" href="demo/sante/medecin/" target="_blank" rel="noopener"><i class="fas fa-play"></i> <span data-i18n="card-try">Try the demo</span></a>
           </div>
         </div>
-      </div>
-      <div class="section-head reveal packs-head" id="apps">
-        <h3 class="section-title" data-i18n="apps-title">NOOR Caisse: the cash register for cafés and restaurants</h3>
-        <p class="section-subtitle" data-i18n="apps-sub">Our own cloud software, built and tested by us. The till runs on the café's PC or tablet, every sale goes straight to the cloud, and the owner follows the day live from any phone. Hosting, updates and backups included in the NOOR Caisse plan.</p>
-      </div>
-      <div class="caisse-shots reveal">
-        <figure class="shot-main glass">
-          <img src="assets/caisse/caisse-commande.jpg" alt="NOOR Caisse order screen with item photos and the current order" loading="lazy" width="2160" height="1290">
-          <figcaption data-i18n="shot-main">Taking an order: staff tap the photo, the total updates, then cash or card.</figcaption>
-        </figure>
-        <div class="shot-side">
-          <figure class="glass">
-            <img src="assets/caisse/caisse-especes.jpg" alt="Cash payment with the change calculated" loading="lazy" width="2160" height="1290">
-            <figcaption data-i18n="shot-cash">Cash: type what the customer gives, the till shows the change.</figcaption>
-          </figure>
-          <figure class="glass">
-            <img src="assets/caisse/caisse-mes-commandes.jpg" alt="Today's orders list" loading="lazy" width="1920" height="1140">
-            <figcaption data-i18n="shot-history">Today's orders: paid or cancelled, with the reason.</figcaption>
-          </figure>
+        <!-- 3. Smart Assistant (monthly) -->
+        <div class="offer-card plan-card glass reveal" id="assistant" style="--d:.12s">
+          <div class="offer-photo"><img src="assets/offers/offer4.jpg" alt="A business owner relaxing while his assistant answers clients" loading="lazy" width="760" height="460"></div>
+          <span class="offer-badge"><i class="fas fa-robot"></i> <span data-i18n="offer11-badge">Start here</span></span>
+          <h3 class="offer-title" data-i18n="offer11-title">Smart Assistant</h3>
+          <p class="offer-short" data-i18n="offer11-desc">Answers your clients 24/7 on your website, in Darija, Arabic, French and English, and sends the interested ones to your WhatsApp.</p>
+          <div class="offer-price plan-price" data-plan="11">249 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="plan-equiv" data-plan-equiv="11"></div>
+          <button type="button" class="offer-more" aria-expanded="false" onclick="toggleOfferMore(this)"><span data-i18n="offer-more">See what's included</span> <i class="fas fa-chevron-down"></i></button>
+          <div class="offer-more-body">
+            <ul class="offer-features">
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f1">On your website, sends clients to your WhatsApp</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f2">Answering directly inside WhatsApp: coming soon</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f3">Sends interested clients to you</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer11-f4">Hosting, updates and support included</span></li>
+            </ul>
+          </div>
+          <div class="card-actions">
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
+            <button type="button" class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-play"></i> <span data-i18n="card-try">Try the demo</span></button>
+          </div>
         </div>
-        <figure class="shot-wide glass">
-          <img src="assets/dashboard/dashboard-apercu.jpg" alt="Owner dashboard: today's sales, 7-day chart, best sellers" loading="lazy" width="2160" height="1350">
-          <figcaption data-i18n="shot-dash">The owner's dashboard, on phone or computer: today's sales, the week, best sellers and what needs attention.</figcaption>
-        </figure>
-      </div>
-      <div class="caisse-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a> <a class="offer-btn try-demo caisse-try-big dash-try" href="demo/dashboard/" target="_blank" rel="noopener"><i class="fas fa-chart-line"></i> <span data-i18n="dash-try">Try the owner dashboard</span></a><p data-i18n="caisse-try-sub">Works in your browser, no sign-up: take an order on the till, then see it in the owner dashboard (sales, best sellers, staff, menu and photos).</p></div>
-      <p class="shot-note" data-i18n="shot-note">Real NOOR Caisse screens, shown with a sample café menu. Each café adds its own photos from the dashboard.</p>
-      <div class="section-head reveal packs-head" id="sante">
-        <h3 class="section-title" data-i18n="sante-title">NOOR Santé: online tickets for doctors' practices</h3>
-        <p class="section-subtitle" data-i18n="sante-sub">Patients take a ticket on the practice's website, first come first served, only on working days. They follow the queue live on their phone and come just before their turn. The doctor runs the day from one screen.</p>
-      </div>
-      <div class="sante-shots reveal">
-        <figure class="glass">
-          <img src="assets/sante/06-medecin-aujourdhui.jpg" alt="NOOR Santé doctor dashboard: patient in consultation, live queue with estimated times, day timeline" loading="lazy" width="2160" height="1350">
-          <figcaption data-i18n="sante-shot-doc">The doctor's day: who is in consultation, who is next, and the estimated time of every patient.</figcaption>
-        </figure>
-        <div class="shot-side">
-          <figure class="glass">
-            <img src="assets/sante/02-site-choix-du-jour.jpg" alt="Booking calendar showing working days with places left" loading="lazy" width="1650" height="1083">
-            <figcaption data-i18n="sante-shot-days">Booking: only working days are offered, with the places left.</figcaption>
-          </figure>
-          <figure class="glass">
-            <img src="assets/sante/04-site-ticket-confirme.jpg" alt="Confirmed ticket with number, estimated time and tracking code" loading="lazy" width="1650" height="888">
-            <figcaption data-i18n="sante-shot-ticket">The ticket: a number in the queue, an estimated time and a tracking code.</figcaption>
-          </figure>
-        </div>
-        <div class="sante-row2">
-          <figure class="glass sante-phone">
-            <img src="assets/sante/suivi-mobile.jpg" alt="Patient tracking page on a phone: patients ahead and estimated time" loading="lazy" width="585" height="1170">
-            <figcaption data-i18n="sante-shot-track">On the patient's phone, updated live.</figcaption>
-          </figure>
-          <figure class="glass">
-            <img src="assets/sante/14-ecran-salle-attente.jpg" alt="Waiting-room screen showing the number called and the next patients" loading="lazy" width="2400" height="1350">
-            <figcaption data-i18n="sante-shot-screen">The waiting-room screen: the number called and the next patients.</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div class="caisse-cta sante-cta reveal"><a class="offer-btn try-demo caisse-try-big" href="demo/sante/" target="_blank" rel="noopener"><i class="fas fa-calendar-check"></i> <span data-i18n="sante-try">Try the patient site</span></a> <a class="offer-btn try-demo caisse-try-big sante-doc" href="demo/sante/medecin/" target="_blank" rel="noopener"><i class="fas fa-user-doctor"></i> <span data-i18n="sante-try-doc">Try the doctor's space</span></a><p data-i18n="sante-try-sub">Works in your browser, no sign-up: take a ticket as a patient, then call it from the doctor's space and watch the patient's page update.</p></div>
-      <div class="sante-grid">
-        <div class="offer-card glass reveal caisse-card">
-          <h3 class="offer-title"><i class="fas fa-mobile-screen" style="color:var(--p2)"></i> <span data-i18n="sante-p-title">For patients</span></h3>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p1">Take a ticket online in 30 seconds</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p2">Ticket number and estimated time right away</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p3">Follow the queue live: patients ahead and time</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-p4">Cancel in one tap: the next patients move up</span></li>
-          </ul>
-        </div>
-        <div class="offer-card glass reveal caisse-card" style="--d:.08s">
-          <h3 class="offer-title"><i class="fas fa-user-doctor" style="color:var(--p2)"></i> <span data-i18n="sante-d-title">For the doctor</span></h3>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d1">Call the next patient, mark absent, handle emergencies</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d2">Agenda, patient files and history</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d3">Statistics: patients per day, no-shows, revenue</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-d4">Working days, hours, holidays and days off</span></li>
-          </ul>
-        </div>
-        <div class="offer-card glass reveal caisse-card" style="--d:.16s">
-          <h3 class="offer-title"><i class="fas fa-list-ol" style="color:var(--p2)"></i> <span data-i18n="sante-a-title">A fair queue</span></h3>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a1">First come, first served: nobody can jump the queue</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a2">Places per day = consultation hours ÷ average length</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a3">Estimated time adjusts to the real pace of the day</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="sante-a4">Late patients go back in after the next one</span></li>
-          </ul>
-        </div>
-      </div>
-      <p class="shot-note" data-i18n="sante-note">Demo screens with a sample practice and fictional patients. Each practice gets its own name, hours and website.</p>
-      <div class="section-head reveal packs-head" id="addons">
-        <h3 class="section-title" data-i18n="addons-title">Add-ons: website, pack and smart card</h3>
-        <p class="section-subtitle" data-i18n="addons-sub">Complete your setup: be found on Google, answer every client, and be saved in their phone in one tap.</p>
-      </div>
-      <div class="offers-grid addons-row">
-        <div class="offer-card glass tilt reveal">
+        <!-- 4. Website + Smart Assistant pack -->
+        <div class="offer-card glass reveal" id="addons" style="--d:.18s">
           <div class="offer-photo"><img src="assets/offers/offer6.jpg" alt="A friendly man greeting clients from his laptop" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red pack">PACK -17%</span>
           <span class="offer-badge"><i class="fas fa-layer-group"></i> <span data-i18n="offer6-badge">Smart Pack</span></span>
@@ -1392,17 +1294,21 @@
           <div class="offer-more-body">
             <p class="offer-desc" data-i18n="offer6-desc">Clients find you on Google, and your assistant answers them right away, even while you sleep. The easiest way to win new clients.</p>
             <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f1">Everything in Professional Website</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f2">+ Smart Assistant that knows your business</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f3">Cheaper than buying both separately</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f4">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f1">Everything in Professional Website</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f2">+ Smart Assistant that knows your business</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f3">Cheaper than buying both separately</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer6-f4">First 3 months of maintenance free</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-ai-usage">Assistant messages: free up to a generous monthly amount, then charged at cost</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
             </ul>
           </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Website%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer6-btn">Get this pack</span></button>
+          <div class="card-actions">
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Website%20%2B%20Smart%20Assistant%20pack','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer6-btn">Get this pack</span></button>
+            <button type="button" class="offer-btn try-demo" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-play"></i> <span data-i18n="card-try">Try the demo</span></button>
+          </div>
         </div>
-        <div class="offer-card glass tilt reveal" style="--d:.08s">
+        <!-- 5. Professional Website -->
+        <div class="offer-card glass reveal" style="--d:.24s">
           <div class="offer-photo"><img src="assets/offers/offer1.jpg" alt="Someone browsing a business website on a laptop in a café" loading="lazy" width="760" height="460"></div>
           <span class="discount-badge-red">-20% OFF</span>
           <span class="offer-badge"><i class="fas fa-globe"></i> <span data-i18n="offer1-badge">Get found</span></span>
@@ -1414,15 +1320,19 @@
           <div class="offer-more-body">
             <p class="offer-desc" data-i18n="offer1-desc">A client searches Google for a business like yours at 11 p.m. The next day, they call you, not your competitor. We build a beautiful website that works on every phone and brings clients to you.</p>
             <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f2">First 3 months of maintenance free</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f3">Hosting, security &amp; backups included: nothing to worry about</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f1">Maintenance keeps everything running and safe. Edits are optional</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f2">First 3 months of maintenance free</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer1-f3">Hosting, security &amp; backups included: nothing to worry about</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="feat-pay">Pay 50% to start, 50% on delivery</span></li>
             </ul>
           </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
+          <div class="card-actions">
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Professional%20Website%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer1-btn">Get this offer</span></button>
+            <a class="offer-btn try-demo" href="#solutions"><i class="fas fa-play"></i> <span data-i18n="card-try-web">See examples</span></a>
+          </div>
         </div>
-        <div class="offer-card glass tilt reveal" style="--d:.16s">
+        <!-- 6. Smart Business Card -->
+        <div class="offer-card glass reveal" style="--d:.3s">
           <div class="offer-photo nfc-photo" aria-hidden="true">
             <div class="nfc-card nfc-mini">
               <div class="nfc-chip"></div>
@@ -1442,15 +1352,48 @@
           <div class="offer-more-body">
             <p class="offer-desc" data-i18n="offer10-desc">You meet a client, they touch your card with their phone, and your number, WhatsApp and photos are saved on the spot. No more lost paper cards. Change your info anytime.</p>
             <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f1">Works with one tap on iPhone &amp; Android (+ QR code)</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f2">Your own page: contact, WhatsApp, social media, photos of your work</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f3">“Save contact” button: you’re in their phone in one tap</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f4">Change your info anytime, no new card needed</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f1">Works with one tap on iPhone &amp; Android (+ QR code)</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f2">Your own page: contact, WhatsApp, social media, photos of your work</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f3">“Save contact” button: you’re in their phone in one tap</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="offer10-f4">Change your info anytime, no new card needed</span></li>
             </ul>
           </div>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Business%20Card%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer10-btn">Order my card</span></button>
-          <a class="offer-btn try-demo" href="card/" target="_blank" rel="noopener"><i class="fas fa-id-card"></i> <span data-i18n="offer10-try">See a live demo profile</span></a>
+          <div class="card-actions">
+            <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Business%20Card%20offer','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="offer10-btn">Order my card</span></button>
+            <a class="offer-btn try-demo" href="card/" target="_blank" rel="noopener"><i class="fas fa-play"></i> <span data-i18n="card-try">Try the demo</span></a>
+          </div>
         </div>
+      </div>
+      <p class="plan-rules reveal" id="planRules"></p>
+      <p class="plan-launch reveal" id="planLaunch"></p>
+      <p class="plan-founders reveal"><i class="fas fa-seedling"></i> <span data-i18n="plan-founders">Founding clients: 30 days free, then −50% for 3 months for our first 10 clients.</span></p>
+
+      <!-- All demos in one place -->
+      <div class="demos-strip glass reveal" id="demos">
+        <div class="demos-head">
+          <h3 data-i18n="demos-title">Try every demo</h3>
+          <p data-i18n="demos-sub">Works in your browser, no sign-up. Demo data only.</p>
+        </div>
+        <div class="demos-links">
+          <a href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="demo-caisse">NOOR Caisse: the till</span></a>
+          <a href="demo/dashboard/" target="_blank" rel="noopener"><i class="fas fa-chart-line"></i> <span data-i18n="demo-dash">NOOR Caisse: owner dashboard</span></a>
+          <a href="demo/sante/medecin/" target="_blank" rel="noopener"><i class="fas fa-user-doctor"></i> <span data-i18n="demo-sante-doc">NOOR Santé: doctor's space</span></a>
+          <a href="demo/sante/" target="_blank" rel="noopener"><i class="fas fa-calendar-check"></i> <span data-i18n="demo-sante-pat">NOOR Santé: patient booking</span></a>
+          <button type="button" onclick="document.getElementById('chatbotToggle').click()"><i class="fas fa-robot"></i> <span data-i18n="demo-assistant">Smart Assistant: chat now</span></button>
+          <a href="card/" target="_blank" rel="noopener"><i class="fas fa-id-card"></i> <span data-i18n="demo-card">Smart Business Card: sample profile</span></a>
+        </div>
+      </div>
+
+      <div class="care-strip glass reveal">
+        <div class="care-item">
+          <div class="care-ico"><i class="fas fa-shield-halved"></i></div>
+          <div><h3 data-i18n="care-m-title">Monthly maintenance</h3><p data-i18n="care-m-text">Keeps everything online and safe: hosting, security, backups and fixing anything that breaks. The price is on each offer, and the first 3 months are free.</p></div>
+        </div>
+        <div class="care-item">
+          <div class="care-ico"><i class="fas fa-pen"></i></div>
+          <div><h3 data-i18n="care-e-title">Updates and edits (optional)</h3><p id="careEditText"></p></div>
+        </div>
+        <p class="care-rule" data-i18n="care-rule">It worked and then broke? That is maintenance, at no extra cost. It works and you want it different? That is an edit.</p>
       </div>
     </div>
   </section>
@@ -1468,11 +1411,15 @@
           <div class="q-step">
             <label class="q-label" for="qPkgSelect"><span class="q-n">1</span><span data-i18n="q-step1">Choose your package</span></label>
             <div class="q-select-wrap"><select class="q-select" id="qPkgSelect"></select></div>
+            <div class="q-orders" id="qSanteWrap" hidden>
+              <label for="qSanteTier" data-i18n="q-sante-label">What does your practice need?</label>
+              <div class="q-select-wrap"><select class="q-select" id="qSanteTier"></select></div>
+            </div>
             <div class="q-orders" id="qOrdersWrap" hidden>
               <label for="qOrders" data-i18n="q-orders">Orders per day (about)</label>
               <input type="number" class="contact-input" id="qOrders" value="60" min="0" max="5000" inputmode="numeric">
               <div class="q-hint" id="qTierHint"></div>
-              <label class="q-check" for="qAssistant"><input type="checkbox" id="qAssistant"> <span id="qAssistantLabel">Add the Smart Assistant 24/7 (+200 DH / month)</span></label>
+              <label class="q-check" for="qAssistant" id="qAssistantRow"><input type="checkbox" id="qAssistant"> <span id="qAssistantLabel">Add the Smart Assistant 24/7 (+200 DH / month)</span></label>
             </div>
           </div>
           <div class="q-step">
@@ -3724,7 +3671,18 @@
         'offer15-f2': "Live queue and estimated time on the patient's phone",
         'offer15-f3': "Doctor's space: call next, absents, emergencies, agenda",
         'offer15-f4': 'Waiting-room screen and monthly statistics',
-        'offer15-try': 'Try the NOOR Santé demo'
+        'offer15-try': 'Try the NOOR Santé demo',
+        'offer15-desc-short': "Run your practice's day from one screen, and let patients take a ticket online if you want.",
+        'sante-t-gest': 'Practice management', 'sante-t-gest-sub': 'queue at reception, agenda, patient files, statistics',
+        'sante-t-book': 'Management + patient booking', 'sante-t-book-sub': 'plus online tickets, live tracking and waiting-room screen',
+        'sante-g-title': 'Practice management (both plans)', 'sante-b-title': 'Patient booking (Management + booking plan)',
+        'sante-b4': 'Waiting-room screen with the number called',
+        'q-sante-label': 'What does your practice need?',
+        'card-try': 'Try the demo', 'card-try-web': 'See examples',
+        'demos-title': 'Try every demo', 'demos-sub': 'Works in your browser, no sign-up. Demo data only.',
+        'demo-caisse': 'NOOR Caisse: the till', 'demo-dash': 'NOOR Caisse: owner dashboard',
+        'demo-sante-doc': "NOOR Santé: doctor's space", 'demo-sante-pat': 'NOOR Santé: patient booking',
+        'demo-assistant': 'Smart Assistant: chat now', 'demo-card': 'Smart Business Card: sample profile'
       },
       fr: {
         'plan-from': 'Dès',
@@ -3745,7 +3703,18 @@
         'offer15-f2': 'File en direct et heure estimée sur le téléphone du patient',
         'offer15-f3': 'Espace médecin : appeler le suivant, absents, urgences, agenda',
         'offer15-f4': "Écran de salle d'attente et statistiques du mois",
-        'offer15-try': 'Essayer la démo de NOOR Santé'
+        'offer15-try': 'Essayer la démo de NOOR Santé',
+        'offer15-desc-short': 'Gérez la journée du cabinet sur un seul écran, et laissez les patients prendre un ticket en ligne si vous le souhaitez.',
+        'sante-t-gest': 'Gestion du cabinet', 'sante-t-gest-sub': "file à l'accueil, agenda, fichier patients, statistiques",
+        'sante-t-book': 'Gestion + réservation patients', 'sante-t-book-sub': "plus ticket en ligne, suivi en direct et écran de salle d'attente",
+        'sante-g-title': 'Gestion du cabinet (les deux formules)', 'sante-b-title': 'Réservation patients (formule Gestion + réservation)',
+        'sante-b4': "Écran de salle d'attente avec le numéro appelé",
+        'q-sante-label': 'De quoi a besoin votre cabinet ?',
+        'card-try': 'Essayer la démo', 'card-try-web': 'Voir des exemples',
+        'demos-title': 'Toutes nos démos', 'demos-sub': 'Directement dans votre navigateur, sans inscription. Données de démonstration.',
+        'demo-caisse': 'NOOR Caisse : la caisse', 'demo-dash': 'NOOR Caisse : espace gérant',
+        'demo-sante-doc': 'NOOR Santé : espace médecin', 'demo-sante-pat': 'NOOR Santé : réservation patient',
+        'demo-assistant': 'Assistant Intelligent : discuter', 'demo-card': 'Carte intelligente : profil exemple'
       },
       ar: {
         'plan-from': 'ابتداءً من',
@@ -3766,18 +3735,32 @@
         'offer15-f2': 'الطابور مباشرة والوقت المتوقع على هاتف المريض',
         'offer15-f3': 'فضاء الطبيب: مناداة التالي، الغياب، الحالات المستعجلة، الأجندة',
         'offer15-f4': 'شاشة قاعة الانتظار وإحصائيات الشهر',
-        'offer15-try': 'جرّب النسخة التجريبية من NOOR Santé'
+        'offer15-try': 'جرّب النسخة التجريبية من NOOR Santé',
+        'offer15-desc-short': 'سيّر يوم عيادتك من شاشة واحدة، ودع المرضى يأخذون تذكرة عبر الإنترنت إن أردت.',
+        'sante-t-gest': 'تسيير العيادة', 'sante-t-gest-sub': 'الطابور في الاستقبال، الأجندة، ملفات المرضى، الإحصائيات',
+        'sante-t-book': 'التسيير + حجز المرضى', 'sante-t-book-sub': 'مع التذكرة عبر الإنترنت، التتبع المباشر وشاشة قاعة الانتظار',
+        'sante-g-title': 'تسيير العيادة (في الباقتين)', 'sante-b-title': 'حجز المرضى (باقة التسيير + الحجز)',
+        'sante-b4': 'شاشة قاعة الانتظار مع الرقم المنادى',
+        'q-sante-label': 'ماذا تحتاج عيادتك؟',
+        'card-try': 'جرّب النسخة التجريبية', 'card-try-web': 'شاهد أمثلة',
+        'demos-title': 'جرّب كل النسخ التجريبية', 'demos-sub': 'مباشرة في متصفحك وبدون تسجيل. بيانات تجريبية فقط.',
+        'demo-caisse': 'NOOR Caisse: الكاشير', 'demo-dash': 'NOOR Caisse: فضاء المسير',
+        'demo-sante-doc': 'NOOR Santé: فضاء الطبيب', 'demo-sante-pat': 'NOOR Santé: حجز المريض',
+        'demo-assistant': 'المساعد الذكي: تحدث الآن', 'demo-card': 'البطاقة الذكية: ملف تجريبي'
       }
     };
     for (const l in tiersI18n) Object.assign(translations[l], tiersI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
-    const quote = { pkg: 12, years: 1, edits: 0, cur: null, orders: 60, assistant: false };
+    const quote = { pkg: 12, years: 1, edits: 0, cur: null, orders: 60, assistant: false, sante: 1 };
     const PKG_GROUPS = [['q-group-plans', [12, 15, 11]], ['q-group-once', [5, 6, 1, 10]]];
     // Smart Assistant added to a NOOR Caisse plan, per month (replaces the former Pro bundle)
     const ASSISTANT_ADDON = { ar: 200, fr: 18, en: 20 };
     // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
-    const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699, 15: 299 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64, 15: 28 }, en: { 11: 26, 12: 15, 13: 46, 14: 72, 15: 30 } };
+    const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699, 15: 199 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64, 15: 18 }, en: { 11: 26, 12: 15, 13: 46, 14: 72, 15: 20 } };
+    // NOOR Santé (plan 15): practice management only, or management + online patient booking
+    const SANTE_TIERS = ['gest', 'book'];
+    const SANTE_PRICE = { ar: [199, 349], fr: [18, 32], en: [20, 35] };
     const PLAN_SETUP = { ar: 990, fr: 91, en: 102 };
     // NOOR Caisse (plan 12) is priced by café size: orders per day picks the tier.
     // Launch prices hold for our first LAUNCH_SPOTS cafés (locked 2 years); CAISSE_LATER is the price after that.
@@ -3803,7 +3786,8 @@
       const cur = quoteCur(), t = translations[currentLang], i = quote.pkg;
       const tier = i === 12 ? caisseTier(quote.orders) : -1;
       const addon = tier >= 0 && quote.assistant ? ASSISTANT_ADDON[cur] : 0;
-      const monthly = (tier >= 0 ? CAISSE_PRICE[cur][tier] : PLAN_PRICE[cur][i]) + addon, setup = planSetup(cur, i);
+      const sTier = i === 15 ? quote.sante : -1;
+      const monthly = (tier >= 0 ? CAISSE_PRICE[cur][tier] : sTier >= 0 ? SANTE_PRICE[cur][sTier] : PLAN_PRICE[cur][i]) + addon, setup = planSetup(cur, i);
       const later = tier >= 0 ? CAISSE_LATER[cur][tier] + addon : 0;
       const years = quote.years >= 0.5 ? quote.years : 1, months = Math.round(years * 12), yearly = years >= 1;
       const gross = monthly * months, discount = yearly ? monthly * 2 * years : 0, waived = yearly ? setup : 0;
@@ -3813,7 +3797,8 @@
         editPlan: 0, editMonthly: 0, editTotal: 0, editLabel: '',
         discount, pct: discount ? Math.round(discount / gross * 100) : 0, discountLabel: t['q-plan-yearly'],
         subtotal: gross + setup, total: gross - discount + setup - waived, saving: discount + waived,
-        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}${addon ? ' + ' + t['offer11-title'] : ''}` : t[`offer${i}-title`],
+        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}${addon ? ' + ' + t['offer11-title'] : ''}`
+          : sTier >= 0 ? `${t['offer15-title']} · ${t[`sante-t-${SANTE_TIERS[sTier]}`]}` : t[`offer${i}-title`],
         desc: tier >= 0 ? `${t['offer12-desc']} ${t[`tier-${CAISSE_TIERS[tier].key}-limit`]}.` : t[`offer${i}-desc`],
         pay: t['q-plan-pay'], later,
         features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).filter(Boolean)
@@ -3852,7 +3837,7 @@
       const opt = (value, label, selected) => `<option value="${value}"${selected ? ' selected' : ''}>${esc(label)}</option>`;
       const d = quoteData(), noMaint = !(d.maint > 0);
       document.getElementById('qPkgSelect').innerHTML = PKG_GROUPS.map(([key, ids]) => `<optgroup label="${esc(t[key])}">` +
-        ids.map(i => opt(i, isPlan(i) ? `${t[`offer${i}-title`]} — ${i === 12 ? t['plan-from'] + ' ' : ''}${money(PLAN_PRICE[cur][i])} ${t['plan-per-month']}`
+        ids.map(i => opt(i, isPlan(i) ? `${t[`offer${i}-title`]} — ${i === 12 || i === 15 ? t['plan-from'] + ' ' : ''}${money(PLAN_PRICE[cur][i])} ${t['plan-per-month']}`
           : `${t[`offer${i}-title`]} — ${money(toNum(p[`offer${i}-price`]))}`, quote.pkg === i)).join('') + '</optgroup>').join('');
       const years = document.getElementById('qYearsSelect');
       const plan = isPlan(quote.pkg);
@@ -3868,8 +3853,11 @@
       const yLabel = document.querySelector('label[for="qYearsSelect"] span[data-i18n]');
       if (yLabel) yLabel.textContent = plan ? t['q-duration'] : t[yLabel.dataset.i18n];
       document.getElementById('qEditsHint').textContent = noMaint ? t['q-not-needed'] : d.months === 0 ? t['q-edits-need-maint'] : t['q-edits-hint'];
-      const caisse = quote.pkg === 12;
+      const caisse = quote.pkg === 12, santeQ = quote.pkg === 15;
       document.getElementById('qOrdersWrap').hidden = !caisse;
+      document.getElementById('qSanteWrap').hidden = !santeQ;
+      if (santeQ) document.getElementById('qSanteTier').innerHTML = SANTE_TIERS.map((k, n) =>
+        opt(n, `${t[`sante-t-${k}`]} — ${money(SANTE_PRICE[cur][n])} ${t['plan-per-month']}`, quote.sante === n)).join('');
       if (caisse) {
         const k = CAISSE_TIERS[caisseTier(quote.orders)].key;
         document.getElementById('qTierHint').textContent = t['q-tier-hint'].replace('{name}', t[`tier-${k}`]).replace('{limit}', t[`tier-${k}-limit`]);
@@ -3912,6 +3900,7 @@
       quote.orders = isFinite(n) && n >= 0 ? n : 0;
       renderSelects(); renderQuote();
     });
+    onQuoteSelect('qSanteTier', v => { quote.sante = +v; });
     document.getElementById('qAssistant').addEventListener('change', e => {
       quote.assistant = e.target.checked;
       renderSelects(); renderQuote();
@@ -4224,7 +4213,7 @@
     function renderPlanCards() {
       const t = translations[currentLang], cur = currentLang;
       document.querySelectorAll('[data-plan]').forEach(el => {
-        const i = +el.dataset.plan, m = PLAN_PRICE[cur][i], from = i === 12 ? esc(t['plan-from']) + ' ' : '';
+        const i = +el.dataset.plan, m = PLAN_PRICE[cur][i], from = i === 12 || i === 15 ? esc(t['plan-from']) + ' ' : '';
         el.innerHTML = planBilling === 'yearly'
           ? `${from}${money(m * 10, cur)} <small>${esc(t['plan-per-year'])}</small>`
           : `${from}${money(m, cur)} <small>${esc(t['plan-per-month'])}</small>`;
@@ -4233,6 +4222,11 @@
       if (tiers) tiers.innerHTML = CAISSE_TIERS.map((x, k) => {
         const m = CAISSE_PRICE[cur][k], v = planBilling === 'yearly' ? money(m * 10, cur) + ' ' + t['plan-per-year'] : money(m, cur) + ' ' + t['plan-per-month'];
         return `<li><span>${esc(t[`tier-${x.key}`])}<small>${esc(t[`tier-${x.key}-limit`])}</small></span><b>${esc(v)}</b></li>`;
+      }).join('');
+      const sTiers = document.getElementById('santeTiers');
+      if (sTiers) sTiers.innerHTML = SANTE_TIERS.map((k, n) => {
+        const m = SANTE_PRICE[cur][n], v = planBilling === 'yearly' ? money(m * 10, cur) + ' ' + t['plan-per-year'] : money(m, cur) + ' ' + t['plan-per-month'];
+        return `<li><span>${esc(t[`sante-t-${k}`])}<small>${esc(t[`sante-t-${k}-sub`])}</small></span><b>${esc(v)}</b></li>`;
       }).join('');
       const optA = document.getElementById('optAssistant');
       if (optA) optA.textContent = t['opt-assistant'].replace('{price}', money(ASSISTANT_ADDON[cur], cur) + ' ' + t['plan-per-month']);
