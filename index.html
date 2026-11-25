@@ -452,6 +452,15 @@
     .caisse-tiers li span:first-child { min-width: 0; }
     .caisse-tiers li small { display: block; opacity: .7; font-size: 11.5px; }
     .caisse-tiers li b { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .offers-grid.plans-grid { grid-template-columns: repeat(2, minmax(0, 460px)); justify-content: center; }
+    @media (max-width: 1010px) { .offers-grid.plans-grid { grid-template-columns: minmax(0, 460px); } }
+    .caisse-options { margin: 0 0 14px; padding-top: 12px; border-top: 1px dashed rgba(168, 85, 247, .35); display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+    .caisse-options-title { margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; font-weight: 600; }
+    .caisse-opt { margin: 0; display: flex; gap: 8px; align-items: baseline; }
+    .caisse-opt i { color: var(--p2); }
+    .caisse-opt.soon { opacity: .75; }
+    .q-check { display: flex; gap: 8px; align-items: center; font-size: 13px; cursor: pointer; margin-top: 4px; }
+    .q-check input { width: 18px; height: 18px; accent-color: #9333ea; }
     .q-orders { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
     .q-orders label { font-size: 13px; opacity: .85; }
     .qs-lines li.info { opacity: .72; font-size: .92em; }
@@ -1204,7 +1213,8 @@
           </ul>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Smart%20Assistant%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
         </div>
-        <div class="offer-card plan-card glass reveal" style="--d:.08s">
+        <div class="offer-card plan-card glass reveal popular" style="--d:.08s">
+          <span class="plan-popular" data-i18n="plan-popular">Most popular</span>
           <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer12-badge">Cafés &amp; restaurants</span></span>
           <h3 class="offer-title" data-i18n="offer12-title">NOOR Caisse</h3>
           <p class="offer-short" data-i18n="offer12-desc">The online cash register for cafés and restaurants: orders, payments, tickets and staff, with every sale live in the cloud.</p>
@@ -1217,38 +1227,13 @@
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f3">Staff accounts with their own permissions</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f4">Owner dashboard: daily sales, best sellers, cancellations</span></li>
           </ul>
+          <div class="caisse-options">
+            <p class="caisse-options-title" data-i18n="opt-title">Options</p>
+            <p class="caisse-opt"><i class="fas fa-plus-circle"></i> <span id="optAssistant">Smart Assistant 24/7: +200 DH / month</span></p>
+            <p class="caisse-opt soon"><i class="fas fa-clock"></i> <span data-i18n="opt-soon">Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients</span></p>
+          </div>
           <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Business%20App%20&%20POS%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
           <a class="offer-btn try-demo" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a>
-        </div>
-        <div class="offer-card plan-card glass reveal popular" style="--d:.16s">
-          <span class="plan-popular" data-i18n="plan-popular">Most popular</span>
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer13-badge">Caisse + Assistant</span></span>
-          <h3 class="offer-title" data-i18n="offer13-title">Pro</h3>
-          <p class="offer-short" data-i18n="offer13-desc">NOOR Caisse and the Smart Assistant 24/7, in one subscription.</p>
-          <div class="offer-price plan-price" data-plan="13">449 DH <small data-i18n="plan-per-month">/ month</small></div>
-          <div class="plan-equiv" data-plan-equiv="13"></div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f1">Everything in NOOR Caisse</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f2">The Smart Assistant 24/7</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f3">Evening sales report on WhatsApp (coming soon, included)</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer13-f4">Priority support</span></li>
-          </ul>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Pro%20plan','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-btn">Start with this plan</span></button>
-          <a class="offer-btn try-demo" href="demo/caisse/" target="_blank" rel="noopener"><i class="fas fa-cash-register"></i> <span data-i18n="caisse-try">Try the NOOR Caisse demo</span></a>
-        </div>
-        <div class="offer-card plan-card plan-soon glass reveal" style="--d:.24s">
-          <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer14-badge">Coming soon</span></span>
-          <h3 class="offer-title" data-i18n="offer14-title">Autopilot</h3>
-          <p class="offer-short" data-i18n="offer14-desc">Pro, plus automatic reminders and messages to your clients. In development: join the waiting list to get the founding price.</p>
-          <div class="offer-price plan-price" data-plan="14">699 DH <small data-i18n="plan-per-month">/ month</small></div>
-          <div class="plan-equiv" data-plan-equiv="14"></div>
-          <ul class="offer-features">
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f1">Everything in Pro</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f2">Reminders the day before an appointment or order</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f3">Thank-you and come-back messages to clients</span></li>
-            <li><i class="fas fa-check-circle"></i> <span data-i18n="offer14-f4">A monthly check-in call with us</span></li>
-          </ul>
-          <button class="offer-btn" onclick="window.open('https://wa.me/212612974126?text=Hello!%20I%27m%20interested%20in%20the%20Autopilot%20plan%20(waiting%20list)','_blank')"><i class="fab fa-whatsapp"></i> <span data-i18n="plan-wait">Join the waiting list</span></button>
         </div>
       </div>
       <p class="plan-rules reveal" id="planRules">Setup 990 DH once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.</p>
@@ -1515,6 +1500,7 @@
               <label for="qOrders" data-i18n="q-orders">Orders per day (about)</label>
               <input type="number" class="contact-input" id="qOrders" value="60" min="0" max="5000" inputmode="numeric">
               <div class="q-hint" id="qTierHint"></div>
+              <label class="q-check" for="qAssistant"><input type="checkbox" id="qAssistant"> <span id="qAssistantLabel">Add the Smart Assistant 24/7 (+200 DH / month)</span></label>
             </div>
           </div>
           <div class="q-step">
@@ -3756,7 +3742,10 @@
         'plan-rules': "Setup: {setupCaisse} for NOOR Caisse (menu import, set-up, training), {setup} for the other plans, free with yearly billing · Extra café or restaurant: +50% · Stop anytime with one month's notice.",
         'q-orders': 'Orders per day (about)',
         'q-tier-hint': 'Recommended plan: {name} ({limit}).',
-        'q-later': 'Normal price after our first {n} cafés (your launch price stays 2 years)'
+        'q-later': 'Normal price after our first {n} cafés (your launch price stays 2 years)',
+        'opt-title': 'Options', 'opt-assistant': 'Smart Assistant 24/7: +{price}',
+        'opt-soon': 'Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients',
+        'q-assistant': 'Add the Smart Assistant 24/7 (+{price} / month)'
       },
       fr: {
         'plan-from': 'Dès',
@@ -3767,7 +3756,10 @@
         'plan-rules': 'Mise en place : {setupCaisse} pour NOOR Caisse (import du menu, réglages, formation), {setup} pour les autres offres, offerte en annuel · Café ou restaurant supplémentaire : +50 % · Arrêt à tout moment avec un mois de préavis.',
         'q-orders': 'Commandes par jour (environ)',
         'q-tier-hint': 'Formule conseillée : {name} ({limit}).',
-        'q-later': 'Prix normal après nos {n} premiers cafés (votre prix de lancement reste 2 ans)'
+        'q-later': 'Prix normal après nos {n} premiers cafés (votre prix de lancement reste 2 ans)',
+        'opt-title': 'Options', 'opt-assistant': 'Assistant Intelligent 24h/24 : +{price}',
+        'opt-soon': 'Bientôt, inclus : rapport du soir sur WhatsApp, rappels et messages de relance à vos clients',
+        'q-assistant': "Ajouter l'Assistant Intelligent 24h/24 (+{price} / mois)"
       },
       ar: {
         'plan-from': 'ابتداءً من',
@@ -3778,14 +3770,19 @@
         'plan-rules': 'التشغيل: {setupCaisse} لـ NOOR Caisse (إدخال القائمة، الإعداد، التدريب) و{setup} للعروض الأخرى، مجاناً مع الدفع السنوي · مقهى أو مطعم إضافي: +50% · يمكنك التوقف في أي وقت بإشعار قبل شهر.',
         'q-orders': 'عدد الطلبات في اليوم (تقريباً)',
         'q-tier-hint': 'الباقة المناسبة: {name} ({limit}).',
-        'q-later': 'السعر العادي بعد أول {n} مقهى (سعر الإطلاق الخاص بك يبقى سنتين)'
+        'q-later': 'السعر العادي بعد أول {n} مقهى (سعر الإطلاق الخاص بك يبقى سنتين)',
+        'opt-title': 'خيارات', 'opt-assistant': 'المساعد الذكي على مدار الساعة: +{price}',
+        'opt-soon': 'قريباً ومشمول: تقرير المساء على واتساب، تذكيرات ورسائل لإرجاع زبنائك',
+        'q-assistant': 'أضف المساعد الذكي على مدار الساعة (+{price} / شهر)'
       }
     };
     for (const l in tiersI18n) Object.assign(translations[l], tiersI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
-    const quote = { pkg: 13, years: 1, edits: 0, cur: null, orders: 60 };
-    const PKG_GROUPS = [['q-group-plans', [11, 12, 13]], ['q-group-once', [5, 6, 1, 10]]];
+    const quote = { pkg: 12, years: 1, edits: 0, cur: null, orders: 60, assistant: false };
+    const PKG_GROUPS = [['q-group-plans', [12, 11]], ['q-group-once', [5, 6, 1, 10]]];
+    // Smart Assistant added to a NOOR Caisse plan, per month (replaces the former Pro bundle)
+    const ASSISTANT_ADDON = { ar: 200, fr: 18, en: 20 };
     // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
     const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64 }, en: { 11: 26, 12: 15, 13: 46, 14: 72 } };
     const PLAN_SETUP = { ar: 990, fr: 91, en: 102 };
@@ -3812,8 +3809,9 @@
     function planData() {
       const cur = quoteCur(), t = translations[currentLang], i = quote.pkg;
       const tier = i === 12 ? caisseTier(quote.orders) : -1;
-      const monthly = tier >= 0 ? CAISSE_PRICE[cur][tier] : PLAN_PRICE[cur][i], setup = planSetup(cur, i);
-      const later = tier >= 0 ? CAISSE_LATER[cur][tier] : 0;
+      const addon = tier >= 0 && quote.assistant ? ASSISTANT_ADDON[cur] : 0;
+      const monthly = (tier >= 0 ? CAISSE_PRICE[cur][tier] : PLAN_PRICE[cur][i]) + addon, setup = planSetup(cur, i);
+      const later = tier >= 0 ? CAISSE_LATER[cur][tier] + addon : 0;
       const years = quote.years >= 0.5 ? quote.years : 1, months = Math.round(years * 12), yearly = years >= 1;
       const gross = monthly * months, discount = yearly ? monthly * 2 * years : 0, waived = yearly ? setup : 0;
       return {
@@ -3822,7 +3820,7 @@
         editPlan: 0, editMonthly: 0, editTotal: 0, editLabel: '',
         discount, pct: discount ? Math.round(discount / gross * 100) : 0, discountLabel: t['q-plan-yearly'],
         subtotal: gross + setup, total: gross - discount + setup - waived, saving: discount + waived,
-        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}` : t[`offer${i}-title`],
+        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}${addon ? ' + ' + t['offer11-title'] : ''}` : t[`offer${i}-title`],
         desc: tier >= 0 ? `${t['offer12-desc']} ${t[`tier-${CAISSE_TIERS[tier].key}-limit`]}.` : t[`offer${i}-desc`],
         pay: t['q-plan-pay'], later,
         features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).filter(Boolean)
@@ -3882,6 +3880,8 @@
       if (caisse) {
         const k = CAISSE_TIERS[caisseTier(quote.orders)].key;
         document.getElementById('qTierHint').textContent = t['q-tier-hint'].replace('{name}', t[`tier-${k}`]).replace('{limit}', t[`tier-${k}-limit`]);
+        document.getElementById('qAssistantLabel').textContent = t['q-assistant'].replace('{price}', money(ASSISTANT_ADDON[cur]));
+        document.getElementById('qAssistant').checked = quote.assistant;
       }
     }
 
@@ -3917,6 +3917,10 @@
     document.getElementById('qOrders').addEventListener('input', e => {
       const n = parseFloat(e.target.value);
       quote.orders = isFinite(n) && n >= 0 ? n : 0;
+      renderSelects(); renderQuote();
+    });
+    document.getElementById('qAssistant').addEventListener('change', e => {
+      quote.assistant = e.target.checked;
       renderSelects(); renderQuote();
     });
 
@@ -4237,6 +4241,8 @@
         const m = CAISSE_PRICE[cur][k], v = planBilling === 'yearly' ? money(m * 10, cur) + ' ' + t['plan-per-year'] : money(m, cur) + ' ' + t['plan-per-month'];
         return `<li><span>${esc(t[`tier-${x.key}`])}<small>${esc(t[`tier-${x.key}-limit`])}</small></span><b>${esc(v)}</b></li>`;
       }).join('');
+      const optA = document.getElementById('optAssistant');
+      if (optA) optA.textContent = t['opt-assistant'].replace('{price}', money(ASSISTANT_ADDON[cur], cur) + ' ' + t['plan-per-month']);
       const launch = document.getElementById('planLaunch');
       if (launch) launch.innerHTML = '<i class="fas fa-arrow-trend-up"></i> ' + esc(t['plan-launch'].replace('{n}', LAUNCH_SPOTS)
         .replace('{p}', CAISSE_LATER[cur].map(m => money(m, cur)).join(' / ')));
