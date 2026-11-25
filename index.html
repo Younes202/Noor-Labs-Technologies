@@ -445,6 +445,16 @@
     .plan-equiv { min-height: 18px; font-size: 12px; color: var(--muted); margin: -4px 0 6px; }
     .plan-rules, .plan-founders, .plans-or-once { text-align: center; max-width: 820px; margin: 18px auto 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
     .plan-founders { color: var(--p2); font-weight: 600; }
+    .plan-launch { text-align: center; max-width: 820px; margin: 18px auto 0; font-size: 14px; line-height: 1.6; }
+    .plan-launch i { color: var(--p2); }
+    .caisse-tiers { list-style: none; margin: 4px 0 12px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    .caisse-tiers li { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 7px 10px; border-radius: 10px; background: rgba(147, 51, 234, .10); font-size: 13px; }
+    .caisse-tiers li span:first-child { min-width: 0; }
+    .caisse-tiers li small { display: block; opacity: .7; font-size: 11.5px; }
+    .caisse-tiers li b { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .q-orders { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+    .q-orders label { font-size: 13px; opacity: .85; }
+    .qs-lines li.info { opacity: .72; font-size: .92em; }
     .plans-or-once { margin-top: 34px; font-size: 15px; font-weight: 600; color: var(--text); }
     .caisse-cta { text-align: center; margin: 6px auto 8px; max-width: 640px; }
     .caisse-cta .caisse-try-big { display: inline-flex; width: auto; padding: 14px 26px; font-size: 16px; background: var(--grad); color: #fff; border: none; }
@@ -1198,8 +1208,9 @@
           <span class="offer-badge"><i class="fas fa-rotate"></i> <span data-i18n="offer12-badge">Cafés &amp; restaurants</span></span>
           <h3 class="offer-title" data-i18n="offer12-title">NOOR Caisse</h3>
           <p class="offer-short" data-i18n="offer12-desc">The online cash register for cafés and restaurants: orders, payments, tickets and staff, with every sale live in the cloud.</p>
-          <div class="offer-price plan-price" data-plan="12">249 DH <small data-i18n="plan-per-month">/ month</small></div>
+          <div class="offer-price plan-price" data-plan="12">From 149 DH <small data-i18n="plan-per-month">/ month</small></div>
           <div class="plan-equiv" data-plan-equiv="12"></div>
+          <ul class="caisse-tiers" id="caisseTiers"></ul>
           <ul class="offer-features">
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f1">Online: every sale live in the cloud, on your phone</span></li>
             <li><i class="fas fa-check-circle"></i> <span data-i18n="offer12-f2">Ticket printer and cash drawer</span></li>
@@ -1241,6 +1252,7 @@
         </div>
       </div>
       <p class="plan-rules reveal" id="planRules">Setup 990 DH once (product import, Darija set-up, training), free with yearly billing · Extra shop: +50% · WhatsApp: 1,000 messages a month included, Meta fees above that at cost.</p>
+      <p class="plan-launch reveal" id="planLaunch"></p>
       <p class="plan-founders reveal"><i class="fas fa-seedling"></i> <span data-i18n="plan-founders">Founding clients: 30 days free, then −50% for 3 months for our first 10 clients.</span></p>
       <p class="plans-or-once reveal" data-i18n="plans-or-once">Prefer to own it? One-time prices below.</p>
       <div class="section-head reveal packs-head" id="assistant">
@@ -1499,6 +1511,11 @@
           <div class="q-step">
             <label class="q-label" for="qPkgSelect"><span class="q-n">1</span><span data-i18n="q-step1">Choose your package</span></label>
             <div class="q-select-wrap"><select class="q-select" id="qPkgSelect"></select></div>
+            <div class="q-orders" id="qOrdersWrap" hidden>
+              <label for="qOrders" data-i18n="q-orders">Orders per day (about)</label>
+              <input type="number" class="contact-input" id="qOrders" value="60" min="0" max="5000" inputmode="numeric">
+              <div class="q-hint" id="qTierHint"></div>
+            </div>
           </div>
           <div class="q-step">
             <label class="q-label" for="qYearsSelect"><span class="q-n">2</span><span data-i18n="q-step2">Monthly maintenance</span></label>
@@ -3728,13 +3745,59 @@
     for (const l in addonsI18n) Object.assign(translations[l], addonsI18n[l]);
     const santeI18n = {"en": {"sante-title": "NOOR Santé: online tickets for doctors' practices", "sante-sub": "Patients take a ticket on the practice's website, first come first served, only on working days. They follow the queue live on their phone and come just before their turn. The doctor runs the day from one screen.", "sante-shot-doc": "The doctor's day: who is in consultation, who is next, and the estimated time of every patient.", "sante-shot-days": "Booking: only working days are offered, with the places left.", "sante-shot-ticket": "The ticket: a number in the queue, an estimated time and a tracking code.", "sante-shot-track": "On the patient's phone, updated live.", "sante-shot-screen": "The waiting-room screen: the number called and the next patients.", "sante-try": "Try the patient site", "sante-try-doc": "Try the doctor's space", "sante-try-sub": "Works in your browser, no sign-up: take a ticket as a patient, then call it from the doctor's space and watch the patient's page update.", "sante-p-title": "For patients", "sante-p1": "Take a ticket online in 30 seconds", "sante-p2": "Ticket number and estimated time right away", "sante-p3": "Follow the queue live: patients ahead and time", "sante-p4": "Cancel in one tap: the next patients move up", "sante-d-title": "For the doctor", "sante-d1": "Call the next patient, mark absent, handle emergencies", "sante-d2": "Agenda, patient files and history", "sante-d3": "Statistics: patients per day, no-shows, revenue", "sante-d4": "Working days, hours, holidays and days off", "sante-a-title": "A fair queue", "sante-a1": "First come, first served: nobody can jump the queue", "sante-a2": "Places per day = consultation hours ÷ average length", "sante-a3": "Estimated time adjusts to the real pace of the day", "sante-a4": "Late patients go back in after the next one", "sante-note": "Demo screens with a sample practice and fictional patients. Each practice gets its own name, hours and website."}, "fr": {"sante-title": "NOOR Santé : la prise de ticket en ligne pour les cabinets médicaux", "sante-sub": "Les patients prennent un ticket sur le site du cabinet, premier arrivé premier servi, uniquement les jours de consultation. Ils suivent la file en direct sur leur téléphone et arrivent juste avant leur tour. Le médecin gère sa journée sur un seul écran.", "sante-shot-doc": "La journée du médecin : qui est en consultation, qui est le suivant, et l'heure estimée de chaque patient.", "sante-shot-days": "Réservation : seuls les jours de consultation sont proposés, avec les places restantes.", "sante-shot-ticket": "Le ticket : un numéro dans la file, une heure estimée et un code de suivi.", "sante-shot-track": "Sur le téléphone du patient, mis à jour en direct.", "sante-shot-screen": "L'écran de la salle d'attente : le numéro appelé et les prochains patients.", "sante-try": "Essayer le site patient", "sante-try-doc": "Essayer l'espace médecin", "sante-try-sub": "Directement dans votre navigateur, sans inscription : prenez un ticket comme patient, appelez-le depuis l'espace médecin et voyez la page du patient se mettre à jour.", "sante-p-title": "Pour les patients", "sante-p1": "Un ticket en ligne en 30 secondes", "sante-p2": "Numéro et heure estimée tout de suite", "sante-p3": "La file en direct : patients devant et heure", "sante-p4": "Annulation en un clic : les suivants avancent", "sante-d-title": "Pour le médecin", "sante-d1": "Appeler le suivant, marquer absent, gérer les urgences", "sante-d2": "Agenda, fichier patients et historique", "sante-d3": "Statistiques : patients par jour, absences, recette", "sante-d4": "Jours de travail, horaires, fériés et congés", "sante-a-title": "Une file juste", "sante-a1": "Premier arrivé, premier servi : personne ne double", "sante-a2": "Places par jour = heures de consultation ÷ durée moyenne", "sante-a3": "L'heure estimée suit le rythme réel de la journée", "sante-a4": "Un patient en retard repasse après le suivant", "sante-note": "Écrans de démonstration avec un cabinet et des patients fictifs. Chaque cabinet a son propre nom, ses horaires et son site."}, "ar": {"sante-title": "NOOR Santé: حجز التذاكر عبر الإنترنت لعيادات الأطباء", "sante-sub": "يأخذ المرضى تذكرة من موقع العيادة، الأسبقية لمن يحجز أولاً، وفي أيام العمل فقط. يتابعون الطابور مباشرة على هاتفهم ويأتون قبيل دورهم. والطبيب يسيّر يومه من شاشة واحدة.", "sante-shot-doc": "يوم الطبيب: من في الفحص، من التالي، والوقت المتوقع لكل مريض.", "sante-shot-days": "الحجز: تُعرض أيام العمل فقط مع الأماكن المتبقية.", "sante-shot-ticket": "التذكرة: رقم في الطابور، وقت متوقع ورمز للتتبع.", "sante-shot-track": "على هاتف المريض، محدّث مباشرة.", "sante-shot-screen": "شاشة قاعة الانتظار: الرقم المنادى والمرضى التالون.", "sante-try": "جرّب موقع المريض", "sante-try-doc": "جرّب فضاء الطبيب", "sante-try-sub": "مباشرة في متصفحك وبدون تسجيل: خذ تذكرة كمريض، ثم نادِ عليها من فضاء الطبيب وشاهد صفحة المريض تتحدث.", "sante-p-title": "للمرضى", "sante-p1": "تذكرة عبر الإنترنت في 30 ثانية", "sante-p2": "الرقم والوقت المتوقع فوراً", "sante-p3": "الطابور مباشرة: عدد من قبلك والوقت", "sante-p4": "إلغاء بنقرة واحدة: يتقدم المرضى التالون", "sante-d-title": "للطبيب", "sante-d1": "مناداة التالي، تسجيل الغياب، تدبير الحالات المستعجلة", "sante-d2": "الأجندة، ملفات المرضى والسجل", "sante-d3": "إحصائيات: المرضى يومياً، الغيابات، المداخيل", "sante-d4": "أيام العمل، الأوقات، العطل والإجازات", "sante-a-title": "طابور عادل", "sante-a1": "الأسبقية لمن يحجز أولاً: لا أحد يتجاوز دوره", "sante-a2": "الأماكن يومياً = ساعات الفحص ÷ المدة المتوسطة", "sante-a3": "الوقت المتوقع يتبع الإيقاع الحقيقي لليوم", "sante-a4": "المريض المتأخر يعود بعد المريض التالي", "sante-note": "شاشات تجريبية بعيادة ومرضى وهميين. لكل عيادة اسمها وأوقاتها وموقعها الخاص."}};
     for (const l in santeI18n) Object.assign(translations[l], santeI18n[l]);
+    // NOOR Caisse priced by café size, with launch prices that go up after our first cafés
+    const tiersI18n = {
+      en: {
+        'plan-from': 'From',
+        'tier-ess': 'Essential', 'tier-ess-limit': 'up to 40 orders a day',
+        'tier-std': 'Standard', 'tier-std-limit': 'up to 150 orders a day',
+        'tier-ill': 'Unlimited', 'tier-ill-limit': 'more than 150 orders a day, several tills',
+        'plan-launch': 'Launch prices for our first {n} cafés, locked for 2 years. After that, NOOR Caisse goes to {p} a month.',
+        'plan-rules': "Setup: {setupCaisse} for NOOR Caisse (menu import, set-up, training), {setup} for the other plans, free with yearly billing · Extra café or restaurant: +50% · Stop anytime with one month's notice.",
+        'q-orders': 'Orders per day (about)',
+        'q-tier-hint': 'Recommended plan: {name} ({limit}).',
+        'q-later': 'Normal price after our first {n} cafés (your launch price stays 2 years)'
+      },
+      fr: {
+        'plan-from': 'Dès',
+        'tier-ess': 'Essentiel', 'tier-ess-limit': "jusqu'à 40 commandes par jour",
+        'tier-std': 'Standard', 'tier-std-limit': "jusqu'à 150 commandes par jour",
+        'tier-ill': 'Illimité', 'tier-ill-limit': 'plus de 150 commandes par jour, plusieurs caisses',
+        'plan-launch': 'Prix de lancement pour nos {n} premiers cafés, garantis 2 ans. Ensuite, NOOR Caisse passe à {p} par mois.',
+        'plan-rules': 'Mise en place : {setupCaisse} pour NOOR Caisse (import du menu, réglages, formation), {setup} pour les autres offres, offerte en annuel · Café ou restaurant supplémentaire : +50 % · Arrêt à tout moment avec un mois de préavis.',
+        'q-orders': 'Commandes par jour (environ)',
+        'q-tier-hint': 'Formule conseillée : {name} ({limit}).',
+        'q-later': 'Prix normal après nos {n} premiers cafés (votre prix de lancement reste 2 ans)'
+      },
+      ar: {
+        'plan-from': 'ابتداءً من',
+        'tier-ess': 'الأساسية', 'tier-ess-limit': 'حتى 40 طلباً في اليوم',
+        'tier-std': 'العادية', 'tier-std-limit': 'حتى 150 طلباً في اليوم',
+        'tier-ill': 'غير المحدودة', 'tier-ill-limit': 'أكثر من 150 طلباً في اليوم، عدة صناديق',
+        'plan-launch': 'أسعار الإطلاق لأول {n} مقهى، مضمونة لمدة سنتين. بعد ذلك يصبح سعر NOOR Caisse {p} شهرياً.',
+        'plan-rules': 'التشغيل: {setupCaisse} لـ NOOR Caisse (إدخال القائمة، الإعداد، التدريب) و{setup} للعروض الأخرى، مجاناً مع الدفع السنوي · مقهى أو مطعم إضافي: +50% · يمكنك التوقف في أي وقت بإشعار قبل شهر.',
+        'q-orders': 'عدد الطلبات في اليوم (تقريباً)',
+        'q-tier-hint': 'الباقة المناسبة: {name} ({limit}).',
+        'q-later': 'السعر العادي بعد أول {n} مقهى (سعر الإطلاق الخاص بك يبقى سنتين)'
+      }
+    };
+    for (const l in tiersI18n) Object.assign(translations[l], tiersI18n[l]);
 
     // currency is keyed by the translation block that holds its prices: en = USD, fr = EUR, ar = MAD
-    const quote = { pkg: 13, years: 1, edits: 0, cur: null };
+    const quote = { pkg: 13, years: 1, edits: 0, cur: null, orders: 60 };
     const PKG_GROUPS = [['q-group-plans', [11, 12, 13]], ['q-group-once', [5, 6, 1, 10]]];
     // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
-    const PLAN_PRICE = { ar: { 11: 249, 12: 249, 13: 449, 14: 699 }, fr: { 11: 23, 12: 23, 13: 41, 14: 64 }, en: { 11: 26, 12: 26, 13: 46, 14: 72 } };
+    const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64 }, en: { 11: 26, 12: 15, 13: 46, 14: 72 } };
     const PLAN_SETUP = { ar: 990, fr: 91, en: 102 };
+    // NOOR Caisse (plan 12) is priced by café size: orders per day picks the tier.
+    // Launch prices hold for our first LAUNCH_SPOTS cafés (locked 2 years); CAISSE_LATER is the price after that.
+    const LAUNCH_SPOTS = 30;
+    const CAISSE_TIERS = [{ key: 'ess', max: 40 }, { key: 'std', max: 150 }, { key: 'ill', max: Infinity }];
+    const CAISSE_PRICE = { ar: [149, 249, 399], fr: [14, 23, 37], en: [15, 26, 41] };
+    const CAISSE_LATER = { ar: [179, 299, 449], fr: [17, 28, 41], en: [18, 30, 46] };
+    const CAISSE_SETUP = { ar: 300, fr: 28, en: 30 };
+    const caisseTier = orders => CAISSE_TIERS.findIndex(x => orders <= x.max);
+    const planSetup = (cur, i) => (i === 12 ? CAISSE_SETUP : PLAN_SETUP)[cur];
     const isPlan = i => i >= 11;
     const toNum = s => parseFloat(String(s).replace(/,/g, ''));
     const quoteCur = () => quote.cur || currentLang;
@@ -3748,7 +3811,9 @@
 
     function planData() {
       const cur = quoteCur(), t = translations[currentLang], i = quote.pkg;
-      const monthly = PLAN_PRICE[cur][i], setup = PLAN_SETUP[cur];
+      const tier = i === 12 ? caisseTier(quote.orders) : -1;
+      const monthly = tier >= 0 ? CAISSE_PRICE[cur][tier] : PLAN_PRICE[cur][i], setup = planSetup(cur, i);
+      const later = tier >= 0 ? CAISSE_LATER[cur][tier] : 0;
       const years = quote.years >= 0.5 ? quote.years : 1, months = Math.round(years * 12), yearly = years >= 1;
       const gross = monthly * months, discount = yearly ? monthly * 2 * years : 0, waived = yearly ? setup : 0;
       return {
@@ -3757,7 +3822,9 @@
         editPlan: 0, editMonthly: 0, editTotal: 0, editLabel: '',
         discount, pct: discount ? Math.round(discount / gross * 100) : 0, discountLabel: t['q-plan-yearly'],
         subtotal: gross + setup, total: gross - discount + setup - waived, saving: discount + waived,
-        title: t[`offer${i}-title`], desc: t[`offer${i}-desc`], pay: t['q-plan-pay'],
+        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}` : t[`offer${i}-title`],
+        desc: tier >= 0 ? `${t['offer12-desc']} ${t[`tier-${CAISSE_TIERS[tier].key}-limit`]}.` : t[`offer${i}-desc`],
+        pay: t['q-plan-pay'], later,
         features: [1, 2, 3, 4].map(f => t[`offer${i}-f${f}`]).filter(Boolean)
       };
     }
@@ -3794,7 +3861,7 @@
       const opt = (value, label, selected) => `<option value="${value}"${selected ? ' selected' : ''}>${esc(label)}</option>`;
       const d = quoteData(), noMaint = !(d.maint > 0);
       document.getElementById('qPkgSelect').innerHTML = PKG_GROUPS.map(([key, ids]) => `<optgroup label="${esc(t[key])}">` +
-        ids.map(i => opt(i, isPlan(i) ? `${t[`offer${i}-title`]} — ${money(PLAN_PRICE[cur][i])} ${t['plan-per-month']}`
+        ids.map(i => opt(i, isPlan(i) ? `${t[`offer${i}-title`]} — ${i === 12 ? t['plan-from'] + ' ' : ''}${money(PLAN_PRICE[cur][i])} ${t['plan-per-month']}`
           : `${t[`offer${i}-title`]} — ${money(toNum(p[`offer${i}-price`]))}`, quote.pkg === i)).join('') + '</optgroup>').join('');
       const years = document.getElementById('qYearsSelect');
       const plan = isPlan(quote.pkg);
@@ -3810,6 +3877,12 @@
       const yLabel = document.querySelector('label[for="qYearsSelect"] span[data-i18n]');
       if (yLabel) yLabel.textContent = plan ? t['q-duration'] : t[yLabel.dataset.i18n];
       document.getElementById('qEditsHint').textContent = noMaint ? t['q-not-needed'] : d.months === 0 ? t['q-edits-need-maint'] : t['q-edits-hint'];
+      const caisse = quote.pkg === 12;
+      document.getElementById('qOrdersWrap').hidden = !caisse;
+      if (caisse) {
+        const k = CAISSE_TIERS[caisseTier(quote.orders)].key;
+        document.getElementById('qTierHint').textContent = t['q-tier-hint'].replace('{name}', t[`tier-${k}`]).replace('{limit}', t[`tier-${k}-limit`]);
+      }
     }
 
     function renderQuote() {
@@ -3821,6 +3894,7 @@
       if (d.plan) {
         lines.push([t['q-setup'], money(d.setup)]);
         if (d.freeValue) lines.push([d.freeLabel, '−' + money(d.freeValue), 'discount']);
+        if (d.later) lines.push([t['q-later'].replace('{n}', LAUNCH_SPOTS), `${money(d.later)} ${t['plan-per-month']}`, 'info']);
       }
       if (d.months > 0 && d.maint > 0) {
         lines.push([`${t['q-maint']} (${d.months} ${t['q-months-unit']} × ${money(d.maint)})`, money(d.maintGross)]);
@@ -3840,6 +3914,11 @@
     onQuoteSelect('qYearsSelect', v => { quote.years = +v; });
     onQuoteSelect('qEditsSelect', v => { quote.edits = +v; });
     onQuoteSelect('qCurrencySelect', v => { quote.cur = v; });
+    document.getElementById('qOrders').addEventListener('input', e => {
+      const n = parseFloat(e.target.value);
+      quote.orders = isFinite(n) && n >= 0 ? n : 0;
+      renderSelects(); renderQuote();
+    });
 
     function quoteClient() {
       const v = id => document.getElementById(id).value.trim();
@@ -4148,17 +4227,25 @@
     function renderPlanCards() {
       const t = translations[currentLang], cur = currentLang;
       document.querySelectorAll('[data-plan]').forEach(el => {
-        const i = +el.dataset.plan, m = PLAN_PRICE[cur][i];
+        const i = +el.dataset.plan, m = PLAN_PRICE[cur][i], from = i === 12 ? esc(t['plan-from']) + ' ' : '';
         el.innerHTML = planBilling === 'yearly'
-          ? `${money(m * 10, cur)} <small>${esc(t['plan-per-year'])}</small>`
-          : `${money(m, cur)} <small>${esc(t['plan-per-month'])}</small>`;
+          ? `${from}${money(m * 10, cur)} <small>${esc(t['plan-per-year'])}</small>`
+          : `${from}${money(m, cur)} <small>${esc(t['plan-per-month'])}</small>`;
       });
+      const tiers = document.getElementById('caisseTiers');
+      if (tiers) tiers.innerHTML = CAISSE_TIERS.map((x, k) => {
+        const m = CAISSE_PRICE[cur][k], v = planBilling === 'yearly' ? money(m * 10, cur) + ' ' + t['plan-per-year'] : money(m, cur) + ' ' + t['plan-per-month'];
+        return `<li><span>${esc(t[`tier-${x.key}`])}<small>${esc(t[`tier-${x.key}-limit`])}</small></span><b>${esc(v)}</b></li>`;
+      }).join('');
+      const launch = document.getElementById('planLaunch');
+      if (launch) launch.innerHTML = '<i class="fas fa-arrow-trend-up"></i> ' + esc(t['plan-launch'].replace('{n}', LAUNCH_SPOTS)
+        .replace('{p}', CAISSE_LATER[cur].map(m => money(m, cur)).join(' / ')));
       document.querySelectorAll('[data-plan-equiv]').forEach(el => {
         const m = PLAN_PRICE[cur][+el.dataset.planEquiv];
         el.textContent = planBilling === 'yearly' ? t['plan-equiv'].replace('{price}', money(m * 10 / 12, cur)) : '';
       });
       const rules = document.getElementById('planRules');
-      if (rules) rules.textContent = t['plan-rules'].replace('{setup}', money(PLAN_SETUP[cur], cur));
+      if (rules) rules.textContent = t['plan-rules'].replace('{setupCaisse}', money(CAISSE_SETUP[cur], cur)).replace('{setup}', money(PLAN_SETUP[cur], cur));
     }
     document.querySelectorAll('.plan-toggle button').forEach(b => b.addEventListener('click', () => {
       planBilling = b.dataset.billing;
