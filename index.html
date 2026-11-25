@@ -1219,6 +1219,8 @@
             </ul>
             <div class="caisse-options">
               <p class="caisse-options-title" data-i18n="opt-title">Options</p>
+              <p class="caisse-opt"><i class="fas fa-plus-circle"></i> <span id="optKitchen">Chef screen in the kitchen: +99 DH / month</span></p>
+              <p class="caisse-opt"><i class="fas fa-plus-circle"></i> <span id="optQr">QR ordering at the table: +149 DH / month</span></p>
               <p class="caisse-opt"><i class="fas fa-plus-circle"></i> <span id="optAssistant">Smart Assistant 24/7: +200 DH / month</span></p>
               <p class="caisse-opt soon"><i class="fas fa-clock"></i> <span data-i18n="opt-soon">Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients</span></p>
             </div>
@@ -1419,6 +1421,8 @@
               <label for="qOrders" data-i18n="q-orders">Orders per day (about)</label>
               <input type="number" class="contact-input" id="qOrders" value="60" min="0" max="5000" inputmode="numeric">
               <div class="q-hint" id="qTierHint"></div>
+              <label class="q-check" for="qKitchen"><input type="checkbox" id="qKitchen"> <span id="qKitchenLabel">Add the chef screen in the kitchen (+99 DH / month)</span></label>
+              <label class="q-check" for="qQr"><input type="checkbox" id="qQr"> <span id="qQrLabel">Add QR ordering at the table (+149 DH / month)</span></label>
               <label class="q-check" for="qAssistant" id="qAssistantRow"><input type="checkbox" id="qAssistant"> <span id="qAssistantLabel">Add the Smart Assistant 24/7 (+200 DH / month)</span></label>
             </div>
           </div>
@@ -3665,6 +3669,11 @@
         'opt-title': 'Options', 'opt-assistant': 'Smart Assistant 24/7: +{price}',
         'opt-soon': 'Coming soon, included: evening report on WhatsApp, reminders and come-back messages to your clients',
         'q-assistant': 'Add the Smart Assistant 24/7 (+{price} / month)',
+        'opt-kitchen': 'Chef screen in the kitchen: orders appear on a screen for the chef, marked ready in one tap: +{price}',
+        'opt-qr': 'QR ordering at the table: each table gets its QR code, the client scans, sees the menu and orders: +{price}',
+        'opt-kitchen-short': 'Chef screen', 'opt-qr-short': 'QR table ordering',
+        'q-kitchen': 'Add the chef screen in the kitchen (+{price} / month)',
+        'q-qr': 'Add QR ordering at the table (+{price} / month)',
         'offer15-badge': "Doctors' practices", 'offer15-title': 'NOOR Santé',
         'offer15-desc': "Online tickets for doctors' practices: patients book on your website, first come first served, and follow the queue live on their phone.",
         'offer15-f1': 'Online ticket in 30 seconds, only on working days',
@@ -3697,6 +3706,11 @@
         'opt-title': 'Options', 'opt-assistant': 'Assistant Intelligent 24h/24 : +{price}',
         'opt-soon': 'Bientôt, inclus : rapport du soir sur WhatsApp, rappels et messages de relance à vos clients',
         'q-assistant': "Ajouter l'Assistant Intelligent 24h/24 (+{price} / mois)",
+        'opt-kitchen': 'Écran chef en cuisine : les commandes arrivent sur un écran pour le chef, marquées prêtes en un geste : +{price}',
+        'opt-qr': 'Commande par QR à table : chaque table a son QR code, le client scanne, voit le menu et commande : +{price}',
+        'opt-kitchen-short': 'Écran chef', 'opt-qr-short': 'Commande QR à table',
+        'q-kitchen': "Ajouter l'écran chef en cuisine (+{price} / mois)",
+        'q-qr': 'Ajouter la commande par QR à table (+{price} / mois)',
         'offer15-badge': 'Cabinets médicaux', 'offer15-title': 'NOOR Santé',
         'offer15-desc': "La prise de ticket en ligne pour les cabinets médicaux : les patients réservent sur votre site, premier arrivé premier servi, et suivent la file en direct sur leur téléphone.",
         'offer15-f1': 'Un ticket en ligne en 30 secondes, uniquement les jours de consultation',
@@ -3729,6 +3743,11 @@
         'opt-title': 'خيارات', 'opt-assistant': 'المساعد الذكي على مدار الساعة: +{price}',
         'opt-soon': 'قريباً ومشمول: تقرير المساء على واتساب، تذكيرات ورسائل لإرجاع زبنائك',
         'q-assistant': 'أضف المساعد الذكي على مدار الساعة (+{price} / شهر)',
+        'opt-kitchen': 'شاشة الشيف في المطبخ: تظهر الطلبات على شاشة للشيف، ويؤكد جاهزيتها بلمسة: +{price}',
+        'opt-qr': 'الطلب عبر QR على الطاولة: لكل طاولة رمز QR، يمسحه الزبون فيرى القائمة ويطلب: +{price}',
+        'opt-kitchen-short': 'شاشة الشيف', 'opt-qr-short': 'الطلب عبر QR',
+        'q-kitchen': 'أضف شاشة الشيف في المطبخ (+{price} / شهر)',
+        'q-qr': 'أضف الطلب عبر QR على الطاولة (+{price} / شهر)',
         'offer15-badge': 'عيادات الأطباء', 'offer15-title': 'NOOR Santé',
         'offer15-desc': 'حجز التذاكر عبر الإنترنت لعيادات الأطباء: يحجز المرضى من موقعك، الأسبقية لمن يحجز أولاً، ويتابعون الطابور مباشرة على هاتفهم.',
         'offer15-f1': 'تذكرة عبر الإنترنت في 30 ثانية، في أيام العمل فقط',
@@ -3756,6 +3775,9 @@
     const PKG_GROUPS = [['q-group-plans', [12, 15, 11]], ['q-group-once', [5, 6, 1, 10]]];
     // Smart Assistant added to a NOOR Caisse plan, per month (replaces the former Pro bundle)
     const ASSISTANT_ADDON = { ar: 200, fr: 18, en: 20 };
+    // NOOR Caisse options: chef screen (kitchen display) and QR ordering at the table, per month
+    const KITCHEN_ADDON = { ar: 99, fr: 9, en: 10 };
+    const QR_ADDON = { ar: 149, fr: 14, en: 15 };
     // Monthly plans: price per month in each quote currency (en = USD, fr = EUR, ar = MAD), and the one-time setup
     const PLAN_PRICE = { ar: { 11: 249, 12: 149, 13: 449, 14: 699, 15: 199 }, fr: { 11: 23, 12: 14, 13: 41, 14: 64, 15: 18 }, en: { 11: 26, 12: 15, 13: 46, 14: 72, 15: 20 } };
     // NOOR Santé (plan 15): practice management only, or management + online patient booking
@@ -3785,7 +3807,8 @@
     function planData() {
       const cur = quoteCur(), t = translations[currentLang], i = quote.pkg;
       const tier = i === 12 ? caisseTier(quote.orders) : -1;
-      const addon = tier >= 0 && quote.assistant ? ASSISTANT_ADDON[cur] : 0;
+      const extras = tier >= 0 ? [[quote.kitchen, KITCHEN_ADDON, 'opt-kitchen-short'], [quote.qr, QR_ADDON, 'opt-qr-short'], [quote.assistant, ASSISTANT_ADDON, 'offer11-title']].filter(x => x[0]) : [];
+      const addon = extras.reduce((s, x) => s + x[1][cur], 0);
       const sTier = i === 15 ? quote.sante : -1;
       const monthly = (tier >= 0 ? CAISSE_PRICE[cur][tier] : sTier >= 0 ? SANTE_PRICE[cur][sTier] : PLAN_PRICE[cur][i]) + addon, setup = planSetup(cur, i);
       const later = tier >= 0 ? CAISSE_LATER[cur][tier] + addon : 0;
@@ -3797,7 +3820,7 @@
         editPlan: 0, editMonthly: 0, editTotal: 0, editLabel: '',
         discount, pct: discount ? Math.round(discount / gross * 100) : 0, discountLabel: t['q-plan-yearly'],
         subtotal: gross + setup, total: gross - discount + setup - waived, saving: discount + waived,
-        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}${addon ? ' + ' + t['offer11-title'] : ''}`
+        title: tier >= 0 ? `${t['offer12-title']} ${t[`tier-${CAISSE_TIERS[tier].key}`]}${extras.map(x => ' + ' + t[x[2]]).join('')}`
           : sTier >= 0 ? `${t['offer15-title']} · ${t[`sante-t-${SANTE_TIERS[sTier]}`]}` : t[`offer${i}-title`],
         desc: tier >= 0 ? `${t['offer12-desc']} ${t[`tier-${CAISSE_TIERS[tier].key}-limit`]}.` : t[`offer${i}-desc`],
         pay: t['q-plan-pay'], later,
@@ -3863,6 +3886,10 @@
         document.getElementById('qTierHint').textContent = t['q-tier-hint'].replace('{name}', t[`tier-${k}`]).replace('{limit}', t[`tier-${k}-limit`]);
         document.getElementById('qAssistantLabel').textContent = t['q-assistant'].replace('{price}', money(ASSISTANT_ADDON[cur]));
         document.getElementById('qAssistant').checked = quote.assistant;
+        document.getElementById('qKitchenLabel').textContent = t['q-kitchen'].replace('{price}', money(KITCHEN_ADDON[cur]));
+        document.getElementById('qQrLabel').textContent = t['q-qr'].replace('{price}', money(QR_ADDON[cur]));
+        document.getElementById('qKitchen').checked = !!quote.kitchen;
+        document.getElementById('qQr').checked = !!quote.qr;
       }
     }
 
@@ -3901,6 +3928,10 @@
       renderSelects(); renderQuote();
     });
     onQuoteSelect('qSanteTier', v => { quote.sante = +v; });
+    ['qKitchen', 'qQr'].forEach(id => document.getElementById(id).addEventListener('change', e => {
+      quote[id === 'qKitchen' ? 'kitchen' : 'qr'] = e.target.checked;
+      renderSelects(); renderQuote();
+    }));
     document.getElementById('qAssistant').addEventListener('change', e => {
       quote.assistant = e.target.checked;
       renderSelects(); renderQuote();
@@ -4228,6 +4259,10 @@
         const m = SANTE_PRICE[cur][n], v = planBilling === 'yearly' ? money(m * 10, cur) + ' ' + t['plan-per-year'] : money(m, cur) + ' ' + t['plan-per-month'];
         return `<li><span>${esc(t[`sante-t-${k}`])}<small>${esc(t[`sante-t-${k}-sub`])}</small></span><b>${esc(v)}</b></li>`;
       }).join('');
+      const pm = m => money(m, cur) + ' ' + t['plan-per-month'];
+      const optK = document.getElementById('optKitchen'), optQ = document.getElementById('optQr');
+      if (optK) optK.textContent = t['opt-kitchen'].replace('{price}', pm(KITCHEN_ADDON[cur]));
+      if (optQ) optQ.textContent = t['opt-qr'].replace('{price}', pm(QR_ADDON[cur]));
       const optA = document.getElementById('optAssistant');
       if (optA) optA.textContent = t['opt-assistant'].replace('{price}', money(ASSISTANT_ADDON[cur], cur) + ' ' + t['plan-per-month']);
       const launch = document.getElementById('planLaunch');
