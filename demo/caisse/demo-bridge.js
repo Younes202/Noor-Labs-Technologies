@@ -133,6 +133,7 @@
       const o = findOrder(orderId);
       assertOpen(o);
       Object.assign(o.order, { status: "completed", payment_method: paymentMethod, paid_at: new Date().toISOString(), synced: S().online });
+      D.sendToKitchen(o, "caisse");  // the paid order appears on the chef screen (/demo/cuisine/)
       D.save();
       showTicket(o, paymentMethod);
       return clone(o);
@@ -195,6 +196,7 @@
       <div class="row"><span>Paiement :</span><span>${method === "cash" ? "Espèces" : "Carte"}</span></div><hr>
       <div class="c">Merci de votre visite</div>
       <div class="note">Aperçu du ticket imprimé${method === "cash" ? " · le tiroir-caisse s'ouvre" : ""}
+        <br>Commande n° ${o.order.kitchen ? o.order.kitchen.no : ""} envoyée à l'<a href="/demo/cuisine/" target="_blank">écran chef</a>.
         <br>Elle apparaît aussi dans l'<a href="/demo/dashboard/reports" target="_blank">espace gérant</a>.</div>
       <button>Commande suivante</button></div>`;
     box.querySelector("button").onclick = () => box.remove();

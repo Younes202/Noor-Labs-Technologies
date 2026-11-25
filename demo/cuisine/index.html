@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Écran chef · NOOR Caisse (démo)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<script src="/demo/shared/demo-store.js"></script>
+<style>
+  /* Kitchen display: three columns (new, cooking, ready), big type readable from a few metres. */
+  :root { --bg:#0f0a1a; --col:#160f26; --card:#1f1534; --line:#2e2347; --fg:#f5efff; --muted:#a99cc4;
+    --p1:#9333ea; --p2:#a855f7; --new:#f59e0b; --cook:#a855f7; --ready:#22c55e; --late:#ef4444; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, system-ui, "Segoe UI", sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 14px max(16px, env(safe-area-inset-left, 0px)) 10px; }
+  header h1 { margin: 0; font: 700 22px "Space Grotesk", sans-serif; display: flex; gap: 10px; align-items: center; }
+  header .sub { color: var(--muted); font-size: 13px; }
+  .clock { font: 700 22px "Space Grotesk", sans-serif; font-variant-numeric: tabular-nums; }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tools button, .tools a { all: unset; cursor: pointer; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; }
+  .tools button:hover, .tools a:hover { border-color: var(--p2); }
+  .tools button:focus-visible, .card button:focus-visible { outline: 2px solid var(--p2); outline-offset: 2px; }
+  main { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 4px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); }
+  @media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+  .col { background: var(--col); border: 1px solid var(--line); border-radius: 16px; padding: 12px; min-height: 60vh; display: flex; flex-direction: column; gap: 10px; }
+  @media (max-width: 900px) { .col { min-height: 0; } }
+  .col h2 { margin: 0 0 2px; font: 700 15px "Space Grotesk", sans-serif; letter-spacing: .04em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+  .col h2 .n { background: var(--card); border-radius: 999px; padding: 2px 10px; font-size: 13px; }
+  .col.new h2 { color: var(--new); } .col.cooking h2 { color: var(--cook); } .col.ready h2 { color: var(--ready); }
+  .card { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--c, var(--p2)); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; animation: pop .35s ease; }
+  .col.new .card { --c: var(--new); } .col.cooking .card { --c: var(--cook); } .col.ready .card { --c: var(--ready); }
+  .card.late { box-shadow: 0 0 0 2px var(--late) inset; }
+  @keyframes pop { from { transform: scale(.97); opacity: .4; } to { transform: none; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .card { animation: none; } }
+  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .no { font: 700 26px "Space Grotesk", sans-serif; }
+  .src { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 9px; background: rgba(168,85,247,.18); color: #e9d5ff; white-space: nowrap; }
+  .src.qr { background: rgba(245,158,11,.18); color: #fde68a; }
+  .age { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .card.late .age { color: #fca5a5; font-weight: 700; }
+  .items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 17px; }
+  .items b { display: inline-block; min-width: 2.2em; color: var(--p2); }
+  .card button { all: unset; cursor: pointer; text-align: center; border-radius: 10px; padding: 10px; font-weight: 700; font-size: 15px; background: var(--c); color: #160f26; }
+  .col.cooking .card button { color: #fff; }
+  .empty { color: var(--muted); font-size: 14px; text-align: center; padding: 26px 8px; border: 1px dashed var(--line); border-radius: 12px; }
+  .hint { color: var(--muted); font-size: 12.5px; padding: 0 max(16px, env(safe-area-inset-left, 0px)) 18px; text-align: center; }
+  .hint a { color: #d8b4fe; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>👨‍🍳 Écran chef</h1>
+    <div class="sub" id="tenant">Café Démo</div>
+  </div>
+  <div class="clock" id="clock">--:--</div>
+  <div class="tools">
+    <button type="button" id="simulate">+ Simuler une commande</button>
+    <a href="/demo/table/?t=5" target="_blank" rel="noopener">📱 Commander depuis une table</a>
+    <a href="/demo/caisse/" target="_blank" rel="noopener">🧾 Ouvrir la caisse</a>
+  </div>
+</header>
+<main>
+  <section class="col new" aria-labelledby="h-new"><h2 id="h-new">Nouvelles <span class="n" id="n-new">0</span></h2><div id="list-new"></div></section>
+  <section class="col cooking" aria-labelledby="h-cook"><h2 id="h-cook">En préparation <span class="n" id="n-cooking">0</span></h2><div id="list-cooking"></div></section>
+  <section class="col ready" aria-labelledby="h-ready"><h2 id="h-ready">Prêtes à servir <span class="n" id="n-ready">0</span></h2><div id="list-ready"></div></section>
+</main>
+<p class="hint">Les commandes encaissées sur la <a href="/demo/caisse/" target="_blank" rel="noopener">caisse</a> et celles passées par QR depuis une <a href="/demo/table/?t=5" target="_blank" rel="noopener">table</a> arrivent ici en direct. Une commande en attente depuis plus de 10 minutes passe en rouge.</p>
+<script>
+(function () {
+  const D = window.NoorDemo;
+  const S = () => D.state;
+  const LATE_MIN = 10;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const NEXT = { new: ["cooking", "Commencer"], cooking: ["ready", "Prête ✓"], ready: ["served", "Servie"] };
+
+  D.ribbon({ here: "cuisine", text: "Écran chef · données fictives" });
+  document.getElementById("tenant").textContent = S().tenant_name;
+
+  // A few orders already waiting, so the screen is not empty on a first visit.
+  function seedKitchen() {
+    if (S().kitchenSeeded) return;
+    const menu = S().menu.filter((m) => m.is_active && m.is_available);
+    const by = (id) => menu.find((m) => m.id === id) || menu[0];
+    const ago = (min) => new Date(Date.now() - min * 60000).toISOString();
+    const mk = (lines, source, table, status, min) => {
+      let o;
+      if (source === "qr") {
+        o = D.placeTableOrder(table, lines.map(([id, qty]) => ({ item: by(id), qty })));
+      } else {
+        o = { order: { id: D.uid(), status: "completed", voided: 0, opened_by: "s2", opened_at: ago(min), paid_at: ago(min), payment_method: "cash", synced: true }, items: [] };
+        lines.forEach(([id, qty]) => { const m = by(id); o.items.push({ id: D.uid(), menu_item_id: m.id, item_name: m.name, unit_price: m.price, quantity: qty, line_total: D.money(Number(m.price) * qty), voided: 0 }); });
+        D.recompute(o); D.sendToKitchen(o, "caisse"); S().orders.push(o);
+      }
+      o.order.kitchen.status = status; o.order.kitchen.at = ago(min);
+    };
+    mk([["m13", 2], ["m04", 2]], "qr", 3, "new", 2);
+    mk([["m12", 1], ["m05", 1]], "caisse", null, "cooking", 6);
+    mk([["m09", 2], ["m02", 2]], "qr", 7, "cooking", 12);
+    mk([["m10", 3], ["m01", 3]], "caisse", null, "ready", 4);
+    S().kitchenSeeded = true;
+    D.save();
+  }
+
+  function minutesSince(iso) { return Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 60000)); }
+
+  function render() {
+    D.load();
+    const today = new Date().toDateString();
+    const list = S().orders.filter((o) => o.order.kitchen && !o.order.voided && o.order.kitchen.status !== "served" && new Date(o.order.kitchen.at).toDateString() === today)
+      .sort((a, b) => new Date(a.order.kitchen.at) - new Date(b.order.kitchen.at));
+    for (const st of ["new", "cooking", "ready"]) {
+      const rows = list.filter((o) => o.order.kitchen.status === st);
+      document.getElementById("n-" + st).textContent = rows.length;
+      const box = document.getElementById("list-" + st);
+      box.style.display = "flex"; box.style.flexDirection = "column"; box.style.gap = "10px";
+      box.innerHTML = rows.length ? rows.map((o) => {
+        const k = o.order.kitchen, age = minutesSince(k.at), late = st !== "ready" && age >= LATE_MIN;
+        const src = k.source === "qr" ? `<span class="src qr">📱 Table ${esc(k.table)}</span>` : `<span class="src">🧾 Comptoir</span>`;
+        const items = o.items.filter((i) => !i.voided).map((i) => `<li><b>${i.quantity}×</b>${esc(i.item_name)}</li>`).join("");
+        return `<article class="card${late ? " late" : ""}">
+          <div class="top"><span class="no">#${k.no}</span>${src}</div>
+          <div class="age">${age === 0 ? "à l'instant" : `il y a ${age} min`}${late ? " · en retard" : ""}</div>
+          <ul class="items">${items}</ul>
+          <button type="button" data-id="${o.order.id}" data-next="${NEXT[st][0]}">${NEXT[st][1]}</button>
+        </article>`;
+      }).join("") : `<div class="empty">${st === "new" ? "Aucune nouvelle commande" : st === "cooking" ? "Rien en préparation" : "Rien à servir"}</div>`;
+    }
+  }
+
+  document.querySelector("main").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-id]");
+    if (!b) return;
+    D.setKitchenStatus(b.dataset.id, b.dataset.next);
+    render();
+  });
+
+  document.getElementById("simulate").onclick = () => {
+    const menu = S().menu.filter((m) => m.is_active && m.is_available);
+    const pick = () => menu[Math.floor(Math.random() * menu.length)];
+    const lines = [{ item: pick(), qty: 1 + Math.floor(Math.random() * 2) }, { item: pick(), qty: 1 }];
+    D.placeTableOrder(1 + Math.floor(Math.random() * 12), lines);
+    render();
+  };
+
+  const tick = () => { document.getElementById("clock").textContent = new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); };
+  seedKitchen(); render(); tick();
+  window.addEventListener("storage", (e) => { if (e.key === "noorDemo.v2") render(); });
+  setInterval(() => { render(); tick(); }, 15000);
+})();
+</script>
+</body>
+</html>

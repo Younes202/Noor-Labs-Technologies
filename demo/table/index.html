@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Commander à table · NOOR Caisse (démo)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<script src="/demo/shared/demo-store.js"></script>
+<style>
+  /* What the client sees after scanning the QR code on the table: a phone menu, a basket, then live status. */
+  :root { --bg:#f7f3fc; --card:#ffffff; --line:#e9e1f5; --fg:#1d1430; --muted:#6e6286; --p1:#9333ea; --p2:#a855f7; --ok:#16a34a; color-scheme: light; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, system-ui, "Segoe UI", sans-serif; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left, 0px)) 120px max(16px, env(safe-area-inset-right, 0px)); }
+  .hero { background: linear-gradient(135deg, #4c1d95, #9333ea 60%, #d946ef); color: #fff; border-radius: 0 0 22px 22px; padding: 22px 18px 18px; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))) 14px; }
+  .hero h1 { margin: 0; font: 700 22px "Space Grotesk", sans-serif; }
+  .hero p { margin: 4px 0 0; opacity: .9; font-size: 14px; }
+  .table-pill { display: inline-block; margin-top: 10px; background: rgba(255,255,255,.18); border-radius: 999px; padding: 4px 12px; font-weight: 700; font-size: 13px; }
+  .pick { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; font-size: 12px; color: var(--muted); align-items: center; }
+  .pick a { text-decoration: none; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-weight: 600; }
+  .pick a.on { background: var(--p1); border-color: var(--p1); color: #fff; }
+  .cats { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 8px; scrollbar-width: none; }
+  .cats::-webkit-scrollbar { display: none; }
+  .cats button { all: unset; cursor: pointer; white-space: nowrap; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; }
+  .cats button.on { background: var(--fg); border-color: var(--fg); color: #fff; }
+  .menu { display: flex; flex-direction: column; gap: 10px; }
+  .item { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 8px; }
+  .item.off { opacity: .5; }
+  .item img { width: 76px; height: 60px; object-fit: cover; border-radius: 10px; display: block; }
+  .item h3 { margin: 0; font-size: 15px; }
+  .item .price { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .qty { display: flex; align-items: center; gap: 8px; }
+  .qty button { all: unset; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 18px; background: var(--p1); color: #fff; }
+  .qty button.minus { background: var(--line); color: var(--fg); }
+  .qty span { min-width: 1.2em; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--p2); outline-offset: 2px; }
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px max(16px, env(safe-area-inset-left, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)); background: rgba(247,243,252,.92); backdrop-filter: blur(8px); border-top: 1px solid var(--line); }
+  .bar button { all: unset; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; width: 100%; max-width: 528px; margin: 0 auto; background: var(--p1); color: #fff; border-radius: 14px; padding: 14px 18px; font-weight: 700; font-size: 16px; }
+  .bar button[disabled] { opacity: .45; cursor: default; }
+  .status { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .status h2 { margin: 0; font: 700 20px "Space Grotesk", sans-serif; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .steps div { text-align: center; font-size: 12.5px; font-weight: 600; color: var(--muted); border-top: 4px solid var(--line); padding-top: 6px; }
+  .steps div.on { color: var(--p1); border-color: var(--p1); }
+  .steps div.done { color: var(--ok); border-color: var(--ok); }
+  .lines { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+  .lines li { display: flex; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
+  .total { display: flex; justify-content: space-between; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 8px; }
+  .note { font-size: 12.5px; color: var(--muted); }
+  .note a { color: var(--p1); }
+  .again { all: unset; cursor: pointer; text-align: center; border: 1px solid var(--line); border-radius: 12px; padding: 10px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1 id="tenant">Café Démo</h1>
+    <p>Choisissez, commandez, on vous l'apporte à table.</p>
+    <span class="table-pill" id="tablePill">Table 5</span>
+  </div>
+  <div class="pick" id="pick"><span>Démo : changer de table</span></div>
+  <div id="view"></div>
+</div>
+<div class="bar" id="bar"><button type="button" id="send" disabled><span id="sendLabel">Votre panier est vide</span><span id="sendTotal"></span></button></div>
+<script>
+(function () {
+  const D = window.NoorDemo;
+  const S = () => D.state;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const table = Math.max(1, Math.min(30, parseInt(new URLSearchParams(location.search).get("t"), 10) || 5));
+  const ORDER_KEY = "noorDemo.tableOrder." + table;
+  const cart = {};
+  let cat = "all";
+
+  D.ribbon({ here: "table", text: "Ce que voit le client après avoir scanné le QR de sa table" });
+  document.getElementById("tenant").textContent = S().tenant_name;
+  document.getElementById("tablePill").textContent = "Table " + table;
+  document.getElementById("pick").insertAdjacentHTML("beforeend", [1, 3, 5, 7, 12].map((n) => `<a href="?t=${n}" class="${n === table ? "on" : ""}">${n}</a>`).join(""));
+
+  const menu = () => S().menu.filter((m) => m.is_active);
+  const total = () => Object.entries(cart).reduce((s, [id, q]) => s + q * Number((menu().find((m) => m.id === id) || { price: 0 }).price), 0);
+  const count = () => Object.values(cart).reduce((a, b) => a + b, 0);
+
+  function currentOrder() {
+    let id = null;
+    try { id = sessionStorage.getItem(ORDER_KEY); } catch (e) { /* ignore */ }
+    if (!id) return null;
+    D.load();
+    const o = S().orders.find((x) => x.order.id === id);
+    return o && o.order.kitchen && o.order.kitchen.status !== "served" ? o : null;
+  }
+
+  function renderMenu() {
+    const cats = [{ id: "all", name: "Tout" }].concat((S().categories || []).slice().sort((a, b) => a.sort_order - b.sort_order));
+    const items = menu().filter((m) => cat === "all" || m.category_id === cat);
+    document.getElementById("view").innerHTML = `
+      <div class="cats">${cats.map((c) => `<button type="button" data-cat="${c.id}" class="${c.id === cat ? "on" : ""}">${esc(c.name)}</button>`).join("")}</div>
+      <div class="menu">${items.map((m) => {
+        const q = cart[m.id] || 0, ok = m.is_available;
+        return `<div class="item${ok ? "" : " off"}">
+          <img src="${D.picture(m) || ""}" alt="">
+          <div><h3>${esc(m.name)}</h3><div class="price">${ok ? m.price + " DH" : "Indisponible aujourd'hui"}</div></div>
+          ${ok ? `<div class="qty">${q ? `<button type="button" class="minus" data-minus="${m.id}" aria-label="Retirer ${esc(m.name)}">−</button><span>${q}</span>` : ""}<button type="button" data-plus="${m.id}" aria-label="Ajouter ${esc(m.name)}">+</button></div>` : ""}
+        </div>`;
+      }).join("")}</div>`;
+    const n = count();
+    document.getElementById("bar").hidden = false;
+    document.getElementById("send").disabled = !n;
+    document.getElementById("sendLabel").textContent = n ? `Commander (${n} article${n > 1 ? "s" : ""})` : "Votre panier est vide";
+    document.getElementById("sendTotal").textContent = n ? D.money(total()) + " DH" : "";
+  }
+
+  function renderStatus(o) {
+    const k = o.order.kitchen, order = ["new", "cooking", "ready"], i = order.indexOf(k.status);
+    const title = { new: "Commande reçue en cuisine", cooking: "En préparation…", ready: "C'est prêt, on vous l'apporte !" }[k.status];
+    document.getElementById("bar").hidden = true;
+    document.getElementById("view").innerHTML = `
+      <div class="status">
+        <div class="note">Commande n° ${k.no} · Table ${esc(k.table)}</div>
+        <h2>${title}</h2>
+        <div class="steps">${["Reçue", "En préparation", "Prête"].map((l, n) => `<div class="${n < i ? "done" : n === i ? "on" : ""}">${l}</div>`).join("")}</div>
+        <ul class="lines">${o.items.map((it) => `<li><span>${it.quantity}× ${esc(it.item_name)}</span><span>${it.line_total} DH</span></li>`).join("")}</ul>
+        <div class="total"><span>Total</span><span>${o.order.total} DH</span></div>
+        <p class="note">Vous payez à table ou au comptoir. Ouvrez l'<a href="/demo/cuisine/" target="_blank" rel="noopener">écran chef</a> dans un autre onglet et faites avancer la commande : cette page se met à jour toute seule.</p>
+        <button type="button" class="again" id="again">Commander autre chose</button>
+      </div>`;
+  }
+
+  function render() {
+    const o = currentOrder();
+    if (o) renderStatus(o); else renderMenu();
+  }
+
+  document.getElementById("view").addEventListener("click", (e) => {
+    const c = e.target.closest("[data-cat]"), p = e.target.closest("[data-plus]"), m = e.target.closest("[data-minus]");
+    if (c) { cat = c.dataset.cat; renderMenu(); }
+    else if (p) { cart[p.dataset.plus] = (cart[p.dataset.plus] || 0) + 1; renderMenu(); }
+    else if (m) { cart[m.dataset.minus] -= 1; if (cart[m.dataset.minus] <= 0) delete cart[m.dataset.minus]; renderMenu(); }
+    else if (e.target.id === "again") { try { sessionStorage.removeItem(ORDER_KEY); } catch (er) { /* ignore */ } renderMenu(); }
+  });
+
+  document.getElementById("send").onclick = () => {
+    if (!count()) return;
+    const lines = Object.entries(cart).map(([id, qty]) => ({ item: menu().find((x) => x.id === id), qty })).filter((l) => l.item);
+    const o = D.placeTableOrder(table, lines);
+    try { sessionStorage.setItem(ORDER_KEY, o.order.id); } catch (e) { /* ignore */ }
+    Object.keys(cart).forEach((k) => delete cart[k]);
+    render();
+  };
+
+  render();
+  window.addEventListener("storage", (e) => { if (e.key === "noorDemo.v2") render(); });
+  setInterval(() => { if (currentOrder()) render(); }, 5000);
+})();
+</script>
+</body>
+</html>

@@ -154,6 +154,37 @@
     return [...set];
   }
 
+  // Kitchen (chef screen) and QR table ordering. An order sent to the kitchen gets
+  // o.order.kitchen = { status: new|cooking|ready|served, no, source: caisse|qr, table, at, ready_at }.
+  // QR orders wait with status "table" (not paid yet), so the dashboard does not count them;
+  // once served they are recorded as paid at the table.
+  function sendToKitchen(o, source, table) {
+    state.kitchenSeq = (state.kitchenSeq || 0) % 99 + 1;
+    o.order.kitchen = { status: "new", no: state.kitchenSeq, source, table: table || null, at: new Date().toISOString() };
+  }
+  function setKitchenStatus(orderId, status) {
+    const o = state.orders.find((x) => x.order.id === orderId);
+    if (!o || !o.order.kitchen) return;
+    o.order.kitchen.status = status;
+    if (status === "ready") o.order.kitchen.ready_at = new Date().toISOString();
+    if (status === "served" && o.order.status === "table") {
+      Object.assign(o.order, { status: "completed", payment_method: "cash", paid_at: new Date().toISOString(), synced: true });
+    }
+    save();
+  }
+  function placeTableOrder(table, lines) {
+    const now = new Date().toISOString();
+    const o = { order: { id: uid(), status: "table", voided: 0, opened_by: null, opened_at: now, table }, items: [] };
+    for (const { item, qty } of lines) {
+      o.items.push({ id: uid(), menu_item_id: item.id, item_name: item.name, unit_price: item.price, quantity: qty, line_total: money(Number(item.price) * qty), voided: 0 });
+    }
+    recompute(o);
+    sendToKitchen(o, "qr", table);
+    state.orders.push(o);
+    save();
+    return o;
+  }
+
   function reset() {
     try { localStorage.removeItem(KEY); localStorage.removeItem("noorlabs_dashboard_session"); } catch (e) { /* ignore */ }
     load();
@@ -180,12 +211,14 @@
       el.innerHTML = `<b>DÉMO</b><span>${text}</span>
         <a href="/demo/caisse/" class="${here === "caisse" ? "here" : ""}">🧾 Caisse</a>
         <a href="/demo/dashboard/" class="${here === "dashboard" ? "here" : ""}">📊 Espace gérant</a>
+        <a href="/demo/cuisine/" class="${here === "cuisine" ? "here" : ""}">👨‍🍳 Écran chef</a>
+        <a href="/demo/table/?t=5" class="${here === "table" ? "here" : ""}">📱 Commande QR</a>
         <button id="noorReset">Réinitialiser</button><a href="/#apps">← Site</a>`;
       document.body.appendChild(el);
       const syncHeight = () => document.documentElement.style.setProperty("--demo-bar-h", el.offsetHeight + "px");
       syncHeight();
       if (window.ResizeObserver) new ResizeObserver(syncHeight).observe(el);
-      el.querySelector("#noorReset").onclick = () => { reset(); location.href = here === "dashboard" ? "/demo/dashboard/" : "/demo/caisse/"; };
+      el.querySelector("#noorReset").onclick = () => { reset(); location.href = { dashboard: "/demo/dashboard/", cuisine: "/demo/cuisine/", table: "/demo/table/?t=5" }[here] || "/demo/caisse/"; };
       if (extra) extra(el);
     };
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build); else build();
@@ -194,6 +227,7 @@
   window.NoorDemo = {
     get state() { return state; },
     save, load, reset, uid, money, recompute, picture, staffPermissions, ribbon,
+    sendToKitchen, setKitchenStatus, placeTableOrder,
     PERMISSIONS, ROLES,
   };
 })();
