@@ -6,66 +6,74 @@
 <title>Écran chef · NOOR Caisse (démo)</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 <script src="/demo/shared/demo-store.js"></script>
 <style>
-  /* Kitchen display: three columns (new, cooking, ready), big type readable from a few metres. */
-  :root { --bg:#0f0a1a; --col:#160f26; --card:#1f1534; --line:#2e2347; --fg:#f5efff; --muted:#a99cc4;
-    --p1:#9333ea; --p2:#a855f7; --new:#f59e0b; --cook:#a855f7; --ready:#22c55e; --late:#ef4444; color-scheme: dark; }
+  /* Kitchen display in the NOOR look: deep purple ground, glass columns, gradient accents. */
+  :root { --bg:#0f0a1a; --bg2:#140d24; --glass:rgba(255,255,255,.045); --glass2:rgba(255,255,255,.07); --line:rgba(192,132,252,.18);
+    --fg:#f5efff; --muted:#a99cc4; --p1:#9333ea; --p2:#a855f7; --p3:#d946ef; --grad:linear-gradient(135deg,#9333ea,#a855f7 50%,#d946ef);
+    --new:#e879f9; --cook:#a855f7; --ready:#34d399; --late:#f87171; color-scheme: dark; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, system-ui, "Segoe UI", sans-serif; }
-  header { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 14px max(16px, env(safe-area-inset-left, 0px)) 10px; }
-  header h1 { margin: 0; font: 700 22px "Space Grotesk", sans-serif; display: flex; gap: 10px; align-items: center; }
-  header .sub { color: var(--muted); font-size: 13px; }
-  .clock { font: 700 22px "Space Grotesk", sans-serif; font-variant-numeric: tabular-nums; }
+  html, body { margin: 0; min-height: 100%; color: var(--fg); font-family: Inter, system-ui, "Segoe UI", sans-serif;
+    background: radial-gradient(1200px 600px at 85% -10%, rgba(147,51,234,.28), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(217,70,239,.16), transparent 60%), var(--bg); }
+  header { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; padding: 22px max(20px, env(safe-area-inset-left, 0px)) 16px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .mark { width: 46px; height: 46px; border-radius: 14px; background: var(--grad); display: grid; place-items: center; box-shadow: 0 8px 24px rgba(168,85,247,.35); }
+  .mark svg { width: 24px; height: 24px; }
+  header h1 { margin: 0; font: 700 24px "Space Grotesk", sans-serif; letter-spacing: -.01em; }
+  header .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .clock { font: 700 30px "Space Grotesk", sans-serif; font-variant-numeric: tabular-nums; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .tools { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tools button, .tools a { all: unset; cursor: pointer; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; }
-  .tools button:hover, .tools a:hover { border-color: var(--p2); }
-  .tools button:focus-visible, .card button:focus-visible { outline: 2px solid var(--p2); outline-offset: 2px; }
-  main { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 4px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); }
+  .tools button, .tools a { all: unset; cursor: pointer; border: 1px solid var(--line); background: var(--glass); border-radius: 999px; padding: 9px 16px; font-size: 13px; font-weight: 600; transition: background .2s, border-color .2s; }
+  .tools button { background: var(--grad); border-color: transparent; box-shadow: 0 8px 22px rgba(168,85,247,.35); }
+  .tools a:hover { border-color: var(--p2); background: var(--glass2); }
+  .tools button:focus-visible, .tools a:focus-visible, .card button:focus-visible { outline: 2px solid var(--p3); outline-offset: 2px; }
+  main { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 4px max(20px, env(safe-area-inset-right, 0px)) 24px max(20px, env(safe-area-inset-left, 0px)); }
   @media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
-  .col { background: var(--col); border: 1px solid var(--line); border-radius: 16px; padding: 12px; min-height: 60vh; display: flex; flex-direction: column; gap: 10px; }
+  .col { background: var(--glass); border: 1px solid var(--line); border-radius: 22px; padding: 16px; min-height: 64vh; display: flex; flex-direction: column; gap: 12px; backdrop-filter: blur(10px); }
   @media (max-width: 900px) { .col { min-height: 0; } }
-  .col h2 { margin: 0 0 2px; font: 700 15px "Space Grotesk", sans-serif; letter-spacing: .04em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
-  .col h2 .n { background: var(--card); border-radius: 999px; padding: 2px 10px; font-size: 13px; }
-  .col.new h2 { color: var(--new); } .col.cooking h2 { color: var(--cook); } .col.ready h2 { color: var(--ready); }
-  .card { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--c, var(--p2)); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; animation: pop .35s ease; }
-  .col.new .card { --c: var(--new); } .col.cooking .card { --c: var(--cook); } .col.ready .card { --c: var(--ready); }
-  .card.late { box-shadow: 0 0 0 2px var(--late) inset; }
-  @keyframes pop { from { transform: scale(.97); opacity: .4; } to { transform: none; opacity: 1; } }
+  .col h2 { margin: 0 0 4px; font: 600 14px Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; color: var(--muted); }
+  .col h2 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 10px; box-shadow: 0 0 12px var(--c); }
+  .col h2 .n { background: var(--glass2); color: var(--fg); border-radius: 999px; padding: 3px 12px; font-size: 13px; letter-spacing: 0; }
+  .col.new { --c: var(--new); } .col.cooking { --c: var(--cook); } .col.ready { --c: var(--ready); }
+  .card { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035)); border: 1px solid var(--line); border-radius: 18px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; animation: pop .35s ease; }
+  .card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--c); }
+  .card.late { border-color: rgba(248,113,113,.55); box-shadow: 0 0 0 1px rgba(248,113,113,.35), 0 10px 30px rgba(248,113,113,.12); }
+  @keyframes pop { from { transform: translateY(6px); opacity: .3; } to { transform: none; opacity: 1; } }
   @media (prefers-reduced-motion: reduce) { .card { animation: none; } }
-  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-  .no { font: 700 26px "Space Grotesk", sans-serif; }
-  .src { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 9px; background: rgba(168,85,247,.18); color: #e9d5ff; white-space: nowrap; }
-  .src.qr { background: rgba(245,158,11,.18); color: #fde68a; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .no { font: 700 30px "Space Grotesk", sans-serif; letter-spacing: -.02em; }
+  .src { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 5px 11px; background: rgba(168,85,247,.16); color: #e9d5ff; white-space: nowrap; border: 1px solid rgba(168,85,247,.3); }
+  .src.qr { background: rgba(217,70,239,.16); color: #f5d0fe; border-color: rgba(217,70,239,.35); }
   .age { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
   .card.late .age { color: #fca5a5; font-weight: 700; }
-  .items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 17px; }
-  .items b { display: inline-block; min-width: 2.2em; color: var(--p2); }
-  .card button { all: unset; cursor: pointer; text-align: center; border-radius: 10px; padding: 10px; font-weight: 700; font-size: 15px; background: var(--c); color: #160f26; }
-  .col.cooking .card button { color: #fff; }
-  .empty { color: var(--muted); font-size: 14px; text-align: center; padding: 26px 8px; border: 1px dashed var(--line); border-radius: 12px; }
-  .hint { color: var(--muted); font-size: 12.5px; padding: 0 max(16px, env(safe-area-inset-left, 0px)) 18px; text-align: center; }
+  .items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 17px; }
+  .items li { display: flex; gap: 10px; }
+  .items b { min-width: 2.2em; color: var(--c); font-variant-numeric: tabular-nums; }
+  .card button { all: unset; cursor: pointer; text-align: center; border-radius: 12px; padding: 11px; font-weight: 700; font-size: 15px; color: #fff; background: var(--grad); box-shadow: 0 8px 20px rgba(168,85,247,.3); }
+  .col.ready .card button { background: linear-gradient(135deg,#10b981,#34d399); box-shadow: 0 8px 20px rgba(16,185,129,.25); color: #04241a; }
+  .empty { color: var(--muted); font-size: 14px; text-align: center; padding: 30px 8px; border: 1px dashed var(--line); border-radius: 16px; }
+  .hint { color: var(--muted); font-size: 12.5px; padding: 0 max(20px, env(safe-area-inset-left, 0px)) 22px; text-align: center; }
   .hint a { color: #d8b4fe; }
 </style>
 </head>
 <body>
 <header>
-  <div>
-    <h1>👨‍🍳 Écran chef</h1>
-    <div class="sub" id="tenant">Café Démo</div>
+  <div class="brand">
+    <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.9V20h12v-6.1"/><path d="M6 14a4 4 0 0 1-.5-7.9A5 5 0 0 1 15 4.6a4 4 0 0 1 3.5 9.3"/><path d="M6 17h12"/></svg></div>
+    <div><h1>Écran chef</h1><div class="sub" id="tenant">Café Démo</div></div>
   </div>
   <div class="clock" id="clock">--:--</div>
   <div class="tools">
     <button type="button" id="simulate">+ Simuler une commande</button>
-    <a href="/demo/table/?t=5" target="_blank" rel="noopener">📱 Commander depuis une table</a>
-    <a href="/demo/caisse/" target="_blank" rel="noopener">🧾 Ouvrir la caisse</a>
+    <a href="/demo/table/?t=5" target="_blank" rel="noopener">Commander depuis une table</a>
+    <a href="/demo/caisse/" target="_blank" rel="noopener">Ouvrir la caisse</a>
   </div>
 </header>
 <main>
-  <section class="col new" aria-labelledby="h-new"><h2 id="h-new">Nouvelles <span class="n" id="n-new">0</span></h2><div id="list-new"></div></section>
-  <section class="col cooking" aria-labelledby="h-cook"><h2 id="h-cook">En préparation <span class="n" id="n-cooking">0</span></h2><div id="list-cooking"></div></section>
-  <section class="col ready" aria-labelledby="h-ready"><h2 id="h-ready">Prêtes à servir <span class="n" id="n-ready">0</span></h2><div id="list-ready"></div></section>
+  <section class="col new" aria-labelledby="h-new"><h2 id="h-new"><span><span class="dot"></span>Nouvelles</span> <span class="n" id="n-new">0</span></h2><div id="list-new"></div></section>
+  <section class="col cooking" aria-labelledby="h-cook"><h2 id="h-cook"><span><span class="dot"></span>En préparation</span> <span class="n" id="n-cooking">0</span></h2><div id="list-cooking"></div></section>
+  <section class="col ready" aria-labelledby="h-ready"><h2 id="h-ready"><span><span class="dot"></span>Prêtes à servir</span> <span class="n" id="n-ready">0</span></h2><div id="list-ready"></div></section>
 </main>
 <p class="hint">Les commandes encaissées sur la <a href="/demo/caisse/" target="_blank" rel="noopener">caisse</a> et celles passées par QR depuis une <a href="/demo/table/?t=5" target="_blank" rel="noopener">table</a> arrivent ici en direct. Une commande en attente depuis plus de 10 minutes passe en rouge.</p>
 <script>
@@ -74,7 +82,7 @@
   const S = () => D.state;
   const LATE_MIN = 10;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const NEXT = { new: ["cooking", "Commencer"], cooking: ["ready", "Prête ✓"], ready: ["served", "Servie"] };
+  const NEXT = { new: ["cooking", "Commencer"], cooking: ["ready", "Marquer prête"], ready: ["served", "Servie"] };
 
   D.ribbon({ here: "cuisine", text: "Écran chef · données fictives" });
   document.getElementById("tenant").textContent = S().tenant_name;
@@ -118,8 +126,8 @@
       box.style.display = "flex"; box.style.flexDirection = "column"; box.style.gap = "10px";
       box.innerHTML = rows.length ? rows.map((o) => {
         const k = o.order.kitchen, age = minutesSince(k.at), late = st !== "ready" && age >= LATE_MIN;
-        const src = k.source === "qr" ? `<span class="src qr">📱 Table ${esc(k.table)}</span>` : `<span class="src">🧾 Comptoir</span>`;
-        const items = o.items.filter((i) => !i.voided).map((i) => `<li><b>${i.quantity}×</b>${esc(i.item_name)}</li>`).join("");
+        const src = k.source === "qr" ? `<span class="src qr">Table ${esc(k.table)}</span>` : `<span class="src">Comptoir</span>`;
+        const items = o.items.filter((i) => !i.voided).map((i) => `<li><b>${i.quantity}×</b><span>${esc(i.item_name)}</span></li>`).join("");
         return `<article class="card${late ? " late" : ""}">
           <div class="top"><span class="no">#${k.no}</span>${src}</div>
           <div class="age">${age === 0 ? "à l'instant" : `il y a ${age} min`}${late ? " · en retard" : ""}</div>
